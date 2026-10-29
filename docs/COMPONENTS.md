@@ -75,6 +75,12 @@ Belum terpakai: Quadrant, Scale, OrbitCards, CrowdRow, Letterbox, LayerCake, Pul
 | Karakter cerita | `Char` + `Bg` | Bg siang cerah saja |
 | Hasil riset/angka | `StatCard`, `PercentGrid`, `Gauge`, `Src` | `Src` wajib kalau ada angka |
 
+## 4a. Watermark logo (WAJIB di setiap video)
+- Logo Penny Logics (`public/profile_pic.png`, koin bermahkota) muncul sebagai lingkaran 72 px di **kiri bawah**, margin 28 px dari tepi, border INK 4 px, di lapisan paling atas selama seluruh video (termasuk kartu judul).
+- Video 01: komponen `Logo` di `src/Penny/kit.tsx` (dipanggil di Hook.tsx / Trick*.tsx). Video 02 dst: komponen `Watermark` di `src/video02/v2kit.tsx`, sudah otomatis di `ChapterShell`. Video baru wajib memanggilnya juga.
+- Zona 28-100 px dari kiri dan 28-100 px dari bawah (kira-kira x 28-100, y 980-1052) SELALU kosong: jangan taruh karakter, chip, Src, subtitle, atau MascotCorner di sana. Beri jarak minimal 40 px.
+- `Src` (sumber data) di kiri bawah harus digeser ke kanan logo (sudah diterapkan: Src mulai di x = 124) atau dipindah ke bawah-tengah.
+
 ## 4. Aturan anti-tabrakan (WAJIB sebelum render)
 Contoh yang salah: "...is yours." menimpa keranjang yang membesar; "Hold that thought..." menutupi wajah karakter.
 1. **Zona layar 1920x1080** (dari Video 01): judul/banner di y 60-210; konten utama y 230-930; area aman x 130-1790. Elemen tidak boleh melewati batas ini kecuali karakter berdiri di lantai (maks y 1050).
@@ -83,7 +89,7 @@ Contoh yang salah: "...is yours." menimpa keranjang yang membesar; "Hold that th
 4. **Karakter punya "kotak wajah".** Tempel/chip/StickyNote tidak boleh menutupi kepala (sepertiga atas karakter). Letakkan di sisi karakter, bukan di atasnya.
 5. **Urutan lapisan (bawah ke atas):** Bg -> objek besar -> karakter -> panah/garis -> StatCard/Chip/StickyNote -> Punch/WordPop -> Src. HighlightSwipe selalu tepat di bawah teks yang disorot.
 6. **Satu pusat perhatian per beat.** Maks 3 elemen informasi baru per beat (angka, chip, ikon).
-7. **Elemen dekoratif** (Embers, MascotCorner) tidak boleh menyentuh area teks; MascotCorner hanya di pojok bawah (x < 300 atau x > 1500, y > 700).
+7. **Elemen dekoratif** (Embers, MascotCorner) tidak boleh menyentuh area teks; MascotCorner hanya di pojok bawah (x < 300 atau x > 1500, y > 700) dan tidak boleh masuk zona logo (bagian 4a).
 8. **Latar cerah + teks kontras** (lihat aturan di `video02_style_fusion.md`).
 9. **Cek**: render still di tiap beat (`node scripts/v2-stills.mjs <comp> <detik...>`) dan lihat dengan zoom; Video 01 punya `checkOverlaps.ts` berbasis `layoutMetadata.ts` (bounding box per elemen).
 10. **Rencana:** porting `checkOverlaps` ke Video 02: tiap Shot mendaftarkan bounding box elemennya, dan script `v2:overlap` memberi error untuk tabrakan yang tidak diizinkan.

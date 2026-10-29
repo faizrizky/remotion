@@ -54,7 +54,7 @@ export const Ch2: React.FC = () => (
               <StatCard to={20} prefix="+" label="more sales completed" at={r('s20', 'klarna')} x={110} y={250} w={540} />
               <StatCard to={40} prefix="+" label="bigger orders" at={r('s40', 'klarna')} x={690} y={250} w={540} bg="#FFD23F" />
               <StatCard to={46} prefix="+" label="more repeat buys" at={r('s46', 'klarna')} x={1270} y={250} w={540} />
-              <MascotCorner head="head_suspicious.png" at={r('vary', 'klarna')} x={110} y={760} size={190} />
+              <MascotCorner head="head_suspicious.png" at={r('vary', 'klarna')} x={110} y={730} size={190} />
               <PopIn at={r('vary', 'klarna')} style={{left: 520, top: 690}}><Pill text="Klarna's own numbers. Results vary." bg="#5B4FFF" size={42} /></PopIn>
             </Scene>
             <Src text="Klarna partner messaging toolkit (merchant averages)" at={r('s20', 'klarna')} />

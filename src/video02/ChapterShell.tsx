@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Sequence} from 'remotion';
 import {PopSpeed} from '../style/style_kit';
 import {TitleCard, TITLE_WIPE} from './title';
-import {beatOf, chapterFrames, ChapterId, getChapter, sec, Sfx, Voice} from './v2kit';
+import {beatOf, chapterFrames, ChapterId, getChapter, sec, Sfx, Voice, Watermark} from './v2kit';
 
 const CARD_COLORS: Record<string, string> = {ch1: '#2E9E8F', ch2: '#7A6CFF', ch3: '#D9506E', ch4: '#4E7BEF', ch5: '#E4572E', ch6: '#3A8D5C'};
 const CARD_HEADS: Record<string, string> = {ch1: 'head_happy.png', ch2: 'head_suspicious.png', ch3: 'head_thinking.png', ch4: 'head_suspicious.png', ch5: 'head_thinking.png', ch6: 'head_proud.png'};
@@ -31,6 +31,7 @@ export const ChapterShell: React.FC<{id: ChapterId; children: (b: (k: string) =>
           <Sfx name="whoosh" at={pre} />
         </Sequence>
       )}
+      <Watermark />
       <Voice c={c} />
     </AbsoluteFill>
     </PopSpeed.Provider>

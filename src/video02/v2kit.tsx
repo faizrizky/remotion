@@ -259,11 +259,19 @@ export const Punch: React.FC<{text: string; at: number; color?: string; y?: numb
 export const Src: React.FC<{text: string; at?: number}> = ({text, at = 0}) => {
   const f = useCurrentFrame();
   if (f < at) return null;
-  return <div style={{position: 'absolute', left: 40, bottom: 28, fontFamily: SANS, fontWeight: 600, fontSize: 24, color: '#fff', background: 'rgba(0,0,0,0.55)', padding: '6px 16px', borderRadius: 10}}>Source: {text}</div>;
+  return <div style={{position: 'absolute', left: 124, bottom: 36, fontFamily: SANS, fontWeight: 600, fontSize: 24, color: '#fff', background: 'rgba(0,0,0,0.55)', padding: '6px 16px', borderRadius: 10}}>Source: {text}</div>;
 };
 
 /** Story-beat background in the Kok Bisa look: soft desaturated scene, slight depth blur, one warm light leak,
  *  heavy vignette and film grain. Explainer (Antidote-style) scenes should NOT use it; they use the plain palette backdrop. */
+/** Penny Logics channel watermark: 72 px circle, bottom-left, margin 28. REQUIRED in every video (ChapterShell adds it to all chapters). */
+export const Watermark: React.FC = () => (
+  hasFile('profile_pic.png') ? (
+    <div style={{position: 'absolute', left: 28, bottom: 28, width: 72, height: 72, borderRadius: '50%', overflow: 'hidden', border: `4px solid ${INK}`, boxShadow: '0 4px 10px rgba(0,0,0,0.2)', pointerEvents: 'none'}}>
+      <Img src={staticFile('profile_pic.png')} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+    </div>
+  ) : null
+);
 export const Bg: React.FC<{name: string; dim?: number; drift?: number; leak?: boolean; wash?: number; brighten?: number}> = ({name, dim = 0, drift = 40, leak = true, wash = 0.12, brighten = 1.15}) => {
   const f = useCurrentFrame();
   const x = Math.sin(f / 90) * drift;
