@@ -260,15 +260,23 @@ export const Src: React.FC<{text: string; at?: number}> = ({text, at = 0}) => {
   return <div style={{position: 'absolute', left: 40, bottom: 28, fontFamily: SANS, fontWeight: 600, fontSize: 24, color: '#fff', background: 'rgba(0,0,0,0.55)', padding: '6px 16px', borderRadius: 10}}>Source: {text}</div>;
 };
 
-/** Full-frame illustrated background (slow drift) with an optional dim layer so props and numbers stay readable. */
-export const Bg: React.FC<{name: string; dim?: number; drift?: number}> = ({name, dim = 0.3, drift = 40}) => {
+/** Story-beat background in the Kok Bisa look: soft desaturated scene, slight depth blur, one warm light leak,
+ *  heavy vignette and film grain. Explainer (Antidote-style) scenes should NOT use it; they use the plain palette backdrop. */
+export const Bg: React.FC<{name: string; dim?: number; drift?: number; leak?: boolean}> = ({name, dim = 0.12, drift = 40, leak = true}) => {
   const f = useCurrentFrame();
   const x = Math.sin(f / 90) * drift;
+  const leakX = ((f * 5) % 3200) - 700;
   if (!hasFile(name)) return null;
   return (
     <AbsoluteFill>
-      <Img src={staticFile(name)} style={{position: 'absolute', left: -60, top: -34, width: W + 120, height: H + 68, transform: `translateX(${x}px) scale(1.02)`}} />
+      <Img src={staticFile(name)} style={{position: 'absolute', left: -60, top: -34, width: W + 120, height: H + 68, transform: `translateX(${x}px) scale(1.03)`, filter: 'saturate(0.72) blur(2.5px) brightness(0.95)'}} />
       <AbsoluteFill style={{background: `rgba(20,16,30,${dim})`}} />
+      {leak ? <AbsoluteFill style={{background: `linear-gradient(105deg, transparent ${leakX - 260}px, rgba(255,196,120,0.22) ${leakX}px, transparent ${leakX + 260}px)`, mixBlendMode: 'screen'}} /> : null}
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 48%, rgba(0,0,0,0) 45%, rgba(8,6,16,0.62) 100%)'}} />
+      <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0, opacity: 0.16, mixBlendMode: 'overlay'}}>
+        <filter id={`grain-${f % 3}`}><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={f % 3} /><feColorMatrix type="saturate" values="0" /></filter>
+        <rect width={W} height={H} filter={`url(#grain-${f % 3})`} />
+      </svg>
     </AbsoluteFill>
   );
 };

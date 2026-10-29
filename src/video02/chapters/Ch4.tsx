@@ -2,7 +2,7 @@ import React from 'react';
 import {useCurrentFrame} from 'remotion';
 import {IsoBlock, NameTag, Pill, PopIn, SANS, Scene, Spotlight} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
-import {INK, PayCircle, Person, Phone, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Bg, Char} from '../v2kit';
+import {INK, PayCircle, Person, Phone, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Char} from '../v2kit';
 
 const LoanScreen: React.FC<{n: number; amt: string; color: string}> = ({n, amt, color}) => (
   <div style={{height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10, background: color}}>
@@ -58,7 +58,6 @@ export const Ch4: React.FC = () => (
           {/* A: one is easy... now open five */}
           <Shot from={0} to={b('cfpb')}>
             <Scene palette="night" dur={b('cfpb')} stars>
-              <Bg name="v2/bg_bedroom.jpg" dim={0.4} />
               {LOANS.map((l, i) => (
                 <Phone key={i} at={i === 0 ? 0 : b('openFive') + i * 4} x={150 + i * 340} y={250} h={460} tilt={(i - 2) * 3}>
                   <LoanScreen n={i + 1} amt={l.amt} color={l.color} />

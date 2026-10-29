@@ -57,7 +57,7 @@ export const Ch5: React.FC = () => (
           {/* A: autopay pulls, money isn't there */}
           <Shot from={0} to={b('lateFee')}>
             <Scene palette="teal" dur={b('lateFee')}>
-              <Bg name="v2/bg_checkout.jpg" dim={0.35} />
+              <Bg name="v2/bg_checkout.jpg" dim={0.12} />
               <Balance at={0} />
               <DashArrow x0={740} y0={480} x1={1120} y1={480} at={b('autoPull')} />
               <Phone at={4} x={1180} y={200} h={620}><AutopayScreen failAt={b('notThere')} /></Phone>

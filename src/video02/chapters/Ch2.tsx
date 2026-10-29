@@ -24,7 +24,6 @@ export const Ch2: React.FC = () => (
           {/* A: the store pays the lender */}
           <Shot from={0} to={b('why')}>
             <Scene palette="indigo" dur={b('why')}>
-              <Bg name="v2/bg_street.jpg" dim={0.45} />
               <Char name="v2/char_shopper_happy.png" at={0} x={110} y={440} h={480} />
               <PopIn at={6} style={{left: 520, top: 340}}><Prop name="v2/obj_store.png" h={360} /></PopIn>
               <PopIn at={12} style={{left: 1400, top: 340}}><Prop name="obj_bank_transparent.png" h={360} /></PopIn>
@@ -40,7 +39,7 @@ export const Ch2: React.FC = () => (
           {/* B: why would a store pay that? */}
           <Shot from={b('why')} to={b('klarna')} trans="whip">
             <Scene palette="rose" dur={r('klarna', 'why')}>
-              <Bg name="v2/bg_store.jpg" dim={0.3} />
+              <Bg name="v2/bg_street.jpg" dim={0.18} />
               <Char name="v2/char_cashier_wave.png" at={4} x={690} y={380} h={560} />
               <PopIn at={0} style={{left: 260, top: 330}}><Prop name="v2/obj_store.png" h={400} /></PopIn>
               <Bubble text="Why pay a fee?" at={6} tail="left" style={{left: 1000, top: 360}} size={72} />

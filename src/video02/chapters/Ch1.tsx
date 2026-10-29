@@ -10,7 +10,6 @@ export const Ch1: React.FC = () => (
         {/* A: how it works */}
         <Shot from={0} to={b('everywhere')}>
           <Scene palette="mint" dur={b('everywhere')}>
-            <Bg name="v2/bg_mall.jpg" dim={0.5} />
             <PriceTag text="$120" at={0} x={120} y={330} />
             <DashArrow x0={620} y0={420} x1={790} y1={420} at={b('split')} />
             <PayCircle amount="$30" label="Today" at={b('split') + 4} x={920} y={420} paid={false} />
@@ -47,7 +46,7 @@ export const Ch1: React.FC = () => (
         {/* D: popular, free, smart... hold that thought */}
         <Shot from={b('popular')} to={len} trans="whip">
           <Scene palette="sunrise" dur={len - b('popular')}>
-            <Bg name="v2/bg_street.jpg" dim={0.4} />
+            <Bg name="v2/bg_street.jpg" dim={0.15} />
             <Char name="v2/char_shopper_thinking.png" at={sec(0.6)} x={1560} y={330} h={600} />
             <PopIn at={0} style={{left: 300, top: 260}}><Pill text="Popular" bg="#2E86AB" size={64} /></PopIn>
             <PopIn at={sec(1.2)} style={{left: 300, top: 420}}><Pill text="Free" bg="#E4572E" size={64} /></PopIn>

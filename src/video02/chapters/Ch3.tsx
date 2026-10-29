@@ -1,7 +1,7 @@
 import React from 'react';
 import {DrawCurve, KeyTag, Pill, PopIn, Scene, StickyNote} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
-import {INK, PayCircle, PercentGrid, PriceTag, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Bg} from '../v2kit';
+import {INK, PayCircle, PercentGrid, PriceTag, Prop, Punch, sec, Sfx, Shot, Src, StatCard} from '../v2kit';
 
 export const Ch3: React.FC = () => (
   <ChapterShell id="ch3">
@@ -12,7 +12,6 @@ export const Ch3: React.FC = () => (
           {/* A: $120 vs $30 */}
           <Shot from={0} to={b('lunch')}>
             <Scene palette="rose" dur={b('lunch')}>
-              <Bg name="v2/bg_bedroom.jpg" dim={0.4} />
               <PriceTag text="$120" at={0} x={170} y={380} size={150} color="#5B4FFF" />
               <PopIn at={b('brain')} style={{left: 860, top: 420}}><Pill text="your brain sees" bg="#2B1230" size={44} /></PopIn>
               <PriceTag text="$30" at={b('sees30')} x={1300} y={380} size={170} color="#2FB432" rot={5} />
@@ -34,7 +33,6 @@ export const Ch3: React.FC = () => (
           {/* C: the cart fills up, $30 at a time */}
           <Shot from={b('hoodie')} to={b('research')} trans="whip">
             <Scene palette="mint" dur={r('research', 'hoodie')}>
-              <Bg name="v2/bg_store.jpg" dim={0.35} />
               <PopIn at={0} style={{left: 700, top: 300}}><Prop name="v2/obj_cart_empty.png" h={480} /></PopIn>
               <PopIn at={4} style={{left: 160, top: 300}}><Prop name="v2/obj_hoodie.png" h={300} /></PopIn>
               <PopIn at={10} style={{left: 200, top: 640}}><Pill text="+ $30 / 2 wks" bg="#E4572E" size={40} /></PopIn>
