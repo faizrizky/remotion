@@ -2,6 +2,7 @@
 // Everything that depends on a file in public/ is "missing-safe": if the file is not there yet,
 // a dashed placeholder (or silence) is rendered instead of crashing the render.
 import React from 'react';
+import {ExitOut, PaperTexture} from './fx';
 import {AbsoluteFill, getStaticFiles, Html5Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import timing from './timing.json';
 import {CountUp, DiagonalWipe, InkReveal, PopIn, SANS, HAND, WhipIn, ZoomThrough, CrossDissolve} from '../style/style_kit';
@@ -80,9 +81,9 @@ export const Prop: React.FC<{name: string; h?: number; w?: number; flip?: boolea
 
 // ---------- shots ----------
 export type Trans = 'none' | 'ink' | 'whip' | 'wipe' | 'zoom' | 'dissolve';
-export const TRANS_FRAMES: Record<Trans, number> = {none: 0, ink: 18, whip: 5, wipe: 12, zoom: 14, dissolve: 12};
+export const TRANS_FRAMES: Record<Trans, number> = {none: 0, ink: 30, whip: 10, wipe: 22, zoom: 24, dissolve: 22};
 /** A shot from `from` to `to` (frames). It stays on screen for the length of the NEXT shot's transition so there is never a gap. */
-export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: number; seed?: string; children: React.ReactNode}> = ({from, to, trans = 'none', tail = 18, seed = 's', children}) => {
+export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: boolean; children: React.ReactNode}> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = true, children}) => {
   const dur = Math.max(1, to - from + tail);
   const d = TRANS_FRAMES[trans];
   const body =
@@ -92,7 +93,8 @@ export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: num
     : trans === 'zoom' ? <ZoomThrough dur={d}>{children}</ZoomThrough>
     : trans === 'dissolve' ? <CrossDissolve dur={d}>{children}</CrossDissolve>
     : <AbsoluteFill>{children}</AbsoluteFill>;
-  return <Sequence from={from} durationInFrames={dur}>{body}</Sequence>;
+  const inner = exit ? <ExitOut start={to - from - 10} dur={16}>{body}</ExitOut> : body;
+  return <Sequence from={from} durationInFrames={dur}>{inner}<PaperTexture /></Sequence>;
 };
 
 // ---------- small graphics (code-drawn, so numbers are always exact) ----------
@@ -287,7 +289,7 @@ export const Char: React.FC<{name: string; at?: number; x: number; y: number; h?
   const bob = Math.sin((f + x) / 14) * 5;
   return (
     <PopIn at={at} style={{left: x, top: y}}>
-      <div style={{transform: `translateY(${bob}px)`}}>
+      <div style={{transform: `translate(${-f * 0.14}px, ${bob}px)`}}>
         <Prop name={name} h={h} flip={flip} />
       </div>
     </PopIn>

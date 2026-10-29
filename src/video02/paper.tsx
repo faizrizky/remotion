@@ -163,3 +163,5 @@ export const BranchFork: React.FC<{at: number; x0: number; y0: number; x1: numbe
     </svg>
   );
 };
+
+export {BeforeAfter, ExitOut, PaperTexture, ParallaxLayer} from './fx';

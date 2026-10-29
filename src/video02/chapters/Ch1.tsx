@@ -1,7 +1,7 @@
 import React from 'react';
 import {KeyTag, Pill, PopIn, Scene, StickyNote} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
-import {MascotCorner, Embers} from '../paper';
+import {BeforeAfter, MascotCorner, Embers} from '../paper';
 import {RulerTimeline} from '../paper';
 import {sec, DashArrow, PayCircle, PercentGrid, PriceTag, Prop, Sfx, Shot, Src, StatCard, Bg, Char} from '../v2kit';
 
@@ -12,7 +12,7 @@ export const Ch1: React.FC = () => (
         {/* A: how it works */}
         <Shot from={0} to={b('everywhere')}>
           <Scene palette="mint" dur={b('everywhere')}>
-            <PriceTag text="$120" at={0} x={120} y={330} />
+            <BeforeAfter swapAt={b('split') + 6} before={<PriceTag text="$120" at={0} x={120} y={330} />} after={<PriceTag text="4 x $30" at={-60} x={120} y={330} color="#2E9E8F" />} />
             <DashArrow x0={620} y0={420} x1={790} y1={420} at={b('split')} />
             <PayCircle amount="$30" label="Today" at={b('split') + 4} x={920} y={420} paid={false} />
             <PayCircle amount="$30" label="2 wks" at={b('every2wk')} x={1150} y={420} />

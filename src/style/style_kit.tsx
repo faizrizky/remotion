@@ -29,10 +29,13 @@ export const PALETTES: Record<string, Palette> = {
 
 // ---------- 2. MOTION PRIMITIVES ----------
 /** Bouncy pop-in (every object appears with this). */
+/** Global animation tempo. 1 = Video 01 snappy; <1 = slower, softer pops (Video 02 uses ~0.62). */
+export const PopSpeed = React.createContext(1);
 export const usePop = (at: number, stiff = 180, damping = 11) => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
-  return spring({frame: f - at, fps, config: {damping, stiffness: stiff, mass: 0.7}});
+  const k = React.useContext(PopSpeed);
+  return spring({frame: f - at, fps, config: {damping: damping * k, stiffness: stiff * k * k, mass: 0.7}});
 };
 export const PopIn: React.FC<{at?: number; style?: React.CSSProperties; children: React.ReactNode; origin?: string}> = ({at = 0, style, children, origin = '50% 100%'}) => {
   const p = usePop(at);
