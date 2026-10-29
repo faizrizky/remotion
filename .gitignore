@@ -1,0 +1,26 @@
+node_modules
+dist
+out
+.DS_Store
+Thumbs.db
+.env
+*.log
+
+# Renders and review output (keep these in Drive, not in git)
+review/video/
+review/stills/
+*.mp4
+*.mov
+*.mkv
+
+# Narration, music and licensed SFX (repo is public)
+*.wav
+*.mp3
+*.m4a
+public/sfx/
+public/music/
+
+# Reference videos and zip packs
+Resource Video/
+*.zip
+*.orig
