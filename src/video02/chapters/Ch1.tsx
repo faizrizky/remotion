@@ -58,7 +58,7 @@ export const Ch1: React.FC = () => (
             <PopIn at={0} style={{left: 300, top: 260}}><Pill text="Popular" bg="#2E86AB" size={64} /></PopIn>
             <PopIn at={sec(1.2)} style={{left: 300, top: 420}}><Pill text="Free" bg="#E4572E" size={64} /></PopIn>
             <PopIn at={sec(2.4)} style={{left: 300, top: 580}}><Pill text="Smart?" bg="#3A8D5C" size={64} /></PopIn>
-            <StickyNote text="Hold that thought..." at={b('hold') - b('popular')} style={{left: 1100, top: 420}} size={64} />
+            <StickyNote text="Hold that thought..." at={b('hold') - b('popular')} style={{left: 700, top: 420}} size={60} />
           </Scene>
           <Sfx name="whoosh" at={0} /><Sfx name="pop" at={0} /><Sfx name="pop" at={sec(1.2)} /><Sfx name="pop" at={sec(2.4)} /><Sfx name="pop" at={b('hold') - b('popular')} />
         </Shot>

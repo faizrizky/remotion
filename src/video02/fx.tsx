@@ -5,7 +5,7 @@ import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
 /** Paper fibre texture + soft edge shade over a whole scene (multiply). Added to every Shot automatically. */
-export const PaperTexture: React.FC<{opacity?: number}> = ({opacity = 0.2}) => (
+export const PaperTexture: React.FC<{opacity?: number}> = ({opacity = 0.14}) => (
   <AbsoluteFill style={{pointerEvents: 'none', mixBlendMode: 'multiply', opacity}}>
     <svg width="100%" height="100%" preserveAspectRatio="none">
       <filter id="paperfiber" x="0" y="0" width="100%" height="100%">
@@ -14,7 +14,6 @@ export const PaperTexture: React.FC<{opacity?: number}> = ({opacity = 0.2}) => (
       </filter>
       <rect width="100%" height="100%" filter="url(#paperfiber)" />
     </svg>
-    <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 62%, rgba(60,35,10,0.35) 100%)'}} />
   </AbsoluteFill>
 );
 

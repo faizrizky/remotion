@@ -8,9 +8,9 @@ import {CoinFly, DashArrow, INK, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Bg,
 /** Shopping cart that grows as the scene goes on (the "bigger cart"). */
 const GrowingCart: React.FC<{at: number}> = ({at}) => {
   const f = useCurrentFrame();
-  const s = interpolate(f, [at, at + sec(4)], [0.75, 1.15], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const s = interpolate(f, [at, at + sec(4)], [0.75, 1.0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
-    <PopIn at={at} style={{left: 640, top: 250}}>
+    <PopIn at={at} style={{left: 640, top: 340}}>
       <div style={{transform: `scale(${s})`, transformOrigin: '50% 100%'}}><Prop name="v2/obj_cart_full.png" h={520} /></div>
     </PopIn>
   );
@@ -84,7 +84,7 @@ export const Ch2: React.FC = () => (
               <GrowingCart at={0} />
               <DashArrow x0={1220} y0={560} x1={1480} y1={560} at={r('yours', 'cart')} />
               <Char name="v2/char_shopper_worried.png" at={r('yours', 'cart') + 6} x={1520} y={400} h={540} />
-              <Punch text="...is yours." at={r('yours', 'cart') + 10} color={INK} y={110} size={110} />
+              <Punch text="...is yours." at={r('yours', 'cart') + 10} color={INK} y={60} size={110} />
             </Scene>
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('yours', 'cart') + 6} />
           </Shot>
