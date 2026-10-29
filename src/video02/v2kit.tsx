@@ -259,3 +259,29 @@ export const Src: React.FC<{text: string; at?: number}> = ({text, at = 0}) => {
   if (f < at) return null;
   return <div style={{position: 'absolute', left: 40, bottom: 28, fontFamily: SANS, fontWeight: 600, fontSize: 24, color: '#fff', background: 'rgba(0,0,0,0.55)', padding: '6px 16px', borderRadius: 10}}>Source: {text}</div>;
 };
+
+/** Full-frame illustrated background (slow drift) with an optional dim layer so props and numbers stay readable. */
+export const Bg: React.FC<{name: string; dim?: number; drift?: number}> = ({name, dim = 0.3, drift = 40}) => {
+  const f = useCurrentFrame();
+  const x = Math.sin(f / 90) * drift;
+  if (!hasFile(name)) return null;
+  return (
+    <AbsoluteFill>
+      <Img src={staticFile(name)} style={{position: 'absolute', left: -60, top: -34, width: W + 120, height: H + 68, transform: `translateX(${x}px) scale(1.02)`}} />
+      <AbsoluteFill style={{background: `rgba(20,16,30,${dim})`}} />
+    </AbsoluteFill>
+  );
+};
+
+/** Illustrated character (transparent PNG, full body). `h` is the height; it pops in and breathes gently. */
+export const Char: React.FC<{name: string; at?: number; x: number; y: number; h?: number; flip?: boolean}> = ({name, at = 0, x, y, h = 560, flip}) => {
+  const f = useCurrentFrame();
+  const bob = Math.sin((f + x) / 14) * 5;
+  return (
+    <PopIn at={at} style={{left: x, top: y}}>
+      <div style={{transform: `translateY(${bob}px)`}}>
+        <Prop name={name} h={h} flip={flip} />
+      </div>
+    </PopIn>
+  );
+};

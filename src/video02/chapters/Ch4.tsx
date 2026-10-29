@@ -2,7 +2,7 @@ import React from 'react';
 import {useCurrentFrame} from 'remotion';
 import {IsoBlock, NameTag, Pill, PopIn, SANS, Scene, Spotlight} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
-import {INK, PayCircle, Person, Phone, Prop, Punch, sec, Sfx, Shot, Src, StatCard} from '../v2kit';
+import {INK, PayCircle, Person, Phone, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Bg, Char} from '../v2kit';
 
 const LoanScreen: React.FC<{n: number; amt: string; color: string}> = ({n, amt, color}) => (
   <div style={{height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10, background: color}}>
@@ -58,6 +58,7 @@ export const Ch4: React.FC = () => (
           {/* A: one is easy... now open five */}
           <Shot from={0} to={b('cfpb')}>
             <Scene palette="night" dur={b('cfpb')} stars>
+              <Bg name="v2/bg_bedroom.jpg" dim={0.4} />
               {LOANS.map((l, i) => (
                 <Phone key={i} at={i === 0 ? 0 : b('openFive') + i * 4} x={150 + i * 340} y={250} h={460} tilt={(i - 2) * 3}>
                   <LoanScreen n={i + 1} amt={l.amt} color={l.color} />
@@ -92,7 +93,7 @@ export const Ch4: React.FC = () => (
               ))}
               <PopIn at={10} style={{left: 160, top: 760}}><Pill text="each app sees only its own" bg="#5B4FFF" size={38} /></PopIn>
               <Spotlight x={1400} opacity={0.45} />
-              <PopIn at={r('wholePile', 'ownLoans')} style={{left: 1330, top: 600}}><Person color="#E8A520" h={300} /></PopIn>
+              <Char name="v2/char_shopper_worried.png" at={r('wholePile', 'ownLoans')} x={1330} y={580} h={360} />
               {LOANS.map((l, i) => (
                 <PayCircle key={i} amount={l.amt} label="" at={r('wholePile', 'ownLoans') + 6 + i * 4} x={1410 + (i % 2) * 30 - 15} y={520 - i * 75} size={110} color={l.color} />
               ))}

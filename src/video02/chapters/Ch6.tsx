@@ -1,7 +1,7 @@
 import React from 'react';
 import {PopIn, SANS, Scene} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
-import {Disclaimer, INK, LeoBadge, Punch, Sfx, Shot} from '../v2kit';
+import {Disclaimer, INK, LeoBadge, Punch, Sfx, Shot, Bg} from '../v2kit';
 
 const RULES = [
   {beat: 'rule1', text: 'Only if you could pay in full today'},
@@ -26,6 +26,7 @@ export const Ch6: React.FC = () => (
         {/* A: is it evil? no. */}
         <Shot from={0} to={b('rule1')}>
           <Scene palette="sunrise" dur={b('rule1')}>
+            <Bg name="v2/bg_mall.jpg" dim={0.35} />
             <LeoBadge head="head_thinking.png" at={0} x={760} y={140} size={380} />
             <Punch text="Is it evil?" at={4} color={INK} y={560} size={110} />
             <Punch text="No. Use it on purpose." at={b('onPurpose')} color="#3A8D5C" y={720} size={96} />

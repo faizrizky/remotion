@@ -2,7 +2,7 @@ import React from 'react';
 import {useCurrentFrame} from 'remotion';
 import {KeyTag, Pill, PopIn, SANS, Scene} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
-import {DashArrow, Gauge, INK, Phone, Sfx, Shot, Src, StatCard} from '../v2kit';
+import {DashArrow, Gauge, INK, Phone, Sfx, Shot, Src, StatCard, Bg} from '../v2kit';
 
 /** Phone screen that switches from "Autopay" to "Payment failed" at frame `failAt`. */
 const AutopayScreen: React.FC<{failAt: number}> = ({failAt}) => {
@@ -57,6 +57,7 @@ export const Ch5: React.FC = () => (
           {/* A: autopay pulls, money isn't there */}
           <Shot from={0} to={b('lateFee')}>
             <Scene palette="teal" dur={b('lateFee')}>
+              <Bg name="v2/bg_checkout.jpg" dim={0.35} />
               <Balance at={0} />
               <DashArrow x0={740} y0={480} x1={1120} y1={480} at={b('autoPull')} />
               <Phone at={4} x={1180} y={200} h={620}><AutopayScreen failAt={b('notThere')} /></Phone>

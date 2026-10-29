@@ -1,8 +1,8 @@
 import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
-import {Bubble, KeyTag, Pill, PopIn, Scene} from '../../style/style_kit';
+import {Bubble, KeyTag, Pill, PopIn, Scene, Sunburst} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
-import {CoinFly, DashArrow, INK, Person, Prop, Punch, sec, Sfx, Shot, Src, StatCard} from '../v2kit';
+import {CoinFly, DashArrow, INK, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Bg, Char} from '../v2kit';
 
 /** Shopping cart that grows as the scene goes on (the "bigger cart"). */
 const GrowingCart: React.FC<{at: number}> = ({at}) => {
@@ -24,7 +24,8 @@ export const Ch2: React.FC = () => (
           {/* A: the store pays the lender */}
           <Shot from={0} to={b('why')}>
             <Scene palette="indigo" dur={b('why')}>
-              <PopIn at={0} style={{left: 110, top: 420}}><Person color="#E8A520" h={300} /></PopIn>
+              <Bg name="v2/bg_street.jpg" dim={0.45} />
+              <Char name="v2/char_shopper_happy.png" at={0} x={110} y={440} h={480} />
               <PopIn at={6} style={{left: 520, top: 340}}><Prop name="v2/obj_store.png" h={360} /></PopIn>
               <PopIn at={12} style={{left: 1400, top: 340}}><Prop name="obj_bank_transparent.png" h={360} /></PopIn>
               <DashArrow x0={940} y0={520} x1={1380} y1={520} at={b('storePays')} color="#FFF4E0" />
@@ -39,8 +40,10 @@ export const Ch2: React.FC = () => (
           {/* B: why would a store pay that? */}
           <Shot from={b('why')} to={b('klarna')} trans="whip">
             <Scene palette="rose" dur={r('klarna', 'why')}>
+              <Bg name="v2/bg_store.jpg" dim={0.3} />
+              <Char name="v2/char_cashier_wave.png" at={4} x={690} y={380} h={560} />
               <PopIn at={0} style={{left: 260, top: 330}}><Prop name="v2/obj_store.png" h={400} /></PopIn>
-              <Bubble text="Why pay a fee?" at={6} tail="left" style={{left: 860, top: 360}} size={72} />
+              <Bubble text="Why pay a fee?" at={6} tail="left" style={{left: 1000, top: 360}} size={72} />
             </Scene>
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={6} />
           </Shot>
@@ -60,6 +63,7 @@ export const Ch2: React.FC = () => (
           {/* D: read that again. 40%. Not a button, a bigger cart. */}
           <Shot from={b('readAgain')} to={b('cart')} trans="zoom">
             <Scene palette="sunrise" dur={r('cart', 'readAgain')}>
+              <Sunburst c1="#FFB36B" c2="#FF8F5E" />
               <Punch text="+40% bigger orders" at={0} color={INK} y={170} size={150} />
               <PopIn at={r('notButton', 'readAgain')} style={{left: 360, top: 520}}>
                 <div style={{position: 'relative'}}>
@@ -77,7 +81,7 @@ export const Ch2: React.FC = () => (
             <Scene palette="mint" dur={len - b('cart')}>
               <GrowingCart at={0} />
               <DashArrow x0={1220} y0={560} x1={1480} y1={560} at={r('yours', 'cart')} />
-              <PopIn at={r('yours', 'cart') + 6} style={{left: 1520, top: 420}}><Person color="#E8A520" h={320} /></PopIn>
+              <Char name="v2/char_shopper_worried.png" at={r('yours', 'cart') + 6} x={1520} y={400} h={540} />
               <Punch text="...is yours." at={r('yours', 'cart') + 10} color={INK} y={110} size={110} />
             </Scene>
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('yours', 'cart') + 6} />

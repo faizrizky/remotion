@@ -2,7 +2,7 @@ import React from 'react';
 import {Sequence} from 'remotion';
 import {Bubble, CircleBurstWipe, KeyTag, Pill, PopIn, Scene, Spotlight, Sticker, StickyNote, StrokeLogo, PALETTES} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
-import {Shot, CheckoutScreen, CoinFly, DashArrow, getChapter, LeoBadge, PayCircle, Person, Phone, Prop, Punch, sec, Sfx} from '../v2kit';
+import {Shot, CheckoutScreen, CoinFly, DashArrow, getChapter, LeoBadge, PayCircle, Phone, Prop, Punch, sec, Sfx, Bg, Char} from '../v2kit';
 
 export const Cold: React.FC = () => {
   const c = getChapter('cold');
@@ -14,6 +14,7 @@ export const Cold: React.FC = () => {
           {/* S1: four payments of $30 */}
           <Shot from={0} to={b('billions')}>
             <Scene palette="sunrise" dur={b('billions')}>
+              <Bg name="v2/bg_bedroom.jpg" dim={0.28} />
               <Phone at={0} x={200} y={190} h={660}><CheckoutScreen pulseAt={b('tap')} /></Phone>
               <KeyTag text="0% interest. No fees." at={b('noInterest')} style={{position: 'absolute', left: 820, top: 170}} size={64} />
               <PayCircle amount="$30" label="Today" at={b('p1')} x={900} y={430} />
@@ -39,6 +40,7 @@ export const Cold: React.FC = () => {
           {/* S3: so who pays? */}
           <Shot from={b('whoPays')} to={b('stores')} trans="wipe">
             <Scene palette="indigo" dur={b('stores') - b('whoPays')}>
+              <Bg name="v2/bg_street.jpg" dim={0.45} />
               <LeoBadge head="head_suspicious.png" at={0} x={330} y={330} size={400} />
               <Bubble text="So... who pays?" at={8} tail="left" style={{left: 900, top: 380}} size={72} />
             </Scene>
@@ -48,6 +50,7 @@ export const Cold: React.FC = () => {
           {/* S4: stores hand over a cut */}
           <Shot from={b('stores')} to={b('knowWhat')} trans="ink" seed="c4">
             <Scene palette="mint" dur={b('knowWhat') - b('stores')}>
+              <Bg name="v2/bg_mall.jpg" dim={0.3} />
               <PopIn at={0} style={{left: 150, top: 330}}><Prop name="v2/obj_store.png" h={340} /></PopIn>
               <PopIn at={4} style={{left: 1400, top: 330}}><Prop name="obj_bank_transparent.png" h={340} /></PopIn>
               <PopIn at={8} style={{left: 760, top: 300}}><Pill text="a cut of every sale" bg="#FF6B6B" /></PopIn>
@@ -64,7 +67,7 @@ export const Cold: React.FC = () => {
           <Shot from={b('knowWhat')} to={end} trans="whip">
             <Scene palette="space" dur={end - b('knowWhat')} stars>
               <Spotlight x={960} opacity={0.4} />
-              <PopIn at={0} style={{left: 900, top: 470}}><Person color="#E8A520" h={360} /></PopIn>
+              <Char name="v2/char_shopper_worried.png" at={0} x={820} y={340} h={600} />
               <Punch text="It's you." at={b('itsYou') - b('knowWhat')} y={140} />
               <StickyNote text="the ONE number: ???" at={b('oneNumber') - b('knowWhat')} style={{left: 1250, top: 470}} />
             </Scene>
