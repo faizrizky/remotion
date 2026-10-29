@@ -2,6 +2,7 @@ import React from 'react';
 import {useCurrentFrame} from 'remotion';
 import {KeyTag, Pill, PopIn, SANS, Scene} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
+import {BranchFork, Chip, Embers, LensZoom, MascotCorner} from '../paper';
 import {DashArrow, Gauge, INK, Phone, Sfx, Shot, Src, StatCard, Bg} from '../v2kit';
 
 /** Phone screen that switches from "Autopay" to "Payment failed" at frame `failAt`. */
@@ -61,6 +62,8 @@ export const Ch5: React.FC = () => (
               <Balance at={0} />
               <DashArrow x0={740} y0={480} x1={1120} y1={480} at={b('autoPull')} />
               <Phone at={4} x={1180} y={200} h={620}><AutopayScreen failAt={b('notThere')} /></Phone>
+              <LensZoom cx={440} cy={850} at={b('notThere')} r={200}><div style={{position: 'absolute', left: 240, top: 730, width: 400, height: 240, background: '#E5484D', color: '#fff', fontFamily: SANS, fontWeight: 900, fontSize: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center'}}>$12.40 &lt; $30</div></LensZoom>
+              <Embers n={14} color="#FF3B30" seed={2} />
             </Scene>
             <Sfx name="pop" at={0} /><Sfx name="pop" at={4} /><Sfx name="card_tap" at={b('autoPull')} /><Sfx name="pop" at={b('notThere')} />
           </Shot>
@@ -68,8 +71,8 @@ export const Ch5: React.FC = () => (
           {/* B: hit twice */}
           <Shot from={b('lateFee')} to={b('klarna7')} trans="wipe">
             <Scene palette="sunrise" dur={r('klarna7', 'lateFee')}>
-              <PopIn at={0} style={{left: 250, top: 380}}><Pill text="Late fee  (lender)" bg="#E4572E" size={60} /></PopIn>
-              <PopIn at={r('overdraft', 'lateFee')} style={{left: 1000, top: 380}}><Pill text="Overdraft fee  (bank)" bg="#5B4FFF" size={60} /></PopIn>
+              <Chip text="Late fee  (lender)" kind="warn" at={0} x={250} y={380} size={66} />
+              <Chip text="Overdraft fee  (bank)" kind="warn" at={r('overdraft', 'lateFee')} x={1000} y={380} size={66} rot={2} />
               <KeyTag text="hit twice" at={r('overdraft', 'lateFee') + 8} style={{position: 'absolute', left: 820, top: 620}} size={80} />
             </Scene>
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={0} /><Sfx name="pop" at={r('overdraft', 'lateFee')} />
@@ -109,8 +112,11 @@ export const Ch5: React.FC = () => (
           {/* F: same app, very different deal */}
           <Shot from={b('sameApp')} to={len} trans="whip">
             <Scene palette="indigo" dur={len - b('sameApp')}>
+              <Chip text="same app" kind="label" at={0} x={830} y={120} size={64} />
+              <BranchFork at={4} x0={960} y0={215} x1={520} x2={1400} y1={255} />
               <PlanCard title="Pay in 4" rate="0%" at={0} x={170} color="#7BD389" />
               <PlanCard title="Pay monthly" rate="up to ~36%" at={PLAN_GAP} x={1050} color="#FF6B6B" />
+              <MascotCorner head="head_suspicious.png" at={PLAN_GAP} x={860} y={800} size={190} />
             </Scene>
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={0} /><Sfx name="pop" at={PLAN_GAP} />
           </Shot>

@@ -2,6 +2,7 @@ import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
 import {Bubble, KeyTag, Pill, PopIn, Scene, Sunburst} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
+import {CoinWipe, HighlightSwipe, MascotCorner, Chip} from '../paper';
 import {CoinFly, DashArrow, INK, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Bg, Char} from '../v2kit';
 
 /** Shopping cart that grows as the scene goes on (the "bigger cart"). */
@@ -30,7 +31,7 @@ export const Ch2: React.FC = () => (
               <DashArrow x0={940} y0={520} x1={1380} y1={520} at={b('storePays')} color="#FFF4E0" />
               <CoinFly at={b('storePays') + 10} x0={940} y0={520} x1={1380} y1={520} label="%" />
               <CoinFly at={b('storePays') + 30} x0={940} y0={520} x1={1380} y1={520} label="%" />
-              <PopIn at={b('cfpb')} style={{left: 990, top: 300}}><Pill text="2-4% fee" bg="#FF6B6B" size={56} /></PopIn>
+              <Chip text="2-4% fee" kind="warn" at={b('cfpb')} x={990} y={300} size={64} />
             </Scene>
             <Src text="CFPB, Buy Now, Pay Later: Market Trends and Consumer Impacts (2022)" at={b('cfpb')} />
             <Sfx name="pop" at={6} /><Sfx name="pop" at={12} /><Sfx name="kaching" at={b('storePays') + 28} /><Sfx name="pop" at={b('cfpb')} />
@@ -53,10 +54,11 @@ export const Ch2: React.FC = () => (
               <StatCard to={20} prefix="+" label="more sales completed" at={r('s20', 'klarna')} x={110} y={250} w={540} />
               <StatCard to={40} prefix="+" label="bigger orders" at={r('s40', 'klarna')} x={690} y={250} w={540} bg="#FFD23F" />
               <StatCard to={46} prefix="+" label="more repeat buys" at={r('s46', 'klarna')} x={1270} y={250} w={540} />
+              <MascotCorner head="head_suspicious.png" at={r('vary', 'klarna')} x={110} y={760} size={190} />
               <PopIn at={r('vary', 'klarna')} style={{left: 520, top: 690}}><Pill text="Klarna's own numbers. Results vary." bg="#5B4FFF" size={42} /></PopIn>
             </Scene>
             <Src text="Klarna partner messaging toolkit (merchant averages)" at={r('s20', 'klarna')} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('s20', 'klarna')} /><Sfx name="pop" at={r('s40', 'klarna')} /><Sfx name="pop" at={r('s46', 'klarna')} /><Sfx name="pop" at={r('vary', 'klarna')} />
+            <CoinWipe at={0} /><Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('s20', 'klarna')} /><Sfx name="pop" at={r('s40', 'klarna')} /><Sfx name="pop" at={r('s46', 'klarna')} /><Sfx name="pop" at={r('vary', 'klarna')} />
           </Shot>
 
           {/* D: read that again. 40%. Not a button, a bigger cart. */}
@@ -70,6 +72,7 @@ export const Ch2: React.FC = () => (
                   <div style={{position: 'absolute', left: -10, right: -10, top: '50%', height: 10, background: INK, transform: 'rotate(-6deg)'}} />
                 </div>
               </PopIn>
+              <HighlightSwipe at={r('notButton', 'readAgain') + sec(1.2) + 8} x={1090} y={535} w={560} h={78} />
               <KeyTag text="a BIGGER cart" at={r('notButton', 'readAgain') + sec(1.2)} style={{position: 'absolute', left: 1080, top: 515}} size={72} />
             </Scene>
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('notButton', 'readAgain')} /><Sfx name="pop" at={r('notButton', 'readAgain') + sec(1.2)} />

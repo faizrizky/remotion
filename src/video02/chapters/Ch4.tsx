@@ -1,4 +1,5 @@
 import React from 'react';
+import {Embers, MascotCorner, Chip} from '../paper';
 import {useCurrentFrame} from 'remotion';
 import {IsoBlock, NameTag, Pill, PopIn, SANS, Scene, Spotlight} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
@@ -58,6 +59,7 @@ export const Ch4: React.FC = () => (
           {/* A: one is easy... now open five */}
           <Shot from={0} to={b('cfpb')}>
             <Scene palette="night" dur={b('cfpb')} stars>
+              <MascotCorner head="head_suspicious.png" at={b('openFive')} x={1640} y={820} size={200} />
               {LOANS.map((l, i) => (
                 <Phone key={i} at={i === 0 ? 0 : b('openFive') + i * 4} x={150 + i * 340} y={250} h={460} tilt={(i - 2) * 3}>
                   <LoanScreen n={i + 1} amt={l.amt} color={l.color} />
@@ -76,7 +78,7 @@ export const Ch4: React.FC = () => (
               {[0, 1, 2].map((i) => (
                 <PopIn key={i} at={r('oneInThree', 'cfpb') + i * 4} style={{left: 960 + i * 170, top: 600}}><Person color={i === 1 ? '#E4572E' : '#4FB7C0'} h={240} dim={i !== 1} /></PopIn>
               ))}
-              <PopIn at={r('oneInThree', 'cfpb') + 14} style={{left: 1460, top: 700}}><Pill text="1 in 3: 2+ companies" bg="#E4572E" size={38} /></PopIn>
+              <Chip text="1 in 3: 2+ companies" kind="warn" at={r('oneInThree', 'cfpb') + 14} x={1460} y={700} size={42} />
             </Scene>
             <Src text="CFPB, Consumer Use of Buy Now, Pay Later and Other Unsecured Debt (Jan 2025)" at={r('s63', 'cfpb')} />
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('s63', 'cfpb')} /><Sfx name="pop" at={r('oneInThree', 'cfpb')} /><Sfx name="pop" at={r('oneInThree', 'cfpb') + 14} />
@@ -127,6 +129,7 @@ export const Ch4: React.FC = () => (
           {/* F: that's a warning light */}
           <Shot from={b('warning')} to={len} trans="whip">
             <Scene palette="night" dur={len - b('warning')}>
+              <Embers n={24} color="#FF3B30" seed={7} />
               <Warning at={2} />
               <Punch text="That's a warning light." at={sec(0.6)} y={720} size={100} />
             </Scene>

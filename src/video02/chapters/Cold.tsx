@@ -2,6 +2,7 @@ import React from 'react';
 import {Sequence} from 'remotion';
 import {Bubble, CircleBurstWipe, KeyTag, Pill, PopIn, Scene, Spotlight, Sticker, StickyNote, StrokeLogo, PALETTES} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
+import {Embers, MascotCorner, Chip} from '../paper';
 import {Shot, CheckoutScreen, CoinFly, DashArrow, getChapter, LeoBadge, PayCircle, Phone, Prop, Punch, sec, Sfx, Bg, Char} from '../v2kit';
 
 export const Cold: React.FC = () => {
@@ -32,6 +33,7 @@ export const Cold: React.FC = () => {
           <Shot from={b('billions')} to={b('whoPays')} trans="whip">
             <Scene palette="night" dur={b('whoPays') - b('billions')} stars>
               <PopIn at={0} style={{left: 260, top: 300}}><Prop name="obj_coinstack_transparent.png" h={460} /></PopIn>
+              <Embers n={22} color="#FFD23F" seed={3} />
               <Sticker top="Companies worth" main="BILLIONS" at={6} p={PALETTES.night} style={{left: 1000, top: 400}} />
             </Scene>
             <Sfx name="whoosh" at={0} /><Sfx name="kaching" at={6} />
@@ -42,6 +44,7 @@ export const Cold: React.FC = () => {
             <Scene palette="indigo" dur={b('stores') - b('whoPays')}>
               <Bg name="v2/bg_street.jpg" dim={0.15} />
               <LeoBadge head="head_suspicious.png" at={0} x={330} y={330} size={400} />
+              <MascotCorner head="head_thinking.png" at={20} x={1640} y={800} size={190} />
               <Bubble text="So... who pays?" at={8} tail="left" style={{left: 900, top: 380}} size={72} />
             </Scene>
             <Sfx name="pop" at={0} /><Sfx name="pop" at={8} />
@@ -52,7 +55,7 @@ export const Cold: React.FC = () => {
             <Scene palette="mint" dur={b('knowWhat') - b('stores')}>
               <PopIn at={0} style={{left: 150, top: 330}}><Prop name="v2/obj_store.png" h={340} /></PopIn>
               <PopIn at={4} style={{left: 1400, top: 330}}><Prop name="obj_bank_transparent.png" h={340} /></PopIn>
-              <PopIn at={8} style={{left: 760, top: 300}}><Pill text="a cut of every sale" bg="#FF6B6B" /></PopIn>
+              <Chip text="a cut of every sale" kind="warn" at={8} x={760} y={290} size={56} />
               <DashArrow x0={560} y0={520} x1={1360} y1={520} at={10} />
               <CoinFly at={16} x0={560} y0={520} x1={1360} y1={520} label="%" />
               <CoinFly at={34} x0={560} y0={520} x1={1360} y1={520} label="%" />

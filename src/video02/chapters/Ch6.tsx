@@ -1,6 +1,7 @@
 import React from 'react';
 import {PopIn, SANS, Scene} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
+import {WordPop} from '../paper';
 import {Disclaimer, INK, LeoBadge, Punch, Sfx, Shot} from '../v2kit';
 
 const RULES = [
@@ -28,7 +29,7 @@ export const Ch6: React.FC = () => (
           <Scene palette="sunrise" dur={b('rule1')}>
             <LeoBadge head="head_thinking.png" at={0} x={760} y={140} size={380} />
             <Punch text="Is it evil?" at={4} color={INK} y={560} size={110} />
-            <Punch text="No. Use it on purpose." at={b('onPurpose')} color="#3A8D5C" y={720} size={96} />
+            <WordPop words={['No.', 'Use', 'it', 'on', 'purpose.']} at={b('onPurpose')} gap={5} x={330} y={720} size={84} highlight={[4]} />
           </Scene>
           <Sfx name="pop" at={0} /><Sfx name="pop" at={b('onPurpose')} />
         </Shot>

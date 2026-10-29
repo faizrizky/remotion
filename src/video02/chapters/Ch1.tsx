@@ -1,6 +1,8 @@
 import React from 'react';
 import {KeyTag, Pill, PopIn, Scene, StickyNote} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
+import {MascotCorner, Embers} from '../paper';
+import {RulerTimeline} from '../paper';
 import {sec, DashArrow, PayCircle, PercentGrid, PriceTag, Prop, Sfx, Shot, Src, StatCard, Bg, Char} from '../v2kit';
 
 export const Ch1: React.FC = () => (
@@ -16,6 +18,10 @@ export const Ch1: React.FC = () => (
             <PayCircle amount="$30" label="2 wks" at={b('every2wk')} x={1150} y={420} />
             <PayCircle amount="$30" label="4 wks" at={b('every2wk') + 5} x={1380} y={420} />
             <PayCircle amount="$30" label="6 wks" at={b('every2wk') + 10} x={1610} y={420} />
+            <RulerTimeline x={880} y={745} w={900} at={b('split') + 4} arrow marks={[
+              {x: 105, at: b('split') + 4}, {x: 335, at: b('every2wk')}, {x: 565, at: b('every2wk') + 5}, {x: 795, at: b('every2wk') + 10, tall: true},
+            ]} />
+            <MascotCorner head="head_happy.png" at={b('noInterest')} x={120} y={680} size={200} />
             <KeyTag text="due today" at={b('dueToday')} style={{position: 'absolute', left: 840, top: 600}} size={48} />
             <PopIn at={b('noInterest')} style={{left: 1130, top: 640}}><Pill text="0% interest" bg="#2E9E8F" size={56} /></PopIn>
           </Scene>
@@ -36,6 +42,7 @@ export const Ch1: React.FC = () => (
         {/* C: 47% tried it */}
         <Shot from={b('survey47')} to={b('popular')} trans="wipe">
           <Scene palette="indigo" dur={b('popular') - b('survey47')}>
+            <Embers n={16} color="#FFB703" seed={4} />
             <PercentGrid n={47} at={6} x={250} y={290} on="#FFB703" />
             <StatCard to={47} label="have tried it at least once" at={4} x={980} y={300} w={640} />
           </Scene>
