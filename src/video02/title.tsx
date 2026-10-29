@@ -25,7 +25,7 @@ const TitleWord: React.FC<{text: string; at: number; size: number; i: number}> =
  * low-left, Leo pops in at the end like the "?" mascot, then a white bar wipes right-to-left over the card
  * revealing the next scene. `wipeAt` = frame where the wipe starts (card must run TITLE_WIPE frames longer).
  */
-export const TitleCard: React.FC<{part: number; title: string; head: string; wipeAt: number; color?: string}> = ({part, title, head, wipeAt, color = '#4E7BEF'}) => {
+export const TitleCard: React.FC<{part: number; title: string; head: string; wipeAt: number; color?: string; label?: string}> = ({part, title, head, wipeAt, color = '#4E7BEF', label}) => {
   const f = useCurrentFrame();
   const words = title.split(' ');
   const gap = 9;
@@ -39,7 +39,7 @@ export const TitleCard: React.FC<{part: number; title: string; head: string; wip
     <AbsoluteFill style={{background: '#FFF1D0'}}>
       <AbsoluteFill style={{clipPath: `inset(0 ${1920 - edge}px 0 0)`}}>
         <AbsoluteFill style={{background: `radial-gradient(ellipse at 40% 70%, #FFF8E6 0%, #FFE2A8 55%, ${color}55 130%)`}} />
-        <div style={{position: 'absolute', left: 140, top: 330, fontFamily: ROUND, fontWeight: 700, fontSize: 54, color: '#2B2F77', letterSpacing: 6, opacity: f >= 2 ? 1 : 0}}>PART {part}</div>
+        {(label ?? `PART ${part}`) !== '' && <div style={{position: 'absolute', left: 140, top: 330, fontFamily: ROUND, fontWeight: 700, fontSize: 54, color: '#2B2F77', letterSpacing: 6, opacity: f >= 2 ? 1 : 0}}>{label ?? `PART ${part}`}</div>}
         <div style={{position: 'absolute', left: 140, top: 620, display: 'flex', alignItems: 'flex-end', gap: size * 0.34}}>
           {words.map((w, i) => <TitleWord key={i} text={w} at={first + i * gap} size={size} i={i} />)}
         </div>

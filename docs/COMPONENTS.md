@@ -6,13 +6,13 @@ Dokumen ini ditulis tangan; daftar pemakaian per video di bagian 2 diambil dari 
 ## 1. Dua kit
 | Kit | Lokasi | Dipakai oleh |
 |---|---|---|
-| **Penny kit** (Video 01) | `src/Penny/kit.tsx`, `constants.ts`, `layoutMetadata.ts`, `checkOverlaps.ts` (repo Remotion lama, backup di `_old_remotion_backup`; Trick 2-4 ada di PC) | Hook, Trick 1 (dan Trick 2-4 di PC) |
+| **Penny kit** (Video 01 versi lama, diganti rebuild V2 per 2026-10-30) | `src/Penny/kit.tsx`, `constants.ts`, `layoutMetadata.ts`, `checkOverlaps.ts` (repo Remotion lama, backup di `_old_remotion_backup`; Trick 2-4 ada di PC) | Hook, Trick 1 (dan Trick 2-4 di PC) |
 | **Style kit + V2 kit** (Video 02+) | `src/style/style_kit.tsx`, `src/video02/{v2kit,paper,fx,title}.tsx` | Video 02, dan seterusnya |
 
 Video 03 dst: pakai Style kit + V2 kit (salin pola `src/video02/`: `timing.json`, `ChapterShell`, `chapters/*`).
 
 ## 2. Pemakaian per video
-### Video 01 (Penny kit)
+### Video 01 (Penny kit, versi lama)
 | Scene | Komponen yang dipakai |
 |---|---|
 | Hook C01 Cafe | BgImage, CamScene, Layer, Leo, Pic x2, Pop x2, Pill, TagWithTail, Check, Coin, Shadow x2 |
@@ -24,6 +24,45 @@ Video 03 dst: pakai Style kit + V2 kit (salin pola `src/video02/`: `timing.json`
 | Trick1 C06 Numbers | BgStageIndigo, CamScene, Layer, Banner, CountNum x2, Pic x7, Pop x15, Pill x7, TagWithTail x2, Shadow x5 |
 | Trick1 C07 WhoPays | BgImage, CamScene, Layer, Leo, MenuBoard, Pic, Pop x5, Pill, Tag, TagWithTail x4, Coin, Shadow x2 |
 Gaya Video 01: panggung/kafe, Leo besar (800 px), Pop = pop-in cepat, captions bawah. Trick 2-4: isi dari PC (belum tercatat di sini).
+
+### Video 01 (V2 rebuild, 2026-10-30: Style kit + V2 kit)
+Kode: `src/video01/` (timing.json, captions.json, v1kit.tsx, Video01.tsx, chapters/{Hook,T1,T2,T3,T4,Customers,Meaning,Outro}). Komposisi: `V1-Full` dan `V1-00-Hook` ... `V1-07-Outro`. Tempo 0.62 (PopSpeed), Watermark otomatis, musik "Aventure - Monday Routine" (freetouse.com, volume 0.07, ducking di kartu judul, fade-out 3 dtk), SFX hanya pop/whoosh/kaching/card_tap. Kartu judul: "TRICK n" (tanpa label untuk Customers dan Meaning).
+Komponen baru khusus Video 01 (`src/video01/v1kit.tsx`, bisa dipakai ulang): ChapterShell1, LeoFull (badan + ganti kepala), Fly, Ripple, Shadow, Tag, Win, Bar, CountMoney.
+| Komponen | Dipakai di (chapter) |
+|---|---|
+| Prop | Customers, Hook, Meaning, Outro, T1, T2, T3, T4 |
+| Shadow | Customers, Hook, Outro, T1, T2 |
+| Tag | Customers, Hook, T1, T2 |
+| Chip | Customers, Hook, Meaning, Outro, T1, T2, T3, T4 |
+| Pill | Customers, Hook, Outro, T4 |
+| Punch | Customers, Hook, Outro, T1, T2, T4 |
+| Person | Customers |
+| SlideIn | Hook |
+| Bg | Hook, Outro, T1, T2 |
+| LeoFull | Hook, Outro, T1, T2 |
+| Fly | Hook, Outro, T1 |
+| Ripple | Hook, Outro, T1 |
+| Win | Hook |
+| PaperCard | Hook, T4 |
+| Bubble | Hook, Meaning, T1, T3 |
+| LeoBadge | Meaning, T1, T3 |
+| MascotCorner | Meaning |
+| Disclaimer | Meaning, Outro |
+| PayCircle | Outro |
+| StatCard | T1, T2, T3, T4 |
+| Src | T1, T2, T3, T4 |
+| PriceTag | T1 |
+| PercentGrid | T1, T4 |
+| CoinFly | T1, T2, T3, T4 |
+| DashArrow | T1, T2, T3, T4 |
+| Bar | T2 |
+| CountMoney | T2 |
+| Embers | T2 |
+| Sticker | T2, T3, T4 |
+| HighlightSwipe | T4 |
+Shot, Scene, PopIn, Sfx: semua chapter. TitleCard, PaperTexture, ExitOut, Watermark, PopSpeed: otomatis dari ChapterShell1/Shot.
+Cek: `node scripts/v1-check.mjs`, `node scripts/v1-stills.mjs <comp> <detik...>`, `node scripts/v1-srt.mjs` (subtitle .srt, tidak dibakar ke video).
+Audio, musik, SFX tidak ada di git (`.gitignore`); salin ke `public/v1/audio`, `public/music`, `public/sfx`.
 
 ### Video 02 (Style kit + V2 kit)
 | Komponen | Dipakai di |
