@@ -47,7 +47,7 @@ export const Ch3: React.FC = () => (
 
           {/* D: research: total spending goes up */}
           <Shot from={b('research')} to={b('survey68')} trans="ink" seed="c3d">
-            <Scene palette="night" dur={r('survey68', 'research')} stars>
+            <Scene palette="sky" dur={r('survey68', 'research')}>
               <PopIn at={0} style={{left: 160, top: 260}}><Prop name="v2/obj_research_paper.png" h={480} /></PopIn>
               <div style={{position: 'absolute', left: 820, top: 230, width: 960, height: 520}}>
                 <div style={{position: 'absolute', left: 0, bottom: 0, width: 960, height: 8, background: '#FFF4E0'}} />
@@ -63,7 +63,7 @@ export const Ch3: React.FC = () => (
 
           {/* E: 68% overspend, 54% regret */}
           <Shot from={b('survey68')} to={b('notTrap')} trans="wipe">
-            <Scene palette="indigo" dur={r('notTrap', 'survey68')}>
+            <Scene palette="peri" dur={r('notTrap', 'survey68')}>
               <PercentGrid n={68} at={6} x={230} y={260} on="#FF6B6B" />
               <StatCard to={68} label="say it makes them overspend" at={4} x={980} y={200} w={680} />
               <StickyNote text="54% regretted a purchase" at={r('regret', 'survey68')} style={{left: 1060, top: 640}} size={58} />
@@ -74,7 +74,7 @@ export const Ch3: React.FC = () => (
 
           {/* F: the real trap: stacking */}
           <Shot from={b('notTrap')} to={len} trans="whip">
-            <Scene palette="space" dur={len - b('notTrap')} stars>
+            <Scene palette="lilac" dur={len - b('notTrap')}>
               <Punch text="The real trap?" at={0} y={110} size={110} />
               <CutawayPan at={r('stacking', 'notTrap')} dur={sec(3)} dy={110}>
               <PayCircle amount="$30" label="" at={r('stacking', 'notTrap')} x={960} y={820} size={150} />

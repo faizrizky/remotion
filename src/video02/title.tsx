@@ -3,7 +3,7 @@ import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
 import {loadFont} from '@remotion/fonts';
 import {staticFile} from 'remotion';
 import {usePop} from '../style/style_kit';
-import {INK, LeoBadge, Sfx} from './v2kit';
+import {LeoBadge, Sfx} from './v2kit';
 
 export const ROUND = 'Fredoka';
 loadFont({family: ROUND, url: staticFile('fonts/fredoka-latin-700-normal.woff2'), weight: '700'});
@@ -16,7 +16,7 @@ const TitleWord: React.FC<{text: string; at: number; size: number; i: number}> =
   const f = useCurrentFrame();
   const start = 0.25 + 0.75 * p;
   return (
-    <div style={{opacity: f < at ? 0 : 1, transform: `translateY(${(i % 2 ? 1 : -1) * 5}px) rotate(${(i % 2 ? 1 : -1) * 1.5}deg) scale(${start})`, transformOrigin: '50% 80%', fontFamily: ROUND, fontWeight: 700, fontSize: size, lineHeight: 1, color: '#fff', WebkitTextStroke: '10px #4E7BEF', paintOrder: 'stroke fill', textShadow: '0 0 18px rgba(110,160,255,0.85), 0 0 4px rgba(110,160,255,0.9)', whiteSpace: 'nowrap'}}>{text}</div>
+    <div style={{opacity: f < at ? 0 : 1, transform: `translateY(${(i % 2 ? 1 : -1) * 5}px) rotate(${(i % 2 ? 1 : -1) * 1.5}deg) scale(${start})`, transformOrigin: '50% 80%', fontFamily: ROUND, fontWeight: 700, fontSize: size, lineHeight: 1, color: '#fff', WebkitTextStroke: '14px #2B2F77', paintOrder: 'stroke fill', textShadow: '0 8px 0 rgba(43,47,119,0.35)', whiteSpace: 'nowrap'}}>{text}</div>
   );
 };
 
@@ -36,11 +36,11 @@ export const TitleCard: React.FC<{part: number; title: string; head: string; wip
   const size = words.length > 4 ? 128 : 150;
   const wob = f >= leoAt ? Math.sin((f - leoAt) * 0.35) * 5 * Math.exp(-(f - leoAt) / 36) : 0;
   return (
-    <AbsoluteFill style={{background: INK}}>
+    <AbsoluteFill style={{background: '#FFF1D0'}}>
       <AbsoluteFill style={{clipPath: `inset(0 ${1920 - edge}px 0 0)`}}>
-        <AbsoluteFill style={{background: 'radial-gradient(ellipse at 40% 70%, #2A1D22 0%, #150F12 70%)'}} />
-        <div style={{position: 'absolute', left: 140, top: 330, fontFamily: ROUND, fontWeight: 700, fontSize: 54, color: '#FFD23F', letterSpacing: 6, opacity: f >= 2 ? 1 : 0}}>PART {part}</div>
-        <div style={{position: 'absolute', left: 140, top: 620, display: 'flex', alignItems: 'flex-end', gap: size * 0.22}}>
+        <AbsoluteFill style={{background: `radial-gradient(ellipse at 40% 70%, #FFF8E6 0%, #FFE2A8 55%, ${color}55 130%)`}} />
+        <div style={{position: 'absolute', left: 140, top: 330, fontFamily: ROUND, fontWeight: 700, fontSize: 54, color: '#2B2F77', letterSpacing: 6, opacity: f >= 2 ? 1 : 0}}>PART {part}</div>
+        <div style={{position: 'absolute', left: 140, top: 620, display: 'flex', alignItems: 'flex-end', gap: size * 0.34}}>
           {words.map((w, i) => <TitleWord key={i} text={w} at={first + i * gap} size={size} i={i} />)}
         </div>
         <div style={{position: 'absolute', left: 0, top: 0, transform: `rotate(${wob}deg)`}}>
@@ -49,7 +49,7 @@ export const TitleCard: React.FC<{part: number; title: string; head: string; wip
         {words.map((_, i) => <Sfx key={i} name="pop" at={first + i * gap} />)}
         <Sfx name="pop" at={leoAt} />
       </AbsoluteFill>
-      <div style={{position: 'absolute', top: 0, bottom: 0, left: edge - 14, width: 60, background: '#fff', opacity: t > 0 && t < 1 ? 0.95 : 0, boxShadow: '0 0 40px rgba(255,255,255,0.8)'}} />
+      <div style={{position: 'absolute', top: 0, bottom: 0, left: edge - 14, width: 60, background: '#2B2F77', opacity: t > 0 && t < 1 ? 1 : 0, boxShadow: '0 0 30px rgba(43,47,119,0.45)'}} />
     </AbsoluteFill>
   );
 };

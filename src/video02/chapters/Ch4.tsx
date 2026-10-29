@@ -1,7 +1,7 @@
 import React from 'react';
 import {Embers, MascotCorner, Chip} from '../paper';
 import {useCurrentFrame} from 'remotion';
-import {IsoBlock, NameTag, Pill, PopIn, SANS, Scene, Spotlight} from '../../style/style_kit';
+import {IsoBlock, NameTag, Pill, PopIn, SANS, Scene} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {INK, PayCircle, Person, Phone, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Char} from '../v2kit';
 
@@ -58,7 +58,7 @@ export const Ch4: React.FC = () => (
         <>
           {/* A: one is easy... now open five */}
           <Shot from={0} to={b('cfpb')}>
-            <Scene palette="night" dur={b('cfpb')} stars>
+            <Scene palette="sky" dur={b('cfpb')}>
               <MascotCorner head="head_suspicious.png" at={b('openFive')} x={1640} y={820} size={200} />
               {LOANS.map((l, i) => (
                 <Phone key={i} at={i === 0 ? 0 : b('openFive') + i * 4} x={150 + i * 340} y={250} h={460} tilt={(i - 2) * 3}>
@@ -86,14 +86,13 @@ export const Ch4: React.FC = () => (
 
           {/* C: each app only sees its own loans; you see the pile */}
           <Shot from={b('ownLoans')} to={b('fico')} trans="whip">
-            <Scene palette="space" dur={r('fico', 'ownLoans')} stars>
+            <Scene palette="lilac" dur={r('fico', 'ownLoans')}>
               {[0, 1, 2].map((i) => (
                 <Phone key={i} at={i * 4} x={120 + i * 270} y={300} h={420}>
                   <LoanScreen n={i + 1} amt={LOANS[i].amt} color={LOANS[i].color} />
                 </Phone>
               ))}
               <PopIn at={10} style={{left: 160, top: 760}}><Pill text="each app sees only its own" bg="#5B4FFF" size={38} /></PopIn>
-              <Spotlight x={1400} opacity={0.45} />
               <Char name="v2/char_shopper_worried.png" at={r('wholePile', 'ownLoans')} x={1330} y={580} h={360} />
               {LOANS.map((l, i) => (
                 <PayCircle key={i} amount={l.amt} label="" at={r('wholePile', 'ownLoans') + 6 + i * 4} x={1410 + (i % 2) * 30 - 15} y={520 - i * 75} size={110} color={l.color} />
@@ -104,7 +103,7 @@ export const Ch4: React.FC = () => (
 
           {/* D: FICO BNPL scores */}
           <Shot from={b('fico')} to={b('groceries')} trans="wipe">
-            <Scene palette="indigo" dur={r('groceries', 'fico')}>
+            <Scene palette="peri" dur={r('groceries', 'fico')}>
               <CreditReport at={0} />
               <NameTag name="FICO Score 10 BNPL" role="announced June 2025" at={8} style={{left: 900, top: 420}} />
             </Scene>
@@ -128,7 +127,7 @@ export const Ch4: React.FC = () => (
 
           {/* F: that's a warning light */}
           <Shot from={b('warning')} to={len} trans="whip">
-            <Scene palette="night" dur={len - b('warning')}>
+            <Scene palette="sky" dur={len - b('warning')}>
               <Embers n={24} color="#FF3B30" seed={7} />
               <Warning at={2} />
               <Punch text="That's a warning light." at={sec(0.6)} y={720} size={100} />

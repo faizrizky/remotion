@@ -1,6 +1,6 @@
 import React from 'react';
 import {Sequence} from 'remotion';
-import {Bubble, CircleBurstWipe, KeyTag, Pill, PopIn, Scene, Spotlight, Sticker, StickyNote, StrokeLogo, PALETTES} from '../../style/style_kit';
+import {Bubble, CircleBurstWipe, KeyTag, Pill, PopIn, Scene, Sticker, StickyNote, StrokeLogo, PALETTES} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {Embers, MascotCorner, Chip} from '../paper';
 import {Shot, CheckoutScreen, CoinFly, DashArrow, getChapter, LeoBadge, PayCircle, Phone, Prop, Punch, sec, Sfx, Bg, Char} from '../v2kit';
@@ -15,7 +15,7 @@ export const Cold: React.FC = () => {
           {/* S1: four payments of $30 */}
           <Shot from={0} to={b('billions')}>
             <Scene palette="sunrise" dur={b('billions')}>
-              <Bg name="v2/bg_bedroom.jpg" dim={0.4} />
+              <Bg name="v2/bg_bedroom.jpg" wash={0.18} />
               <Phone at={0} x={200} y={190} h={660}><CheckoutScreen pulseAt={b('tap')} /></Phone>
               <KeyTag text="0% interest. No fees." at={b('noInterest')} style={{position: 'absolute', left: 820, top: 170}} size={64} />
               <PayCircle amount="$30" label="Today" at={b('p1')} x={900} y={430} />
@@ -31,18 +31,18 @@ export const Cold: React.FC = () => {
 
           {/* S2: worth billions */}
           <Shot from={b('billions')} to={b('whoPays')} trans="whip">
-            <Scene palette="night" dur={b('whoPays') - b('billions')} stars>
+            <Scene palette="sky" dur={b('whoPays') - b('billions')}>
               <PopIn at={0} style={{left: 260, top: 300}}><Prop name="obj_coinstack_transparent.png" h={460} /></PopIn>
               <Embers n={22} color="#FFD23F" seed={3} />
-              <Sticker top="Companies worth" main="BILLIONS" at={6} p={PALETTES.night} style={{left: 1000, top: 400}} />
+              <Sticker top="Companies worth" main="BILLIONS" at={6} p={PALETTES.sky} style={{left: 1000, top: 400}} />
             </Scene>
             <Sfx name="whoosh" at={0} /><Sfx name="kaching" at={6} />
           </Shot>
 
           {/* S3: so who pays? */}
           <Shot from={b('whoPays')} to={b('stores')} trans="wipe">
-            <Scene palette="indigo" dur={b('stores') - b('whoPays')}>
-              <Bg name="v2/bg_street.jpg" dim={0.15} />
+            <Scene palette="peri" dur={b('stores') - b('whoPays')}>
+              <Bg name="v2/bg_street.jpg" />
               <LeoBadge head="head_suspicious.png" at={0} x={330} y={330} size={400} />
               <MascotCorner head="head_thinking.png" at={20} x={1640} y={800} size={190} />
               <Bubble text="So... who pays?" at={8} tail="left" style={{left: 900, top: 380}} size={72} />
@@ -67,8 +67,7 @@ export const Cold: React.FC = () => {
 
           {/* S5: they are buying... you */}
           <Shot from={b('knowWhat')} to={end} trans="whip">
-            <Scene palette="space" dur={end - b('knowWhat')} stars>
-              <Spotlight x={960} opacity={0.4} />
+            <Scene palette="lilac" dur={end - b('knowWhat')}>
               <Char name="v2/char_shopper_worried.png" at={0} x={820} y={340} h={600} />
               <Punch text="It's you." at={b('itsYou') - b('knowWhat')} y={140} />
               <StickyNote text="the ONE number: ???" at={b('oneNumber') - b('knowWhat')} style={{left: 1250, top: 470}} />

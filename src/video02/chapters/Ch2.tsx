@@ -24,11 +24,11 @@ export const Ch2: React.FC = () => (
         <>
           {/* A: the store pays the lender */}
           <Shot from={0} to={b('why')}>
-            <Scene palette="indigo" dur={b('why')}>
+            <Scene palette="peri" dur={b('why')}>
               <Char name="v2/char_shopper_happy.png" at={0} x={110} y={440} h={480} />
               <PopIn at={6} style={{left: 520, top: 340}}><Prop name="v2/obj_store.png" h={360} /></PopIn>
               <PopIn at={12} style={{left: 1400, top: 340}}><Prop name="obj_bank_transparent.png" h={360} /></PopIn>
-              <DashArrow x0={940} y0={520} x1={1380} y1={520} at={b('storePays')} color="#FFF4E0" />
+              <DashArrow x0={940} y0={520} x1={1380} y1={520} at={b('storePays')} color={INK} />
               <CoinFly at={b('storePays') + 10} x0={940} y0={520} x1={1380} y1={520} label="%" />
               <CoinFly at={b('storePays') + 30} x0={940} y0={520} x1={1380} y1={520} label="%" />
               <Chip text="2-4% fee" kind="warn" at={b('cfpb')} x={990} y={300} size={64} />
@@ -40,7 +40,7 @@ export const Ch2: React.FC = () => (
           {/* B: why would a store pay that? */}
           <Shot from={b('why')} to={b('klarna')} trans="whip">
             <Scene palette="rose" dur={r('klarna', 'why')}>
-              <Bg name="v2/bg_street.jpg" dim={0.18} />
+              <Bg name="v2/bg_street.jpg" />
               <Char name="v2/char_cashier_wave.png" at={4} x={690} y={380} h={560} />
               <PopIn at={0} style={{left: 260, top: 330}}><Prop name="v2/obj_store.png" h={400} /></PopIn>
               <Bubble text="Why pay a fee?" at={6} tail="left" style={{left: 1000, top: 360}} size={72} />
@@ -50,7 +50,7 @@ export const Ch2: React.FC = () => (
 
           {/* C: Klarna's own numbers */}
           <Shot from={b('klarna')} to={b('readAgain')} trans="ink" seed="c2c">
-            <Scene palette="space" dur={r('readAgain', 'klarna')} stars>
+            <Scene palette="lilac" dur={r('readAgain', 'klarna')}>
               <StatCard to={20} prefix="+" label="more sales completed" at={r('s20', 'klarna')} x={110} y={250} w={540} />
               <StatCard to={40} prefix="+" label="bigger orders" at={r('s40', 'klarna')} x={690} y={250} w={540} bg="#FFD23F" />
               <StatCard to={46} prefix="+" label="more repeat buys" at={r('s46', 'klarna')} x={1270} y={250} w={540} />

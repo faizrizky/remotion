@@ -117,7 +117,7 @@ export const PriceTag: React.FC<{text: string; at: number; x: number; y: number;
 );
 
 /** 10x10 grid of dots, `n` of them highlighted one after another (exact percentages). */
-export const PercentGrid: React.FC<{n: number; at: number; x: number; y: number; on?: string; off?: string; dot?: number; gap?: number}> = ({n, at, x, y, on = '#FF6B6B', off = 'rgba(255,255,255,0.25)', dot = 34, gap = 12}) => {
+export const PercentGrid: React.FC<{n: number; at: number; x: number; y: number; on?: string; off?: string; dot?: number; gap?: number}> = ({n, at, x, y, on = '#FF6B6B', off = 'rgba(30,20,60,0.16)', dot = 34, gap = 12}) => {
   const f = useCurrentFrame();
   const lit = Math.round(interpolate(f, [at, at + 30], [0, n], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}));
   return (
@@ -249,9 +249,9 @@ export const Disclaimer: React.FC = () => (
 );
 
 /** Centered big headline in handwriting (used for short punchlines). */
-export const Punch: React.FC<{text: string; at: number; color?: string; y?: number; size?: number}> = ({text, at, color = '#fff', y = 430, size = 120}) => (
+export const Punch: React.FC<{text: string; at: number; color?: string; y?: number; size?: number}> = ({text, at, color = INK, y = 430, size = 120}) => (
   <PopIn at={at} origin="50% 50%" style={{left: 0, right: 0, top: y, textAlign: 'center'}}>
-    <div style={{fontFamily: HAND, fontWeight: 700, fontSize: size, color, textShadow: '0 6px 0 rgba(0,0,0,0.25)'}}>{text}</div>
+    <div style={{fontFamily: HAND, fontWeight: 700, fontSize: size, color, textShadow: '0 4px 0 rgba(255,255,255,0.55)'}}>{text}</div>
   </PopIn>
 );
 
@@ -264,17 +264,18 @@ export const Src: React.FC<{text: string; at?: number}> = ({text, at = 0}) => {
 
 /** Story-beat background in the Kok Bisa look: soft desaturated scene, slight depth blur, one warm light leak,
  *  heavy vignette and film grain. Explainer (Antidote-style) scenes should NOT use it; they use the plain palette backdrop. */
-export const Bg: React.FC<{name: string; dim?: number; drift?: number; leak?: boolean}> = ({name, dim = 0.12, drift = 40, leak = true}) => {
+export const Bg: React.FC<{name: string; dim?: number; drift?: number; leak?: boolean; wash?: number; brighten?: number}> = ({name, dim = 0, drift = 40, leak = true, wash = 0.12, brighten = 1.15}) => {
   const f = useCurrentFrame();
   const x = Math.sin(f / 90) * drift;
   const leakX = ((f * 5) % 3200) - 700;
   if (!hasFile(name)) return null;
   return (
     <AbsoluteFill>
-      <Img src={staticFile(name)} style={{position: 'absolute', left: -60, top: -34, width: W + 120, height: H + 68, transform: `translateX(${x}px) scale(1.03)`, filter: 'saturate(0.72) blur(2.5px) brightness(0.95)'}} />
+      <Img src={staticFile(name)} style={{position: 'absolute', left: -60, top: -34, width: W + 120, height: H + 68, transform: `translateX(${x}px) scale(1.03)`, filter: `saturate(0.8) blur(2.5px) brightness(${brighten})`}} />
+      <AbsoluteFill style={{background: `rgba(255,248,235,${wash})`}} />
       <AbsoluteFill style={{background: `rgba(20,16,30,${dim})`}} />
       {leak ? <AbsoluteFill style={{background: `linear-gradient(105deg, transparent ${leakX - 260}px, rgba(255,196,120,0.22) ${leakX}px, transparent ${leakX + 260}px)`, mixBlendMode: 'screen'}} /> : null}
-      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 48%, rgba(0,0,0,0) 45%, rgba(8,6,16,0.62) 100%)'}} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 48%, rgba(0,0,0,0) 45%, rgba(60,40,20,0.22) 100%)'}} />
       <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0, opacity: 0.16, mixBlendMode: 'overlay'}}>
         <filter id={`grain-${f % 3}`}><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={f % 3} /><feColorMatrix type="saturate" values="0" /></filter>
         <rect width={W} height={H} filter={`url(#grain-${f % 3})`} />

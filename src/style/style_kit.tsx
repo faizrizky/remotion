@@ -24,6 +24,10 @@ export const PALETTES: Record<string, Palette> = {
   indigo:  {bg: '#2B2F77', bg2: '#4B3F9E', ink: '#FFFFFF', accent: '#FFB703', accent2: '#FF6B6B', paper: '#FFF4E0'},
   mint:    {bg: '#BDEBD3', bg2: '#8FD8B5', ink: '#12352B', accent: '#FF6B6B', accent2: '#FFB703', paper: '#FFFFFF'},
   sunrise: {bg: '#FFD9A0', bg2: '#FFB26B', ink: '#3B1F1A', accent: '#E4572E', accent2: '#2E86AB', paper: '#FFFFFF'},
+  // Bright palettes (Video 02 rule: cheerful light backgrounds, dark ink, never dark/blending)
+  lilac:   {bg: '#EADFFF', bg2: '#CDBBFF', ink: '#2A1646', accent: '#FF5C8A', accent2: '#FFB703', paper: '#FFFFFF'},
+  sky:     {bg: '#D4EDFF', bg2: '#9FD2F7', ink: '#10223E', accent: '#FF7A59', accent2: '#FFB703', paper: '#FFFFFF'},
+  peri:    {bg: '#DDE2FF', bg2: '#B8C2FF', ink: '#2B2F77', accent: '#FF6B6B', accent2: '#FFB703', paper: '#FFFFFF'},
   night:   {bg: '#10223E', bg2: '#1B3A66', ink: '#FFFFFF', accent: '#FFD23F', accent2: '#FF7A59', paper: '#FFF4E0'},
 };
 

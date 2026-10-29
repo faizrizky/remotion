@@ -41,7 +41,7 @@ export const Ch1: React.FC = () => (
 
         {/* C: 47% tried it */}
         <Shot from={b('survey47')} to={b('popular')} trans="wipe">
-          <Scene palette="indigo" dur={b('popular') - b('survey47')}>
+          <Scene palette="peri" dur={b('popular') - b('survey47')}>
             <Embers n={16} color="#FFB703" seed={4} />
             <PercentGrid n={47} at={6} x={250} y={290} on="#FFB703" />
             <StatCard to={47} label="have tried it at least once" at={4} x={980} y={300} w={640} />
@@ -53,7 +53,7 @@ export const Ch1: React.FC = () => (
         {/* D: popular, free, smart... hold that thought */}
         <Shot from={b('popular')} to={len} trans="whip">
           <Scene palette="sunrise" dur={len - b('popular')}>
-            <Bg name="v2/bg_street.jpg" dim={0.15} />
+            <Bg name="v2/bg_street.jpg" />
             <Char name="v2/char_shopper_thinking.png" at={sec(0.6)} x={1560} y={330} h={600} />
             <PopIn at={0} style={{left: 300, top: 260}}><Pill text="Popular" bg="#2E86AB" size={64} /></PopIn>
             <PopIn at={sec(1.2)} style={{left: 300, top: 420}}><Pill text="Free" bg="#E4572E" size={64} /></PopIn>

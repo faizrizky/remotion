@@ -58,7 +58,7 @@ export const Ch5: React.FC = () => (
           {/* A: autopay pulls, money isn't there */}
           <Shot from={0} to={b('lateFee')}>
             <Scene palette="teal" dur={b('lateFee')}>
-              <Bg name="v2/bg_checkout.jpg" dim={0.12} />
+              <Bg name="v2/bg_checkout.jpg" />
               <Balance at={0} />
               <DashArrow x0={740} y0={480} x1={1120} y1={480} at={b('autoPull')} />
               <Phone at={4} x={1180} y={200} h={620}><AutopayScreen failAt={b('notThere')} /></Phone>
@@ -91,7 +91,7 @@ export const Ch5: React.FC = () => (
 
           {/* D: it happens a lot */}
           <Shot from={b('aLot')} to={b('notFree')} trans="whip">
-            <Scene palette="night" dur={r('notFree', 'aLot')} stars>
+            <Scene palette="sky" dur={r('notFree', 'aLot')}>
               <StatCard to={47} label="paid late in the past year" at={r('s47', 'aLot')} x={90} y={260} w={560} />
               <StatCard to={21} label="paid a late or overdraft fee" at={r('fed21', 'aLot')} x={680} y={260} w={560} bg="#FFD23F" />
               <StatCard to={43} label="...of grocery users" at={r('grocery43', 'aLot')} x={1270} y={260} w={560} bg="#FF9F9F" />
@@ -111,7 +111,7 @@ export const Ch5: React.FC = () => (
 
           {/* F: same app, very different deal */}
           <Shot from={b('sameApp')} to={len} trans="whip">
-            <Scene palette="indigo" dur={len - b('sameApp')}>
+            <Scene palette="peri" dur={len - b('sameApp')}>
               <Chip text="same app" kind="label" at={0} x={830} y={120} size={64} />
               <BranchFork at={4} x0={960} y0={215} x1={520} x2={1400} y1={255} />
               <PlanCard title="Pay in 4" rate="0%" at={0} x={170} color="#7BD389" />

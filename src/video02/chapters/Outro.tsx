@@ -41,7 +41,7 @@ export const Outro: React.FC = () => (
       <>
         {/* A: the one number */}
         <Shot from={0} to={b('next')}>
-          <Scene palette="space" dur={b('next')} stars>
+          <Scene palette="lilac" dur={b('next')}>
             <Punch text="The ONE number" at={0} y={40} size={90} />
             <Tally at={b('hereItIs')} totalAt={b('realBill')} />
             <PopIn at={b('realBill')} style={{left: 1400, top: 640}}><Pill text="your real bill" bg="#FF6B6B" size={44} /></PopIn>
@@ -54,7 +54,7 @@ export const Outro: React.FC = () => (
 
         {/* B: next video + subscribe. Keep x 1100-1790, y 230-930 EMPTY for the end screen. */}
         <Shot from={b('next')} to={len} trans="whip">
-          <Scene palette="indigo" dur={len - b('next')}>
+          <Scene palette="peri" dur={len - b('next')}>
             <LeoBadge head="head_happy.png" at={0} x={240} y={230} size={420} />
             <PopIn at={6} style={{left: 120, top: 720}}><Pill text={NEXT_TOPIC} bg="#FF6B6B" size={40} /></PopIn>
             <PopIn at={b('subscribe') - b('next')} style={{left: 120, top: 840}}><Pill text="Subscribe. See you there!" bg="#FFD23F" color="#191411" size={40} /></PopIn>
