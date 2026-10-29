@@ -10,7 +10,7 @@ export const Ch1: React.FC = () => (
         {/* A: how it works */}
         <Shot from={0} to={b('everywhere')}>
           <Scene palette="mint" dur={b('everywhere')}>
-            <Bg name="v2/bg_mall.jpg" dim={0.35} />
+            <Bg name="v2/bg_mall.jpg" dim={0.5} />
             <PriceTag text="$120" at={0} x={120} y={330} />
             <DashArrow x0={620} y0={420} x1={790} y1={420} at={b('split')} />
             <PayCircle amount="$30" label="Today" at={b('split') + 4} x={920} y={420} paid={false} />

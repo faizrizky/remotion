@@ -14,7 +14,7 @@ export const Cold: React.FC = () => {
           {/* S1: four payments of $30 */}
           <Shot from={0} to={b('billions')}>
             <Scene palette="sunrise" dur={b('billions')}>
-              <Bg name="v2/bg_bedroom.jpg" dim={0.28} />
+              <Bg name="v2/bg_bedroom.jpg" dim={0.5} />
               <Phone at={0} x={200} y={190} h={660}><CheckoutScreen pulseAt={b('tap')} /></Phone>
               <KeyTag text="0% interest. No fees." at={b('noInterest')} style={{position: 'absolute', left: 820, top: 170}} size={64} />
               <PayCircle amount="$30" label="Today" at={b('p1')} x={900} y={430} />
@@ -50,7 +50,7 @@ export const Cold: React.FC = () => {
           {/* S4: stores hand over a cut */}
           <Shot from={b('stores')} to={b('knowWhat')} trans="ink" seed="c4">
             <Scene palette="mint" dur={b('knowWhat') - b('stores')}>
-              <Bg name="v2/bg_mall.jpg" dim={0.3} />
+              <Bg name="v2/bg_mall.jpg" dim={0.5} />
               <PopIn at={0} style={{left: 150, top: 330}}><Prop name="v2/obj_store.png" h={340} /></PopIn>
               <PopIn at={4} style={{left: 1400, top: 330}}><Prop name="obj_bank_transparent.png" h={340} /></PopIn>
               <PopIn at={8} style={{left: 760, top: 300}}><Pill text="a cut of every sale" bg="#FF6B6B" /></PopIn>
