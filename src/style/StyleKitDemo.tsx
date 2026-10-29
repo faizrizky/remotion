@@ -27,7 +27,7 @@ const SceneB: React.FC = () => (
 
 export const StyleKitDemo: React.FC = () => (
   <>
-    <Sequence from={0} durationInFrames={A}><SceneA /></Sequence>
+    <Sequence  durationInFrames={A}><SceneA /></Sequence>
     <Sequence from={A - 18} durationInFrames={B}>
       <InkReveal dur={18} seed="demo"><SceneB /></InkReveal>
     </Sequence>

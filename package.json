@@ -8,8 +8,10 @@
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "dependencies": {
+    "@remotion/bundler": "4.0.538",
     "@remotion/cli": "4.0.538",
-    "@remotion/google-fonts": "4.0.538",
+    "@remotion/fonts": "4.0.538",
+    "@remotion/renderer": "4.0.538",
     "@remotion/zod-types": "4.0.538",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -30,6 +32,9 @@
     "typecheck": "tsc",
     "lint": "eslint src && tsc",
     "still": "remotion still src/index.ts",
-    "render": "remotion render src/index.ts"
+    "render": "remotion render src/index.ts",
+    "v2:check": "node scripts/v2-check.mjs",
+    "v2:stills": "node scripts/v2-stills.mjs",
+    "v2:render": "remotion render src/index.ts V2-Full out/Video02.mp4"
   }
 }

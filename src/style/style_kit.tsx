@@ -2,15 +2,18 @@
 // "Antidote" (dark starfield + vivid accents, ink-splat reveal, handwritten titles, split panels,
 // layered diagrams, corner subscribe) and "Kok Bisa?" (cream speech bubbles, diagonal wipe,
 // bokeh backdrops, tri-panel montage, sticker lower-thirds, vignette flashbacks).
-// No characters/logos/assets from either channel are copied. Drop into src/style_kit.tsx.
-// Needs: npm i @remotion/google-fonts   (Caveat + Poppins)
+// No characters/logos/assets from either channel are copied.
+// Fonts are local (public/fonts, SIL Open Font License) so renders never depend on the internet.
 import React from 'react';
-import {AbsoluteFill, interpolate, random, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {loadFont as loadCaveat} from '@remotion/google-fonts/Caveat';
-import {loadFont as loadPoppins} from '@remotion/google-fonts/Poppins';
+import {AbsoluteFill, Img, interpolate, random, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {loadFont} from '@remotion/fonts';
 
-export const HAND = loadCaveat().fontFamily;
-export const SANS = loadPoppins().fontFamily;
+export const HAND = 'Caveat';
+export const SANS = 'Poppins';
+loadFont({family: HAND, url: staticFile('fonts/caveat-latin-700-normal.woff2'), weight: '700'});
+for (const w of ['400', '500', '600', '700', '800', '900']) {
+  loadFont({family: SANS, url: staticFile(`fonts/poppins-latin-${w}-normal.woff2`), weight: w});
+}
 
 // ---------- 1. PALETTES (vary every scene; never reuse the previous scene's palette) ----------
 export type Palette = {bg: string; bg2: string; ink: string; accent: string; accent2: string; paper: string};
@@ -219,8 +222,10 @@ export const InkReveal: React.FC<{dur?: number; blobs?: number; seed?: string; c
 export const DiagonalWipe: React.FC<{dur?: number; children: React.ReactNode}> = ({dur = 12, children}) => {
   const f = useCurrentFrame();
   const t = ease(Math.min(1, f / dur));
-  const x = interpolate(t, [0, 1], [-30, 130]);
-  return <AbsoluteFill style={{clipPath: `polygon(${x - 30}% 0, 130% 0, 130% 100%, ${x}% 100%)`}}>{children}</AbsoluteFill>;
+  if (f >= dur) return <AbsoluteFill>{children}</AbsoluteFill>;
+  // The incoming scene is revealed from the left by a slanted edge that sweeps to the right.
+  const x = interpolate(t, [0, 1], [0, 130]);
+  return <AbsoluteFill style={{clipPath: `polygon(0% 0%, ${x}% 0%, ${x - 30}% 100%, 0% 100%)`}}>{children}</AbsoluteFill>;
 };
 /** Zoom-through: old scene is scaled up, new one pops from small (use for "dive into the object"). */
 export const ZoomThrough: React.FC<{dur?: number; children: React.ReactNode}> = ({dur = 14, children}) => {
@@ -327,7 +332,7 @@ export const OrbitCards: React.FC<{cards: React.ReactNode[]; radius?: number; cx
 /** Real-photo/illustration cutout with thick white outline (Antidote author portrait on purple). */
 export const OutlinedCutout: React.FC<{src: string; h?: number; at?: number; style?: React.CSSProperties}> = ({src, h = 700, at = 0, style}) => (
   <PopIn at={at} style={style}>
-    <img src={src} style={{height: h, filter: 'drop-shadow(0 0 0 #fff) drop-shadow(8px 0 0 #fff) drop-shadow(-8px 0 0 #fff) drop-shadow(0 8px 0 #fff) drop-shadow(0 -8px 0 #fff)'}} />
+    <Img src={src} style={{height: h, filter: 'drop-shadow(0 0 0 #fff) drop-shadow(8px 0 0 #fff) drop-shadow(-8px 0 0 #fff) drop-shadow(0 8px 0 #fff) drop-shadow(0 -8px 0 #fff)'}} />
   </PopIn>
 );
 /** Rounded step card with checkmark rows ("When something is visible, it gets done."). */
