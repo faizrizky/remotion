@@ -1,0 +1,9 @@
+{
+  "fps": 24,
+  "chapters": [
+    {"id": "a", "title": "Kit demo A", "audio": "kitdemo/none.wav", "pre": 0, "audioDur": 15, "post": 1.6,
+     "beats": {"coffee": 0.5, "tap": 2.0, "s2": 4.0, "price": 4.6, "swap": 5.6, "circle": 6.4, "wheel": 7.0, "s3": 9.0, "line": 9.5, "bars": 10.5, "phone": 12.0, "n1": 12.6, "n2": 13.2, "dive": 13.8}},
+    {"id": "b", "title": "Kit demo B", "audio": "kitdemo/none.wav", "pre": 0, "audioDur": 10, "post": 0.8,
+     "beats": {"hang": 0.8, "path": 2.0, "arrow": 3.5, "s2": 5.0, "match": 6.0, "underline": 7.0, "fin": 9.0}}
+  ]
+}

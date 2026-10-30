@@ -22,6 +22,7 @@
     "@remotion/eslint-config-flat": "4.0.538",
     "@types/react": "19.2.7",
     "@types/web": "0.0.166",
+    "esbuild": "0.28.1",
     "eslint": "10.12.0",
     "prettier": "3.8.1",
     "typescript": "5.9.3"
@@ -33,8 +34,9 @@
     "lint": "eslint src && tsc",
     "still": "remotion still src/index.ts",
     "render": "remotion render src/index.ts",
-    "v2:check": "node scripts/v2-check.mjs",
-    "v2:stills": "node scripts/v2-stills.mjs",
-    "v2:render": "remotion render src/index.ts V2-Full out/Video02.mp4"
+    "v2:render": "remotion render src/index.ts V2-Full out/Video02.mp4",
+    "video": "node scripts/video.mjs",
+    "v2:check": "node scripts/video.mjs check video02",
+    "v2:stills": "node scripts/video.mjs stills V2"
   }
 }

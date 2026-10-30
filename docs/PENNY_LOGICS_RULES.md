@@ -12,6 +12,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 - 25 Okt: palet karakter dari leo.png/mira.png; Gemini untuk semua gambar.
 - 29 Okt: latar WAJIB cerah, teks kontras tinggi; tempo lambat 0.62; komponen reusable; watermark logo kiri bawah di semua video; aturan anti-tabrakan; registry komponen.
 - 30 Okt: Video 01 dibangun ulang memakai kit V2; SFX minimal; musik free-to-use dengan kredit; subtitle .srt terpisah.
+- 31 Okt (2): kit reusable `src/kit/` (P1 selesai), bab sebagai data (ChapterSpec), satu alat `scripts/video.mjs` untuk semua video (skrip v1-/v2- dihapus).
 - 31 Okt: (a) sting "Penny Logics" setelah Hook; (b) TIDAK ADA kartu judul per bagian, video mengalir terus dari Hook sampai Outro; (c) satu kamera tanpa cut + objek terbawa antar-scene (ide onetake, ditulis sendiri); (d) komponen HyperFrames yang belum kita punya dibuat versi Remotion; (e) kebijakan latar "polos hidup" (bagian 2); (f) semua ketentuan digabung di dokumen ini.
 
 ## 1. Aturan wajib (setiap video)
@@ -46,13 +47,26 @@ onetake berlisensi PolyForm Noncommercial: kode dan hasilnya TIDAK dipakai. Kita
 4. Cek otomatis `scripts/carry-check.mjs`: setiap stasiun mendaftarkan id elemen yang dibawa, dan script gagal kalau ada batas beat tanpa elemen bersama.
 5. Komponen yang dibutuhkan (P1): World + Station, WorldBg, CameraPath, Carry (shared element), MatchCut/TextMatchCut, PathTraveler, MotionBlur/EchoTrail, PhoneDive, ParallaxZoom, FocusRack, FocusZoom, CameraShake.
 
-## 4. Alur produksi per video
-1. Naskah + narasi (WAV per bagian) → `src/videoNN/timing.json` (pre, audioDur, post, beats dari jangkar kata) + `captions.json`.
-2. Bab ditulis di `src/videoNN/chapters/*`; komponen dari `src/kit/`, `src/style/`, `src/video02/` (kit V2).
-3. QA: `node scripts/vNN-check.mjs` (timing, durasi WAV, file hilang), `node scripts/vNN-stills.mjs <komposisi> <detik...>` (cek tabrakan), carry-check.
-4. `node scripts/vNN-srt.mjs` → .srt; chapter YouTube dari output check.
-5. Commit + push, salin audio/SFX/musik ke Mac, lalu Antigravity: `npm install` (bila perlu), check, `npx remotion render src/index.ts VNN-Full out/VideoNN.mp4`, srt.
-6. Perbarui bagian 7 (pemakaian komponen) dan publish pack video tersebut.
+## 4. Alur produksi per video (pakai kit, hemat token)
+Satu video = 4 file kecil di `src/videoNN/`. Tidak perlu menulis JSX per scene.
+1. `timing.json`: `{fps: 24, chapters: [{id, title, audio, pre: 0, audioDur, post, beats: {nama: detik}}]}`. Beat diambil dari jangkar kata narasi. `pre` selalu 0 (tanpa kartu judul). `post` bab yang memakai sting minimal 1.6, bab lain sekitar 0.8 (dipakai untuk transisi masuk bab berikutnya).
+2. `captions.json`: `{idBab: [[mulai, selesai, "kalimat"], ...]}` untuk .srt.
+3. `specs.tsx`: `export const SPECS: ChapterSpec[]`, satu per bab (format di bagian 7a). Import hanya dari `../kit/core` (helper) dan `import type` dari `../kit/spec`.
+4. `VideoNN.tsx`:
+```tsx
+import timing from './timing.json';
+import {makeVideo} from '../kit';
+import {SPECS} from './specs';
+export const VideoNN = makeVideo({prefix: 'VNN', timing, chapters: SPECS.map((spec, i) => ({spec, name: ['Hook', 'Swipe'][i]})), music: {file: 'music/<lagu>.mp3'}});
+```
+Lalu daftarkan `<VideoNN.Compositions />` di `src/Root.tsx`.
+5. QA (satu alat untuk semua video):
+   - `node scripts/video.mjs check videoNN`: timing, durasi WAV, file yang hilang, waktu chapter YouTube.
+   - `node scripts/video.mjs carry videoNN`: aturan satu kamera; setiap gerak kamera dan setiap masuk bab harus membawa objek.
+   - `node scripts/video.mjs stills VNN [detik...]`: still QA untuk cek tabrakan.
+   - `node scripts/video.mjs srt videoNN`: menghasilkan `out/videoNN.srt`.
+6. Commit + push, salin audio/SFX/musik ke Mac, lalu Antigravity: `npm install`, `node scripts/video.mjs check videoNN`, `npx remotion render src/index.ts VNN-Full out/VideoNN.mp4`, `node scripts/video.mjs srt videoNN`.
+7. Perbarui bagian 7 (pemakaian) dan publish pack video tersebut.
 
 ## 5. Pelajaran gaya dari referensi (yang masih berlaku)
 - **Antidote:** penjelasan lewat diagram dan elemen yang muncul bertahap di latar yang sama (hampir tanpa cut); judul tulisan tangan + garis bawah yang menggambar sendiri; kartu ilustrasi bertepi putih + label tebal; checklist; alur bernomor dengan panah; grafik garis digambar bertahap. (Latar hitam/berbintang mereka TIDAK dipakai.)
@@ -81,6 +95,67 @@ onetake berlisensi PolyForm Noncommercial: kode dan hasilnya TIDAK dipakai. Kita
 
 Video 03 dst: pakai Style kit + V2 kit (salin pola `src/video02/`: `timing.json`, `ChapterShell`, `chapters/*`).
 
+
+### 7a. Kit umum `src/kit/` (dipakai semua video mulai sekarang)
+Contoh lengkap: `src/kitdemo/specs.tsx` (komposisi `KD-Full`).
+**ChapterSpec** (satu bab):
+- `id`
+- `world: {w, h}`: ukuran kanvas, misalnya 6000x1080 untuk 4 stasiun.
+- `bg: {stops: [{x, c: 'sky'|hex}], decor: 'paper'|'dots'|'none', ground?: y}`: latar "polos hidup".
+- `cam: [[waktu, x, y, zoom?, {dur, ease: 'ext', rot}?]]`: x,y adalah titik dunia di tengah layar. Helper `frameCam(waktu, box)` untuk fokus ke kotak, `diveCam(waktu, box)` untuk masuk ke layar ponsel atau pintu.
+- `shakes: [[waktu, amp?, dur?]]`, `sfx: [[waktu, 'kaching']]`.
+- `enter: {kind: 'rip'|'iris'|'slide'|'whip'|'none', carry: 'id', cx?, cy?}`: cara bab masuk menimpa bab sebelumnya (tanpa cut), plus objek yang dibawa.
+- `sting: true`: sting Penny Logics di ekor bab (dipakai setelah Hook).
+- `autoPop` / `autoWhoosh` (default true): pop otomatis saat item muncul, whoosh otomatis pada gerak kamera jauh.
+
+**Waktu (At):**
+- angka = frame dari awal suara;
+- `'tap'` = beat;
+- `'tap+6'` / `'tap-4'` = beat ± frame;
+- `'2.5s'` = detik;
+- `'end'` / `'end-10'` = akhir bab.
+
+**Item:** `{t, x, y, at?, out?, ...}`
+Properti umum:
+- `id`;
+- `move: [[waktu, x, y, skala?, rot?]]`: CARRY, objek pindah antar-stasiun dengan lengkung;
+- `trail: n`: bayangan gerak (motion blur);
+- `screen: true`: tetap di layar, tidak ikut kamera;
+- `exit: 'fade'|'toss'|'drop'`, `enter: 'pop'|'fade'|'left'|'right'|'up'|'none'`;
+- `blur: [[waktu, px]]`: focus rack;
+- `hang`: tergantung dan berayun;
+- `boil`: garis bergetar seperti gambar tangan;
+- `stop: 2`: stop-motion;
+- `sfx: 'kaching'|false`;
+- `kids: Item[]`: isi card/phone, posisi relatif;
+- `z`, `opacity`, `ox`, `oy`.
+
+Jenis `t`:
+| t | isi utama |
+|---|---|
+| prop | `src` (png di public), `h` atau `w`, `flip` |
+| leo | `heads: [[waktu, 'head_proud.png']]`, `h` (Leo badan penuh, kepala ganti) |
+| badge / person | kepala Leo dalam lingkaran / ikon orang generik |
+| text / punch | teks bebas (`hand`, `size`, `w`, `align`) / judul tangan di tengah layar (`screen`) |
+| chip / pill / tag / bubble / sticker / note | label kertas: chip `kind` time/warn/label |
+| stat / pct / gauge / money / wheel | kartu angka count-up / grid persen / gauge / uang count-up / odometer |
+| price / pay / strike / match | label harga / lingkaran cicilan / coret lalu ganti ($5.00 → $4.85) / teks A berubah jadi B |
+| bar / bars / line | satu bar / bar chart / line chart (`series`, `labels`, `prefix`, `suffix`) |
+| mark | coretan spidol: `kind` circle/underline/strike/box/arrow (`dx`, `dy`) |
+| arrow / coins / path / ripple / shadow | panah putus-putus ke `x2,y2` / aliran koin / objek mengikuti kurva `pts` / riak tap / bayangan lantai |
+| card / phone / notif | kertas panel (+kids) / ponsel generik (+kids) / tumpukan notifikasi |
+| ruler / words / embers | timeline penggaris / kinetic word pop / partikel |
+| src / disclaimer | sumber angka (kiri bawah, x ≥ 124) / disclaimer (layar) |
+| custom | `render: (rel) => JSX` untuk kebutuhan khusus |
+
+Komponen kit juga bisa dipakai langsung di JSX:
+- **Kamera dan dunia:** World, Depth, WorldBg, camAt.
+- **Gerak:** StopMotion, Boil, Hang, PathTraveler, pathAt.
+- **Anotasi dan teks:** HandMark, StrikeReplace, TextMatchCut.
+- **Angka dan UI:** NumberWheel, LineChart, BarChart, NotifStack.
+- **Transisi:** RipReveal, IrisReveal, SlideOver, WhipEnter.
+- **Bagian kecil:** LeoFull, Fly, Ripple, Shadow, Tag, Bar, CountMoney, Win.
+- **Rangka video:** BrandSting, ChapterShellK, makeVideo.
 
 ### Pemakaian per video
 #### Video 01 (Penny kit, versi lama)
@@ -132,7 +207,7 @@ Komponen baru khusus Video 01 (`src/video01/v1kit.tsx`, bisa dipakai ulang): Cha
 | Sticker | T2, T3, T4 |
 | HighlightSwipe | T4 |
 Shot, Scene, PopIn, Sfx: semua chapter. TitleCard, PaperTexture, ExitOut, Watermark, PopSpeed: otomatis dari ChapterShell1/Shot.
-Cek: `node scripts/v1-check.mjs`, `node scripts/v1-stills.mjs <comp> <detik...>`, `node scripts/v1-srt.mjs` (subtitle .srt, tidak dibakar ke video).
+Cek: `node scripts/video.mjs check|srt video01`, `node scripts/video.mjs stills V1 <detik...>` (subtitle .srt, tidak dibakar ke video).
 Audio, musik, SFX tidak ada di git (`.gitignore`); salin ke `public/v1/audio`, `public/music`, `public/sfx`.
 
 #### Video 02 (Style kit + V2 kit)
@@ -198,7 +273,12 @@ Belum terpakai: Quadrant, Scale, OrbitCards, CrowdRow, Letterbox, LayerCake, Pul
 
 ## 9. Backlog komponen dari HyperFrames (ditulis ulang di Remotion)
 HyperFrames (heygen-com/hyperframes) berlisensi Apache 2.0. Idenya ditulis ulang sebagai React/Remotion di `src/kit/` (interpolate/spring, bukan GSAP); kalau ada kode yang disalin, cantumkan header kredit + NOTICE Apache 2.0. Katalog yang dicek: 456 item per 31 Okt 2026. Setiap komponen yang jadi dipindahkan ke bagian 7.
-- **P1:** World+Station, WorldBg, CameraPath, Carry, MatchCut/TextMatchCut, PathTraveler, MotionBlur/EchoTrail, PhoneDive, ParallaxZoom, FocusRack, FocusZoom, CameraShake, TornPaperRip, StopMotion+Boil, HangingSign (pendulum), HandAnnotate (Circle/Underline/Strike/Arrow/Box), StrikeReplace, NumberWheel, LineChart, BarChart (multi), NotifStack.
+- **P1: SELESAI (31 Okt, `src/kit/`).** Pemetaan backlog ke kode:
+  - World + stasiun: koordinat dunia. CameraPath: `cam`/camAt. CameraShake: `shakes`. FocusZoom/ParallaxZoom: `frameCam` + Depth. PhoneDive: `diveCam`.
+  - Carry: `move`. MotionBlur/EchoTrail: `trail`. PathTraveler: `path`. MatchCut/TextMatchCut: carry + `match`. FocusRack: `blur`.
+  - TornPaperRip: `enter` rip (plus iris/slide/whip). StopMotion+Boil: `stop` / `boil`. HangingSign: `hang`.
+  - HandAnnotate: `mark`. StrikeReplace: `strike`. NumberWheel: `wheel`. LineChart: `line`. BarChart: `bars`. NotifStack: `notif`.
+  - Ditambah carry-check (`node scripts/video.mjs carry`).
 - **P2:** PaperCollageReveal, ScribbleWipe, IrisReveal, PushSlide, VelocityCut, FreezeFrame, ScrollStory, PhysicalExit, ExtendedEase, CharacterWalk (butuh Leo per sendi), HeadlineSlam, KineticSwap, Typewriter, HandWrite, GlossSweep, BarRace, ProgressRing/ProgressStat, SplitFlap, Flowchart, HubSpoke, Checklist, StaggerGrid, SplitCompare, Overwhelm, SuccessCheck, CardShuffle, Confetti, EndCard.
 - **P3:** CurtainReveal, HalftoneDissolve, GridPixelWipe, ShutterWipe, DollyZoom, DepthStack, DriftHold, KineticBuild, WordRise, HandBubble, BgWord, TickerLock, USMap/WorldMap, StepRail, StarRating, ExplodedStack, ChatThread+TypingDots, BottomSheet, Toggle, SplitCards, CardRail, BeatAccent, MeshGradientBg (terang), GridBg/HalftoneBg, LogoSlam, ChannelIntro, CommentCard.
 - **Asal ide (HF):** torn-paper-rip, paper-collage-reveal, hw-* (scribble, arrow, underline, callout-circle, box-label, boil, write-title, text-cloud), vox-annotate, strikethrough-replace, number-wheel/slot-machine-roll, data-chart/mk-line-graph/chart-story/decline-chart, animated-bar-chart, bar-chart-race, conic-progress-ring/mk-usage-arc/mk-progress-stat, split-flap-board, flowchart/decision-tree, radial-surround/constellation-hub, marker-checklist-card, grid-card-assemble/stagger-*, comparison-split, notification-stack/pileup, overwhelm-surround, spring-stack-shuffle, match-cut/text-match-cut/type-match-cut, cut-the-curve, modal-morph/morph-swap, offset-path-traveler/arc-motion-path, motion-blur/echo-trail, parallax-device-dive, parallax-zoom, focus-rack, ui-focus-zoom, camera-shake, pan-stations, caption-camera-follow, pendulum-swing, stop-motion-cadence, physical-exit, freeze-frame-dressing, confetti, cta-lockup, logo-sting, yt-logo-intro, yt-comment-card.

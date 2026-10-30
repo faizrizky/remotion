@@ -1,5 +1,5 @@
 {
-  "_readme": "Seconds. audioDur = length of the chapter WAV. beats = seconds from the START OF THAT WAV (copy from word timestamps). pre = silent chapter card before the voice, post = silent tail after it. Run `npm run v2:check` after editing.",
+  "_readme": "Seconds. audioDur = length of the chapter WAV. beats = seconds from the START OF THAT WAV (copy from word timestamps). pre = silent chapter card before the voice, post = silent tail after it. Run `node scripts/video.mjs check video02` after editing.",
   "fps": 24,
   "chapters": [
     {"id": "cold", "title": "", "audio": "v2/audio/v2_00_cold.wav", "pre": 0, "audioDur": 27, "post": 1.6,
