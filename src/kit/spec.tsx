@@ -108,6 +108,8 @@ export type ChapterSpec = {
   enter?: {kind: EnterKind; carry?: string; cx?: number; cy?: number};
   /** brand sting "Penny Logics" in this chapter's tail (after the hook) */
   sting?: boolean;
+  /** paper texture overlay (off by default: the channel uses the flat cartoon look, not paper) */
+  paper?: boolean;
   autoPop?: boolean;
   autoWhoosh?: boolean;
 };
@@ -245,10 +247,12 @@ export const SpecChapter: React.FC<{spec: ChapterSpec; chapter: Chapter; fps: nu
   const bg = spec.bg ?? {stops: [{x: 0, c: 'sky'}]};
   return (
     <AbsoluteFill>
-      <World keys={keys} shakes={shakes} w={spec.world?.w} h={spec.world?.h} bg={<WorldBg stops={bg.stops} images={bg.images} wash={bg.wash} blur={bg.blur} decor={bg.decor} ground={bg.ground} seed={spec.id} />}>
+      <World keys={keys} shakes={shakes} w={spec.world?.w} h={spec.world?.h} bg={<WorldBg stops={bg.stops} images={bg.images} wash={bg.wash} blur={bg.blur} decor={bg.decor ?? 'none'} ground={bg.ground} seed={spec.id} />}>
         {world.map((it, i) => <ItemView key={i} it={it} A={A} base={0} end={end} />)}
       </World>
-      <PaperTexture />
+      {spec.paper && <PaperTexture />}
+      {/* soft cinematic vignette (Kok Bisa grade) */}
+      <AbsoluteFill style={{pointerEvents: 'none', background: 'radial-gradient(ellipse at 50% 48%, rgba(0,0,0,0) 55%, rgba(60,40,20,0.16) 100%)'}} />
       {screen.map((it, i) => <ItemView key={i} it={it} A={A} base={0} end={end} />)}
       {collectSfx(spec, A).map(([at, n], i) => <Sfx key={i} name={n} at={at} />)}
     </AbsoluteFill>

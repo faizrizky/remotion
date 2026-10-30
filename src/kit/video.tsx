@@ -52,7 +52,7 @@ export const makeVideo = (v: VideoDef) => {
   const parts = timing.chapters.map((c, i) => {
     const d = v.chapters[i];
     if (!d) throw new Error(`${v.prefix}: no chapter definition for timing chapter "${c.id}"`);
-    const enter: EnterKind = 'spec' in d ? d.spec.enter?.kind ?? 'rip' : d.enter ?? 'rip';
+    const enter: EnterKind = 'spec' in d ? d.spec.enter?.kind ?? 'whip' : d.enter ?? 'whip';
     return {c, d, enter: i === 0 ? ('none' as EnterKind) : enter, name: `${v.prefix}-${String(i).padStart(2, '0')}-${d.name}`};
   });
   const {starts, total} = layoutVideo(timing, parts.map((p) => p.enter));

@@ -75,7 +75,7 @@ if (cmd === 'check') {
   for (const s of ['sfx/pop.wav', 'sfx/whoosh.wav', 'sfx/kaching.wav', 'sfx/card_tap.wav', 'profile_pic.png']) names.add(s);
   for (const n of [...names].sort()) if (!fs.existsSync(pub(n))) bad(`missing public/${n}`);
   const mod = await loadSpecs(arg).catch((e) => { bad('specs failed to load: ' + e.message); return null; });
-  const L = mod ? mod.layoutVideo(t, mod.SPECS.map((s, i) => (i === 0 ? 'none' : s.enter?.kind ?? 'rip'))) : null;
+  const L = mod ? mod.layoutVideo(t, mod.SPECS.map((s, i) => (i === 0 ? 'none' : s.enter?.kind ?? 'whip'))) : null;
   if (mod) mod.SPECS.forEach((s, i) => { if (s.sting && t.chapters[i].post < 1.5) bad(`${t.chapters[i].id}: sting needs post >= 1.6 s (now ${t.chapters[i].post})`); });
   console.log('4) chapter start times (YouTube chapters)');
   let acc = 0;
@@ -102,7 +102,7 @@ if (cmd === 'check') {
   const t = loadTiming(arg);
   const caps = JSON.parse(fs.readFileSync(path.join(root, 'src', arg, 'captions.json'), 'utf8'));
   const mod = await loadSpecs(arg).catch(() => null);
-  const L = mod ? mod.layoutVideo(t, mod.SPECS.map((s, i) => (i === 0 ? 'none' : s.enter?.kind ?? 'rip'))) : null;
+  const L = mod ? mod.layoutVideo(t, mod.SPECS.map((s, i) => (i === 0 ? 'none' : s.enter?.kind ?? 'whip'))) : null;
   const ts = (s) => { const ms = Math.round(s * 1000); const p = (n, w = 2) => String(n).padStart(w, '0'); return `${p(Math.floor(ms / 3600000))}:${p(Math.floor((ms / 60000) % 60))}:${p(Math.floor((ms / 1000) % 60))},${p(ms % 1000, 3)}`; };
   let acc = 0, n = 1, out = '';
   t.chapters.forEach((c, i) => {

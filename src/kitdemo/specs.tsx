@@ -43,9 +43,9 @@ const A: ChapterSpec = {
 
 const B: ChapterSpec = {
   id: 'b',
-  enter: {kind: 'rip', carry: 'coin'},
+  enter: {kind: 'whip', carry: 'coin'},
   world: {w: 3800, h: 1080},
-  bg: {stops: [{x: 0, c: 'lilac'}, {x: 2400, c: 'peri'}], decor: 'dots'},
+  bg: {stops: [{x: 0, c: 'lilac'}, {x: 2400, c: 'peri'}]},
   cam: [[0, 960, 540, 1], ['s2', 2700, 540, 1]],
   shakes: [['arrow', 10, 10]],
   items: [

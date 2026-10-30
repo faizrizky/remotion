@@ -77,7 +77,7 @@ export const layoutVideo = (t: Timing, enters: (string | undefined)[]) => {
   let cursor = 0;
   t.chapters.forEach((c, i) => {
     const prev = t.chapters[i - 1];
-    const ov = i === 0 ? 0 : Math.min(ENTER_LEN[enters[i] ?? 'rip'] ?? 0, Math.round(prev.post * t.fps));
+    const ov = i === 0 ? 0 : Math.min(ENTER_LEN[enters[i] ?? 'whip'] ?? 0, Math.round(prev.post * t.fps));
     cursor -= ov;
     starts.push(cursor);
     overlaps.push(ov);

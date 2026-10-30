@@ -12,6 +12,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 - 25 Okt: palet karakter dari leo.png/mira.png; Gemini untuk semua gambar.
 - 29 Okt: latar WAJIB cerah, teks kontras tinggi; tempo lambat 0.62; komponen reusable; watermark logo kiri bawah di semua video; aturan anti-tabrakan; registry komponen.
 - 30 Okt: Video 01 dibangun ulang memakai kit V2; SFX minimal; musik free-to-use dengan kredit; subtitle .srt terpisah.
+- 31 Okt (4): gaya KERTAS tidak dipakai lagi; kembali ke gaya sebelumnya (flat cartoon bergaris, grade lembut ala Kok Bisa). Kit: tekstur kertas mati secara default, hiasan kertas mati, transisi antar-bab default `whip`.
 - 31 Okt (3): kebijakan latar direvisi: setiap scene punya gambar latar ilustrasi (panorama per bab, bagian 2). Kit mendukung `bg.images`.
 - 31 Okt (2): kit reusable `src/kit/` (P1 selesai), bab sebagai data (ChapterSpec), satu alat `scripts/video.mjs` untuk semua video (skrip v1-/v2- dihapus).
 - 31 Okt: (a) sting "Penny Logics" setelah Hook; (b) TIDAK ADA kartu judul per bagian, video mengalir terus dari Hook sampai Outro; (c) satu kamera tanpa cut + objek terbawa antar-scene (ide onetake, ditulis sendiri); (d) komponen HyperFrames yang belum kita punya dibuat versi Remotion; (e) kebijakan latar (bagian 2, direvisi di 31 Okt (3)); (f) semua ketentuan digabung di dokumen ini.
@@ -35,10 +36,10 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 ## 2. Kebijakan latar: SETIAP scene punya gambar latar (direvisi 31 Okt)
 Mengikuti referensi: Kok Bisa? dan reel kertas hampir selalu memakai latar adegan ilustrasi. Latar polos ala Antidote (hitam) tidak dipakai.
 - **Setiap bab = satu panorama ilustrasi panjang** yang disusun dari 2–3 potongan gambar 21:9 (2520x1080) bersambung. Kamera berjalan menyusurinya (aturan satu kamera), misalnya kafe → jalan pertokoan → gedung bank. Ini juga membuat gerak kamera terasa.
-- **Gaya gambar:** flat cartoon dengan garis tipis gelap (sama dengan `bg_cafe.jpg` dan karakter), tekstur kertas halus, palet pastel siang yang cerah. Sederhana, detail rendah. TANPA orang, hewan, tulisan, angka, atau logo merek. Seperempat bawah kosong (lantai/tanah) dan bagian tengah lapang, karena objek dan teks diletakkan di atasnya. Ujung kiri/kanan memudar ke krem polos supaya bisa disambung.
-- **Di kit:** `bg.images` di ChapterSpec (`{src, x, w}` dalam koordinat dunia). Potongan saling tumpang 100–150 px, sambungan memudar otomatis, wash terang 22%, blur 1.6 px. Kalau file belum ada, kit memakai gradasi palet + hiasan kertas (`stops`, `decor`) sebagai cadangan.
-- **Teks dan angka di atas gambar:** selalu di atas panel kertas krem (`card`), chip, atau pill, tidak langsung di atas gambar. Area teks pada gambar harus lapang.
-- **Latar polos (gradasi + hiasan kertas) hanya untuk jeda pendek:** sting, atau satu angka besar yang butuh fokus penuh.
+- **Gaya gambar:** gaya sebelumnya (seperti `bg_cafe.jpg`/`bg_street.jpg` dan karakter): flat cartoon dengan garis tipis gelap dan palet pastel siang yang cerah. BUKAN gaya kertas/paper-cutout. Sederhana, detail rendah. TANPA orang, hewan, tulisan, angka, atau logo merek. Seperempat bawah kosong (lantai/tanah) dan bagian tengah lapang, karena objek dan teks diletakkan di atasnya. Ujung kiri/kanan memudar ke krem polos supaya bisa disambung.
+- **Di kit:** `bg.images` di ChapterSpec (`{src, x, w}` dalam koordinat dunia). Potongan saling tumpang 100–150 px, sambungan memudar otomatis, wash terang 22%, blur 1.6 px. Ada vignette lembut (grade ala Kok Bisa). Kalau file belum ada, kit memakai gradasi palet (`stops`) sebagai cadangan.
+- **Teks dan angka di atas gambar:** selalu di atas panel krem (`card`), chip, atau pill, tidak langsung di atas gambar. Area teks pada gambar harus lapang.
+- **Latar polos (gradasi palet) hanya untuk jeda pendek:** sting, atau satu angka besar yang butuh fokus penuh.
 - **Dilarang:** latar gelap/malam, gambar ramai di belakang teks, tulisan atau logo di latar.
 - **Gambar dibuat dengan Gemini** memakai prompt gaya baku. Daftar per video ada di bagian 10.
 
@@ -74,7 +75,7 @@ Lalu daftarkan `<VideoNN.Compositions />` di `src/Root.tsx`.
 ## 5. Pelajaran gaya dari referensi (yang masih berlaku)
 - **Antidote:** penjelasan lewat diagram dan elemen yang muncul bertahap di latar yang sama (hampir tanpa cut); judul tulisan tangan + garis bawah yang menggambar sendiri; kartu ilustrasi bertepi putih + label tebal; checklist; alur bernomor dengan panah; grafik garis digambar bertahap. (Latar hitam/berbintang mereka TIDAK dipakai.)
 - **Kok Bisa?:** kamera selalu bergerak (drift/zoom/parallax); balon bicara krem tebal (#F7EFE2) dengan teks pendek; sticker lower-third dua warna (label kecil + kata kunci besar + sub); IsoBlock untuk skala uang; deretan siluet 1-ditandai; flash/whip untuk kejut. Angka besar di atas, konversi kecil di bawah.
-- **Reel paper-cutout (Karhutla):** semua lapisan bertekstur kertas dengan drop-shadow tipis + parallax; maskot penanya di pojok; chip warna konsisten (kuning = waktu/angka, merah = peringatan, krem = label); kinetic type kata-per-kata yang lalu menyatu; timeline penggaris dengan panah menyapu; lensa zoom lingkaran; cutaway pan vertikal; before/after crossfade + shake; partikel kecil.
+- **Reel paper-cutout (Karhutla):** (tekstur/gaya kertas TIDAK dipakai sejak 31 Okt; yang diambil hanya teknik geraknya) parallax; maskot penanya di pojok; chip warna konsisten (kuning = waktu/angka, merah = peringatan, krem = label); kinetic type kata-per-kata yang lalu menyatu; timeline penggaris dengan panah menyapu; lensa zoom lingkaran; cutaway pan vertikal; before/after crossfade + shake; partikel kecil.
 - **Gerak mikro:** pop-in dengan overshoot ringan 6–8 frame lalu idle (bob/napas); garis digambar 14–36 frame; transisi whip sekitar 9 frame, ink 30, wipe 22, zoom 24 (@24 fps). Nilai ini estimasi, bukan ukuran presisi.
 - **Palet per scene:** 1 warna dominan + 1 aksen kontras + ink; jangan lebih dari 4 warna jenuh sekaligus.
 - **Leo:** maksimal sekitar 25% durasi; muncul di pembuka dan penutup; di bagian lain cukup objek, ikon, dan bubble.
@@ -94,7 +95,7 @@ Lalu daftarkan `<VideoNN.Compositions />` di `src/Root.tsx`.
 |---|---|---|
 | **Penny kit** (Video 01 versi lama, diganti rebuild V2 per 2026-10-30) | `src/Penny/kit.tsx`, `constants.ts`, `layoutMetadata.ts`, `checkOverlaps.ts` (repo Remotion lama, backup di `_old_remotion_backup`; Trick 2-4 ada di PC) | Hook, Trick 1 (dan Trick 2-4 di PC) |
 | **Style kit + V2 kit** (Video 02+) | `src/style/style_kit.tsx`, `src/video02/{v2kit,paper,fx,title}.tsx` | Video 02, dan seterusnya |
-| **Kit umum (baru)** | `src/kit/` (komponen dari backlog bagian 9: kamera, carry, transisi kertas, anotasi, chart) | semua video berikutnya |
+| **Kit umum (baru)** | `src/kit/` (komponen dari backlog bagian 9: kamera, carry, transisi, anotasi, chart) | semua video berikutnya |
 
 Video 03 dst: pakai Style kit + V2 kit (salin pola `src/video02/`: `timing.json`, `ChapterShell`, `chapters/*`).
 
@@ -107,7 +108,8 @@ Contoh lengkap: `src/kitdemo/specs.tsx` (komposisi `KD-Full`).
 - `bg: {images: [{src, x, w}], stops: [{x, c: 'sky'|hex}], decor, ground?}`: `images` = panorama ilustrasi (WAJIB, bagian 2); `stops`/`decor` = cadangan dan latar untuk jeda.
 - `cam: [[waktu, x, y, zoom?, {dur, ease: 'ext', rot}?]]`: x,y adalah titik dunia di tengah layar. Helper `frameCam(waktu, box)` untuk fokus ke kotak, `diveCam(waktu, box)` untuk masuk ke layar ponsel atau pintu.
 - `shakes: [[waktu, amp?, dur?]]`, `sfx: [[waktu, 'kaching']]`.
-- `enter: {kind: 'rip'|'iris'|'slide'|'whip'|'none', carry: 'id', cx?, cy?}`: cara bab masuk menimpa bab sebelumnya (tanpa cut), plus objek yang dibawa.
+- `enter: {kind: 'whip'|'iris'|'slide'|'rip'|'none', carry: 'id', cx?, cy?}`: cara bab masuk menimpa bab sebelumnya (tanpa cut), plus objek yang dibawa. Default `whip` (gaya Kok Bisa); `rip` (kertas robek) hanya jika diminta.
+- `paper: true`: tekstur kertas (default MATI, gaya kanal = flat cartoon).
 - `sting: true`: sting Penny Logics di ekor bab (dipakai setelah Hook).
 - `autoPop` / `autoWhoosh` (default true): pop otomatis saat item muncul, whoosh otomatis pada gerak kamera jauh.
 
@@ -140,13 +142,13 @@ Jenis `t`:
 | leo | `heads: [[waktu, 'head_proud.png']]`, `h` (Leo badan penuh, kepala ganti) |
 | badge / person | kepala Leo dalam lingkaran / ikon orang generik |
 | text / punch | teks bebas (`hand`, `size`, `w`, `align`) / judul tangan di tengah layar (`screen`) |
-| chip / pill / tag / bubble / sticker / note | label kertas: chip `kind` time/warn/label |
+| chip / pill / tag / bubble / sticker / note | label: chip `kind` time/warn/label |
 | stat / pct / gauge / money / wheel | kartu angka count-up / grid persen / gauge / uang count-up / odometer |
 | price / pay / strike / match | label harga / lingkaran cicilan / coret lalu ganti ($5.00 → $4.85) / teks A berubah jadi B |
 | bar / bars / line | satu bar / bar chart / line chart (`series`, `labels`, `prefix`, `suffix`) |
 | mark | coretan spidol: `kind` circle/underline/strike/box/arrow (`dx`, `dy`) |
 | arrow / coins / path / ripple / shadow | panah putus-putus ke `x2,y2` / aliran koin / objek mengikuti kurva `pts` / riak tap / bayangan lantai |
-| card / phone / notif | kertas panel (+kids) / ponsel generik (+kids) / tumpukan notifikasi |
+| card / phone / notif | panel krem (+kids) / ponsel generik (+kids) / tumpukan notifikasi |
 | ruler / words / embers | timeline penggaris / kinetic word pop / partikel |
 | src / disclaimer | sumber angka (kiri bawah, x ≥ 124) / disclaimer (layar) |
 | custom | `render: (rel) => JSX` untuk kebutuhan khusus |
@@ -294,7 +296,7 @@ HyperFrames (heygen-com/hyperframes) berlisensi Apache 2.0. Idenya ditulis ulang
 Cara pakai di kit: `bg: {stops: [...], images: [{src: 'v1/bg/t1_a.jpg', x: 0, w: 2600}, {src: 'v1/bg/t1_b.jpg', x: 2500, w: 2600}, ...]}`. Potongan bersebelahan saling tumpang 100–150 px dan ujungnya menyatu otomatis (fade). Kit memberi wash terang 22% + blur 1.6 px. Simpan file di `public/v1/bg/`.
 
 **Gaya untuk SEMUA potongan (tempel di awal setiap prompt Gemini; lampirkan `public/v1/bg_cafe.jpg` sebagai referensi gaya):**
-> Wide background illustration for an animated finance explainer, same style as the attached reference: flat cartoon shapes with thin dark outlines (#191411), soft paper texture, bright daylight pastel palette (cream #FFF4E0, mint #BDEBD3, sky #D4EDFF, peach #FFD9A0, mustard accents #E8A520). Simple and calm, low detail, large clean surfaces. NO people, NO animals, NO text, NO letters or numbers, NO logos or brand signs. Keep the lower 25% as an empty floor/ground band and the middle area uncluttered (objects and captions will be placed on top). The left and right edges fade into plain cream so pieces can be joined side by side. Aspect ratio 21:9 (2520x1080).
+> Wide background illustration for an animated finance explainer, same style as the attached reference: flat cartoon shapes with thin dark outlines (#191411), clean flat colours (no paper texture, no cut-paper look), bright daylight pastel palette (cream #FFF4E0, mint #BDEBD3, sky #D4EDFF, peach #FFD9A0, mustard accents #E8A520). Simple and calm, low detail, large clean surfaces. NO people, NO animals, NO text, NO letters or numbers, NO logos or brand signs. Keep the lower 25% as an empty floor/ground band and the middle area uncluttered (objects and captions will be placed on top). The left and right edges fade into plain cream so pieces can be joined side by side. Aspect ratio 21:9 (2520x1080).
 
 | File | Bab / stasiun | Isi (tambahkan ke prompt) |
 |---|---|---|
