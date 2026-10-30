@@ -12,8 +12,9 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 - 25 Okt: palet karakter dari leo.png/mira.png; Gemini untuk semua gambar.
 - 29 Okt: latar WAJIB cerah, teks kontras tinggi; tempo lambat 0.62; komponen reusable; watermark logo kiri bawah di semua video; aturan anti-tabrakan; registry komponen.
 - 30 Okt: Video 01 dibangun ulang memakai kit V2; SFX minimal; musik free-to-use dengan kredit; subtitle .srt terpisah.
+- 31 Okt (3): kebijakan latar direvisi: setiap scene punya gambar latar ilustrasi (panorama per bab, bagian 2). Kit mendukung `bg.images`.
 - 31 Okt (2): kit reusable `src/kit/` (P1 selesai), bab sebagai data (ChapterSpec), satu alat `scripts/video.mjs` untuk semua video (skrip v1-/v2- dihapus).
-- 31 Okt: (a) sting "Penny Logics" setelah Hook; (b) TIDAK ADA kartu judul per bagian, video mengalir terus dari Hook sampai Outro; (c) satu kamera tanpa cut + objek terbawa antar-scene (ide onetake, ditulis sendiri); (d) komponen HyperFrames yang belum kita punya dibuat versi Remotion; (e) kebijakan latar "polos hidup" (bagian 2); (f) semua ketentuan digabung di dokumen ini.
+- 31 Okt: (a) sting "Penny Logics" setelah Hook; (b) TIDAK ADA kartu judul per bagian, video mengalir terus dari Hook sampai Outro; (c) satu kamera tanpa cut + objek terbawa antar-scene (ide onetake, ditulis sendiri); (d) komponen HyperFrames yang belum kita punya dibuat versi Remotion; (e) kebijakan latar (bagian 2, direvisi di 31 Okt (3)); (f) semua ketentuan digabung di dokumen ini.
 
 ## 1. Aturan wajib (setiap video)
 1. **Latar cerah.** Dilarang palet gelap (space, night, indigo, hitam berbintang) dan ilustrasi malam. Palet yang dipakai: sunrise, mint, teal, rose, lilac, sky, peri. Ilustrasi lokasi harus versi siang dan tanpa karakter.
@@ -31,13 +32,15 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 13. **Kerapian:** tidak ada file duplikat. Setiap video mencatat komponen yang dipakainya di bagian 7. Commit dan push atas nama faizrizky.
 14. **Disclaimer** "Education only, not financial advice" tampil di bagian penutup/saran.
 
-## 2. Kebijakan latar: "polos hidup"
-Bukan polos rata, bukan ilustrasi ramai.
-- **Default (beat penjelasan, sekitar 80% video):** gradasi pastel lembut dari palet + PaperTexture + 1 lapisan dekor tipis (bentuk kertas besar, garis tanah/horizon, titik/kotak halus) dengan kontras rendah (opasitas 10–20%, warna satu keluarga dengan latar). Fungsinya: (a) teks dan objek tetap paling menonjol; (b) gerak kamera terlihat. Dalam sistem satu kamera, latar polos total membuat pan/zoom tidak terasa, jadi lapisan dekor ini wajib ada dan ikut bergerak (parallax).
-- **Beat cerita/lokasi (kafe, jalan, kamar, sekitar 20%):** ilustrasi latar boleh dipakai, tetapi wajib di-wash terang (Bg wash 0.2–0.35), sedikit blur, tanpa karakter dan tanpa tulisan, dan area teks harus bersih.
-- **Larangan:** tulisan di latar, pola kontras tinggi di belakang teks, lebih dari 1 warna jenuh di latar, latar gelap.
-- **Kontinuitas:** satu bab memakai satu "dunia" dengan latar yang menyambung. Pergantian warna terjadi lewat gradasi saat kamera berpindah, bukan potongan.
-- Yang perlu dibuat: komponen `WorldBg` (gradasi panjang + lapisan dekor parallax + garis tanah) sebagai pasangan `World`/`CameraPath`.
+## 2. Kebijakan latar: SETIAP scene punya gambar latar (direvisi 31 Okt)
+Mengikuti referensi: Kok Bisa? dan reel kertas hampir selalu memakai latar adegan ilustrasi. Latar polos ala Antidote (hitam) tidak dipakai.
+- **Setiap bab = satu panorama ilustrasi panjang** yang disusun dari 2–3 potongan gambar 21:9 (2520x1080) bersambung. Kamera berjalan menyusurinya (aturan satu kamera), misalnya kafe → jalan pertokoan → gedung bank. Ini juga membuat gerak kamera terasa.
+- **Gaya gambar:** flat cartoon dengan garis tipis gelap (sama dengan `bg_cafe.jpg` dan karakter), tekstur kertas halus, palet pastel siang yang cerah. Sederhana, detail rendah. TANPA orang, hewan, tulisan, angka, atau logo merek. Seperempat bawah kosong (lantai/tanah) dan bagian tengah lapang, karena objek dan teks diletakkan di atasnya. Ujung kiri/kanan memudar ke krem polos supaya bisa disambung.
+- **Di kit:** `bg.images` di ChapterSpec (`{src, x, w}` dalam koordinat dunia). Potongan saling tumpang 100–150 px, sambungan memudar otomatis, wash terang 22%, blur 1.6 px. Kalau file belum ada, kit memakai gradasi palet + hiasan kertas (`stops`, `decor`) sebagai cadangan.
+- **Teks dan angka di atas gambar:** selalu di atas panel kertas krem (`card`), chip, atau pill, tidak langsung di atas gambar. Area teks pada gambar harus lapang.
+- **Latar polos (gradasi + hiasan kertas) hanya untuk jeda pendek:** sting, atau satu angka besar yang butuh fokus penuh.
+- **Dilarang:** latar gelap/malam, gambar ramai di belakang teks, tulisan atau logo di latar.
+- **Gambar dibuat dengan Gemini** memakai prompt gaya baku. Daftar per video ada di bagian 10.
 
 ## 3. Satu kamera tanpa cut + objek terbawa (ide onetake, implementasi sendiri)
 onetake berlisensi PolyForm Noncommercial: kode dan hasilnya TIDAK dipakai. Kita hanya mengambil prinsipnya.
@@ -101,7 +104,7 @@ Contoh lengkap: `src/kitdemo/specs.tsx` (komposisi `KD-Full`).
 **ChapterSpec** (satu bab):
 - `id`
 - `world: {w, h}`: ukuran kanvas, misalnya 6000x1080 untuk 4 stasiun.
-- `bg: {stops: [{x, c: 'sky'|hex}], decor: 'paper'|'dots'|'none', ground?: y}`: latar "polos hidup".
+- `bg: {images: [{src, x, w}], stops: [{x, c: 'sky'|hex}], decor, ground?}`: `images` = panorama ilustrasi (WAJIB, bagian 2); `stops`/`decor` = cadangan dan latar untuk jeda.
 - `cam: [[waktu, x, y, zoom?, {dur, ease: 'ext', rot}?]]`: x,y adalah titik dunia di tengah layar. Helper `frameCam(waktu, box)` untuk fokus ke kotak, `diveCam(waktu, box)` untuk masuk ke layar ponsel atau pintu.
 - `shakes: [[waktu, amp?, dur?]]`, `sfx: [[waktu, 'kaching']]`.
 - `enter: {kind: 'rip'|'iris'|'slide'|'whip'|'none', carry: 'id', cx?, cy?}`: cara bab masuk menimpa bab sebelumnya (tanpa cut), plus objek yang dibawa.
@@ -287,4 +290,32 @@ HyperFrames (heygen-com/hyperframes) berlisensi Apache 2.0. Idenya ditulis ulang
 ## 10. Status per video
 **Video 01** (How Credit Card Companies Make Money Off You): kode `src/video01/` (rebuild V2, commit 3899ae4, render V1-Full oleh Antigravity 30 Okt).
 - Revisi tercatat 31 Okt (belum dikerjakan): sting Penny Logics setelah Hook (post hook 0.4 → 1.6); hapus kartu judul (pre = 0, titleAudio kosong, TitleCard dimatikan di ChapterShell1, ducking musik disesuaikan); susun ulang dengan World/CameraPath/Carry; durasi sekitar 4:54, chapter dan .srt dihitung ulang.
+**Video 01: latar panorama (prompt Gemini, dibuat 31 Okt, BELUM digenerate).**
+Cara pakai di kit: `bg: {stops: [...], images: [{src: 'v1/bg/t1_a.jpg', x: 0, w: 2600}, {src: 'v1/bg/t1_b.jpg', x: 2500, w: 2600}, ...]}`. Potongan bersebelahan saling tumpang 100–150 px dan ujungnya menyatu otomatis (fade). Kit memberi wash terang 22% + blur 1.6 px. Simpan file di `public/v1/bg/`.
+
+**Gaya untuk SEMUA potongan (tempel di awal setiap prompt Gemini; lampirkan `public/v1/bg_cafe.jpg` sebagai referensi gaya):**
+> Wide background illustration for an animated finance explainer, same style as the attached reference: flat cartoon shapes with thin dark outlines (#191411), soft paper texture, bright daylight pastel palette (cream #FFF4E0, mint #BDEBD3, sky #D4EDFF, peach #FFD9A0, mustard accents #E8A520). Simple and calm, low detail, large clean surfaces. NO people, NO animals, NO text, NO letters or numbers, NO logos or brand signs. Keep the lower 25% as an empty floor/ground band and the middle area uncluttered (objects and captions will be placed on top). The left and right edges fade into plain cream so pieces can be joined side by side. Aspect ratio 21:9 (2520x1080).
+
+| File | Bab / stasiun | Isi (tambahkan ke prompt) |
+|---|---|---|
+| hook_a.jpg | Hook: kafe | Inside a cosy coffee shop: long wooden counter on the right half, espresso machine, shelves with cups, big window with daylight on the left. |
+| hook_b.jpg | Hook: "3 perusahaan dibayar" + "untung dua arah" | Continuation of the same coffee shop: plain warm wall with three empty framed panels, a few plants, soft window light. |
+| t1_a.jpg | Trick 1: ikuti $5 (kafe → terminal) | Coffee shop counter seen closer, payment area with an empty space on the counter, menu board without any writing. |
+| t1_b.jpg | Trick 1: biaya swipe → bank penerbit | Daytime shopping street: small shop fronts with blank awnings, sidewalk, at the far right a classic bank building with columns (no name). |
+| t1_c.jpg | Trick 1: angka miliaran | Business district plaza: tall simple office towers, open paved square, clear sky with a few soft clouds. |
+| t2_a.jpg | Trick 2: jatuh tempo, bunga | Home desk corner: wooden desk, wall calendar (blank), lamp, mug, window; desk top left empty. |
+| t2_b.jpg | Trick 2: 22% / kartu toko | City street with a shopping mall entrance (no signs) and a government-style building with columns in the distance. |
+| t2_c.jpg | Trick 2: $5,000 Leo, kran bocor, mesin | Small living room / kitchen: sink with a tap on the right, cupboard, warm daylight; open floor in the middle. |
+| t3_a.jpg | Trick 3: cashback & poin | Bright airport departure hall: big windows with a plane outside, rows of seats, empty floor. |
+| t3_b.jpg | Trick 3: CFPB / dua dompet | Calm office with a long table, bookshelf, large window; simple and tidy. |
+| t4_a.jpg | Trick 4: statement & minimum | Home office desk with paper trays and a laptop closed, window, plant. |
+| t4_b.jpg | Trick 4: treadmill / bunga | Bright simple gym corner with large windows (no people, no equipment in the middle). |
+| t4_c.jpg | Trick 4: 4 biaya | Bank lobby: counters with blank screens, potted plants, polished floor. |
+| cust_a.jpg | Three Customers | Long bright hallway with soft pastel walls and three empty door-shaped spaces evenly spaced (no doors drawn), skylight. |
+| mean_a.jpg | What This Means: alat | Tidy workshop/garage: pegboard wall with tool silhouettes, workbench on the left, open floor. |
+| mean_b.jpg | What This Means: pilih pintu | Sunny park crossroads with three paths leading away, trees, a bench, blank signpost. |
+| outro_a.jpg | Outro | Reuse hook_a.jpg (back to the coffee shop) + a plain bright wall for the next-video teaser (right side kept very empty for the end screen). |
+
+Catatan: periksa setiap hasil. Jika ada tulisan/logo/orang, minta Gemini menghapusnya atau generate ulang. Ratakan warna mendekati palet. Ukuran akhir 2520x1080 JPG kualitas ~85.
+
 **Video 02** (BNPL): kode `src/video02/`. Masih kurang 8 WAV narasi (v2_00_cold ... v2_07_outro), musik, thumbnail, dan NEXT_TOPIC di Outro. Kartu judul bab Video 02 juga harus dihapus mengikuti aturan 1.3.

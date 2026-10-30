@@ -1,14 +1,18 @@
 // "Polos hidup" background for a World: soft palette gradient along the world + low-contrast paper decor
 // on parallax layers + optional paper ground. Text always stays the most visible thing.
 import React from 'react';
+import {Img, staticFile} from 'remotion';
 import {PALETTES} from '../style/style_kit';
+import {hasFile} from '../video02/v2kit';
 import {rand} from './core';
 import {Depth, useCam} from './camera';
 
 export type BgStop = {x: number; c: string}; // c = palette name (sky, mint...) or a hex colour
+/** Illustrated backdrop piece placed along the world (paper-diorama panorama). x/w in world px; height follows the image. */
+export type BgImage = {src: string; x: number; w: number; y?: number; h?: number};
 const col = (c: string, k: 'bg' | 'bg2' = 'bg') => (PALETTES[c] ? PALETTES[c][k] : c);
 
-export const WorldBg: React.FC<{stops: BgStop[]; decor?: 'paper' | 'dots' | 'none'; ground?: number; seed?: string; amount?: number}> = ({stops, decor = 'paper', ground, seed = 'bg', amount = 1}) => {
+export const WorldBg: React.FC<{stops: BgStop[]; decor?: 'paper' | 'dots' | 'none'; ground?: number; seed?: string; amount?: number; images?: BgImage[]; wash?: number; blur?: number; depth?: number}> = ({stops, decor = 'paper', ground, seed = 'bg', amount = 1, images = [], wash = 0.22, blur = 1.6, depth = 1}) => {
   const {w, h} = useCam();
   const M = 3000;
   const total = w + 2 * M;
@@ -24,7 +28,17 @@ export const WorldBg: React.FC<{stops: BgStop[]; decor?: 'paper' | 'dots' | 'non
     <>
       <div style={{position: 'absolute', left: -M, top: -M, width: total, height: h + 2 * M, background: `linear-gradient(90deg, ${grad})`}} />
       <div style={{position: 'absolute', left: -M, top: -M, width: total, height: h + 2 * M, background: `linear-gradient(180deg, rgba(255,255,255,0.35) ${M}px, rgba(255,255,255,0) ${M + h * 0.6}px)`}} />
-      {decor === 'paper' && (
+      {images.length > 0 && (
+        <Depth d={depth}>
+          {images.filter((im) => hasFile(im.src)).map((im, i) => (
+            <div key={i} style={{position: 'absolute', left: im.x - 60, top: im.y ?? -40, width: im.w + 120, height: im.h ?? h + 80, WebkitMaskImage: 'linear-gradient(90deg, transparent 0, #000 140px, #000 calc(100% - 140px), transparent 100%)', maskImage: 'linear-gradient(90deg, transparent 0, #000 140px, #000 calc(100% - 140px), transparent 100%)'}}>
+              <Img src={staticFile(im.src)} style={{width: '100%', height: '100%', objectFit: 'cover', filter: `blur(${blur}px) saturate(0.9) brightness(1.06)`}} />
+              <div style={{position: 'absolute', inset: 0, background: `rgba(255,248,235,${wash})`}} />
+            </div>
+          ))}
+        </Depth>
+      )}
+      {decor === 'paper' && images.length === 0 && (
         <Depth d={0.55}>
           {Array.from({length: n}).map((_, i) => {
             const x = rand(`${seed}x${i}`) * (w + 1200) - 600;

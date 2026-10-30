@@ -8,7 +8,7 @@ const A: ChapterSpec = {
   id: 'a',
   sting: true,
   world: {w: 5600, h: 1080},
-  bg: {stops: [{x: 0, c: 'sunrise'}, {x: 2200, c: 'sky'}, {x: 4200, c: 'mint'}], decor: 'paper', ground: 900},
+  bg: {stops: [{x: 0, c: 'sunrise'}, {x: 2200, c: 'sky'}, {x: 4200, c: 'mint'}], images: [{src: 'v1/bg_cafe.jpg', x: 0, w: 2000}, {src: 'v1/bg_street.jpg', x: 1900, w: 2000}]},
   cam: [
     [0, 960, 540, 1],
     ['s2', 2900, 540, 1],

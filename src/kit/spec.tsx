@@ -9,7 +9,7 @@ import {PaperTexture} from '../video02/fx';
 import {At, Cam, Chapter, clamp, INK, makeAt, Pose, poseAtPure, resolveCamPure} from './core';
 export type {Cam, Pose};
 import {World} from './camera';
-import {BgStop, WorldBg} from './worldbg';
+import {BgImage, BgStop, WorldBg} from './worldbg';
 import {HandMark, MarkKind, StrikeReplace} from './annotate';
 import {BarChart, BarDatum, LineChart, NumberWheel} from './numbers';
 import {NotifStack} from './ui';
@@ -98,7 +98,8 @@ export type Item = {[K in keyof ItemProps]: ItemBase & {t: K} & ItemProps[K]}[ke
 export type ChapterSpec = {
   id: string;
   world?: {w: number; h: number};
-  bg?: {stops: BgStop[]; decor?: 'paper' | 'dots' | 'none'; ground?: number};
+  /** images = illustrated paper-diorama backdrop pieces (rule: every scene has one); stops = colour under/around them */
+  bg?: {stops: BgStop[]; images?: BgImage[]; wash?: number; blur?: number; decor?: 'paper' | 'dots' | 'none'; ground?: number};
   cam: Cam[];
   shakes?: [At, number?, number?][];
   items: Item[];
@@ -244,7 +245,7 @@ export const SpecChapter: React.FC<{spec: ChapterSpec; chapter: Chapter; fps: nu
   const bg = spec.bg ?? {stops: [{x: 0, c: 'sky'}]};
   return (
     <AbsoluteFill>
-      <World keys={keys} shakes={shakes} w={spec.world?.w} h={spec.world?.h} bg={<WorldBg stops={bg.stops} decor={bg.decor} ground={bg.ground} seed={spec.id} />}>
+      <World keys={keys} shakes={shakes} w={spec.world?.w} h={spec.world?.h} bg={<WorldBg stops={bg.stops} images={bg.images} wash={bg.wash} blur={bg.blur} decor={bg.decor} ground={bg.ground} seed={spec.id} />}>
         {world.map((it, i) => <ItemView key={i} it={it} A={A} base={0} end={end} />)}
       </World>
       <PaperTexture />
