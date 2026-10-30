@@ -1,0 +1,210 @@
+# Penny Logics: KETENTUAN PEMBUATAN VIDEO (dokumen induk)
+
+Dokumen ini adalah SATU-SATUNYA tempat aturan produksi. Berlaku untuk SETIAP video (Video 01, 02, 03, dst.).
+- Setiap ketentuan, catatan gaya, atau keputusan baru DITAMBAHKAN ke dokumen ini, tidak dibuat sebagai .md baru.
+- Dokumen yang khusus milik satu video (naskah, publish pack, brief Antigravity, daftar aset) tetap terpisah per video.
+- Kalau ada aturan yang bertentangan, yang berlaku adalah yang paling baru (tanggal di bagian 0).
+- Salinan di repo: `docs/PENNY_LOGICS_RULES.md` (isinya sama; perbarui keduanya bersamaan).
+
+Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video01_v2_revisions, video02_style_fusion, video02_style_guide, character_palette, leo_expression_map, reference_karhutla_paper_cutout_analysis.
+
+## 0. Riwayat keputusan
+- 25 Okt: palet karakter dari leo.png/mira.png; Gemini untuk semua gambar.
+- 29 Okt: latar WAJIB cerah, teks kontras tinggi; tempo lambat 0.62; komponen reusable; watermark logo kiri bawah di semua video; aturan anti-tabrakan; registry komponen.
+- 30 Okt: Video 01 dibangun ulang memakai kit V2; SFX minimal; musik free-to-use dengan kredit; subtitle .srt terpisah.
+- 31 Okt: (a) sting "Penny Logics" setelah Hook; (b) TIDAK ADA kartu judul per bagian, video mengalir terus dari Hook sampai Outro; (c) satu kamera tanpa cut + objek terbawa antar-scene (ide onetake, ditulis sendiri); (d) komponen HyperFrames yang belum kita punya dibuat versi Remotion; (e) kebijakan latar "polos hidup" (bagian 2); (f) semua ketentuan digabung di dokumen ini.
+
+## 1. Aturan wajib (setiap video)
+1. **Latar cerah.** Dilarang palet gelap (space, night, indigo, hitam berbintang) dan ilustrasi malam. Palet yang dipakai: sunrise, mint, teal, rose, lilac, sky, peri. Ilustrasi lokasi harus versi siang dan tanpa karakter.
+2. **Teks kontras tinggi.** Ink gelap (#191411) di atas pastel, atau teks di chip/pill berlatar solid. Cek di still sebelum render.
+3. **Struktur:** Hook → sting "Penny Logics" (CircleBurstWipe #E8A520 + StrokeLogo, sekitar 1.5 dtk, whoosh) → isi → Outro. Isi mengalir terus TANPA kartu judul per bagian (tanpa "TRICK n"/"PART n" dan tanpa klip suara judul). Chapter YouTube cukup lewat timestamp di deskripsi.
+4. **Satu kamera, tanpa cut** (bagian 3). Setiap pergantian beat membawa minimal 1 elemen dari scene sebelumnya.
+5. **Tempo:** PopSpeed 0.62 untuk semua video. Elemen baru muncul tiap 2–4 dtk; satu pusat perhatian per beat; maksimal 3 elemen info baru per beat.
+6. **Watermark:** logo Penny Logics (`public/profile_pic.png`) berupa lingkaran 72 px di kiri bawah, margin 28 px, sepanjang video. Zona x 28–100, y 980–1052 selalu kosong; Src dimulai di x ≥ 124.
+7. **Anti-tabrakan** (bagian 6) dicek dengan still di setiap beat sebelum render.
+8. **Audio:** narasi per bagian (WAV); SFX hanya pop, whoosh, kaching, card_tap; musik latar free-to-use (contoh freetouse.com) di volume 0.07, mengecil saat sting, fade-out 3 dtk di akhir; kredit musik ditulis persis di deskripsi.
+9. **Subtitle:** file .srt terpisah (tidak dibakar ke video), dibuat dari captions.json + timing.json.
+10. **Angka/riset:** setiap angka di layar disertai `Src` (sumber). Angka dihitung dengan kode (CountUp/CountMoney), bukan ditulis tangan.
+11. **Karakter & aset:** Leo (dan Mira, arketipe) original. Dilarang memakai karakter, logo, maskot, atau UI merek lain (ChatGPT, Apple, Spotify, iPhone, X, TikTok, dst.); pakai versi generik. Gambar dibuat dengan Gemini mengikuti palet di bagian 8.
+12. **Teknis:** Remotion 4, 1920x1080, 24 fps. Antigravity yang merender di Mac (`/Users/faiz/Faiz Things/Project/YT`); Claude tidak merender video penuh, hanya still untuk QA. Audio, SFX, dan musik tidak masuk git; disalin ke `public/<video>/audio`, `public/sfx`, `public/music`.
+13. **Kerapian:** tidak ada file duplikat. Setiap video mencatat komponen yang dipakainya di bagian 7. Commit dan push atas nama faizrizky.
+14. **Disclaimer** "Education only, not financial advice" tampil di bagian penutup/saran.
+
+## 2. Kebijakan latar: "polos hidup"
+Bukan polos rata, bukan ilustrasi ramai.
+- **Default (beat penjelasan, sekitar 80% video):** gradasi pastel lembut dari palet + PaperTexture + 1 lapisan dekor tipis (bentuk kertas besar, garis tanah/horizon, titik/kotak halus) dengan kontras rendah (opasitas 10–20%, warna satu keluarga dengan latar). Fungsinya: (a) teks dan objek tetap paling menonjol; (b) gerak kamera terlihat. Dalam sistem satu kamera, latar polos total membuat pan/zoom tidak terasa, jadi lapisan dekor ini wajib ada dan ikut bergerak (parallax).
+- **Beat cerita/lokasi (kafe, jalan, kamar, sekitar 20%):** ilustrasi latar boleh dipakai, tetapi wajib di-wash terang (Bg wash 0.2–0.35), sedikit blur, tanpa karakter dan tanpa tulisan, dan area teks harus bersih.
+- **Larangan:** tulisan di latar, pola kontras tinggi di belakang teks, lebih dari 1 warna jenuh di latar, latar gelap.
+- **Kontinuitas:** satu bab memakai satu "dunia" dengan latar yang menyambung. Pergantian warna terjadi lewat gradasi saat kamera berpindah, bukan potongan.
+- Yang perlu dibuat: komponen `WorldBg` (gradasi panjang + lapisan dekor parallax + garis tanah) sebagai pasangan `World`/`CameraPath`.
+
+## 3. Satu kamera tanpa cut + objek terbawa (ide onetake, implementasi sendiri)
+onetake berlisensi PolyForm Noncommercial: kode dan hasilnya TIDAK dipakai. Kita hanya mengambil prinsipnya.
+1. Satu "dunia" (kanvas besar) per bab. Setiap scene adalah stasiun di koordinat x,y; kamera bergerak terus antar-stasiun (pan, zoom, push-in, pull-back) dengan easing halus dan shake kecil.
+2. Gerak kamera ditentukan beat di timing.json.
+3. Setiap batas beat membawa minimal 1 elemen. Contohnya: kartu yang di-tap menjadi kartu di diagram, koin terbang ke stasiun berikutnya, angka berubah menjadi bar, atau layar ponsel ditembus kamera.
+4. Cek otomatis `scripts/carry-check.mjs`: setiap stasiun mendaftarkan id elemen yang dibawa, dan script gagal kalau ada batas beat tanpa elemen bersama.
+5. Komponen yang dibutuhkan (P1): World + Station, WorldBg, CameraPath, Carry (shared element), MatchCut/TextMatchCut, PathTraveler, MotionBlur/EchoTrail, PhoneDive, ParallaxZoom, FocusRack, FocusZoom, CameraShake.
+
+## 4. Alur produksi per video
+1. Naskah + narasi (WAV per bagian) → `src/videoNN/timing.json` (pre, audioDur, post, beats dari jangkar kata) + `captions.json`.
+2. Bab ditulis di `src/videoNN/chapters/*`; komponen dari `src/kit/`, `src/style/`, `src/video02/` (kit V2).
+3. QA: `node scripts/vNN-check.mjs` (timing, durasi WAV, file hilang), `node scripts/vNN-stills.mjs <komposisi> <detik...>` (cek tabrakan), carry-check.
+4. `node scripts/vNN-srt.mjs` → .srt; chapter YouTube dari output check.
+5. Commit + push, salin audio/SFX/musik ke Mac, lalu Antigravity: `npm install` (bila perlu), check, `npx remotion render src/index.ts VNN-Full out/VideoNN.mp4`, srt.
+6. Perbarui bagian 7 (pemakaian komponen) dan publish pack video tersebut.
+
+## 5. Pelajaran gaya dari referensi (yang masih berlaku)
+- **Antidote:** penjelasan lewat diagram dan elemen yang muncul bertahap di latar yang sama (hampir tanpa cut); judul tulisan tangan + garis bawah yang menggambar sendiri; kartu ilustrasi bertepi putih + label tebal; checklist; alur bernomor dengan panah; grafik garis digambar bertahap. (Latar hitam/berbintang mereka TIDAK dipakai.)
+- **Kok Bisa?:** kamera selalu bergerak (drift/zoom/parallax); balon bicara krem tebal (#F7EFE2) dengan teks pendek; sticker lower-third dua warna (label kecil + kata kunci besar + sub); IsoBlock untuk skala uang; deretan siluet 1-ditandai; flash/whip untuk kejut. Angka besar di atas, konversi kecil di bawah.
+- **Reel paper-cutout (Karhutla):** semua lapisan bertekstur kertas dengan drop-shadow tipis + parallax; maskot penanya di pojok; chip warna konsisten (kuning = waktu/angka, merah = peringatan, krem = label); kinetic type kata-per-kata yang lalu menyatu; timeline penggaris dengan panah menyapu; lensa zoom lingkaran; cutaway pan vertikal; before/after crossfade + shake; partikel kecil.
+- **Gerak mikro:** pop-in dengan overshoot ringan 6–8 frame lalu idle (bob/napas); garis digambar 14–36 frame; transisi whip sekitar 9 frame, ink 30, wipe 22, zoom 24 (@24 fps). Nilai ini estimasi, bukan ukuran presisi.
+- **Palet per scene:** 1 warna dominan + 1 aksen kontras + ink; jangan lebih dari 4 warna jenuh sekaligus.
+- **Leo:** maksimal sekitar 25% durasi; muncul di pembuka dan penutup; di bagian lain cukup objek, ikon, dan bubble.
+
+## 6. Aturan anti-tabrakan (WAJIB sebelum render)
+1. Zona layar 1920x1080: judul/banner y 60–210; konten utama y 230–930; area aman x 130–1790. Karakter berdiri di lantai boleh sampai y 1050.
+2. Hitung ukuran akhir (skala maksimum + titik tumpu), bukan ukuran awal.
+3. Jarak minimal 40 px antar elemen berbeda; teks tidak boleh menimpa ilustrasi.
+4. "Kotak wajah" karakter (sepertiga atas) tidak boleh tertutup chip/tempelan.
+5. Urutan lapisan (bawah ke atas): latar → objek besar → karakter → panah/garis → StatCard/Chip/StickyNote → Punch/WordPop → Src. HighlightSwipe tepat di bawah teks yang disorot.
+6. Elemen dekoratif (Embers, MascotCorner) tidak menyentuh area teks; MascotCorner hanya di pojok bawah (x < 300 atau x > 1500, y > 700) dan di luar zona logo.
+7. Outro: area x 1100–1790, y 230–930 dikosongkan untuk end screen YouTube.
+8. Cek dengan still di setiap beat (zoom). Rencana: bounding-box checker otomatis per Shot/Station.
+
+## 7. Kit komponen dan pemakaian per video
+| Kit | Lokasi | Dipakai oleh |
+|---|---|---|
+| **Penny kit** (Video 01 versi lama, diganti rebuild V2 per 2026-10-30) | `src/Penny/kit.tsx`, `constants.ts`, `layoutMetadata.ts`, `checkOverlaps.ts` (repo Remotion lama, backup di `_old_remotion_backup`; Trick 2-4 ada di PC) | Hook, Trick 1 (dan Trick 2-4 di PC) |
+| **Style kit + V2 kit** (Video 02+) | `src/style/style_kit.tsx`, `src/video02/{v2kit,paper,fx,title}.tsx` | Video 02, dan seterusnya |
+| **Kit umum (baru)** | `src/kit/` (komponen dari backlog bagian 9: kamera, carry, transisi kertas, anotasi, chart) | semua video berikutnya |
+
+Video 03 dst: pakai Style kit + V2 kit (salin pola `src/video02/`: `timing.json`, `ChapterShell`, `chapters/*`).
+
+
+### Pemakaian per video
+#### Video 01 (Penny kit, versi lama)
+| Scene | Komponen yang dipakai |
+|---|---|
+| Hook C01 Cafe | BgImage, CamScene, Layer, Leo, Pic x2, Pop x2, Pill, TagWithTail, Check, Coin, Shadow x2 |
+| Hook C02 ThreePanels | CamScene, Banner, TriPanel, HandCoin, Coin, Pic, Pop x4, Pill, Shadow |
+| Hook C03 ProfitEitherWay | BgStageIndigo, CamScene, Layer, Leo, Banner, Pic x2, Pop x5, Pill x3, Check, Cross, Shadow x2 |
+| Hook / Trick1 (induk) | Caption, Logo |
+| Trick1 C04 TitleCard | BgStageCream, CamScene, Layer, Pic |
+| Trick1 C05 FollowMoney | BgImage, CamScene, Layer, Pic x3, Pop x6, Pill x3, Tag x3, TagWithTail x3, Coin x2, FlowArrow x2, Check, Cross, Shadow x3 |
+| Trick1 C06 Numbers | BgStageIndigo, CamScene, Layer, Banner, CountNum x2, Pic x7, Pop x15, Pill x7, TagWithTail x2, Shadow x5 |
+| Trick1 C07 WhoPays | BgImage, CamScene, Layer, Leo, MenuBoard, Pic, Pop x5, Pill, Tag, TagWithTail x4, Coin, Shadow x2 |
+Gaya Video 01: panggung/kafe, Leo besar (800 px), Pop = pop-in cepat, captions bawah. Trick 2-4: isi dari PC (belum tercatat di sini).
+
+#### Video 01 (V2 rebuild, 2026-10-30: Style kit + V2 kit)
+Kode: `src/video01/` (timing.json, captions.json, v1kit.tsx, Video01.tsx, chapters/{Hook,T1,T2,T3,T4,Customers,Meaning,Outro}). Komposisi: `V1-Full` dan `V1-00-Hook` ... `V1-07-Outro`. Tempo 0.62 (PopSpeed), Watermark otomatis, musik "Aventure - Monday Routine" (freetouse.com, volume 0.07, ducking di kartu judul, fade-out 3 dtk), SFX hanya pop/whoosh/kaching/card_tap. Kartu judul "TRICK n" (versi 30 Okt; akan dihapus sesuai aturan 1.3).
+Komponen baru khusus Video 01 (`src/video01/v1kit.tsx`, bisa dipakai ulang): ChapterShell1, LeoFull (badan + ganti kepala), Fly, Ripple, Shadow, Tag, Win, Bar, CountMoney.
+| Komponen | Dipakai di (chapter) |
+|---|---|
+| Prop | Customers, Hook, Meaning, Outro, T1, T2, T3, T4 |
+| Shadow | Customers, Hook, Outro, T1, T2 |
+| Tag | Customers, Hook, T1, T2 |
+| Chip | Customers, Hook, Meaning, Outro, T1, T2, T3, T4 |
+| Pill | Customers, Hook, Outro, T4 |
+| Punch | Customers, Hook, Outro, T1, T2, T4 |
+| Person | Customers |
+| SlideIn | Hook |
+| Bg | Hook, Outro, T1, T2 |
+| LeoFull | Hook, Outro, T1, T2 |
+| Fly | Hook, Outro, T1 |
+| Ripple | Hook, Outro, T1 |
+| Win | Hook |
+| PaperCard | Hook, T4 |
+| Bubble | Hook, Meaning, T1, T3 |
+| LeoBadge | Meaning, T1, T3 |
+| MascotCorner | Meaning |
+| Disclaimer | Meaning, Outro |
+| PayCircle | Outro |
+| StatCard | T1, T2, T3, T4 |
+| Src | T1, T2, T3, T4 |
+| PriceTag | T1 |
+| PercentGrid | T1, T4 |
+| CoinFly | T1, T2, T3, T4 |
+| DashArrow | T1, T2, T3, T4 |
+| Bar | T2 |
+| CountMoney | T2 |
+| Embers | T2 |
+| Sticker | T2, T3, T4 |
+| HighlightSwipe | T4 |
+Shot, Scene, PopIn, Sfx: semua chapter. TitleCard, PaperTexture, ExitOut, Watermark, PopSpeed: otomatis dari ChapterShell1/Shot.
+Cek: `node scripts/v1-check.mjs`, `node scripts/v1-stills.mjs <comp> <detik...>`, `node scripts/v1-srt.mjs` (subtitle .srt, tidak dibakar ke video).
+Audio, musik, SFX tidak ada di git (`.gitignore`); salin ke `public/v1/audio`, `public/music`, `public/sfx`.
+
+#### Video 02 (Style kit + V2 kit)
+| Komponen | Dipakai di |
+|---|---|
+| Shot, Scene, PopIn, Sfx | semua bab |
+| Bg (latar ilustrasi siang) | Cold, Ch1, Ch2, Ch5 |
+| Char (karakter Leo/Mira-style) | Cold, Ch1, Ch2, Ch4 |
+| LeoBadge | Cold, Ch6, Outro |
+| MascotCorner | Cold, Ch1-Ch5 |
+| Chip (time/warn/label) | Cold, Ch2-Ch5 |
+| Pill, KeyTag, StickyNote | Pill: semua; KeyTag: Cold, Ch1-3, Ch5, Outro; StickyNote: Cold, Ch1, Ch3 |
+| Punch (judul tangan) | Cold, Ch2, Ch3, Ch4, Ch6, Outro |
+| WordPop | Ch6 |
+| StatCard, Src | Ch1-Ch5 |
+| PayCircle, PriceTag, PercentGrid | Ch1, Ch3, Ch4 (PercentGrid: Ch1, Ch3) |
+| RulerTimeline | Ch1 |
+| BeforeAfter | Ch1 |
+| CoinFly, DashArrow | Cold, Ch1, Ch2, Ch5 |
+| CoinWipe (transisi uang) | Ch2 |
+| CircleBurstWipe, StrokeLogo (sting merek) | Cold |
+| LensZoom | Ch5 |
+| BranchFork | Ch5 |
+| CutawayPan | Ch3 |
+| HighlightSwipe | Ch2, Ch3 |
+| Embers | Cold, Ch1, Ch3, Ch4, Ch5 |
+| Gauge, DrawCurve, IsoBlock, NameTag, Person, Phone, CheckoutScreen | Ch5, Ch3, Ch4, Ch4, Ch4, Cold/Ch4/Ch5, Cold |
+| Sunburst, Bubble, Sticker | Ch2, Cold/Ch2, Cold |
+| TitleCard (kartu judul bab) | ChapterShell (otomatis tiap bab) |
+| PaperTexture, ExitOut | Shot (otomatis di semua scene) |
+| PopSpeed (tempo 0.62) | ChapterShell (otomatis) |
+Belum terpakai: Quadrant, Scale, OrbitCards, CrowdRow, Letterbox, LayerCake, PullBackReveal, MedalGrid, PipMeter, ParallaxLayer, PaperCard.
+
+### Katalog singkat: mau efek apa, pakai apa
+| Mau... | Pakai | Catatan |
+|---|---|---|
+| Objek muncul | `PopIn at=` | spring lembut (tempo global) |
+| Judul besar tulisan tangan | `Punch` (INK default) | taruh di y 60-230, jangan di area objek |
+| Teks muncul kata per kata | `WordPop` | gap 5-6 frame; kata terakhir highlight |
+| Judul bab | `TitleCard` (otomatis di ChapterShell) | font Fredoka, bar menyapu kanan ke kiri |
+| Label berwarna | `Chip kind=time/warn/label` | kuning=waktu/angka, merah=peringatan, krem=label |
+| Jadwal/timeline | `RulerTimeline` | tiang dan label sejajar objek di atasnya |
+| Ganti nilai (sebelum/sesudah) | `BeforeAfter swapAt=` | crossfade + shake |
+| Zoom ke detail | `LensZoom` | lingkaran; jangan menutup objek lain |
+| Cabang skenario | `BranchFork` | + dua kartu hasil |
+| Kamera mengikuti tumpukan | `CutawayPan dy=` | bungkus objek yang tumbuh |
+| Sorot frasa | `HighlightSwipe` | taruh di BELAKANG teks (z-order lebih rendah) |
+| Transisi uang | `CoinWipe` | di awal scene baru |
+| Suasana hidup | `Embers`, `MascotCorner` | jangan menutupi teks/objek utama |
+| Karakter cerita | `Char` + `Bg` | Bg siang cerah saja |
+| Hasil riset/angka | `StatCard`, `PercentGrid`, `Gauge`, `Src` | `Src` wajib kalau ada angka |
+
+## 8. Karakter & palet (Gemini wajib menyebut hex ini; setelah generate, warna diratakan ke nilai ini)
+**Leo:** kulit #F7A770, rambut #4A2E1A, hoodie mustard #E8A520 (lipatan #BA8116), kaos #F2EDE9, jeans navy #293253 (bayangan #202536), sepatu #F2EDE9 (bayangan #D3D0CC), garis #191411, cup kopi #D3D0CC/#595756 dengan sleeve hijau gelap.
+**Mira:** kulit #F4A36B, rambut #241F25, cardigan #EF4762 (bayangan #B83348), kaos #F3EBE1, celana #252A49, sepatu #F3EBE1 dengan aksen #6BB0E4, jepit #6BB0E4, kacamata #241F25, garis #0F0E14. Pose: mira_explain, mira_neutral, mira_coins.
+**Banker (arketipe):** jas #292E46, kulit #EEC19E, topi #1C181A, kemeja #F7F4F1, dasi #E17C62, kotak hadiah #E0A81F. Pose: banker_smug, banker_nervous.
+**Marketer (arketipe):** jaket #EA6E5C, celana #E4AF07, kaos #F4F0ED, kulit #E0A575, rambut #2A1618, megafon #80B7E0 (#6399C6). Pose: marketer_shout, marketer_grin.
+**Umum:** ink #191411 (kit) / #14141E (gambar); palet brand: gold, mustard, navy, teal, coral pink, cream.
+
+**Ekspresi Leo** (kepala: happy, proud, suspicious, thinking, shocked, tired, calm; kanvas 790x1539 sama dengan leo_body, pivot leher sekitar 395,385):
+- Ekspresi berganti saat narasi pindah poin, bukan tiap kalimat. Pergantian = tukar kepala dengan pop kecil (0.93/0.96 → 1.0, sekitar 0.15 dtk). Warna tidak berubah antar ekspresi.
+- Pemetaan umum: pembuka santai = calm/happy; "merasa pintar" = proud; fakta mengejutkan/angka besar = shocked; curiga pada sistem = suspicious; menjelaskan aliran uang = thinking; beban utang = tired; penutup = proud → happy.
+
+## 9. Backlog komponen dari HyperFrames (ditulis ulang di Remotion)
+HyperFrames (heygen-com/hyperframes) berlisensi Apache 2.0. Idenya ditulis ulang sebagai React/Remotion di `src/kit/` (interpolate/spring, bukan GSAP); kalau ada kode yang disalin, cantumkan header kredit + NOTICE Apache 2.0. Katalog yang dicek: 456 item per 31 Okt 2026. Setiap komponen yang jadi dipindahkan ke bagian 7.
+- **P1:** World+Station, WorldBg, CameraPath, Carry, MatchCut/TextMatchCut, PathTraveler, MotionBlur/EchoTrail, PhoneDive, ParallaxZoom, FocusRack, FocusZoom, CameraShake, TornPaperRip, StopMotion+Boil, HangingSign (pendulum), HandAnnotate (Circle/Underline/Strike/Arrow/Box), StrikeReplace, NumberWheel, LineChart, BarChart (multi), NotifStack.
+- **P2:** PaperCollageReveal, ScribbleWipe, IrisReveal, PushSlide, VelocityCut, FreezeFrame, ScrollStory, PhysicalExit, ExtendedEase, CharacterWalk (butuh Leo per sendi), HeadlineSlam, KineticSwap, Typewriter, HandWrite, GlossSweep, BarRace, ProgressRing/ProgressStat, SplitFlap, Flowchart, HubSpoke, Checklist, StaggerGrid, SplitCompare, Overwhelm, SuccessCheck, CardShuffle, Confetti, EndCard.
+- **P3:** CurtainReveal, HalftoneDissolve, GridPixelWipe, ShutterWipe, DollyZoom, DepthStack, DriftHold, KineticBuild, WordRise, HandBubble, BgWord, TickerLock, USMap/WorldMap, StepRail, StarRating, ExplodedStack, ChatThread+TypingDots, BottomSheet, Toggle, SplitCards, CardRail, BeatAccent, MeshGradientBg (terang), GridBg/HalftoneBg, LogoSlam, ChannelIntro, CommentCard.
+- **Asal ide (HF):** torn-paper-rip, paper-collage-reveal, hw-* (scribble, arrow, underline, callout-circle, box-label, boil, write-title, text-cloud), vox-annotate, strikethrough-replace, number-wheel/slot-machine-roll, data-chart/mk-line-graph/chart-story/decline-chart, animated-bar-chart, bar-chart-race, conic-progress-ring/mk-usage-arc/mk-progress-stat, split-flap-board, flowchart/decision-tree, radial-surround/constellation-hub, marker-checklist-card, grid-card-assemble/stagger-*, comparison-split, notification-stack/pileup, overwhelm-surround, spring-stack-shuffle, match-cut/text-match-cut/type-match-cut, cut-the-curve, modal-morph/morph-swap, offset-path-traveler/arc-motion-path, motion-blur/echo-trail, parallax-device-dive, parallax-zoom, focus-rack, ui-focus-zoom, camera-shake, pan-stations, caption-camera-follow, pendulum-swing, stop-motion-cadence, physical-exit, freeze-frame-dressing, confetti, cta-lockup, logo-sting, yt-logo-intro, yt-comment-card.
+- **TIDAK diambil:** tiruan merek (chatgpt/claude-exchange, apple-money-count, spotify, instagram/tiktok/x/reddit, slack, macos/ios26, vfx-iphone, heygen/blue-sweater, vpn-youtube-spot, store-badge, nyc-paris-flight); shader WebGPU berlatar hitam dan transisi glitch; komponen kode/kursor/UI SaaS; lower third untuk footage; caption gaya TikTok; karusel 3D/Three.js/vfx/partikel berat; peta spesifik negara lain. Alasan: bertentangan dengan latar cerah, tidak relevan untuk channel finance, atau berisiko merek.
+
+## 10. Status per video
+**Video 01** (How Credit Card Companies Make Money Off You): kode `src/video01/` (rebuild V2, commit 3899ae4, render V1-Full oleh Antigravity 30 Okt).
+- Revisi tercatat 31 Okt (belum dikerjakan): sting Penny Logics setelah Hook (post hook 0.4 → 1.6); hapus kartu judul (pre = 0, titleAudio kosong, TitleCard dimatikan di ChapterShell1, ducking musik disesuaikan); susun ulang dengan World/CameraPath/Carry; durasi sekitar 4:54, chapter dan .srt dihitung ulang.
+**Video 02** (BNPL): kode `src/video02/`. Masih kurang 8 WAV narasi (v2_00_cold ... v2_07_outro), musik, thumbnail, dan NEXT_TOPIC di Outro. Kartu judul bab Video 02 juga harus dihapus mengikuti aturan 1.3.
