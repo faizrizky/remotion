@@ -336,3 +336,5 @@ Catatan: periksa setiap hasil. Jika ada tulisan/logo/orang, minta Gemini menghap
 
 **Video 02** (BNPL): kode `src/video02/`. Masih kurang 8 WAV narasi (v2_00_cold ... v2_07_outro), musik, dan thumbnail. Outro TANPA topik berikutnya (aturan 1.15), jadi NEXT_TOPIC tidak diperlukan.
 - Catatan 31 Okt: animasi Video 02 sudah disukai, JANGAN diubah isinya. Yang dikerjakan nanti hanya: (1) hapus kartu judul bab ("Part 1, 2, ..."), (2) ganti perpindahan antar-scene dengan metode terbaru kit (transisi whip/iris/slide dari `transitions.tsx` + satu objek yang dibawa antar-scene, sting Penny Logics setelah cold open). Tidak perlu dipindah ke specs kalau itu mengubah animasinya; cukup bungkus scene lama dengan transisi baru.
+
+**Video 03** (calon topik, belum final): "the subscription trap: why canceling is so hard", lanjutan tema tagihan kecil yang berulang dari Video 02. Topik final diputuskan setelah Video 02 selesai. Sambungan antar video lewat playlist "How Money Really Works", end screen, dan pinned comment, BUKAN lewat narasi ending (aturan 1.15). Wajib variasikan arah kamera (bagian 3, poin 5).
