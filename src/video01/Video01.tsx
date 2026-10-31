@@ -9,7 +9,7 @@ export const Video01 = makeVideo({
   prefix: 'V1',
   timing,
   chapters: SPECS.map((spec, i) => ({spec, name: NAMES[i]})),
-  music: {file: 'music/monday_routine.mp3', vol: 0.07, duck: 0.015},
+  music: {file: 'music/monday_routine.mp3', vol: 0.08}, intro: {file: 'music/funky_intro_sting.mp3', vol: 0.7},
 });
 
 export const Video01Compositions: React.FC = () => <Video01.Compositions />;

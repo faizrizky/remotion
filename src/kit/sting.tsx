@@ -63,7 +63,7 @@ const guidesFor = (g: Glyph, seed: string) => {
  * The sting. `dur` = frames it covers. With `reveal`, the last 10 frames dive into the "o" and
  * whatever is rendered underneath (the next chapter) shows through the hole.
  */
-export const PennySting: React.FC<{dur: number; reveal?: boolean; color?: string; lines?: string[]}> = ({dur, reveal = false, color = STING_COLOR, lines = ['penny-', 'logics']}) => {
+export const PennySting: React.FC<{dur: number; reveal?: boolean; color?: string; lines?: string[]; quiet?: boolean}> = ({dur, reveal = false, color = STING_COLOR, lines = ['penny-', 'logics'], quiet = false}) => {
   const f = useCurrentFrame();
   const size = 250;
   const {glyphs, k} = layout(lines, size, 292, 960, 540);
@@ -137,9 +137,10 @@ export const PennySting: React.FC<{dur: number; reveal?: boolean; color?: string
         </g>
       </svg>
       <Sequence durationInFrames={13}><CircleBurstWipe color={color} dur={12} seed="pl-sting" n={8} /></Sequence>
-      <Sfx name="whoosh" at={0} />
-      <Sfx name="pop" at={T.solid + n} />
-      {reveal && <Sfx name="whoosh" at={T.dive - 2} />}
+      {/* with the opening music (makeVideo intro) the sting stays silent so the two don't clash */}
+      {!quiet && <Sfx name="whoosh" at={0} />}
+      {!quiet && <Sfx name="pop" at={T.solid + n} />}
+      {!quiet && reveal && <Sfx name="whoosh" at={T.dive - 2} />}
     </AbsoluteFill>
   );
 };

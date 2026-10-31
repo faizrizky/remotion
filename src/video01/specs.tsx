@@ -252,7 +252,7 @@ const t4: ChapterSpec = {
     // the statement is carried to the next station
     {t: 'prop', id: 'stmt', at: 'look', out: 'cfpb', x: 560, y: 250, src: 'v1/statement_min.png', h: 640, move: [['minimum-20', 560, 250, 1], ['minimum+6', L(1) + 140, 330, 0.66]], trail: 2},
     {t: 'chip', at: 'look', x: 120, y: 420, text: 'Look at your statement', kind: 'label', size: 48},
-    {t: 'chip', at: 'biggest', x: 1250, y: 420, text: 'the biggest, friendliest number', kind: 'warn', size: 42, rot: 2},
+    {t: 'chip', at: 'biggest', x: 1100, y: 420, text: 'the biggest, friendliest number', kind: 'warn', size: 38, rot: 2},
     // k1: the minimum keeps the balance alive
     {t: 'mark', at: 'minimum+8', out: 'cfpb', x: L(1) + 150, y: 560, kind: 'circle', w: 310, h: 130},
     {t: 'prop', at: 'manage', out: 'cfpb', x: L(1) + 700, y: 400, src: 'v1/treadmill.png', h: 340},
