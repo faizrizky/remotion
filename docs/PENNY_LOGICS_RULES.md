@@ -9,6 +9,7 @@ Dokumen ini adalah SATU-SATUNYA tempat aturan produksi. Berlaku untuk SETIAP vid
 Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video01_v2_revisions, video02_style_fusion, video02_style_guide, character_palette, leo_expression_map, reference_karhutla_paper_cutout_analysis.
 
 ## 0. Riwayat keputusan
+- 31 Okt (5): ATURAN OUTRO: di akhir setiap video JANGAN menyebut topik video berikutnya. Cukup ajak subscribe dan tutup dengan "see you next time" (aturan 1.15).
 - 25 Okt: palet karakter dari leo.png/mira.png; Gemini untuk semua gambar.
 - 29 Okt: latar WAJIB cerah, teks kontras tinggi; tempo lambat 0.62; komponen reusable; watermark logo kiri bawah di semua video; aturan anti-tabrakan; registry komponen.
 - 30 Okt: Video 01 dibangun ulang memakai kit V2; SFX minimal; musik free-to-use dengan kredit; subtitle .srt terpisah.
@@ -32,6 +33,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 12. **Teknis:** Remotion 4, 1920x1080, 24 fps. Antigravity yang merender di Mac (`/Users/faiz/Faiz Things/Project/YT`); Claude tidak merender video penuh, hanya still untuk QA. Audio, SFX, dan musik tidak masuk git; disalin ke `public/<video>/audio`, `public/sfx`, `public/music`.
 13. **Kerapian:** tidak ada file duplikat. Setiap video mencatat komponen yang dipakainya di bagian 7. Commit dan push atas nama faizrizky.
 14. **Disclaimer** "Education only, not financial advice" tampil di bagian penutup/saran.
+15. **Outro tanpa teaser topik berikutnya (catatan 31 Okt).** Penutup setiap video hanya: ajakan subscribe + "see you next time" (contoh: "Subscribe so you don't miss the next one. This is Penny Logics. See you next time."). Jangan menyebut judul/topik video selanjutnya, baik di narasi maupun di layar. Konsekuensi: tidak ada placeholder NEXT_TOPIC di naskah; chapter terakhir di deskripsi diberi nama "Outro" (bukan "Next: ..."); end screen tidak perlu teaser, cukup Subscribe + video terkait setelah tayang.
 
 ## 2. Kebijakan latar: SETIAP scene punya gambar latar (direvisi 31 Okt)
 Mengikuti referensi: Kok Bisa? dan reel kertas hampir selalu memakai latar adegan ilustrasi. Latar polos ala Antidote (hitam) tidak dipakai.
@@ -329,5 +331,5 @@ Cara pakai di kit: `bg: {stops: [...], images: [{src: 'v1/bg/t1_a.jpg', x: 0, w:
 
 Catatan: periksa setiap hasil. Jika ada tulisan/logo/orang, minta Gemini menghapusnya atau generate ulang. Ratakan warna mendekati palet. Ukuran akhir 2520x1080 JPG kualitas ~85.
 
-**Video 02** (BNPL): kode `src/video02/`. Masih kurang 8 WAV narasi (v2_00_cold ... v2_07_outro), musik, thumbnail, dan NEXT_TOPIC di Outro.
+**Video 02** (BNPL): kode `src/video02/`. Masih kurang 8 WAV narasi (v2_00_cold ... v2_07_outro), musik, dan thumbnail. Outro TANPA topik berikutnya (aturan 1.15), jadi NEXT_TOPIC tidak diperlukan.
 - Catatan 31 Okt: animasi Video 02 sudah disukai, JANGAN diubah isinya. Yang dikerjakan nanti hanya: (1) hapus kartu judul bab ("Part 1, 2, ..."), (2) ganti perpindahan antar-scene dengan metode terbaru kit (transisi whip/iris/slide dari `transitions.tsx` + satu objek yang dibawa antar-scene, sting Penny Logics setelah cold open). Tidak perlu dipindah ke specs kalau itu mengubah animasinya; cukup bungkus scene lama dengan transisi baru.
