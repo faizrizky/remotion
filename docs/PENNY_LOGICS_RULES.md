@@ -20,7 +20,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 ## 1. Aturan wajib (setiap video)
 1. **Latar cerah.** Dilarang palet gelap (space, night, indigo, hitam berbintang) dan ilustrasi malam. Palet yang dipakai: sunrise, mint, teal, rose, lilac, sky, peri. Ilustrasi lokasi harus versi siang dan tanpa karakter.
 2. **Teks kontras tinggi.** Ink gelap (#191411) di atas pastel, atau teks di chip/pill berlatar solid. Cek di still sebelum render.
-3. **Struktur:** Hook → sting "Penny Logics" (CircleBurstWipe #E8A520 + StrokeLogo, sekitar 1.5 dtk, whoosh) → isi → Outro. Isi mengalir terus TANPA kartu judul per bagian (tanpa "TRICK n"/"PART n" dan tanpa klip suara judul). Chapter YouTube cukup lewat timestamp di deskripsi.
+3. **Struktur:** Hook → sting "Penny Logics" (PennySting gaya Kok Bisa, sekitar 4.8 dtk, lihat 7a) → isi → Outro. Isi mengalir terus TANPA kartu judul per bagian (tanpa "TRICK n"/"PART n" dan tanpa klip suara judul). Chapter YouTube cukup lewat timestamp di deskripsi.
 4. **Satu kamera, tanpa cut** (bagian 3). Setiap pergantian beat membawa minimal 1 elemen dari scene sebelumnya.
 5. **Tempo:** PopSpeed 0.62 untuk semua video. Elemen baru muncul tiap 2–4 dtk; satu pusat perhatian per beat; maksimal 3 elemen info baru per beat.
 6. **Watermark:** logo Penny Logics (`public/profile_pic.png`) berupa lingkaran 72 px di kiri bawah, margin 28 px, sepanjang video. Zona x 28–100, y 980–1052 selalu kosong; Src dimulai di x ≥ 124.
@@ -54,7 +54,7 @@ onetake berlisensi PolyForm Noncommercial: kode dan hasilnya TIDAK dipakai. Kita
 
 ## 4. Alur produksi per video (pakai kit, hemat token)
 Satu video = 4 file kecil di `src/videoNN/`. Tidak perlu menulis JSX per scene.
-1. `timing.json`: `{fps: 24, chapters: [{id, title, audio, pre: 0, audioDur, post, beats: {nama: detik}}]}`. Beat diambil dari jangkar kata narasi. `pre` selalu 0 (tanpa kartu judul). `post` bab yang memakai sting minimal 1.6, bab lain sekitar 0.8 (dipakai untuk transisi masuk bab berikutnya).
+1. `timing.json`: `{fps: 24, chapters: [{id, title, audio, pre: 0, audioDur, post, beats: {nama: detik}}]}`. Beat diambil dari jangkar kata narasi. `pre` selalu 0 (tanpa kartu judul). Pengecualian: bab sesudah Hook memakai `pre` 4.35 untuk sting (`stingIn`), bab dengan intro pertanyaan memakai `pre` >= 2. `post` Hook minimal 0.6 (lingkaran sting meletup di atasnya), bab lain 0.4–0.8.
 2. `captions.json`: `{idBab: [[mulai, selesai, "kalimat"], ...]}` untuk .srt.
 3. `specs.tsx`: `export const SPECS: ChapterSpec[]`, satu per bab (format di bagian 7a). Import hanya dari `../kit/core` (helper) dan `import type` dari `../kit/spec`.
 4. `VideoNN.tsx`:
@@ -111,7 +111,7 @@ Contoh lengkap: `src/kitdemo/specs.tsx` (komposisi `KD-Full`).
 - `shakes: [[waktu, amp?, dur?]]`, `sfx: [[waktu, 'kaching']]`.
 - `enter: {kind: 'whip'|'iris'|'slide'|'rip'|'none', carry: 'id', cx?, cy?}`: cara bab masuk menimpa bab sebelumnya (tanpa cut), plus objek yang dibawa. Default `whip` (gaya Kok Bisa); `rip` (kertas robek) hanya jika diminta.
 - `paper: true`: tekstur kertas (default MATI, gaya kanal = flat cartoon).
-- `sting: true`: sting Penny Logics di ekor bab (dipakai setelah Hook).
+- `stingIn: true` + `enter: {kind: 'sting', carry}` pada bab SESUDAH Hook (pre 4.35): **PennySting** (`src/kit/sting.tsx`), sting merek meniru sting Kok Bisa (digambar ulang, tanpa aset mereka): lingkaran teal meletup menutup scene → titik dan garis bantu teknik bertitik muncul → garis tepi huruf "penny- / logics" tergambar → huruf terisi putih transparan lalu penuh dari kiri → garis bantu terlempar keluar → teks diam sambil kamera maju pelan → kamera menyelam ke lubang huruf "o" dan bab berikutnya sudah terlihat di dalamnya. Warna latar teal #1E8C86 (kontras dengan teks putih; mustard terlalu pucat untuk teks putih), bisa diganti lewat prop `color`. Posisi huruf diambil dari ukuran glyph Poppins Black. `sting: true` (versi di ekor bab, tanpa menyelam) masih ada untuk kasus khusus.
 - `autoPop` / `autoWhoosh` (default true): pop otomatis saat item muncul, whoosh otomatis pada gerak kamera jauh.
 
 **Waktu (At):**
@@ -296,6 +296,7 @@ HyperFrames (heygen-com/hyperframes) berlisensi Apache 2.0. Idenya ditulis ulang
 ## 10. Status per video
 **Video 01** (How Credit Card Companies Make Money Off You): kode `src/video01/` = timing.json + captions.json + specs.tsx + Video01.tsx (makeVideo). Disusun ulang dengan kit 31 Okt: tanpa kartu judul (pre = 0, klip judul dihapus), sting Penny Logics setelah Hook (post hook 1.6), satu kamera per bab di atas panorama `public/v1/bg`, transisi antar-bab whip, kartu kredit Leo (`card`) dibawa di setiap gerak kamera dan setiap pergantian bab; di Three Customers pintunya sendiri yang dibawa (d1/d2/d3). Total 4:52. Chapter YouTube: 0:00 hook, 0:24 swipe, 1:21 interest, 2:09 rewards, 2:52 keep paying, 3:35 three customers, 4:16 what this means, 4:37 outro. Render: `npx remotion render src/index.ts V1-Full out/Video01.mp4`, subtitle `node scripts/video.mjs srt video01`.
 - Revisi 31 Okt (2): ceklis/silang diletakkan di luar kartu (kartu memotong isinya); sting Penny Logics diperpanjang (STING_FRAMES 66 = 2,75 dtk, post hook 2.9); kamera tidak lagi menyelam ke gambar EDC (raster pecah kalau diperbesar >1,3x), diganti zoom 1,15 + roda gigi + tap kartu; What This Means diberi intro pertanyaan (pre 2.8). Total 4:56; chapter: 0:00, 0:25, 1:22, 2:10, 2:53, 3:36, 4:18, 4:41.
+- Revisi 31 Okt (3): sting diganti PennySting gaya Kok Bisa (dipasang di awal Trick 1, pre 4.35, post Hook 0.6). Total 4:58; chapter: 0:00, 0:23, 1:24, 2:12, 2:55, 3:38, 4:20, 4:43.
 - Aturan baru: jangan zoom kamera lebih dari ~1,3x ke gambar raster (prop PNG); untuk masuk ke objek pakai zoom kecil + elemen tambahan, atau gambar resolusi tinggi.
 - Komponen baru `intro` (src/kit/intro.tsx, QuestionIntro): adegan pertanyaan ala reel Karhutla di `pre` bab: kata muncul satu per satu sebagai chip, lalu tanda "?" besar memantul, maskot Leo berpikir di pojok, "?" kecil melayang. Pakai: `intro: {words: [...], highlight: [i], image: 'v1/bg/....jpg'}` + `pre` >= 2 dtk di timing.json.
 - Kit diperbaiki saat menyusun Video 01: punch/src/disclaimer/embers dirender dalam bingkai layar penuh (sebelumnya terlipat sempit dan label "Source:" tidak tampil); bubble dan sticker punya lebar `w` (default 760 / 900).

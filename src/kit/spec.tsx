@@ -110,6 +110,8 @@ export type ChapterSpec = {
   enter?: {kind: EnterKind; carry?: string; cx?: number; cy?: number};
   /** question intro scene played in the chapter's silent `pre` (Karhutla-style words + big "?") */
   intro?: IntroSpec;
+  /** Penny Logics sting at the START of this chapter (in its silent pre, >= 3.5 s); ends by diving through the "o" into this chapter. Use on the chapter after the hook, with enter kind 'sting'. */
+  stingIn?: boolean;
   /** brand sting "Penny Logics" in this chapter's tail (after the hook) */
   sting?: boolean;
   /** paper texture overlay (off by default: the channel uses the flat cartoon look, not paper) */

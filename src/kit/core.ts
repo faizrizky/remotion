@@ -69,7 +69,7 @@ export const diveKey = (at: number, b: Box, fill = 1): CamKey => ({at, x: b.x + 
 export const frameKey = (at: number, b: Box, margin = 1.25): CamKey => ({at, x: b.x + b.w / 2, y: b.y + b.h / 2, z: Math.min(W / (b.w * margin), H / (b.h * margin))});
 
 // ---------- video layout (chapters overlap by their entrance so there is never a hard cut) ----------
-export const ENTER_LEN: Record<string, number> = {rip: 18, iris: 16, slide: 14, whip: 9, none: 0};
+export const ENTER_LEN: Record<string, number> = {rip: 18, iris: 16, slide: 14, whip: 9, sting: 12, none: 0};
 /** Start frame of every chapter in the full video + total length. Overlap = entrance length, capped by the previous chapter's tail (post). */
 export const layoutVideo = (t: Timing, enters: (string | undefined)[]) => {
   const starts: number[] = [];
@@ -86,7 +86,7 @@ export const layoutVideo = (t: Timing, enters: (string | undefined)[]) => {
   return {starts, overlaps, total: cursor};
 };
 /** Brand sting length (CircleBurstWipe + StrokeLogo), frames at 24 fps. */
-export const STING_FRAMES = 66;
+export const STING_FRAMES = 104;
 
 // ---------- spec math (pure; used by the renderer and by scripts/video.mjs) ----------
 /** Pose for a carried/moving item: [time, x, y, scale?, rotation?] in world (or screen) px. */

@@ -1,5 +1,5 @@
 {
- "_readme": "Video 01 (How Credit Card Companies Make Money Off You). Seconds. audioDur = length of the chapter WAV. beats = seconds from the START OF THAT WAV (measured word anchors from the Andy voice, +-0.2 s). No title cards (pre = 0, except mean: 2.8 s question intro); post = silent tail (hook 2.9 s for the Penny Logics sting).",
+ "_readme": "Video 01 (How Credit Card Companies Make Money Off You). Seconds. audioDur = length of the chapter WAV. beats = seconds from the START OF THAT WAV (measured word anchors from the Andy voice, +-0.2 s). No title cards (pre = 0, except t1: 4.35 s Penny Logics sting and mean: 2.8 s question intro); post = silent tail.",
  "fps": 24,
  "chapters": [
   {
@@ -9,7 +9,7 @@
    "titleAudio": "",
    "pre": 0,
    "audioDur": 23.32,
-   "post": 2.9,
+   "post": 0.6,
    "beats": {
     "coffee": 1.1,
     "tap": 2.58,
@@ -38,7 +38,7 @@
    "title": "The Swipe",
    "titleAudio": "",
    "audio": "v1/audio/trick1.wav",
-   "pre": 0,
+   "pre": 4.35,
    "audioDur": 56.63,
    "post": 0.4,
    "beats": {

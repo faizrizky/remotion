@@ -4,7 +4,8 @@ import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
 import {HAND, SANS} from '../style/style_kit';
 import {clamp, easeInOut, ENTER_LEN, H, INK, rand, W} from './core';
 
-export type EnterKind = 'rip' | 'iris' | 'slide' | 'whip' | 'none';
+/** sting = the chapter opens with the Penny Logics sting (ChapterSpec.stingIn); the sting itself is the transition. */
+export type EnterKind = 'rip' | 'iris' | 'slide' | 'whip' | 'sting' | 'none';
 export const ENTER_FRAMES = ENTER_LEN as Record<EnterKind, number>;
 
 const jag = (seed: string, n = 28) => Array.from({length: n + 1}).map((_, i) => (rand(`${seed}${i}`) - 0.5) * 46 + Math.sin(i * 1.7) * 10);

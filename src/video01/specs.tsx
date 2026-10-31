@@ -25,7 +25,6 @@ const label = (text: string, size = 44, w = 480): Item => ({t: 'text', text, siz
 // ---------------------------------------------------------------- HOOK
 const hook: ChapterSpec = {
   id: 'hook',
-  sting: true,
   world: {w: 2 * ST + 1920, h: 1080},
   bg: bg(['hook_a', 'hook_b']),
   cam: [cam(0, 0), cam('twoSec', 1), cam('opening', 1), ['machine', L(1) + 1027, 500, 1.15]],
@@ -82,7 +81,9 @@ const hook: ChapterSpec = {
 // ---------------------------------------------------------------- TRICK 1: the swipe
 const t1: ChapterSpec = {
   id: 't1',
-  enter: {kind: 'whip', carry: 'card'},
+  // Penny Logics sting right after the hook; it dives through the "o" into this chapter
+  stingIn: true,
+  enter: {kind: 'sting', carry: 'card'},
   world: {w: 3 * ST + 1920, h: 1080},
   bg: bg(['t1_a', 't1_b', 't1_c', 'hook_a']),
   cam: [cam(0, 0), cam('fee', 1), cam('pct', 2), cam('b198', 2, 1.04), cam('b66', 2), cam('pct11', 2, 1.04), cam('who', 3)],

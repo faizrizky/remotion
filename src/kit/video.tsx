@@ -1,8 +1,9 @@
 // One call builds a whole video: compositions for every chapter + the full video with music.
 import React from 'react';
 import {AbsoluteFill, Composition, Folder, Html5Audio, interpolate, Sequence, staticFile} from 'remotion';
-import {CircleBurstWipe, PopSpeed, StrokeLogo} from '../style/style_kit';
-import {hasFile, Sfx, Voice, Watermark} from '../video02/v2kit';
+import {PopSpeed} from '../style/style_kit';
+import {PennySting} from './sting';
+import {hasFile, Voice, Watermark} from '../video02/v2kit';
 import {Chapter, chapterFrames, clamp, H, layoutVideo, STING_FRAMES, Timing, W} from './core';
 import {ChapterSpec, SpecChapter} from './spec';
 import {Enter, EnterKind} from './transitions';
@@ -10,24 +11,21 @@ import {IntroSpec, QuestionIntro} from './intro';
 
 export const TEMPO = 0.62;
 
-/** "Penny Logics" brand sting (same as Video 02): gold circles burst, logo draws on. */
-export const BrandSting: React.FC = () => (
-  <AbsoluteFill>
-    <CircleBurstWipe color="#E8A520" dur={12} seed="sting" />
-    <Sequence from={8}><StrokeLogo text="Penny Logics" color="#191411" size={170} drawFrames={18} fillFrames={8} /></Sequence>
-    <Sfx name="whoosh" at={0} />
-  </AbsoluteFill>
-);
+/** "Penny Logics" brand sting in a chapter tail (no dive). The in-chapter version (stingIn) dives into the next scene. */
+export const BrandSting: React.FC = () => <PennySting dur={STING_FRAMES} />;
 
 /** Chapter frame: no title card (rule), voice, watermark, slower tempo, optional sting in the tail. */
-export const ChapterShellK: React.FC<{c: Chapter; fps: number; enter?: EnterKind; cx?: number; cy?: number; sting?: boolean; intro?: IntroSpec; children: React.ReactNode}> = ({c, fps, enter = 'none', cx, cy, sting, intro, children}) => {
+export const ChapterShellK: React.FC<{c: Chapter; fps: number; enter?: EnterKind; cx?: number; cy?: number; sting?: boolean; stingIn?: boolean; intro?: IntroSpec; children: React.ReactNode}> = ({c, fps, enter = 'none', cx, cy, sting, stingIn, intro, children}) => {
   const pre = Math.round(c.pre * fps);
   const voiceEnd = pre + Math.round(c.audioDur * fps);
   return (
     <PopSpeed.Provider value={TEMPO}>
       <Enter kind={enter} cx={cx} cy={cy} seed={c.id}>
-        <AbsoluteFill style={{background: '#FFF4E0'}}>
+        <AbsoluteFill>
+          {/* with stingIn the previous chapter stays visible under the burst circles for the first frames */}
+          <Sequence from={stingIn ? 10 : 0}><AbsoluteFill style={{background: '#FFF4E0'}} /></Sequence>
           <Sequence from={pre}>{children}</Sequence>
+          {stingIn && pre > 0 && <Sequence durationInFrames={pre + 10}><PennySting dur={pre + 10} reveal /></Sequence>}
           {intro && pre > 0 && <Sequence durationInFrames={pre + 8}><QuestionIntro intro={intro} dur={pre + 8} /></Sequence>}
           {sting && <Sequence from={voiceEnd + 2} durationInFrames={Math.max(STING_FRAMES, chapterFrames(c, fps) - voiceEnd)}><BrandSting /></Sequence>}
           <Watermark />
@@ -62,12 +60,12 @@ export const makeVideo = (v: VideoDef) => {
     const {c, d, enter} = parts[i];
     if ('comp' in d) return <ChapterShellK c={c} fps={fps} enter={enter}><d.comp /></ChapterShellK>;
     return (
-      <ChapterShellK c={c} fps={fps} enter={enter} cx={d.spec.enter?.cx} cy={d.spec.enter?.cy} sting={d.spec.sting} intro={d.spec.intro}>
+      <ChapterShellK c={c} fps={fps} enter={enter} cx={d.spec.enter?.cx} cy={d.spec.enter?.cy} sting={d.spec.sting} stingIn={d.spec.stingIn} intro={d.spec.intro}>
         <SpecChapter spec={d.spec} chapter={c} fps={fps} />
       </ChapterShellK>
     );
   };
-  const stingAt = parts.map((p, i) => ('spec' in p.d && p.d.spec.sting ? starts[i] + Math.round((p.c.pre + p.c.audioDur) * fps) : -1)).filter((x) => x >= 0);
+  const stingAt = parts.map((p, i) => ('spec' in p.d && p.d.spec.sting ? starts[i] + Math.round((p.c.pre + p.c.audioDur) * fps) : 'spec' in p.d && p.d.spec.stingIn ? starts[i] : -1)).filter((x) => x >= 0);
   const vol = v.music?.vol ?? 0.07;
   const duck = v.music?.duck ?? 0.015;
   const musicVolume = (f: number) => {
