@@ -82,7 +82,8 @@ export type ItemBase = {
   sfx?: SfxName | false;
   blur?: [At, number][];
   kids?: Item[];
-  enter?: 'pop' | 'fade' | 'left' | 'right' | 'up' | 'none';
+  /** up = rises from below, down = drops from above (alternate up/down for 3 side-by-side objects) */
+  enter?: 'pop' | 'fade' | 'left' | 'right' | 'up' | 'down' | 'none';
   exit?: 'fade' | 'toss' | 'drop' | 'none';
   boil?: boolean;
   /** ghost copies while moving */
@@ -197,7 +198,7 @@ const ItemView: React.FC<{it: Item; A: (a: At | undefined, d?: number) => number
   let body: React.ReactNode = renderBody(it, rel, it.t === 'card' || it.t === 'phone' ? kidNodes : null);
   const enter = it.enter ?? (SELF_ANIM.has(it.t) ? 'none' : 'pop');
   if (enter === 'pop') body = <PopIn at={0} style={{left: 0, top: 0}}>{body}</PopIn>;
-  else if (enter === 'left' || enter === 'right' || enter === 'up') body = <SlideIn at={0} from={enter === 'up' ? 'bottom' : enter} dist={500} style={{left: 0, top: 0}}>{body}</SlideIn>;
+  else if (enter === 'left' || enter === 'right' || enter === 'up' || enter === 'down') body = <SlideIn at={0} from={enter === 'up' ? 'bottom' : enter === 'down' ? 'top' : enter} dist={500} style={{left: 0, top: 0}}>{body}</SlideIn>;
   else if (enter === 'fade') body = <div style={{opacity: interpolate(f - at, [0, 10], [0, 1], clamp)}}>{body}</div>;
   if (it.hang) body = <Hang>{body}</Hang>;
   if (it.boil) body = <Boil id={`${it.t}${x0}${y0}`}>{body}</Boil>;
