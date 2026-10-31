@@ -84,6 +84,7 @@ if (cmd === 'check') {
   console.log('4) chapter start times (YouTube chapters)');
   let acc = 0;
   t.chapters.forEach((c, i) => {
+    if (!L && c.overlapFrames) acc -= c.overlapFrames;
     const st = L ? L.starts[i] : acc;
     acc += Math.round(c.pre * t.fps) + Math.round(c.audioDur * t.fps) + Math.round(c.post * t.fps);
     const s = st / t.fps;
@@ -110,6 +111,7 @@ if (cmd === 'check') {
   const ts = (s) => { const ms = Math.round(s * 1000); const p = (n, w = 2) => String(n).padStart(w, '0'); return `${p(Math.floor(ms / 3600000))}:${p(Math.floor((ms / 60000) % 60))}:${p(Math.floor((ms / 1000) % 60))},${p(ms % 1000, 3)}`; };
   let acc = 0, n = 1, out = '';
   t.chapters.forEach((c, i) => {
+    if (!L && c.overlapFrames) acc -= c.overlapFrames; // a sting chapter starts a few frames before the previous one ends
     const start = L ? L.starts[i] : acc;
     const off = (start + Math.round(c.pre * t.fps)) / t.fps;
     for (const [a, b, text] of caps[c.id] ?? []) out += `${n++}\n${ts(off + a)} --> ${ts(off + b)}\n${text}\n\n`;

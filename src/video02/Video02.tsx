@@ -1,5 +1,6 @@
 import React from 'react';
-import {Composition, Folder, Html5Audio, interpolate, Series, staticFile} from 'remotion';
+import {Composition, Folder, Html5Audio, interpolate, Sequence, staticFile} from 'remotion';
+import {STING_IN, STING_OVERLAP} from './ChapterShell';
 import {Cold} from './chapters/Cold';
 import {Ch1} from './chapters/Ch1';
 import {Ch2} from './chapters/Ch2';
@@ -8,7 +9,7 @@ import {Ch4} from './chapters/Ch4';
 import {Ch5} from './chapters/Ch5';
 import {Ch6} from './chapters/Ch6';
 import {Outro} from './chapters/Outro';
-import {chapterFrames, ChapterId, FPS, getChapter, H, hasFile, W} from './v2kit';
+import {chapterFrames, ChapterId, FPS, getChapter, H, hasFile, sec, W} from './v2kit';
 
 const PARTS: {id: ChapterId; comp: React.FC; name: string}[] = [
   {id: 'cold', comp: Cold, name: 'V2-00-Cold'},
@@ -22,37 +23,47 @@ const PARTS: {id: ChapterId; comp: React.FC; name: string}[] = [
 ];
 
 const frames = (id: ChapterId) => chapterFrames(getChapter(id));
-export const V2_TOTAL = PARTS.reduce((s, p) => s + frames(p.id), 0);
-
-/** Background music (optional): put the file at public/v2/audio/music.mp3. */
-export const MUSIC_FILE = 'v2/audio/music.mp3';
-export const MUSIC_VOL = 0.07;
-const DUCK_VOL = 0.015;
-const CHAPTER_STARTS = PARTS.map((_, i) => PARTS.slice(0, i).reduce((s, p) => s + frames(p.id), 0));
-
-/** Music dips sharply for the first second of every chapter (chapter card), then comes back; fades out at the end. */
-const musicVolume = (f: number) => {
-  let v = MUSIC_VOL;
-  for (const start of CHAPTER_STARTS.slice(1)) {
-    if (f >= start - 6 && f < start + FPS * 1.5) {
-      v = Math.min(v, interpolate(f, [start - 6, start, start + FPS, start + FPS * 1.5], [MUSIC_VOL, DUCK_VOL, DUCK_VOL, MUSIC_VOL], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}));
-    }
+/** Chapter start frames: back to back, except a sting chapter starts STING_OVERLAP frames early. */
+export const STARTS: number[] = [];
+{
+  let cur = 0;
+  for (const p of PARTS) {
+    if (STING_IN.includes(p.id)) cur -= STING_OVERLAP;
+    STARTS.push(cur);
+    cur += frames(p.id);
   }
-  const fadeOut = interpolate(f, [V2_TOTAL - FPS * 3, V2_TOTAL - 1], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  return v * fadeOut;
+}
+export const V2_TOTAL = STARTS[STARTS.length - 1] + frames(PARTS[PARTS.length - 1].id);
+
+/** Background music (rule 16): FreeToUse "Monday Routine", one flat level. Opening track over the sting (rule 17). */
+export const MUSIC_FILE = 'music/monday_routine.mp3';
+export const MUSIC_VOL = 0.08;
+export const INTRO_FILE = 'music/funky_intro_sting.mp3';
+export const INTRO_VOL = 0.7;
+const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
+const STINGS = PARTS.flatMap((p, i) => (STING_IN.includes(p.id) ? [{at: STARTS[i], len: sec(getChapter(p.id).pre) + 10}] : []));
+
+/** Flat 0.08; gets out of the way for the opening track and crossfades back after the sting; 3 s fade-out at the end. */
+const musicVolume = (f: number) => {
+  let m = MUSIC_VOL;
+  if (hasFile(INTRO_FILE)) for (const s of STINGS) if (f >= s.at - 6 && f < s.at + s.len + 36) m = Math.min(m, interpolate(f, [s.at - 6, s.at + 4, s.at + s.len - 10, s.at + s.len + 36], [MUSIC_VOL, 0, 0, MUSIC_VOL], clamp));
+  return m * interpolate(f, [V2_TOTAL - FPS * 3, V2_TOTAL - 1], [1, 0], clamp);
 };
 
-/** Whole video: all chapters back to back (+ music if present). */
+/** Whole video: all chapters (+ music, + opening track over the sting). Subtitles are NOT burned in (out/video02.srt). */
 export const Video02Full: React.FC = () => (
   <>
-    <Series>
-      {PARTS.map((p) => (
-        <Series.Sequence key={p.id} durationInFrames={frames(p.id)}>
-          <p.comp />
-        </Series.Sequence>
-      ))}
-    </Series>
+    {PARTS.map((p, i) => (
+      <Sequence key={p.id} from={STARTS[i]} durationInFrames={frames(p.id)}>
+        <p.comp />
+      </Sequence>
+    ))}
     {hasFile(MUSIC_FILE) && <Html5Audio src={staticFile(MUSIC_FILE)} loop volume={musicVolume} />}
+    {hasFile(INTRO_FILE) && STINGS.map((s) => (
+      <Sequence key={s.at} from={s.at} durationInFrames={s.len + 24}>
+        <Html5Audio src={staticFile(INTRO_FILE)} volume={INTRO_VOL} />
+      </Sequence>
+    ))}
   </>
 );
 

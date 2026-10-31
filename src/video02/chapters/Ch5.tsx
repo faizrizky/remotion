@@ -65,7 +65,7 @@ export const Ch5: React.FC = () => (
               <LensZoom cx={440} cy={850} at={b('notThere')} r={200}><div style={{position: 'absolute', left: 240, top: 730, width: 400, height: 240, background: '#E5484D', color: '#fff', fontFamily: SANS, fontWeight: 900, fontSize: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center'}}>$12.40 &lt; $30</div></LensZoom>
               <Embers n={14} color="#FF3B30" seed={2} />
             </Scene>
-            <Sfx name="pop" at={b('intro')} /><Sfx name="pop" at={b('phone')} /><Sfx name="card_tap" at={b('autoPull')} /><Sfx name="pop" at={b('notThere')} />
+            <Sfx name="pop" at={b('intro')} /><Sfx name="notify" at={b('phone')} /><Sfx name="card_tap" at={b('autoPull')} /><Sfx name="boom" at={b('notThere')} />
           </Shot>
 
           {/* B: hit twice */}
@@ -106,7 +106,7 @@ export const Ch5: React.FC = () => (
               <StatCard to={47} label="of users paid late at least once in the past year" at={r('s47', 's47Start')} x={600} y={250} w={720} />
             </Scene>
             <Src text="LendingTree late-payment survey (Mar 2026)" at={r('s47', 's47Start')} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('s47', 's47Start')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="ding" at={r('s47', 's47Start')} />
           </Shot>
 
           {/* D2: Federal Reserve: 21% */}
@@ -118,7 +118,7 @@ export const Ch5: React.FC = () => (
               <Chip text="overdraft fee" kind="warn" at={r('overChip', 'fedStart')} x={1150} y={620} size={52} rot={2} />
             </Scene>
             <Src text="Federal Reserve (2025 data)" at={r('fed21', 'fedStart')} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('fedW', 'fedStart')} /><Sfx name="pop" at={r('fed21', 'fedStart')} /><Sfx name="pop" at={r('lateChip', 'fedStart')} /><Sfx name="pop" at={r('overChip', 'fedStart')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('fedW', 'fedStart')} /><Sfx name="ding" at={r('fed21', 'fedStart')} /><Sfx name="pop" at={r('lateChip', 'fedStart')} /><Sfx name="pop" at={r('overChip', 'fedStart')} />
           </Shot>
 
           {/* D3: grocery users 43% */}
@@ -128,7 +128,7 @@ export const Ch5: React.FC = () => (
               <StatCard to={43} label="of grocery users paid a late or overdraft fee" at={r('grocery43', 'grocStart')} x={760} y={250} w={820} bg="#FF9F9F" />
             </Scene>
             <Src text="LendingTree late-payment survey (Mar 2026); Federal Reserve (2025 data)" at={r('grocery43', 'grocStart')} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('bag', 'grocStart')} /><Sfx name="pop" at={r('grocery43', 'grocStart')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('bag', 'grocStart')} /><Sfx name="ding" at={r('grocery43', 'grocStart')} />
           </Shot>
 
           {/* E: not every plan is interest-free */}

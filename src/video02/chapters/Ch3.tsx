@@ -80,7 +80,7 @@ export const Ch3: React.FC = () => (
               <StatCard to={68} label="say it makes them overspend" at={r('s68', 'survey68')} x={980} y={220} w={680} />
             </Scene>
             <Src text="LendingTree BNPL survey, 2026" at={r('s68', 'survey68')} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('survey2026', 'survey68')} /><Sfx name="pop" at={r('s68', 'survey68')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('survey2026', 'survey68')} /><Sfx name="ding" at={r('s68', 'survey68')} />
           </Shot>
 
           {/* E2: more than half regretted */}

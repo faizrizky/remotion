@@ -79,7 +79,7 @@ export const Ch2: React.FC = () => (
               <StatCard to={46} prefix="+" label="more repeat buys" at={r('s46', 's20Start')} x={1270} y={250} w={540} />
             </Scene>
             <Src text="Klarna partner messaging toolkit (merchant averages)" at={r('s20', 's20Start')} />
-            <CoinWipe at={0} /><Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('s20', 's20Start')} /><Sfx name="pop" at={r('s40', 's20Start')} /><Sfx name="pop" at={r('s46', 's20Start')} />
+            <CoinWipe at={0} /><Sfx name="whoosh" at={0} /><Sfx name="ding" at={r('s20', 's20Start')} /><Sfx name="ding" at={r('s40', 's20Start')} /><Sfx name="ding" at={r('s46', 's20Start')} />
           </Shot>
 
           {/* C3: Klarna's own numbers, results vary */}
@@ -99,7 +99,7 @@ export const Ch2: React.FC = () => (
               <PopIn at={r('readW', 'readAgain')} style={{left: 600, top: 520}}><Pill text="But read that again." bg="#2B1230" size={64} /></PopIn>
               <Punch text="+40% bigger orders" at={r('forty', 'readAgain')} color={INK} y={170} size={150} />
             </Scene>
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('readW', 'readAgain')} /><Sfx name="pop" at={r('forty', 'readAgain')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('readW', 'readAgain')} /><Sfx name="ding" at={r('forty', 'readAgain')} />
           </Shot>
 
           {/* E: not a payment button, a bigger cart */}

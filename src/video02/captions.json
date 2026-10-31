@@ -1,0 +1,483 @@
+{
+ "cold": [
+  [
+   0,
+   4.0,
+   "Four payments of $30. No interest, no fees."
+  ],
+  [
+   4.34,
+   8.92,
+   "You tap the button, the sneakers ship, and you've paid $30."
+  ],
+  [
+   9.26,
+   10.63,
+   "Here's the weird part."
+  ],
+  [
+   10.81,
+   14.26,
+   "The companies that give you this for free are worth billions."
+  ],
+  [
+   14.3,
+   17.07,
+   "So if you're not paying for it, who is?"
+  ],
+  [
+   17.07,
+   20.23,
+   "And why do stores happily hand over a cut of every"
+  ],
+  [
+   20.23,
+   23.64,
+   "sale just to show you that little pay-in-four button?"
+  ],
+  [
+   24.0,
+   27.61,
+   "By the end of this video, you'll know exactly what they're buying."
+  ],
+  [
+   28.16,
+   33.11,
+   "Hint, it's you. And there's one number they really hope you never add up."
+  ]
+ ],
+ "ch1": [
+  [
+   0,
+   2.29,
+   "Buy now, pay later works like this."
+  ],
+  [
+   2.29,
+   6.6,
+   "You split a purchase into four equal payments, usually two weeks apart."
+  ],
+  [
+   6.6,
+   8.98,
+   "The first one is due today."
+  ],
+  [
+   9.51,
+   12.94,
+   "On the classic pay in full plan, there's no interest at all"
+  ],
+  [
+   12.94,
+   18.75,
+   "and it's everywhere. In 2025, 16% of American adults used it"
+  ],
+  [
+   18.75,
+   20.7,
+   "according to the Federal Reserve."
+  ],
+  [
+   20.91,
+   28.16,
+   "In a March 2026 survey, 47% of Americans said they've tried it at least once."
+  ],
+  [
+   28.37,
+   30.18,
+   "So it's popular. It's free."
+  ],
+  [
+   30.18,
+   31.97,
+   "It feels like the smart move."
+  ],
+  [
+   31.97,
+   33.0,
+   "Hold that thought."
+  ]
+ ],
+ "ch2": [
+  [
+   0,
+   2.59,
+   "Here's the part most people never see."
+  ],
+  [
+   2.68,
+   7.48,
+   "Every time you choose pay in four, the store pays the lender a fee."
+  ],
+  [
+   7.72,
+   10.71,
+   "The Consumer Financial Protection Bureau says"
+  ],
+  [
+   10.71,
+   13.44,
+   "it's typically 2% to 4% of the purchase."
+  ],
+  [
+   13.56,
+   15.52,
+   "Why would a store give that up?"
+  ],
+  [
+   15.58,
+   17.49,
+   "Because of what happens next."
+  ],
+  [
+   17.55,
+   21.46,
+   "Klarna tells stores that merchants who add it see, on average"
+  ],
+  [
+   21.46,
+   29.37,
+   "20% more sales completed, 40% bigger orders, and 46% more repeat purchases."
+  ],
+  [
+   29.37,
+   33.11,
+   "Those are Klarna's own numbers, and they say results vary."
+  ],
+  [
+   33.11,
+   36.95,
+   "But read that again. 40% bigger orders."
+  ],
+  [
+   37.14,
+   39.89,
+   "The store isn't paying for a payment button."
+  ],
+  [
+   39.89,
+   41.79,
+   "It's paying for a bigger cart."
+  ],
+  [
+   41.79,
+   43.7,
+   "And the bigger cart is yours."
+  ]
+ ],
+ "ch3": [
+  [
+   0,
+   1.64,
+   "Why does it work so well?"
+  ],
+  [
+   1.76,
+   4.93,
+   "Because your brain doesn't see $120."
+  ],
+  [
+   5.02,
+   8.43,
+   "It sees $30. $30 feels like lunch."
+  ],
+  [
+   8.43,
+   11.32,
+   "$120 feels like a decision."
+  ],
+  [
+   11.68,
+   15.21,
+   "So the hoodie goes in the cart, then the matching cap."
+  ],
+  [
+   15.39,
+   18.21,
+   "Each one is just another small payment."
+  ],
+  [
+   18.33,
+   20.53,
+   "This isn't just a feeling."
+  ],
+  [
+   20.9,
+   22.17,
+   "Harvard researchers"
+  ],
+  [
+   22.17,
+   25.74,
+   "in a paper published by the National Bureau of Economic Research"
+  ],
+  [
+   25.74,
+   29.37,
+   "found that when people get access to buy now, pay later"
+  ],
+  [
+   29.37,
+   31.34,
+   "their total spending goes up."
+  ],
+  [
+   31.35,
+   33.27,
+   "It doesn't just move around."
+  ],
+  [
+   33.3,
+   39.96,
+   "And in a 2026 survey, 68% of users agreed it makes them overspend."
+  ],
+  [
+   40.0,
+   42.82,
+   "More than half have regretted a purchase."
+  ],
+  [
+   43.15,
+   46.24,
+   "But overspending once isn't the real trap."
+  ],
+  [
+   46.24,
+   50.88,
+   "The real trap is what happens when the $30 payments start stacking."
+  ]
+ ],
+ "ch4": [
+  [
+   0,
+   2.47,
+   "One pay in four is easy to track."
+  ],
+  [
+   2.47,
+   3.78,
+   "Now open five."
+  ],
+  [
+   3.78,
+   7.72,
+   "The CFPB studied borrowers' records and found that 63%"
+  ],
+  [
+   7.72,
+   11.45,
+   "had more than one of these loans at the same time."
+  ],
+  [
+   11.57,
+   15.08,
+   "About one in three had loans with more than one company."
+  ],
+  [
+   15.08,
+   17.54,
+   "Each app only sees its own loans."
+  ],
+  [
+   17.69,
+   21.97,
+   "You're the only one who sees the whole pile if you're keeping track at all."
+  ],
+  [
+   22.26,
+   23.95,
+   "That's starting to change."
+  ],
+  [
+   24.16,
+   31.21,
+   "In 2025, FICO introduced credit scores that can include buy now, pay later data."
+  ],
+  [
+   31.45,
+   33.49,
+   "And it's not just sneakers anymore."
+  ],
+  [
+   33.73,
+   37.49,
+   "29% of users say they've used it for groceries."
+  ],
+  [
+   37.61,
+   40.8,
+   "Two years earlier, it was 14%."
+  ],
+  [
+   41.16,
+   44.44,
+   "When you're splitting your food into four payments"
+  ],
+  [
+   44.44,
+   46.42,
+   "that's not a shopping hack anymore."
+  ],
+  [
+   46.72,
+   48.05,
+   "That's a warning light."
+  ]
+ ],
+ "ch5": [
+  [
+   0.25,
+   2.65,
+   "So what happens when a payment fails?"
+  ],
+  [
+   2.87,
+   7.26,
+   "Most plans pull the money automatically from your card or bank account."
+  ],
+  [
+   7.35,
+   10.31,
+   "If the money isn't there, you can get hit twice"
+  ],
+  [
+   10.31,
+   15.15,
+   "a late fee from the lender and an overdraft fee from your bank."
+  ],
+  [
+   15.26,
+   20.76,
+   "In the US, Klarna's late fee can be up to $7, Afterpay's up to $8"
+  ],
+  [
+   20.76,
+   22.69,
+   "capped at a quarter of the order."
+  ],
+  [
+   22.75,
+   27.66,
+   "Sounds small. On a $30 payment, it isn't, and it happens a lot."
+  ],
+  [
+   27.98,
+   32.69,
+   "47% of users paid late at least once in the past year."
+  ],
+  [
+   32.94,
+   38.71,
+   "The Federal Reserve found 21% paid a late fee or got hit with an overdraft fee."
+  ],
+  [
+   39.26,
+   42.72,
+   "Among people using it for groceries, 43%."
+  ],
+  [
+   42.72,
+   46.38,
+   "One more thing, not every plan is interest-free."
+  ],
+  [
+   46.38,
+   51.1,
+   "The longer-pay monthly plans can charge up to about 36% a year."
+  ],
+  [
+   51.1,
+   53.45,
+   "Same app, very different deal."
+  ]
+ ],
+ "ch6": [
+  [
+   0,
+   2.32,
+   "So is buy now and pay later evil?"
+  ],
+  [
+   2.32,
+   5.78,
+   "No. Used on purpose, it's a free short loan."
+  ],
+  [
+   5.96,
+   8.41,
+   "The trick is making sure you're the one using it."
+  ],
+  [
+   8.47,
+   12.67,
+   "Rule 1. Only use it for something you could pay for in full today."
+  ],
+  [
+   12.78,
+   15.32,
+   "Rule 2. One plan at a time."
+  ],
+  [
+   15.37,
+   20.48,
+   "No stacking. Rule 3. Never for groceries, bills or subscriptions."
+  ],
+  [
+   20.54,
+   21.36,
+   "Rule 4."
+  ],
+  [
+   21.36,
+   23.95,
+   "Put every due date in your calendar and set aside"
+  ],
+  [
+   23.95,
+   26.48,
+   "the money for all four payments before you tap."
+  ]
+ ],
+ "outro": [
+  [
+   0,
+   2.92,
+   "Remember the one number they hope you never add up?"
+  ],
+  [
+   3.0,
+   7.92,
+   "Here it is, every installment you owe over the next six weeks, all of them"
+  ],
+  [
+   7.98,
+   10.77,
+   "added together. That's your real bill."
+  ],
+  [
+   11.04,
+   12.74,
+   "Go add it up right now."
+  ],
+  [
+   12.83,
+   17.14,
+   "If it surprises you, the system is working, just not for you."
+  ],
+  [
+   17.38,
+   21.17,
+   "Next time, the price trick that doesn't change the price at all."
+  ],
+  [
+   21.17,
+   23.18,
+   "Subscribe so you don't miss it."
+  ],
+  [
+   23.18,
+   23.88,
+   "See you there."
+  ]
+ ]
+}

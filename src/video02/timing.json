@@ -1,5 +1,5 @@
 {
-  "_readme": "Seconds. audioDur = length of the chapter WAV. beats = seconds from the START OF THAT WAV (forced-aligned word onsets, +-0.1 s; shot boundaries sit ~0.25 s before the first word of a sentence). pre = silent chapter card before the voice, post = silent tail after it. Run `node scripts/video.mjs check video02` after editing.",
+  "_readme": "Seconds. audioDur = length of the chapter WAV. beats = seconds from the START OF THAT WAV (forced-aligned word onsets, +-0.1 s; shot boundaries sit ~0.25 s before the first word of a sentence). pre = silent chapter card before the voice, post = silent tail after it. Run `node scripts/video.mjs check video02` after editing. ch1.pre = 4.35 s PennySting (it starts 10 frames before the cold open ends).",
   "fps": 24,
   "chapters": [
     {
@@ -8,7 +8,7 @@
       "audio": "v2/audio/v2_00_cold.wav",
       "pre": 0,
       "audioDur": 33.16,
-      "post": 1.6,
+      "post": 0.6,
       "beats": {
         "p1": 0.3,
         "p2": 0.85,
@@ -40,7 +40,7 @@
       "id": "ch1",
       "title": "The Free Lunch",
       "audio": "v2/audio/v2_01_free.wav",
-      "pre": 0,
+      "pre": 4.35,
       "audioDur": 33.05,
       "post": 0.6,
       "beats": {
@@ -60,7 +60,8 @@
         "pFree": 29.5,
         "pSmart": 30.95,
         "hold": 32.0
-      }
+      },
+      "overlapFrames": 10
     },
     {
       "id": "ch2",

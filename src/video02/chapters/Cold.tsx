@@ -1,6 +1,5 @@
 import React from 'react';
-import {Sequence} from 'remotion';
-import {Bubble, CircleBurstWipe, KeyTag, Pill, PopIn, Scene, Sticker, StickyNote, StrokeLogo, PALETTES} from '../../style/style_kit';
+import {Bubble, KeyTag, Pill, PopIn, Scene, Sticker, StickyNote, PALETTES} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {Embers, MascotCorner, Chip} from '../paper';
 import {Shot, CheckoutScreen, CoinFly, DashArrow, getChapter, LeoBadge, PayCircle, Phone, Prop, Punch, sec, Sfx, Char} from '../v2kit';
@@ -68,7 +67,7 @@ export const Cold: React.FC = () => {
           </Shot>
 
           {/* S5: they are buying... you */}
-          <Shot world={{src: 'v2/world_mall.jpg', dir: 'd', at: 0.1}} from={b('knowWhat')} to={end} trans="whip">
+          <Shot world={{src: 'v2/world_mall.jpg', dir: 'd', at: 0.1}} from={b('knowWhat')} to={end} trans="whip" exit={false} tail={sec(c.post) + 2}>
             <Scene palette="lilac" dur={end - b('knowWhat')}>
               <Char name="v2/char_shopper_worried.png" at={0} x={820} y={340} h={600} />
               <PopIn at={r('buying', 'knowWhat')} style={{left: 120, top: 330}}><Pill text="what they're buying..." bg="#5B4FFF" size={52} /></PopIn>
@@ -78,12 +77,6 @@ export const Cold: React.FC = () => {
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('buying', 'knowWhat')} /><Sfx name="pop" at={r('itsYou', 'knowWhat')} /><Sfx name="pop" at={r('oneNumber', 'knowWhat')} />
           </Shot>
 
-          {/* Brand sting (silent tail) */}
-          <Sequence from={end} durationInFrames={sec(c.post)}>
-            <CircleBurstWipe color="#E8A520" dur={12} seed="v2sting" />
-            <Sequence from={8}><StrokeLogo text="Penny Logics" color="#191411" size={170} drawFrames={18} fillFrames={8} /></Sequence>
-            <Sfx name="whoosh" at={0} />
-          </Sequence>
         </>
         );
       }}

@@ -81,7 +81,7 @@ export const Ch4: React.FC = () => (
               <StatCard to={63} label="had 2+ loans at the same time" at={r('s63', 'cfpbStart')} x={880} y={250} w={760} />
             </Scene>
             <Src text="CFPB, Consumer Use of Buy Now, Pay Later and Other Unsecured Debt (Jan 2025)" at={r('s63', 'cfpbStart')} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('cfpbW', 'cfpbStart')} /><Sfx name="pop" at={r('s63', 'cfpbStart')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('cfpbW', 'cfpbStart')} /><Sfx name="ding" at={r('s63', 'cfpbStart')} />
           </Shot>
 
           {/* B2: about one in three: more than one company */}
@@ -142,16 +142,16 @@ export const Ch4: React.FC = () => (
           <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'l', at: 0.6}} from={b('food')} to={len} trans="whip">
             <Scene palette="sky" dur={len - b('food')}>
               <Embers n={24} color="#FF3B30" seed={7} />
-              <PopIn at={sec(0.2)} style={{left: 130, top: 330}}><Prop name="v2/obj_grocery_bag.png" h={420} /></PopIn>
+              <PopIn at={sec(0.2)} style={{left: 130, top: 300}}><Prop name="v2/obj_grocery_bag.png" h={340} /></PopIn>
               <PopIn at={r('foodW', 'food')} style={{left: 130, top: 150}}><Pill text="your food, in 4 payments" bg="#E4572E" size={44} /></PopIn>
               {[0, 1, 2, 3].map((i) => (
                 <PayCircle key={i} amount="1/4" label="" at={r('fourPay', 'food') + i * 5} x={650 + i * 170} y={400} size={130} color={LOANS[i].color} />
               ))}
-              <PopIn at={r('hack', 'food')} style={{left: 130, top: 800}}><Pill text="not a shopping hack anymore" bg="#2B1230" size={44} /></PopIn>
+              <PopIn at={r('hack', 'food')} style={{left: 130, top: 900}}><Pill text="not a shopping hack anymore" bg="#2B1230" size={44} /></PopIn>
               <Warning at={r('warning', 'food')} left={1320} top={220} />
-              <Punch text="That's a warning light." at={r('punch', 'food')} y={620} size={96} />
+              <Punch text="That's a warning light." at={r('punch', 'food')} y={680} size={96} />
             </Scene>
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('foodW', 'food')} /><Sfx name="pop" at={r('fourPay', 'food')} /><Sfx name="pop" at={r('hack', 'food')} /><Sfx name="pop" at={r('warning', 'food')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('foodW', 'food')} /><Sfx name="pop" at={r('fourPay', 'food')} /><Sfx name="pop" at={r('hack', 'food')} /><Sfx name="boom" at={r('warning', 'food')} />
           </Shot>
         </>
       );

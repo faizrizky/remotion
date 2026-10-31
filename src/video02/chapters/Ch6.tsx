@@ -47,7 +47,7 @@ export const Ch6: React.FC = () => (
           </Scene>
           <Disclaimer />
           <Sfx name="whoosh" at={0} />
-          {RULES.map((rule) => <Sfx key={rule.beat} name="pop" at={b(rule.beat) - b('ruleStart')} />)}
+          {RULES.map((rule) => <Sfx key={rule.beat} name={rule.beat === 'rule4' ? 'notify' : 'pop'} at={b(rule.beat) - b('ruleStart')} />)}
         </Shot>
       </>
     )}

@@ -24,7 +24,7 @@ export const Ch1: React.FC = () => (
             <KeyTag text="due today" at={b('dueToday')} style={{position: 'absolute', left: 840, top: 600}} size={48} />
           </Scene>
           <Sfx name="pop" at={b('split') + 4} /><Sfx name="pop" at={b('every2wk')} /><Sfx name="pop" at={b('every2wk') + 5} /><Sfx name="pop" at={b('every2wk') + 10} />
-          <Sfx name="pop" at={b('dueToday')} />
+          <Sfx name="notify" at={b('dueToday')} />
         </Shot>
 
         {/* A2: no interest, and it's everywhere */}
@@ -50,7 +50,7 @@ export const Ch1: React.FC = () => (
             <StatCard to={16} label="of US adults used it in 2025" at={b('fed16') - b('fedStart')} x={980} y={300} w={640} />
           </Scene>
           <Src text="Federal Reserve, Economic Well-Being of U.S. Households (2025 data)" at={b('fedSrc') - b('fedStart')} />
-          <Sfx name="whoosh" at={0} /><Sfx name="pop" at={b('fed16') - b('fedStart')} />
+          <Sfx name="whoosh" at={0} /><Sfx name="ding" at={b('fed16') - b('fedStart')} />
         </Shot>
 
         {/* C: 47% tried it */}
@@ -62,7 +62,7 @@ export const Ch1: React.FC = () => (
             <StatCard to={47} label="have tried it at least once" at={b('s47') - b('survey47')} x={980} y={300} w={640} />
           </Scene>
           <Src text="LendingTree survey, March 2026" at={b('s47') - b('survey47')} />
-          <Sfx name="whoosh" at={0} /><Sfx name="pop" at={b('s47') - b('survey47')} />
+          <Sfx name="whoosh" at={0} /><Sfx name="ding" at={b('s47') - b('survey47')} />
         </Shot>
 
         {/* D: popular, free, smart... hold that thought */}
