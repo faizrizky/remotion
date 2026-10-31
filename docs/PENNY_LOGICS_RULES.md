@@ -49,7 +49,8 @@ onetake berlisensi PolyForm Noncommercial: kode dan hasilnya TIDAK dipakai. Kita
 2. Gerak kamera ditentukan beat di timing.json.
 3. Setiap batas beat membawa minimal 1 elemen. Contohnya: kartu yang di-tap menjadi kartu di diagram, koin terbang ke stasiun berikutnya, angka berubah menjadi bar, atau layar ponsel ditembus kamera.
 4. Cek otomatis `scripts/carry-check.mjs`: setiap stasiun mendaftarkan id elemen yang dibawa, dan script gagal kalau ada batas beat tanpa elemen bersama.
-5. Komponen yang dibutuhkan (P1): World + Station, WorldBg, CameraPath, Carry (shared element), MatchCut/TextMatchCut, PathTraveler, MotionBlur/EchoTrail, PhoneDive, ParallaxZoom, FocusRack, FocusZoom, CameraShake.
+5. **Variasikan arah kamera (catatan 31 Okt, berlaku mulai Video 03).** Jangan geser ke kanan terus. Susun stasiun di dunia 2D (grid/zig-zag) supaya kamera bergantian turun, naik, ke kiri, dan ke kanan; contoh satu bab: kanan, turun, kiri, naik/kanan. `world.h` dibuat lebih dari 1080 dan latar panorama boleh diletakkan di beberapa baris (BgImage punya `y`). Dalam satu bab maksimal 2 gerakan berturut-turut ke arah yang sama.
+6. Komponen yang dibutuhkan (P1): World + Station, WorldBg, CameraPath, Carry (shared element), MatchCut/TextMatchCut, PathTraveler, MotionBlur/EchoTrail, PhoneDive, ParallaxZoom, FocusRack, FocusZoom, CameraShake.
 
 ## 4. Alur produksi per video (pakai kit, hemat token)
 Satu video = 4 file kecil di `src/videoNN/`. Tidak perlu menulis JSX per scene.
@@ -246,6 +247,9 @@ Audio, musik, SFX tidak ada di git (`.gitignore`); salin ke `public/v1/audio`, `
 | PopSpeed (tempo 0.62) | ChapterShell (otomatis) |
 Belum terpakai: Quadrant, Scale, OrbitCards, CrowdRow, Letterbox, LayerCake, PullBackReveal, MedalGrid, PipMeter, ParallaxLayer, PaperCard.
 
+### Animasi yang WAJIB dipertahankan (catatan 31 Okt)
+- **Masuk bergantian atas/bawah untuk 3 objek** (Kok Bisa tri-panel montage, `Panels` di `style_kit.tsx`): saat menjelaskan 3 hal sejajar, objek/panel pertama masuk dari atas, kedua dari bawah, ketiga dari atas lagi (selang ~8 frame, pegas sedikit memantul). Jangan diganti dengan pop biasa. Kalau dipakai di specs, gunakan `enter: 'up'` / `enter: 'down'` bergantian atau `Panels` lewat item `custom`.
+
 ### Katalog singkat: mau efek apa, pakai apa
 | Mau... | Pakai | Catatan |
 |---|---|---|
@@ -324,4 +328,5 @@ Cara pakai di kit: `bg: {stops: [...], images: [{src: 'v1/bg/t1_a.jpg', x: 0, w:
 
 Catatan: periksa setiap hasil. Jika ada tulisan/logo/orang, minta Gemini menghapusnya atau generate ulang. Ratakan warna mendekati palet. Ukuran akhir 2520x1080 JPG kualitas ~85.
 
-**Video 02** (BNPL): kode `src/video02/`. Masih kurang 8 WAV narasi (v2_00_cold ... v2_07_outro), musik, thumbnail, dan NEXT_TOPIC di Outro. Kartu judul bab Video 02 juga harus dihapus mengikuti aturan 1.3.
+**Video 02** (BNPL): kode `src/video02/`. Masih kurang 8 WAV narasi (v2_00_cold ... v2_07_outro), musik, thumbnail, dan NEXT_TOPIC di Outro.
+- Catatan 31 Okt: animasi Video 02 sudah disukai, JANGAN diubah isinya. Yang dikerjakan nanti hanya: (1) hapus kartu judul bab ("Part 1, 2, ..."), (2) ganti perpindahan antar-scene dengan metode terbaru kit (transisi whip/iris/slide dari `transitions.tsx` + satu objek yang dibawa antar-scene, sting Penny Logics setelah cold open). Tidak perlu dipindah ke specs kalau itu mengubah animasinya; cukup bungkus scene lama dengan transisi baru.
