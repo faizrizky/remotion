@@ -9,6 +9,7 @@ Dokumen ini adalah SATU-SATUNYA tempat aturan produksi. Berlaku untuk SETIAP vid
 Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video01_v2_revisions, video02_style_fusion, video02_style_guide, character_palette, leo_expression_map, reference_karhutla_paper_cutout_analysis.
 
 ## 0. Riwayat keputusan
+- 31 Okt (6): musik latar dikeraskan sedikit; opening (sting) memakai audio `funky_video_intro.mp3` dengan crossfade halus ke musik latar (aturan 1.16-1.17). BELUM diterapkan di kode.
 - 31 Okt (5): ATURAN OUTRO: di akhir setiap video JANGAN menyebut topik video berikutnya. Cukup ajak subscribe dan tutup dengan "see you next time" (aturan 1.15).
 - 25 Okt: palet karakter dari leo.png/mira.png; Gemini untuk semua gambar.
 - 29 Okt: latar WAJIB cerah, teks kontras tinggi; tempo lambat 0.62; komponen reusable; watermark logo kiri bawah di semua video; aturan anti-tabrakan; registry komponen.
@@ -33,6 +34,8 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 12. **Teknis:** Remotion 4, 1920x1080, 24 fps. Antigravity yang merender di Mac (`/Users/faiz/Faiz Things/Project/YT`); Claude tidak merender video penuh, hanya still untuk QA. Audio, SFX, dan musik tidak masuk git; disalin ke `public/<video>/audio`, `public/sfx`, `public/music`.
 13. **Kerapian:** tidak ada file duplikat. Setiap video mencatat komponen yang dipakainya di bagian 7. Commit dan push atas nama faizrizky.
 14. **Disclaimer** "Education only, not financial advice" tampil di bagian penutup/saran.
+16. **Volume musik latar dinaikkan sedikit** dari 0.07 (target awal sekitar 0.09–0.10; cek di render supaya narasi tetap jelas). Berlaku untuk semua video.
+17. **Opening memakai audio khusus (`public/music/funky_video_intro.mp3`, 4.0 dtk, stereo 48 kHz, tidak masuk git; dari Suno, salin ke Mac bersama musik lain).** Audio ini diputar pada sting/opening Penny Logics. Urutan audio: musik latar turun (fade-out halus) → opening berbunyi → saat opening selesai, musik latar masuk lagi dengan fade-in dari volume nol, dan sambungannya di-crossfade tumpang tindih sehingga tidak terdengar terpotong. Durasi opening 4.0 dtk hampir sama dengan PennySting (sekitar 4.3 dtk); sinkronkan tempo animasi (letupan lingkaran → huruf terisi → selam ke "o") ke audio, dan perpanjang/pendekkan ekor sting bila perlu. Implementasi di kit: `makeVideo` mendapat opsi `intro: {file, vol}` dan kurva volume musik (duck + fade) diganti crossfade; berlaku untuk semua video. Catatan: SFX whoosh/pop sting dimatikan saat audio opening dipakai supaya tidak bertabrakan.
 15. **Outro tanpa teaser topik berikutnya (catatan 31 Okt).** Penutup setiap video hanya: ajakan subscribe + "see you next time" (contoh: "Subscribe so you don't miss the next one. This is Penny Logics. See you next time."). Jangan menyebut judul/topik video selanjutnya, baik di narasi maupun di layar. Konsekuensi: tidak ada placeholder NEXT_TOPIC di naskah; chapter terakhir di deskripsi diberi nama "Outro" (bukan "Next: ..."); end screen tidak perlu teaser, cukup Subscribe + video terkait setelah tayang.
 
 ## 2. Kebijakan latar: SETIAP scene punya gambar latar (direvisi 31 Okt)
