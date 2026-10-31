@@ -58,7 +58,7 @@ export const Video02Full: React.FC = () => (
         <p.comp />
       </Sequence>
     ))}
-    {hasFile(MUSIC_FILE) && <Html5Audio src={staticFile(MUSIC_FILE)} loop volume={musicVolume} />}
+    {hasFile(MUSIC_FILE) && <Html5Audio src={staticFile(MUSIC_FILE)} loop loopVolumeCurveBehavior="extend" volume={musicVolume} />}
     {hasFile(INTRO_FILE) && STINGS.map((s) => (
       <Sequence key={s.at} from={s.at} durationInFrames={s.len + 24}>
         <Html5Audio src={staticFile(INTRO_FILE)} volume={INTRO_VOL} />

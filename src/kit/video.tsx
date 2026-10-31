@@ -96,7 +96,7 @@ export const makeVideo = (v: VideoDef) => {
           <Chap i={i} />
         </Sequence>
       ))}
-      {v.music && hasFile(v.music.file) && <Html5Audio src={staticFile(v.music.file)} loop volume={musicVolume} />}
+      {v.music && hasFile(v.music.file) && <Html5Audio src={staticFile(v.music.file)} loop loopVolumeCurveBehavior="extend" volume={musicVolume} />}
       {introOn && stings.map((s) => (
         <Sequence key={s.at} from={s.at} durationInFrames={s.len + 24}>
           <Html5Audio src={staticFile(v.intro!.file)} volume={v.intro!.vol ?? 0.7} />

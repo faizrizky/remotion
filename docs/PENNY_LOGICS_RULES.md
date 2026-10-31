@@ -9,6 +9,7 @@ Dokumen ini adalah SATU-SATUNYA tempat aturan produksi. Berlaku untuk SETIAP vid
 Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video01_v2_revisions, video02_style_fusion, video02_style_guide, character_palette, leo_expression_map, reference_karhutla_paper_cutout_analysis.
 
 ## 0. Riwayat keputusan
+- 1 Nov (1): PERBAIKAN musik latar: `Html5Audio loop` wajib `loopVolumeCurveBehavior="extend"`. Tanpa itu frame volume diulang dari 0 di setiap putaran lagu, sehingga musik ikut 'diam' (meniru jeda sting) sekitar 6 dtk di putaran ke-2/ke-3 dan fade-out akhir tidak jalan. Sudah diperbaiki di kit (`makeVideo`) dan Video 02. Video 01 yang dirender sebelum perbaikan ini perlu dirender ulang. Video 02: beat dari forced alignment pocketsphinx + transkrip; PennySting sesudah cold open; captions.json untuk .srt.
 - 31 Okt (6): musik latar dikeraskan sedikit; opening (sting) memakai audio `funky_video_intro.mp3` dengan crossfade halus ke musik latar (aturan 1.16-1.17). Diterapkan di kit dan Video 01 (render 31 Okt sore).
 - 31 Okt (5): ATURAN OUTRO (direvisi): teaser topik berikutnya hanya kalau nyambung; kalau tidak, cukup subscribe + "see you next time" (aturan 1.15).
 - 25 Okt: palet karakter dari leo.png/mira.png; Gemini untuk semua gambar.
