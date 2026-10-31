@@ -1,5 +1,5 @@
 import React from 'react';
-import {PopIn, SANS, Scene} from '../../style/style_kit';
+import {Pill, PopIn, SANS, Scene} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {WordPop} from '../paper';
 import {Disclaimer, INK, LeoBadge, Punch, Sfx, Shot} from '../v2kit';
@@ -24,27 +24,30 @@ export const Ch6: React.FC = () => (
   <ChapterShell id="ch6">
     {(b, len) => (
       <>
-        {/* A: is it evil? no. */}
-        <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.2}} from={0} to={b('rule1')}>
-          <Scene palette="sunrise" dur={b('rule1')}>
-            <LeoBadge head="head_thinking.png" at={0} x={760} y={140} size={380} />
-            <Punch text="Is it evil?" at={4} color={INK} y={560} size={110} />
-            <WordPop words={['No.', 'Use', 'it', 'on', 'purpose.']} at={b('onPurpose')} gap={5} x={330} y={720} size={84} highlight={[4]} />
+        {/* A: is it evil? no. Used on purpose... the trick is YOU use it */}
+        <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.2}} from={0} to={b('ruleStart')}>
+          <Scene palette="sunrise" dur={b('ruleStart')}>
+            <LeoBadge head="head_thinking.png" at={0} x={760} y={120} size={380} />
+            <Punch text="Is it evil?" at={b('evil')} color={INK} y={520} size={110} />
+            <Punch text="No." at={b('no')} color={INK} y={640} size={140} />
+            <WordPop words={['Used', 'on', 'purpose:', 'a', 'free', 'short', 'loan.']} at={b('onPurpose')} gap={5} x={230} y={830} size={56} highlight={[4, 5, 6]} />
+            <PopIn at={b('trick')} style={{left: 120, top: 180}}><Pill text="the trick: YOU use it" bg="#5B4FFF" size={52} /></PopIn>
           </Scene>
-          <Sfx name="pop" at={0} /><Sfx name="pop" at={b('onPurpose')} />
+          <Disclaimer />
+          <Sfx name="pop" at={0} /><Sfx name="pop" at={b('evil')} /><Sfx name="pop" at={b('no')} /><Sfx name="pop" at={b('onPurpose')} /><Sfx name="pop" at={b('trick')} />
         </Shot>
 
         {/* B: four rules */}
-        <Shot world={{src: 'v2/world_bakery.jpg', dir: 'l', at: 0.7}} from={b('rule1')} to={len} trans="ink" seed="c6b">
-          <Scene palette="mint" dur={len - b('rule1')}>
+        <Shot world={{src: 'v2/world_bakery.jpg', dir: 'l', at: 0.7}} from={b('ruleStart')} to={len} trans="ink" seed="c6b">
+          <Scene palette="mint" dur={len - b('ruleStart')}>
             <LeoBadge head="head_proud.png" at={0} x={160} y={300} size={420} ring="#FFD23F" />
             {RULES.map((rule, i) => (
-              <RuleRow key={rule.beat} n={i + 1} text={rule.text} at={b(rule.beat) - b('rule1')} y={170 + i * 175} />
+              <RuleRow key={rule.beat} n={i + 1} text={rule.text} at={b(rule.beat) - b('ruleStart')} y={170 + i * 175} />
             ))}
           </Scene>
           <Disclaimer />
           <Sfx name="whoosh" at={0} />
-          {RULES.map((rule) => <Sfx key={rule.beat} name="pop" at={b(rule.beat) - b('rule1')} />)}
+          {RULES.map((rule) => <Sfx key={rule.beat} name="pop" at={b(rule.beat) - b('ruleStart')} />)}
         </Shot>
       </>
     )}

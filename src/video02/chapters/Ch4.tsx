@@ -13,6 +13,9 @@ const LoanScreen: React.FC<{n: number; amt: string; color: string}> = ({n, amt, 
   </div>
 );
 
+/** Renders its children only from frame `at` on (IsoBlock draws a ghost base from frame 0). */
+const After: React.FC<{at: number; children: React.ReactNode}> = ({at, children}) => (useCurrentFrame() >= at ? <>{children}</> : null);
+
 const LOANS = [
   {amt: '$30', color: '#FFD23F'},
   {amt: '$45', color: '#FF9F1C'},
@@ -36,11 +39,11 @@ const CreditReport: React.FC<{at: number}> = ({at}) => (
 );
 
 /** Pulsing warning triangle (code-drawn). */
-const Warning: React.FC<{at: number}> = ({at}) => {
+const Warning: React.FC<{at: number; left?: number; top?: number}> = ({at, left = 760, top = 300}) => {
   const f = useCurrentFrame();
   const glow = f >= at ? 0.5 + 0.5 * Math.abs(Math.sin((f - at) / 8)) : 0;
   return (
-    <PopIn at={at} origin="50% 50%" style={{left: 760, top: 300}}>
+    <PopIn at={at} origin="50% 50%" style={{left, top}}>
       <svg width={400} height={360} viewBox="0 0 400 360" style={{filter: `drop-shadow(0 0 ${40 * glow}px #FF3B30)`}}>
         <path d="M200 20 L385 340 L15 340 Z" fill="#FF3B30" stroke={INK} strokeWidth={14} strokeLinejoin="round" />
         <rect x={186} y={110} width={28} height={140} rx={12} fill="#fff" />
@@ -54,85 +57,101 @@ export const Ch4: React.FC = () => (
   <ChapterShell id="ch4">
     {(b, len) => {
       const r = (k: string, from: string) => b(k) - b(from);
+      const phoneAt = ['ph2', 'ph3', 'ph4', 'ph5'];
       return (
         <>
           {/* A: one is easy... now open five */}
-          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'r', at: 0.2}} from={0} to={b('cfpb')}>
-            <Scene palette="sky" dur={b('cfpb')}>
-              <MascotCorner head="head_suspicious.png" at={b('openFive')} x={1640} y={820} size={200} />
+          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'r', at: 0.2}} from={0} to={b('cfpbStart')}>
+            <Scene palette="sky" dur={b('cfpbStart')}>
+              <MascotCorner head="head_suspicious.png" at={b('ph2')} x={1640} y={820} size={200} />
               {LOANS.map((l, i) => (
-                <Phone key={i} at={i === 0 ? 0 : b('openFive') + i * 4} x={150 + i * 340} y={250} h={460} tilt={(i - 2) * 3}>
+                <Phone key={i} at={i === 0 ? 0 : b(phoneAt[i - 1])} x={150 + i * 340} y={250} h={460} tilt={(i - 2) * 3}>
                   <LoanScreen n={i + 1} amt={l.amt} color={l.color} />
                 </Phone>
               ))}
             </Scene>
             <Sfx name="pop" at={0} />
-            {[1, 2, 3, 4].map((i) => <Sfx key={i} name="pop" at={b('openFive') + i * 4} />)}
+            {phoneAt.map((k) => <Sfx key={k} name="pop" at={b(k)} />)}
           </Shot>
 
-          {/* B: CFPB 63%, 1 in 3 */}
-          <Shot world={{src: 'v2/world_desk.jpg', dir: 'l', at: 0.7}} from={b('cfpb')} to={b('ownLoans')} trans="ink" seed="c4b">
-            <Scene palette="teal" dur={r('ownLoans', 'cfpb')}>
-              <PopIn at={0} style={{left: 120, top: 330}}><Prop name="bld_cfpb_transparent.png" w={700} /></PopIn>
-              <StatCard to={63} label="had 2+ loans at the same time" at={r('s63', 'cfpb')} x={880} y={170} w={760} />
-              {[0, 1, 2].map((i) => (
-                <PopIn key={i} at={r('oneInThree', 'cfpb') + i * 4} style={{left: 960 + i * 170, top: 600}}><Person color={i === 1 ? '#E4572E' : '#4FB7C0'} h={240} dim={i !== 1} /></PopIn>
-              ))}
-              <Chip text="1 in 3: 2+ companies" kind="warn" at={r('oneInThree', 'cfpb') + 14} x={1460} y={700} size={42} />
+          {/* B: CFPB 63% */}
+          <Shot world={{src: 'v2/world_desk.jpg', dir: 'l', at: 0.7}} from={b('cfpbStart')} to={b('one3')} trans="ink" seed="c4b">
+            <Scene palette="teal" dur={r('one3', 'cfpbStart')}>
+              <PopIn at={r('cfpbW', 'cfpbStart')} style={{left: 120, top: 330}}><Prop name="bld_cfpb_transparent.png" w={700} /></PopIn>
+              <StatCard to={63} label="had 2+ loans at the same time" at={r('s63', 'cfpbStart')} x={880} y={250} w={760} />
             </Scene>
-            <Src text="CFPB, Consumer Use of Buy Now, Pay Later and Other Unsecured Debt (Jan 2025)" at={r('s63', 'cfpb')} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('s63', 'cfpb')} /><Sfx name="pop" at={r('oneInThree', 'cfpb')} /><Sfx name="pop" at={r('oneInThree', 'cfpb') + 14} />
+            <Src text="CFPB, Consumer Use of Buy Now, Pay Later and Other Unsecured Debt (Jan 2025)" at={r('s63', 'cfpbStart')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('cfpbW', 'cfpbStart')} /><Sfx name="pop" at={r('s63', 'cfpbStart')} />
+          </Shot>
+
+          {/* B2: about one in three: more than one company */}
+          <Shot world={{src: 'v2/world_clothes.jpg', dir: 'r', at: 0.5}} from={b('one3')} to={b('ownLoans')} trans="wipe">
+            <Scene palette="peri" dur={r('ownLoans', 'one3')}>
+              {[0, 1, 2].map((i) => (
+                <PopIn key={i} at={r('one3W', 'one3') + i * 5} style={{left: 300 + i * 220, top: 330}}><Person color={i === 1 ? '#E4572E' : '#4FB7C0'} h={380} dim={i !== 1} /></PopIn>
+              ))}
+              <Chip text="1 in 3: loans with 2+ companies" kind="warn" at={r('one3W', 'one3') + sec(1.6)} x={1000} y={450} size={54} />
+            </Scene>
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('one3W', 'one3')} /><Sfx name="pop" at={r('one3W', 'one3') + 5} /><Sfx name="pop" at={r('one3W', 'one3') + 10} /><Sfx name="pop" at={r('one3W', 'one3') + sec(1.6)} />
           </Shot>
 
           {/* C: each app only sees its own loans; you see the pile */}
           <Shot world={{src: 'v2/world_bank.jpg', dir: 'u', at: 0.45}} from={b('ownLoans')} to={b('fico')} trans="whip">
             <Scene palette="lilac" dur={r('fico', 'ownLoans')}>
               {[0, 1, 2].map((i) => (
-                <Phone key={i} at={i * 4} x={120 + i * 270} y={300} h={420}>
+                <Phone key={i} at={r('eachApp', 'ownLoans') + i * 10} x={120 + i * 270} y={300} h={420}>
                   <LoanScreen n={i + 1} amt={LOANS[i].amt} color={LOANS[i].color} />
                 </Phone>
               ))}
-              <PopIn at={10} style={{left: 160, top: 760}}><Pill text="each app sees only its own" bg="#5B4FFF" size={38} /></PopIn>
+              <PopIn at={r('eachApp', 'ownLoans') + 4} style={{left: 160, top: 760}}><Pill text="each app sees only its own" bg="#5B4FFF" size={38} /></PopIn>
               <Char name="v2/char_shopper_worried.png" at={r('wholePile', 'ownLoans')} x={1330} y={580} h={360} />
               {LOANS.map((l, i) => (
-                <PayCircle key={i} amount={l.amt} label="" at={r('wholePile', 'ownLoans') + 6 + i * 4} x={1410 + (i % 2) * 30 - 15} y={520 - i * 75} size={110} color={l.color} />
+                <PayCircle key={i} amount={l.amt} label="" at={r('wholePile', 'ownLoans') + sec(1.4) + i * 5} x={1410 + (i % 2) * 30 - 15} y={520 - i * 75} size={110} color={l.color} />
               ))}
             </Scene>
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={10} /><Sfx name="pop" at={r('wholePile', 'ownLoans')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('eachApp', 'ownLoans') + 4} /><Sfx name="pop" at={r('wholePile', 'ownLoans')} />
           </Shot>
 
           {/* D: FICO BNPL scores */}
           <Shot world={{src: 'v2/world_bakery.jpg', dir: 'd', at: 0.8}} from={b('fico')} to={b('groceries')} trans="wipe">
             <Scene palette="peri" dur={r('groceries', 'fico')}>
-              <CreditReport at={0} />
-              <NameTag name="FICO Score 10 BNPL" role="announced June 2025" at={8} style={{left: 900, top: 420}} />
+              <PopIn at={r('changePill', 'fico')} style={{left: 820, top: 180}}><Pill text="starting to change..." bg="#5B4FFF" size={54} /></PopIn>
+              <CreditReport at={r('changePill', 'fico')} />
+              <NameTag name="FICO Score 10 BNPL" role="announced June 2025" at={r('ficoW', 'fico')} style={{left: 900, top: 420}} />
+              <Chip text="now includes BNPL data" kind="label" at={r('bnplData', 'fico')} x={900} y={640} size={50} />
             </Scene>
-            <Src text="FICO press release, June 23, 2025" at={8} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={0} /><Sfx name="pop" at={8} />
+            <Src text="FICO press release, June 23, 2025" at={r('ficoW', 'fico')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('changePill', 'fico')} /><Sfx name="pop" at={r('ficoW', 'fico')} /><Sfx name="pop" at={r('bnplData', 'fico')} />
           </Shot>
 
           {/* E: groceries 14% -> 29% */}
-          <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.1}} from={b('groceries')} to={b('warning')} trans="ink" seed="c4e">
-            <Scene palette="sunrise" dur={r('warning', 'groceries')}>
-              <PopIn at={0} style={{left: 150, top: 300}}><Prop name="v2/obj_grocery_bag.png" h={460} /></PopIn>
-              <IsoBlock h={168} at={r('s14', 'groceries')} label="14%" style={{left: 820, bottom: 330}} top="#FFD9A0" left="#FFB26B" right="#E4572E" />
-              <IsoBlock h={348} at={r('s29', 'groceries')} label="29%" style={{left: 1220, bottom: 330}} top="#FFB26B" left="#E4572E" right="#B5401F" />
-              <PopIn at={r('s14', 'groceries')} style={{left: 830, top: 775}}><Pill text="2 years earlier" bg="#3B1F1A" size={34} /></PopIn>
+          <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.1}} from={b('groceries')} to={b('food')} trans="ink" seed="c4e">
+            <Scene palette="sunrise" dur={r('food', 'groceries')}>
+              <PopIn at={sec(0.2)} style={{left: 150, top: 300}}><Prop name="v2/obj_grocery_bag.png" h={460} /></PopIn>
+              <PopIn at={r('sneakers', 'groceries')} style={{left: 520, top: 150}}><Pill text="not just sneakers anymore" bg="#2B1230" size={44} /></PopIn>
+              <After at={r('s29', 'groceries')}><IsoBlock h={348} at={r('s29', 'groceries')} label="29%" style={{left: 1220, bottom: 330}} top="#FFB26B" left="#E4572E" right="#B5401F" /></After>
               <PopIn at={r('s29', 'groceries')} style={{left: 1290, top: 775}}><Pill text="now" bg="#3B1F1A" size={34} /></PopIn>
-              <PopIn at={r('food', 'groceries')} style={{left: 640, top: 150}}><Pill text="your food, in 4 payments" bg="#E4572E" size={44} /></PopIn>
+              <PopIn at={r('two', 'groceries')} style={{left: 810, top: 775}}><Pill text="2 years earlier" bg="#3B1F1A" size={34} /></PopIn>
+              <After at={r('s14', 'groceries')}><IsoBlock h={168} at={r('s14', 'groceries')} label="14%" style={{left: 820, bottom: 330}} top="#FFD9A0" left="#FFB26B" right="#E4572E" /></After>
             </Scene>
             <Src text="LendingTree BNPL survey, 2026 (share of BNPL users who used it for groceries)" at={r('s29', 'groceries')} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('s29', 'groceries')} /><Sfx name="pop" at={r('s14', 'groceries')} /><Sfx name="pop" at={r('food', 'groceries')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('sneakers', 'groceries')} /><Sfx name="pop" at={r('s29', 'groceries')} /><Sfx name="pop" at={r('s14', 'groceries')} />
           </Shot>
 
-          {/* F: that's a warning light */}
-          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'l', at: 0.6}} from={b('warning')} to={len} trans="whip">
-            <Scene palette="sky" dur={len - b('warning')}>
+          {/* F: food in four payments = a warning light */}
+          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'l', at: 0.6}} from={b('food')} to={len} trans="whip">
+            <Scene palette="sky" dur={len - b('food')}>
               <Embers n={24} color="#FF3B30" seed={7} />
-              <Warning at={2} />
-              <Punch text="That's a warning light." at={sec(0.6)} y={720} size={100} />
+              <PopIn at={sec(0.2)} style={{left: 130, top: 330}}><Prop name="v2/obj_grocery_bag.png" h={420} /></PopIn>
+              <PopIn at={r('foodW', 'food')} style={{left: 130, top: 150}}><Pill text="your food, in 4 payments" bg="#E4572E" size={44} /></PopIn>
+              {[0, 1, 2, 3].map((i) => (
+                <PayCircle key={i} amount="1/4" label="" at={r('fourPay', 'food') + i * 5} x={650 + i * 170} y={400} size={130} color={LOANS[i].color} />
+              ))}
+              <PopIn at={r('hack', 'food')} style={{left: 130, top: 800}}><Pill text="not a shopping hack anymore" bg="#2B1230" size={44} /></PopIn>
+              <Warning at={r('warning', 'food')} left={1320} top={220} />
+              <Punch text="That's a warning light." at={r('punch', 'food')} y={620} size={96} />
             </Scene>
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={2} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={r('foodW', 'food')} /><Sfx name="pop" at={r('fourPay', 'food')} /><Sfx name="pop" at={r('hack', 'food')} /><Sfx name="pop" at={r('warning', 'food')} />
           </Shot>
         </>
       );
