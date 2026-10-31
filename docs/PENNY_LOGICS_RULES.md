@@ -292,7 +292,7 @@ HyperFrames (heygen-com/hyperframes) berlisensi Apache 2.0. Idenya ditulis ulang
 ## 10. Status per video
 **Video 01** (How Credit Card Companies Make Money Off You): kode `src/video01/` (rebuild V2, commit 3899ae4, render V1-Full oleh Antigravity 30 Okt).
 - Revisi tercatat 31 Okt (belum dikerjakan): sting Penny Logics setelah Hook (post hook 0.4 → 1.6); hapus kartu judul (pre = 0, titleAudio kosong, TitleCard dimatikan di ChapterShell1, ducking musik disesuaikan); susun ulang dengan World/CameraPath/Carry; durasi sekitar 4:54, chapter dan .srt dihitung ulang.
-**Video 01: latar panorama (prompt Gemini, dibuat 31 Okt, BELUM digenerate).**
+**Video 01: latar panorama (16 potongan, SUDAH digenerate 31 Okt, ada di `public/v1/bg/`).** Dibuat di Gemini (akun genshin impacto) dengan prompt di bawah; hasil diubah ke 2520x1080 dengan tepi kiri/kanan memudar ke krem. Catatan: t2_c punya sofa di tengah, t3_a dan t4_c sedikit berperspektif; t2_a dan t4_a sengaja kosong di kiri; papan menu hook_a sudah dikosongkan.
 Cara pakai di kit: `bg: {stops: [...], images: [{src: 'v1/bg/t1_a.jpg', x: 0, w: 2600}, {src: 'v1/bg/t1_b.jpg', x: 2500, w: 2600}, ...]}`. Potongan bersebelahan saling tumpang 100–150 px dan ujungnya menyatu otomatis (fade). Kit memberi wash terang 22% + blur 1.6 px. Simpan file di `public/v1/bg/`.
 
 **Gaya untuk SEMUA potongan (tempel di awal setiap prompt Gemini; lampirkan `public/v1/bg_cafe.jpg` sebagai referensi gaya):**
