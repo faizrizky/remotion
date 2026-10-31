@@ -32,6 +32,11 @@ def stitch(A, B, sh, dy, top=0.30, clean=None):
     h, w = A.shape[:2]
     B = cv2.resize(B, (w, h)) if B.shape[:2] != (h, w) else B
     ov = w - sh
+    import os
+    if os.environ.get('VSCALE'):   # k,yc: B is vertically k times larger than A about row yc (fraction of h) -> resample B to match
+        k, yc = (float(v) for v in os.environ['VSCALE'].split(',')); yc *= h
+        my = (yc + (np.arange(h, dtype=np.float32) - yc) * k)[:, None].repeat(w, 1); mx = np.arange(w, dtype=np.float32)[None, :].repeat(h, 0)
+        B = cv2.remap(B, mx, my, cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
     B = cv2.warpAffine(B, np.float32([[1, 0, 0], [0, 1, -dy]]), (w, h), borderMode=cv2.BORDER_REPLICATE)
     Ao, Bo = A[:, sh:w], B[:, :ov]
     ga, gb = cv2.cvtColor(Ao, cv2.COLOR_BGR2GRAY), cv2.cvtColor(Bo, cv2.COLOR_BGR2GRAY)
@@ -66,6 +71,7 @@ def stitch(A, B, sh, dy, top=0.30, clean=None):
         ah = np.zeros(ov, np.float32); ah[c + f:] = 1; ah[c - f:c + f] = np.linspace(0, 1, 2 * f); ah = ah[None, :, None]
         hard = Af * (1 - ah) + Bt * ah
     else:
+        if best[1] - best[0] < 12: best = (ov // 2 - 20, ov // 2 + 20)   # no lamp-free gap: feathered cut mid-overlap
         c = (best[0] + best[1]) // 2; f = max(4, min(14, (best[1] - best[0]) // 2 - 2))
         print('top-band gap', best, 'cut', c)
         ah = np.zeros(ov, np.float32); ah[c + f:] = 1; ah[c - f:c + f] = np.linspace(0, 1, 2 * f); ah = ah[None, :, None]
@@ -76,7 +82,11 @@ def stitch(A, B, sh, dy, top=0.30, clean=None):
     if os.environ.get('PATCH'):   # y0,y1,c0 (fractions of h for y, column in overlap): use B only there (kills ghosts of objects only A has)
         y0, y1, c0 = os.environ['PATCH'].split(','); y0, y1, c0 = int(float(y0) * h), int(float(y1) * h), int(c0)
         m = np.zeros((h, ov, 1), np.float32); m[y0:y1, c0:] = 1; m = cv2.GaussianBlur(m, (0, 0), 6)[..., None]
-        mix = mix * (1 - m) + Bf * m
+        mix = mix * (1 - m) + Bw * m
+    if os.environ.get('PATCHA'):   # y0,y1,c1: use A only for overlap columns [0,c1) in that band (kills ghosts of objects only B has)
+        y0, y1, c1 = os.environ['PATCHA'].split(','); y0, y1, c1 = int(float(y0) * h), int(float(y1) * h), int(c1)
+        m = np.zeros((h, ov, 1), np.float32); m[y0:y1, :c1] = 1; m = cv2.GaussianBlur(m, (0, 0), 8)[..., None]
+        mix = mix * (1 - m) + Af * m
     Wd = sh + w
     P = np.zeros((h, Wd, 3), np.float32)
     P[:, :sh] = A[:, :sh]; P[:, w:] = Bg[:, ov:]; P[:, sh:w] = mix
