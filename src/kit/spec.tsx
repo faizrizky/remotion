@@ -6,7 +6,7 @@ import {Bubble, HAND, Pill, PopIn, PALETTES, SANS, SlideIn, Sticker, StickyNote}
 import {CoinFly, DashArrow, Disclaimer, Gauge, LeoBadge, PayCircle, PercentGrid, Person, Phone, PriceTag, Prop, Punch, Sfx, SfxName, Src, StatCard} from '../video02/v2kit';
 import {Chip, Embers, PaperCard, RulerTimeline, WordPop} from '../video02/paper';
 import {PaperTexture} from '../video02/fx';
-import {At, Cam, Chapter, clamp, INK, makeAt, Pose, poseAtPure, resolveCamPure} from './core';
+import {At, Cam, Chapter, clamp, H, INK, makeAt, Pose, poseAtPure, resolveCamPure, W} from './core';
 export type {Cam, Pose};
 import {World} from './camera';
 import {BgImage, BgStop, WorldBg} from './worldbg';
@@ -28,8 +28,8 @@ type ItemProps = {
   chip: {text: string; kind?: 'time' | 'warn' | 'label'; size?: number; rot?: number};
   pill: {text: string; bg?: string; color?: string; size?: number};
   tag: {text: string; bg?: string; color?: string; size?: number; rot?: number};
-  bubble: {text: string; tail?: 'left' | 'right'; size?: number};
-  sticker: {top: string; main: string; sub?: string; palette?: string};
+  bubble: {text: string; tail?: 'left' | 'right'; size?: number; w?: number};
+  sticker: {top: string; main: string; sub?: string; palette?: string; w?: number};
   note: {text: string; color?: string; size?: number; rot?: number};
   stat: {to: number; prefix?: string; suffix?: string; label: string; w?: number; bg?: string};
   pct: {n: number; dot?: number; gap?: number; on?: string};
@@ -130,6 +130,8 @@ const lin = (f: number, keys: [number, number][]) => {
 };
 
 // ---------------------------------------------------------------- render one item
+/** Full-frame box for screen-space pieces that position themselves (punch, source line, disclaimer, embers). */
+const Frame: React.FC<{children: React.ReactNode}> = ({children}) => <div style={{position: 'absolute', left: 0, top: 0, width: W, height: H}}>{children}</div>;
 const renderBody = (it: Item, rel: (a: At) => number, kids: React.ReactNode): React.ReactNode => {
   switch (it.t) {
     case 'prop': return <Prop name={it.src} h={it.w ? undefined : it.h ?? 300} w={it.w} flip={it.flip} />;
@@ -140,8 +142,8 @@ const renderBody = (it: Item, rel: (a: At) => number, kids: React.ReactNode): Re
     case 'chip': return <Chip text={it.text} kind={it.kind} x={0} y={0} size={it.size} rot={it.rot} />;
     case 'pill': return <Pill text={it.text} bg={it.bg ?? '#2B2F77'} color={it.color} size={it.size} />;
     case 'tag': return <Tag text={it.text} at={0} x={0} y={0} size={it.size} bg={it.bg} color={it.color} rot={it.rot} />;
-    case 'bubble': return <Bubble text={it.text} tail={it.tail} size={it.size} style={{left: 0, top: 0}} />;
-    case 'sticker': return <Sticker top={it.top} main={it.main} sub={it.sub} p={PALETTES[it.palette ?? 'sunrise']} style={{left: 0, top: 0}} />;
+    case 'bubble': return <div style={{position: 'relative', width: it.w ?? 760}}><Bubble text={it.text} tail={it.tail} size={it.size} style={{left: 0, top: 0}} /></div>;
+    case 'sticker': return <div style={{position: 'relative', width: it.w ?? 900}}><Sticker top={it.top} main={it.main} sub={it.sub} p={PALETTES[it.palette ?? 'sunrise']} style={{left: 0, top: 0}} /></div>;
     case 'note': return <StickyNote text={it.text} color={it.color} size={it.size} rot={it.rot} style={{position: 'absolute', left: 0, top: 0}} />;
     case 'stat': return <StatCard to={it.to} prefix={it.prefix} suffix={it.suffix} label={it.label} at={0} x={0} y={0} w={it.w} bg={it.bg} />;
     case 'pct': return <PercentGrid n={it.n} at={6} x={0} y={0} dot={it.dot} gap={it.gap} on={it.on} />;
@@ -166,10 +168,10 @@ const renderBody = (it: Item, rel: (a: At) => number, kids: React.ReactNode): Re
     case 'ruler': return <RulerTimeline x={0} y={0} w={it.w} marks={it.marks.map((m) => ({...m, at: rel(m.at)}))} />;
     case 'words': return <WordPop words={it.words} at={0} gap={it.gap} x={0} y={0} size={it.size} highlight={it.highlight} />;
     case 'path': return <PathTraveler pts={it.pts} at={0} dur={it.dur ?? 30} rotate={it.rotate} trail={it.trail}><Prop name={it.src} h={it.h ?? 160} /></PathTraveler>;
-    case 'embers': return <Embers n={it.n} color={it.color} />;
-    case 'src': return <Src text={it.text} />;
-    case 'disclaimer': return <Disclaimer />;
-    case 'punch': return <Punch text={it.text} at={0} y={0} size={it.size} color={it.color} />;
+    case 'embers': return <Frame><Embers n={it.n} color={it.color} /></Frame>;
+    case 'src': return <Frame><Src text={it.text} /></Frame>;
+    case 'disclaimer': return <Frame><Disclaimer /></Frame>;
+    case 'punch': return <Frame><Punch text={it.text} at={0} y={0} size={it.size} color={it.color} /></Frame>;
     case 'custom': return it.render(rel);
     default: return null;
   }

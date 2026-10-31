@@ -73,8 +73,9 @@ if (cmd === 'check') {
   const names = new Set([...src.matchAll(/(?:name|head|src|file)\s*[=:]\s*["'`]([^"'`]+\.(?:png|jpg|webp|mp3|wav))["'`]/g)].map((m) => m[1]));
   for (const m of src.matchAll(/\[\s*[^\],]+,\s*["']([^"']+\.png)["']\s*\]/g)) names.add(m[1]);
   for (const s of ['sfx/pop.wav', 'sfx/whoosh.wav', 'sfx/kaching.wav', 'sfx/card_tap.wav', 'profile_pic.png']) names.add(s);
-  for (const n of [...names].sort()) if (!fs.existsSync(pub(n))) bad(`missing public/${n}`);
   const mod = await loadSpecs(arg).catch((e) => { bad('specs failed to load: ' + e.message); return null; });
+  if (mod) for (const s of mod.SPECS) for (const im of s.bg?.images ?? []) names.add(im.src);
+  for (const n of [...names].sort()) if (!n.includes('${') && !fs.existsSync(pub(n))) bad(`missing public/${n}`);
   const L = mod ? mod.layoutVideo(t, mod.SPECS.map((s, i) => (i === 0 ? 'none' : s.enter?.kind ?? 'whip'))) : null;
   if (mod) mod.SPECS.forEach((s, i) => { if (s.sting && t.chapters[i].post < 1.5) bad(`${t.chapters[i].id}: sting needs post >= 1.6 s (now ${t.chapters[i].post})`); });
   console.log('4) chapter start times (YouTube chapters)');
