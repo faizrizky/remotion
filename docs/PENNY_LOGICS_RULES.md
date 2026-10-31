@@ -27,7 +27,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 5. **Tempo:** PopSpeed 0.62 untuk semua video. Elemen baru muncul tiap 2–4 dtk; satu pusat perhatian per beat; maksimal 3 elemen info baru per beat.
 6. **Watermark:** logo Penny Logics (`public/profile_pic.png`) berupa lingkaran 72 px di kiri bawah, margin 28 px, sepanjang video. Zona x 28–100, y 980–1052 selalu kosong; Src dimulai di x ≥ 124.
 7. **Anti-tabrakan** (bagian 6) dicek dengan still di setiap beat sebelum render.
-8. **Audio:** narasi per bagian (WAV); SFX hanya pop, whoosh, kaching, card_tap; musik latar free-to-use (contoh freetouse.com) di volume 0.08 flat (aturan 16), diam saat opening sting (aturan 17), fade-out 3 dtk di akhir; kredit musik ditulis persis di deskripsi.
+8. **Audio:** narasi per bagian (WAV); SFX: pop, whoosh, kaching, card_tap, plus ding (penekanan angka), boom (momen peringatan), notify (notifikasi/jatuh tempo) yang ditambahkan 31 Okt untuk Video 02 (file `public/sfx/{ding,boom,notify}.wav`, sudah dinormalkan -18 LUFS, volume di `SFX_VOL`); musik latar free-to-use (contoh freetouse.com) di volume 0.08 flat (aturan 16), diam saat opening sting (aturan 17), fade-out 3 dtk di akhir; kredit musik ditulis persis di deskripsi.
 9. **Subtitle:** file .srt terpisah (tidak dibakar ke video), dibuat dari captions.json + timing.json.
 10. **Angka/riset:** setiap angka di layar disertai `Src` (sumber). Angka dihitung dengan kode (CountUp/CountMoney), bukan ditulis tangan.
 11. **Karakter & aset:** Leo (dan Mira, arketipe) original. Dilarang memakai karakter, logo, maskot, atau UI merek lain (ChatGPT, Apple, Spotify, iPhone, X, TikTok, dst.); pakai versi generik. Gambar dibuat dengan Gemini mengikuti palet di bagian 8.

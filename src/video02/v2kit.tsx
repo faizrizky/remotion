@@ -42,8 +42,8 @@ export const hasFile = (name: string): boolean => {
   return cache.has(name);
 };
 
-export const SFX = {pop: 'sfx/pop.wav', whoosh: 'sfx/whoosh.wav', kaching: 'sfx/kaching.wav', card_tap: 'sfx/card_tap.wav'} as const;
-export const SFX_VOL = {pop: 0.32, whoosh: 0.3, kaching: 0.5, card_tap: 0.5} as const;
+export const SFX = {pop: 'sfx/pop.wav', whoosh: 'sfx/whoosh.wav', kaching: 'sfx/kaching.wav', card_tap: 'sfx/card_tap.wav', ding: 'sfx/ding.wav', boom: 'sfx/boom.wav', notify: 'sfx/notify.wav'} as const;
+export const SFX_VOL = {pop: 0.32, whoosh: 0.3, kaching: 0.5, card_tap: 0.5, ding: 0.4, boom: 0.45, notify: 0.4} as const;
 export type SfxName = keyof typeof SFX;
 
 export const Sfx: React.FC<{name: SfxName; at: number}> = ({name, at}) => {
