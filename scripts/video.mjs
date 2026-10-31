@@ -77,7 +77,8 @@ if (cmd === 'check') {
   if (mod) for (const s of mod.SPECS) for (const im of s.bg?.images ?? []) names.add(im.src);
   for (const n of [...names].sort()) if (!n.includes('${') && !fs.existsSync(pub(n))) bad(`missing public/${n}`);
   const L = mod ? mod.layoutVideo(t, mod.SPECS.map((s, i) => (i === 0 ? 'none' : s.enter?.kind ?? 'whip'))) : null;
-  if (mod) mod.SPECS.forEach((s, i) => { if (s.sting && t.chapters[i].post < 1.5) bad(`${t.chapters[i].id}: sting needs post >= 1.6 s (now ${t.chapters[i].post})`); });
+  if (mod) mod.SPECS.forEach((s, i) => { if (s.sting && t.chapters[i].post * t.fps < mod.STING_FRAMES + 2) bad(`${t.chapters[i].id}: sting needs post >= ${((mod.STING_FRAMES + 2) / t.fps).toFixed(1)} s (now ${t.chapters[i].post})`);
+    if (s.intro && t.chapters[i].pre < 2) bad(`${t.chapters[i].id}: intro needs pre >= 2 s`); });
   console.log('4) chapter start times (YouTube chapters)');
   let acc = 0;
   t.chapters.forEach((c, i) => {

@@ -15,6 +15,7 @@ import {BarChart, BarDatum, LineChart, NumberWheel} from './numbers';
 import {NotifStack} from './ui';
 import {Boil, Hang, PathTraveler, StopMotion} from './motion';
 import {TextMatchCut, EnterKind} from './transitions';
+import type {IntroSpec} from './intro';
 import {CountMoney, LeoFull, Ripple, Shadow, Tag, Bar} from './pieces';
 
 // ---------------------------------------------------------------- types
@@ -106,6 +107,8 @@ export type ChapterSpec = {
   sfx?: [At, SfxName][];
   /** how this chapter arrives over the previous one (no hard cut). carry = id of the item that continues. */
   enter?: {kind: EnterKind; carry?: string; cx?: number; cy?: number};
+  /** question intro scene played in the chapter's silent `pre` (Karhutla-style words + big "?") */
+  intro?: IntroSpec;
   /** brand sting "Penny Logics" in this chapter's tail (after the hook) */
   sting?: boolean;
   /** paper texture overlay (off by default: the channel uses the flat cartoon look, not paper) */

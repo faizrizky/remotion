@@ -86,7 +86,7 @@ export const layoutVideo = (t: Timing, enters: (string | undefined)[]) => {
   return {starts, overlaps, total: cursor};
 };
 /** Brand sting length (CircleBurstWipe + StrokeLogo), frames at 24 fps. */
-export const STING_FRAMES = 38;
+export const STING_FRAMES = 66;
 
 // ---------- spec math (pure; used by the renderer and by scripts/video.mjs) ----------
 /** Pose for a carried/moving item: [time, x, y, scale?, rotation?] in world (or screen) px. */

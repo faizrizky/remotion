@@ -4,7 +4,6 @@
 // Import only types + helpers from ../kit/core here (scripts/video.mjs bundles this file).
 import type {ChapterSpec, Item} from '../kit/spec';
 import type {Pose} from '../kit/core';
-import {diveCam} from '../kit/core';
 
 // ---------------------------------------------------------------- layout helpers
 /** Stations sit 2200 px apart; every station has its own 2520 px backdrop image (overlap 320 px, edges blend). */
@@ -29,8 +28,8 @@ const hook: ChapterSpec = {
   sting: true,
   world: {w: 2 * ST + 1920, h: 1080},
   bg: bg(['hook_a', 'hook_b']),
-  cam: [cam(0, 0), cam('twoSec', 1), cam('opening', 1), diveCam('machine', {x: L(1) + 760, y: 260, w: 534, h: 440}, 0.9)],
-  sfx: [['tap', 'card_tap'], ['paid1', 'kaching'], ['paid2', 'kaching'], ['paid3', 'kaching'], ['ontime', 'card_tap']],
+  cam: [cam(0, 0), cam('twoSec', 1), cam('opening', 1), ['machine', L(1) + 1027, 500, 1.15]],
+  sfx: [['tap', 'card_tap'], ['paid1', 'kaching'], ['paid2', 'kaching'], ['paid3', 'kaching'], ['ontime', 'card_tap'], ['machine+8', 'card_tap']],
   items: [
     // S0: $5 coffee, tap, points
     {t: 'shadow', x: 110, y: 950, w: 360},
@@ -38,7 +37,7 @@ const hook: ChapterSpec = {
     {t: 'prop', at: 'coffee', x: 1280, y: 560, src: 'v1/coffee.png', h: 330},
     {t: 'chip', at: 'coffee', x: 1520, y: 600, text: '$5 coffee', kind: 'label', size: 48},
     {t: 'prop', at: 'coffee+4', x: 860, y: 560, src: 'v1/terminal.png', h: 340},
-    cardItem('tap-14', 520, 650, [['tap', 900, 600, 1, -12], ...hop('twoSec', [900, 600, 1, -12], 1), ['machine-10', ...PARK(1)], ['machine+8', L(1) + 930, 520, 0.6, 0]]),
+    cardItem('tap-14', 520, 650, [['tap', 900, 600, 1, -12], ...hop('twoSec', [900, 600, 1, -12], 1), ['machine-10', ...PARK(1)], ['machine+8', L(1) + 1150, 600, 0.8, -12]]),
     {t: 'ripple', at: 'tap', x: 1030, y: 690},
     {t: 'tag', at: 'points', x: 860, y: 440, text: '+ points', bg: '#FFD23F', rot: -4},
     {t: 'bubble', at: 'smart', x: 520, y: 130, text: 'Nice. Smart move.', tail: 'left', size: 54},
@@ -48,11 +47,14 @@ const hook: ChapterSpec = {
       {x: 150, at: 'p1', src: 'obj_bank_transparent.png', t: 'The bank', done: 'paid1', rot: -1.2},
       {x: 720, at: 'p2', src: 'v1/card_blue.png', t: 'The card network', done: 'paid2', rot: 1},
       {x: 1290, at: 'p3', src: 'v1/terminal.png', t: 'The processor', done: 'paid3', rot: -1.2},
-    ].map((c): Item => ({t: 'card', at: c.at, out: 'strange', x: L(1) + c.x, y: 250, w: 480, h: 600, rot: c.rot, kids: [
-      {t: 'prop', at: c.at, x: 80, y: 50, src: c.src, w: 320, sfx: false},
-      {...label(c.t), at: c.at, y: 520},
-      {t: 'prop', at: c.done, x: 340, y: -40, src: 'v1/icon_check.png', h: 130, sfx: false},
-    ]})),
+    ].flatMap((c): Item[] => [
+      {t: 'card', at: c.at, out: 'strange', x: L(1) + c.x, y: 250, w: 480, h: 600, rot: c.rot, kids: [
+        {t: 'prop', at: c.at, x: 80, y: 50, src: c.src, w: 320, sfx: false},
+        {...label(c.t), at: c.at, y: 520},
+      ]},
+      // ticks sit on the card's corner, outside the card (cards clip their content)
+      {t: 'prop', at: c.done, out: 'strange', x: L(1) + c.x + 370, y: 190, src: 'v1/icon_check.png', h: 130, sfx: false, z: 6},
+    ]),
     {t: 'pill', at: 'companies', out: 'strange', x: L(1) + 600, y: 900, text: 'all from one $5 tap', bg: '#FF6B6B', size: 44},
     // S2: they profit either way, then into the machine
     {t: 'shadow', at: 'strange', x: L(1) + 110, y: 950, w: 360},
@@ -61,14 +63,18 @@ const hook: ChapterSpec = {
     {t: 'card', at: 'ontime', out: 'opening', x: L(1) + 640, y: 290, w: 500, h: 460, rot: -1.5, kids: [
       {...label('Pays on time', 48, 500), at: 'ontime', y: 40},
       {t: 'prop', at: 'ontime', x: 95, y: 140, src: 'v1/card_mustard.png', h: 200, sfx: false},
-      {t: 'prop', at: 'check', x: 350, y: 290, src: 'v1/icon_check.png', h: 150},
     ]},
+    {t: 'prop', at: 'check', out: 'opening', x: L(1) + 1040, y: 220, src: 'v1/icon_check.png', h: 150, z: 6},
     {t: 'card', at: 'ontime+8', out: 'opening', x: L(1) + 1230, y: 290, w: 500, h: 460, rot: 1.5, kids: [
       {...label('Pays late', 48, 500), at: 'ontime+8', y: 40},
       {t: 'prop', at: 'ontime+8', x: 120, y: 140, src: 'v1/calendar_due.png', h: 200, sfx: false},
-      {t: 'prop', at: 'cross', x: 350, y: 290, src: 'v1/icon_cross.png', h: 150},
     ]},
+    {t: 'prop', at: 'cross', out: 'opening', x: L(1) + 1640, y: 220, src: 'v1/icon_cross.png', h: 150, z: 6},
+    // the machine: gears turn up behind the terminal, the card taps it, the camera leans in a little
+    {t: 'prop', at: 'machine', x: L(1) + 600, y: 170, src: 'v1/gears.png', h: 300, boil: true},
+    {t: 'prop', at: 'machine+5', x: L(1) + 1220, y: 470, src: 'v1/gears.png', h: 230, boil: true, sfx: false},
     {t: 'prop', at: 'opening', x: L(1) + 760, y: 250, src: 'v1/terminal.png', h: 460, enter: 'right', sfx: 'whoosh'},
+    {t: 'ripple', at: 'machine+8', x: L(1) + 1260, y: 660},
     {t: 'tag', at: 'opening+6', x: L(1) + 780, y: 770, text: 'Inside the machine…', bg: '#FFD23F', size: 56},
   ],
 };
@@ -323,6 +329,7 @@ const cust: ChapterSpec = {
 // ---------------------------------------------------------------- WHAT THIS MEANS
 const mean: ChapterSpec = {
   id: 'mean',
+  intro: {words: ['So', 'what', 'does', 'this', 'mean', 'for', 'you'], highlight: [6], image: 'v1/bg/mean_a.jpg'},
   enter: {kind: 'whip', carry: 'card'},
   world: {w: ST + 1920, h: 1080},
   bg: bg(['mean_a', 'mean_b']),

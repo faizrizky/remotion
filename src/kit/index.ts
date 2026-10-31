@@ -10,3 +10,4 @@ export * from './transitions';
 export * from './pieces';
 export * from './spec';
 export * from './video';
+export * from './intro';

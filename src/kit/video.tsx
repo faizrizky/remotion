@@ -6,6 +6,7 @@ import {hasFile, Sfx, Voice, Watermark} from '../video02/v2kit';
 import {Chapter, chapterFrames, clamp, H, layoutVideo, STING_FRAMES, Timing, W} from './core';
 import {ChapterSpec, SpecChapter} from './spec';
 import {Enter, EnterKind} from './transitions';
+import {IntroSpec, QuestionIntro} from './intro';
 
 export const TEMPO = 0.62;
 
@@ -19,7 +20,7 @@ export const BrandSting: React.FC = () => (
 );
 
 /** Chapter frame: no title card (rule), voice, watermark, slower tempo, optional sting in the tail. */
-export const ChapterShellK: React.FC<{c: Chapter; fps: number; enter?: EnterKind; cx?: number; cy?: number; sting?: boolean; children: React.ReactNode}> = ({c, fps, enter = 'none', cx, cy, sting, children}) => {
+export const ChapterShellK: React.FC<{c: Chapter; fps: number; enter?: EnterKind; cx?: number; cy?: number; sting?: boolean; intro?: IntroSpec; children: React.ReactNode}> = ({c, fps, enter = 'none', cx, cy, sting, intro, children}) => {
   const pre = Math.round(c.pre * fps);
   const voiceEnd = pre + Math.round(c.audioDur * fps);
   return (
@@ -27,6 +28,7 @@ export const ChapterShellK: React.FC<{c: Chapter; fps: number; enter?: EnterKind
       <Enter kind={enter} cx={cx} cy={cy} seed={c.id}>
         <AbsoluteFill style={{background: '#FFF4E0'}}>
           <Sequence from={pre}>{children}</Sequence>
+          {intro && pre > 0 && <Sequence durationInFrames={pre + 8}><QuestionIntro intro={intro} dur={pre + 8} /></Sequence>}
           {sting && <Sequence from={voiceEnd + 2} durationInFrames={Math.max(STING_FRAMES, chapterFrames(c, fps) - voiceEnd)}><BrandSting /></Sequence>}
           <Watermark />
         </AbsoluteFill>
@@ -60,7 +62,7 @@ export const makeVideo = (v: VideoDef) => {
     const {c, d, enter} = parts[i];
     if ('comp' in d) return <ChapterShellK c={c} fps={fps} enter={enter}><d.comp /></ChapterShellK>;
     return (
-      <ChapterShellK c={c} fps={fps} enter={enter} cx={d.spec.enter?.cx} cy={d.spec.enter?.cy} sting={d.spec.sting}>
+      <ChapterShellK c={c} fps={fps} enter={enter} cx={d.spec.enter?.cx} cy={d.spec.enter?.cy} sting={d.spec.sting} intro={d.spec.intro}>
         <SpecChapter spec={d.spec} chapter={c} fps={fps} />
       </ChapterShellK>
     );
