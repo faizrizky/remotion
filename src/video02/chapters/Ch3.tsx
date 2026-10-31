@@ -11,7 +11,7 @@ export const Ch3: React.FC = () => (
       return (
         <>
           {/* A: $120 vs $30 */}
-          <Shot from={0} to={b('lunch')}>
+          <Shot world={{src: 'v2/world_bakery.jpg', dir: 'l', at: 0.2}} from={0} to={b('lunch')}>
             <Scene palette="rose" dur={b('lunch')}>
               <PriceTag text="$120" at={0} x={170} y={380} size={150} color="#5B4FFF" />
               <MascotCorner head="head_thinking.png" at={b('brain')} x={850} y={620} size={230} />
@@ -22,7 +22,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* B: lunch vs decision */}
-          <Shot from={b('lunch')} to={b('hoodie')} trans="wipe">
+          <Shot world={{src: 'v2/world_clothes.jpg', dir: 'r', at: 0.7}} from={b('lunch')} to={b('hoodie')} trans="wipe">
             <Scene palette="teal" dur={r('hoodie', 'lunch')}>
               <PopIn at={0} style={{left: 250, top: 250}}><Prop name="v2/obj_lunch.png" h={380} /></PopIn>
               <KeyTag text="$30 = lunch" at={4} style={{position: 'absolute', left: 230, top: 690}} size={72} />
@@ -33,7 +33,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* C: the cart fills up, $30 at a time */}
-          <Shot from={b('hoodie')} to={b('research')} trans="whip">
+          <Shot world={{src: 'v2/world_desk.jpg', dir: 'u', at: 0.45}} from={b('hoodie')} to={b('research')} trans="whip">
             <Scene palette="mint" dur={r('research', 'hoodie')}>
               <PopIn at={0} style={{left: 700, top: 300}}><Prop name="v2/obj_cart_empty.png" h={480} /></PopIn>
               <PopIn at={4} style={{left: 160, top: 300}}><Prop name="v2/obj_hoodie.png" h={300} /></PopIn>
@@ -46,7 +46,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* D: research: total spending goes up */}
-          <Shot from={b('research')} to={b('survey68')} trans="ink" seed="c3d">
+          <Shot world={{src: 'v2/world_bank.jpg', dir: 'r', at: 0.8}} from={b('research')} to={b('survey68')} trans="ink" seed="c3d">
             <Scene palette="sky" dur={r('survey68', 'research')}>
               <PopIn at={0} style={{left: 160, top: 260}}><Prop name="v2/obj_research_paper.png" h={480} /></PopIn>
               <div style={{position: 'absolute', left: 820, top: 230, width: 960, height: 520}}>
@@ -62,7 +62,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* E: 68% overspend, 54% regret */}
-          <Shot from={b('survey68')} to={b('notTrap')} trans="wipe">
+          <Shot world={{src: 'v2/world_living.jpg', dir: 'd', at: 0.1}} from={b('survey68')} to={b('notTrap')} trans="wipe">
             <Scene palette="peri" dur={r('notTrap', 'survey68')}>
               <PercentGrid n={68} at={6} x={230} y={260} on="#FF6B6B" />
               <StatCard to={68} label="say it makes them overspend" at={4} x={980} y={200} w={680} />
@@ -73,7 +73,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* F: the real trap: stacking */}
-          <Shot from={b('notTrap')} to={len} trans="whip">
+          <Shot world={{src: 'v2/world_street.jpg', dir: 'l', at: 0.6}} from={b('notTrap')} to={len} trans="whip">
             <Scene palette="lilac" dur={len - b('notTrap')}>
               <Punch text="The real trap?" at={0} y={110} size={110} />
               <CutawayPan at={r('stacking', 'notTrap')} dur={sec(3)} dy={110}>

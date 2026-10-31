@@ -3,7 +3,7 @@ import {useCurrentFrame} from 'remotion';
 import {KeyTag, Pill, PopIn, SANS, Scene} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {BranchFork, Chip, Embers, LensZoom, MascotCorner} from '../paper';
-import {DashArrow, Gauge, INK, Phone, Sfx, Shot, Src, StatCard, Bg} from '../v2kit';
+import {DashArrow, Gauge, INK, Phone, Sfx, Shot, Src, StatCard} from '../v2kit';
 
 /** Phone screen that switches from "Autopay" to "Payment failed" at frame `failAt`. */
 const AutopayScreen: React.FC<{failAt: number}> = ({failAt}) => {
@@ -56,9 +56,8 @@ export const Ch5: React.FC = () => (
       return (
         <>
           {/* A: autopay pulls, money isn't there */}
-          <Shot from={0} to={b('lateFee')}>
+          <Shot world={{src: 'v2/world_mall.jpg', dir: 'l', at: 0.2}} from={0} to={b('lateFee')}>
             <Scene palette="teal" dur={b('lateFee')}>
-              <Bg name="v2/bg_checkout.jpg" />
               <Balance at={0} />
               <DashArrow x0={740} y0={480} x1={1120} y1={480} at={b('autoPull')} />
               <Phone at={4} x={1180} y={200} h={620}><AutopayScreen failAt={b('notThere')} /></Phone>
@@ -69,7 +68,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* B: hit twice */}
-          <Shot from={b('lateFee')} to={b('klarna7')} trans="wipe">
+          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'd', at: 0.7}} from={b('lateFee')} to={b('klarna7')} trans="wipe">
             <Scene palette="sunrise" dur={r('klarna7', 'lateFee')}>
               <Chip text="Late fee  (lender)" kind="warn" at={0} x={250} y={380} size={66} />
               <Chip text="Overdraft fee  (bank)" kind="warn" at={r('overdraft', 'lateFee')} x={1000} y={380} size={66} rot={2} />
@@ -79,7 +78,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* C: Klarna up to $7, Afterpay up to $8 */}
-          <Shot from={b('klarna7')} to={b('aLot')} trans="ink" seed="c5c">
+          <Shot world={{src: 'v2/world_bank.jpg', dir: 'r', at: 0.45}} from={b('klarna7')} to={b('aLot')} trans="ink" seed="c5c">
             <Scene palette="rose" dur={r('aLot', 'klarna7')}>
               <FeeCard who="Klarna (US)" fee="up to $7" at={0} x={240} color="#FFD23F" />
               <FeeCard who="Afterpay (US)" fee="up to $8" note="max 25% of the order" at={r('afterpay8', 'klarna7')} x={1040} color="#BDEBD3" />
@@ -90,7 +89,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* D: it happens a lot */}
-          <Shot from={b('aLot')} to={b('notFree')} trans="whip">
+          <Shot world={{src: 'v2/world_desk.jpg', dir: 'u', at: 0.8}} from={b('aLot')} to={b('notFree')} trans="whip">
             <Scene palette="sky" dur={r('notFree', 'aLot')}>
               <StatCard to={47} label="paid late in the past year" at={r('s47', 'aLot')} x={90} y={260} w={560} />
               <StatCard to={21} label="paid a late or overdraft fee" at={r('fed21', 'aLot')} x={680} y={260} w={560} bg="#FFD23F" />
@@ -101,7 +100,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* E: not every plan is interest-free */}
-          <Shot from={b('notFree')} to={b('sameApp')} trans="wipe">
+          <Shot world={{src: 'v2/world_living.jpg', dir: 'l', at: 0.1}} from={b('notFree')} to={b('sameApp')} trans="wipe">
             <Scene palette="mint" dur={r('sameApp', 'notFree')}>
               <Gauge value={36} max={40} at={r('apr36', 'notFree')} x={960} y={560} label={'APR on longer "pay monthly" plans'} />
             </Scene>
@@ -110,7 +109,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* F: same app, very different deal */}
-          <Shot from={b('sameApp')} to={len} trans="whip">
+          <Shot world={{src: 'v2/world_bakery.jpg', dir: 'r', at: 0.6}} from={b('sameApp')} to={len} trans="whip">
             <Scene palette="peri" dur={len - b('sameApp')}>
               <Chip text="same app" kind="label" at={0} x={830} y={120} size={64} />
               <BranchFork at={4} x0={960} y0={215} x1={520} x2={1400} y1={255} />

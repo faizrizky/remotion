@@ -40,7 +40,7 @@ export const Outro: React.FC = () => (
     {(b, len) => (
       <>
         {/* A: the one number */}
-        <Shot from={0} to={b('next')}>
+        <Shot world={{src: 'v2/world_street.jpg', dir: 'r', at: 0.2}} from={0} to={b('next')}>
           <Scene palette="lilac" dur={b('next')}>
             <Punch text="The ONE number" at={0} y={40} size={90} />
             <Tally at={b('hereItIs')} totalAt={b('realBill')} />
@@ -53,7 +53,7 @@ export const Outro: React.FC = () => (
         </Shot>
 
         {/* B: next video + subscribe. Keep x 1100-1790, y 230-930 EMPTY for the end screen. */}
-        <Shot from={b('next')} to={len} trans="whip">
+        <Shot world={{src: 'v2/world_mall.jpg', dir: 'l', at: 0.7}} from={b('next')} to={len} trans="whip">
           <Scene palette="peri" dur={len - b('next')}>
             <LeoBadge head="head_happy.png" at={0} x={240} y={230} size={420} />
             <PopIn at={6} style={{left: 120, top: 720}}><Pill text={NEXT_TOPIC} bg="#FF6B6B" size={40} /></PopIn>

@@ -5,6 +5,7 @@ import React from 'react';
 import {ExitOut, PaperTexture} from './fx';
 import {AbsoluteFill, getStaticFiles, Html5Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import timing from './timing.json';
+import {WorldCtx, WorldPick} from '../style/worldpan';
 import {CountUp, DiagonalWipe, InkReveal, PopIn, SANS, HAND, WhipIn, ZoomThrough, CrossDissolve} from '../style/style_kit';
 
 export const FPS = timing.fps;
@@ -83,7 +84,7 @@ export const Prop: React.FC<{name: string; h?: number; w?: number; flip?: boolea
 export type Trans = 'none' | 'ink' | 'whip' | 'wipe' | 'zoom' | 'dissolve';
 export const TRANS_FRAMES: Record<Trans, number> = {none: 0, ink: 30, whip: 10, wipe: 22, zoom: 24, dissolve: 22};
 /** A shot from `from` to `to` (frames). It stays on screen for the length of the NEXT shot's transition so there is never a gap. */
-export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: boolean; children: React.ReactNode}> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = true, children}) => {
+export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: boolean; world?: WorldPick; children: React.ReactNode}> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = true, world, children}) => {
   const dur = Math.max(1, to - from + tail);
   const d = TRANS_FRAMES[trans];
   const body =
@@ -94,7 +95,7 @@ export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: num
     : trans === 'dissolve' ? <CrossDissolve dur={d}>{children}</CrossDissolve>
     : <AbsoluteFill>{children}</AbsoluteFill>;
   const inner = exit ? <ExitOut start={to - from - 10} dur={16}>{body}</ExitOut> : body;
-  return <Sequence from={from} durationInFrames={dur}>{inner}<PaperTexture /></Sequence>;
+  return <Sequence from={from} durationInFrames={dur}><WorldCtx.Provider value={world ?? null}>{inner}</WorldCtx.Provider><PaperTexture /></Sequence>;
 };
 
 // ---------- small graphics (code-drawn, so numbers are always exact) ----------

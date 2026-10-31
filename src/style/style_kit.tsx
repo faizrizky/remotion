@@ -7,6 +7,7 @@
 import React from 'react';
 import {AbsoluteFill, Img, interpolate, random, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {loadFont} from '@remotion/fonts';
+import {WorldPan, useWorld} from './worldpan';
 
 export const HAND = 'Caveat';
 export const SANS = 'Poppins';
@@ -249,10 +250,11 @@ export const Flashback: React.FC<{children: React.ReactNode}> = ({children}) => 
 /** Standard scene: backdrop + camera + content + grain/vignette + CTA + subtitle. */
 export const Scene: React.FC<{palette: keyof typeof PALETTES; dur: number; stars?: boolean; bokeh?: boolean; subtitle?: string; cta?: boolean; children: React.ReactNode}> = ({palette, dur, stars, bokeh, subtitle, cta, children}) => {
   const p = PALETTES[palette];
+  const world = useWorld(); // Video 02: a wide illustrated world drifts behind the scene when the Shot provides one
   return (
     <AbsoluteFill>
       <Camera dur={dur}>
-        <Backdrop p={p} stars={stars} bokeh={bokeh} />
+        {world ? <WorldPan world={world} dur={dur} /> : <Backdrop p={p} stars={stars} bokeh={bokeh} />}
         {children}
       </Camera>
       <Finish />

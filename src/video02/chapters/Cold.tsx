@@ -3,7 +3,7 @@ import {Sequence} from 'remotion';
 import {Bubble, CircleBurstWipe, KeyTag, Pill, PopIn, Scene, Sticker, StickyNote, StrokeLogo, PALETTES} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {Embers, MascotCorner, Chip} from '../paper';
-import {Shot, CheckoutScreen, CoinFly, DashArrow, getChapter, LeoBadge, PayCircle, Phone, Prop, Punch, sec, Sfx, Bg, Char} from '../v2kit';
+import {Shot, CheckoutScreen, CoinFly, DashArrow, getChapter, LeoBadge, PayCircle, Phone, Prop, Punch, sec, Sfx, Char} from '../v2kit';
 
 export const Cold: React.FC = () => {
   const c = getChapter('cold');
@@ -13,9 +13,8 @@ export const Cold: React.FC = () => {
       {(b) => (
         <>
           {/* S1: four payments of $30 */}
-          <Shot from={0} to={b('billions')}>
+          <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.2}} from={0} to={b('billions')}>
             <Scene palette="sunrise" dur={b('billions')}>
-              <Bg name="v2/bg_bedroom.jpg" wash={0.18} />
               <Phone at={0} x={200} y={190} h={660}><CheckoutScreen pulseAt={b('tap')} /></Phone>
               <KeyTag text="0% interest. No fees." at={b('noInterest')} style={{position: 'absolute', left: 820, top: 170}} size={64} />
               <PayCircle amount="$30" label="Today" at={b('p1')} x={900} y={430} />
@@ -30,7 +29,7 @@ export const Cold: React.FC = () => {
           </Shot>
 
           {/* S2: worth billions */}
-          <Shot from={b('billions')} to={b('whoPays')} trans="whip">
+          <Shot world={{src: 'v2/world_bank.jpg', dir: 'l', at: 0.7}} from={b('billions')} to={b('whoPays')} trans="whip">
             <Scene palette="sky" dur={b('whoPays') - b('billions')}>
               <PopIn at={0} style={{left: 260, top: 300}}><Prop name="obj_coinstack_transparent.png" h={460} /></PopIn>
               <Embers n={22} color="#FFD23F" seed={3} />
@@ -40,9 +39,8 @@ export const Cold: React.FC = () => {
           </Shot>
 
           {/* S3: so who pays? */}
-          <Shot from={b('whoPays')} to={b('stores')} trans="wipe">
+          <Shot world={{src: 'v2/world_street.jpg', dir: 'r', at: 0.45}} from={b('whoPays')} to={b('stores')} trans="wipe">
             <Scene palette="peri" dur={b('stores') - b('whoPays')}>
-              <Bg name="v2/bg_street.jpg" />
               <LeoBadge head="head_suspicious.png" at={0} x={330} y={330} size={400} />
               <MascotCorner head="head_thinking.png" at={20} x={1640} y={800} size={190} />
               <Bubble text="So... who pays?" at={8} tail="left" style={{left: 900, top: 380}} size={72} />
@@ -51,7 +49,7 @@ export const Cold: React.FC = () => {
           </Shot>
 
           {/* S4: stores hand over a cut */}
-          <Shot from={b('stores')} to={b('knowWhat')} trans="ink" seed="c4">
+          <Shot world={{src: 'v2/world_clothes.jpg', dir: 'u', at: 0.8}} from={b('stores')} to={b('knowWhat')} trans="ink" seed="c4">
             <Scene palette="mint" dur={b('knowWhat') - b('stores')}>
               <PopIn at={0} style={{left: 150, top: 330}}><Prop name="v2/obj_store.png" h={340} /></PopIn>
               <PopIn at={4} style={{left: 1400, top: 330}}><Prop name="obj_bank_transparent.png" h={340} /></PopIn>
@@ -66,7 +64,7 @@ export const Cold: React.FC = () => {
           </Shot>
 
           {/* S5: they are buying... you */}
-          <Shot from={b('knowWhat')} to={end} trans="whip">
+          <Shot world={{src: 'v2/world_mall.jpg', dir: 'd', at: 0.1}} from={b('knowWhat')} to={end} trans="whip">
             <Scene palette="lilac" dur={end - b('knowWhat')}>
               <Char name="v2/char_shopper_worried.png" at={0} x={820} y={340} h={600} />
               <Punch text="It's you." at={b('itsYou') - b('knowWhat')} y={140} />

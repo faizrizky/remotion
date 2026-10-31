@@ -25,7 +25,7 @@ export const Ch6: React.FC = () => (
     {(b, len) => (
       <>
         {/* A: is it evil? no. */}
-        <Shot from={0} to={b('rule1')}>
+        <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.2}} from={0} to={b('rule1')}>
           <Scene palette="sunrise" dur={b('rule1')}>
             <LeoBadge head="head_thinking.png" at={0} x={760} y={140} size={380} />
             <Punch text="Is it evil?" at={4} color={INK} y={560} size={110} />
@@ -35,7 +35,7 @@ export const Ch6: React.FC = () => (
         </Shot>
 
         {/* B: four rules */}
-        <Shot from={b('rule1')} to={len} trans="ink" seed="c6b">
+        <Shot world={{src: 'v2/world_bakery.jpg', dir: 'l', at: 0.7}} from={b('rule1')} to={len} trans="ink" seed="c6b">
           <Scene palette="mint" dur={len - b('rule1')}>
             <LeoBadge head="head_proud.png" at={0} x={160} y={300} size={420} ring="#FFD23F" />
             {RULES.map((rule, i) => (

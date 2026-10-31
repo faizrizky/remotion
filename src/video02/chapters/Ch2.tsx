@@ -3,7 +3,7 @@ import {interpolate, useCurrentFrame} from 'remotion';
 import {Bubble, KeyTag, Pill, PopIn, Scene, Sunburst} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {CoinWipe, HighlightSwipe, MascotCorner, Chip} from '../paper';
-import {CoinFly, DashArrow, INK, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Bg, Char} from '../v2kit';
+import {CoinFly, DashArrow, INK, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Char} from '../v2kit';
 
 /** Shopping cart that grows as the scene goes on (the "bigger cart"). */
 const GrowingCart: React.FC<{at: number}> = ({at}) => {
@@ -23,7 +23,7 @@ export const Ch2: React.FC = () => (
       return (
         <>
           {/* A: the store pays the lender */}
-          <Shot from={0} to={b('why')}>
+          <Shot world={{src: 'v2/world_mall.jpg', dir: 'r', at: 0.2}} from={0} to={b('why')}>
             <Scene palette="peri" dur={b('why')}>
               <Char name="v2/char_shopper_happy.png" at={0} x={110} y={440} h={480} />
               <PopIn at={6} style={{left: 520, top: 340}}><Prop name="v2/obj_store.png" h={360} /></PopIn>
@@ -38,9 +38,8 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* B: why would a store pay that? */}
-          <Shot from={b('why')} to={b('klarna')} trans="whip">
+          <Shot world={{src: 'v2/world_street.jpg', dir: 'l', at: 0.7}} from={b('why')} to={b('klarna')} trans="whip">
             <Scene palette="rose" dur={r('klarna', 'why')}>
-              <Bg name="v2/bg_street.jpg" />
               <Char name="v2/char_cashier_wave.png" at={4} x={690} y={380} h={560} />
               <PopIn at={0} style={{left: 260, top: 330}}><Prop name="v2/obj_store.png" h={400} /></PopIn>
               <Bubble text="Why pay a fee?" at={6} tail="left" style={{left: 1000, top: 360}} size={72} />
@@ -49,7 +48,7 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* C: Klarna's own numbers */}
-          <Shot from={b('klarna')} to={b('readAgain')} trans="ink" seed="c2c">
+          <Shot world={{src: 'v2/world_bank.jpg', dir: 'd', at: 0.45}} from={b('klarna')} to={b('readAgain')} trans="ink" seed="c2c">
             <Scene palette="lilac" dur={r('readAgain', 'klarna')}>
               <StatCard to={20} prefix="+" label="more sales completed" at={r('s20', 'klarna')} x={110} y={250} w={540} />
               <StatCard to={40} prefix="+" label="bigger orders" at={r('s40', 'klarna')} x={690} y={250} w={540} bg="#FFD23F" />
@@ -62,7 +61,7 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* D: read that again. 40%. Not a button, a bigger cart. */}
-          <Shot from={b('readAgain')} to={b('cart')} trans="zoom">
+          <Shot world={{src: 'v2/world_clothes.jpg', dir: 'u', at: 0.8}} from={b('readAgain')} to={b('cart')} trans="zoom">
             <Scene palette="sunrise" dur={r('cart', 'readAgain')}>
               <Sunburst c1="#FFB36B" c2="#FF8F5E" />
               <Punch text="+40% bigger orders" at={0} color={INK} y={170} size={150} />
@@ -79,7 +78,7 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* E: the bigger cart is yours */}
-          <Shot from={b('cart')} to={len} trans="whip">
+          <Shot world={{src: 'v2/world_bakery.jpg', dir: 'r', at: 0.1}} from={b('cart')} to={len} trans="whip">
             <Scene palette="mint" dur={len - b('cart')}>
               <GrowingCart at={0} />
               <DashArrow x0={1220} y0={560} x1={1480} y1={560} at={r('yours', 'cart')} />

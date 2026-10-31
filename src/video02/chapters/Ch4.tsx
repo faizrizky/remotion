@@ -57,7 +57,7 @@ export const Ch4: React.FC = () => (
       return (
         <>
           {/* A: one is easy... now open five */}
-          <Shot from={0} to={b('cfpb')}>
+          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'r', at: 0.2}} from={0} to={b('cfpb')}>
             <Scene palette="sky" dur={b('cfpb')}>
               <MascotCorner head="head_suspicious.png" at={b('openFive')} x={1640} y={820} size={200} />
               {LOANS.map((l, i) => (
@@ -71,7 +71,7 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* B: CFPB 63%, 1 in 3 */}
-          <Shot from={b('cfpb')} to={b('ownLoans')} trans="ink" seed="c4b">
+          <Shot world={{src: 'v2/world_desk.jpg', dir: 'l', at: 0.7}} from={b('cfpb')} to={b('ownLoans')} trans="ink" seed="c4b">
             <Scene palette="teal" dur={r('ownLoans', 'cfpb')}>
               <PopIn at={0} style={{left: 120, top: 330}}><Prop name="bld_cfpb_transparent.png" w={700} /></PopIn>
               <StatCard to={63} label="had 2+ loans at the same time" at={r('s63', 'cfpb')} x={880} y={170} w={760} />
@@ -85,7 +85,7 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* C: each app only sees its own loans; you see the pile */}
-          <Shot from={b('ownLoans')} to={b('fico')} trans="whip">
+          <Shot world={{src: 'v2/world_bank.jpg', dir: 'u', at: 0.45}} from={b('ownLoans')} to={b('fico')} trans="whip">
             <Scene palette="lilac" dur={r('fico', 'ownLoans')}>
               {[0, 1, 2].map((i) => (
                 <Phone key={i} at={i * 4} x={120 + i * 270} y={300} h={420}>
@@ -102,7 +102,7 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* D: FICO BNPL scores */}
-          <Shot from={b('fico')} to={b('groceries')} trans="wipe">
+          <Shot world={{src: 'v2/world_bakery.jpg', dir: 'd', at: 0.8}} from={b('fico')} to={b('groceries')} trans="wipe">
             <Scene palette="peri" dur={r('groceries', 'fico')}>
               <CreditReport at={0} />
               <NameTag name="FICO Score 10 BNPL" role="announced June 2025" at={8} style={{left: 900, top: 420}} />
@@ -112,7 +112,7 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* E: groceries 14% -> 29% */}
-          <Shot from={b('groceries')} to={b('warning')} trans="ink" seed="c4e">
+          <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.1}} from={b('groceries')} to={b('warning')} trans="ink" seed="c4e">
             <Scene palette="sunrise" dur={r('warning', 'groceries')}>
               <PopIn at={0} style={{left: 150, top: 300}}><Prop name="v2/obj_grocery_bag.png" h={460} /></PopIn>
               <IsoBlock h={168} at={r('s14', 'groceries')} label="14%" style={{left: 820, bottom: 330}} top="#FFD9A0" left="#FFB26B" right="#E4572E" />
@@ -126,7 +126,7 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* F: that's a warning light */}
-          <Shot from={b('warning')} to={len} trans="whip">
+          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'l', at: 0.6}} from={b('warning')} to={len} trans="whip">
             <Scene palette="sky" dur={len - b('warning')}>
               <Embers n={24} color="#FF3B30" seed={7} />
               <Warning at={2} />
