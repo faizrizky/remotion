@@ -59,14 +59,15 @@ Price tags and shelf tags, unit-price strip ("$0.41/oz"), phone with calculator,
 
 ## 5. Sound effects
 Existing (keep, same volumes): pop 0.32, whoosh 0.3, kaching 0.5, card_tap 0.5, ding 0.4, boom 0.45, notify 0.4.
-**New, 3 files** -> `public/sfx/` (WAV, normalised to -18 LUFS like the others). Per rule 1.22 I open MyInstants candidates in browser tabs and YOU pick; I do not choose or download. After you pick, send me the clip (or its MyInstants link) and I normalise and name it. Search tabs to open: "shrink / deflate / squeeze", "barcode scanner beep", "rubber stamp".
-| File | Where | What it should sound like |
-|---|---|---|
-| `shrink.wav` | Packages shrinking (Ch1 bar, Ch2 tub, Ch3 size list: about 10 times) | A short cartoon "deflate/squeeze" sound, pitched down, 0.4-0.6 s |
-| `scan_beep.wav` | Ch6 unit-price tags, the "number that catches it" reveal | A single supermarket barcode scanner beep, 0.2 s |
-| `stamp.wav` | Ch5 "NOT PASSED" stamp and the France/Korea fine banners | A soft rubber stamp thud, 0.3 s |
+**New, 3 files: PICKED by the owner from MyInstants (1 Nov) and ALREADY in `public/sfx/`** (trimmed, peak about -6 dBFS, 48 kHz stereo WAV; the originals are in `Assets/Video 03 Assets/SFX Raw/`):
+| File | Source clip | Length | Where |
+|---|---|---|---|
+| `shrink.wav` | MyInstants "squish" | 0.14 s | Packages shrinking (Ch1 bar, Ch2 tub, Ch3 size list: about 10 times). Very short and punchy; plays well even when repeated. |
+| `scan_beep.wav` | MyInstants "cashier beep" | 0.30 s | Ch6 unit-price tags, the "number that catches it" reveal |
+| `stamp.wav` | MyInstants "papers-please-stamp" | 0.36 s | Ch5 "NOT PASSED" stamp and the France/Korea fine banners |
+Licence flag: the stamp clip is named after the game Papers, Please, so it is probably taken from that game's audio. If you monetize, replace `stamp.wav` with a clip that states a free commercial licence (Pixabay or Freesound CC0). The other two have no known origin; check them the same way when convenient.
+Volumes to set in code later (peaks are -6 dB like most existing clips): shrink 0.35, scan_beep 0.35, stamp 0.4. Adjust after listening in the render.
 Cue plan: pop on every object that appears; whoosh on each carried-object pan; shrink on every size change; ding on the key numbers (4x, 0.1, 3.0, 8.6%); boom once at "shrinkflation" (cold open reveal); kaching only if a price is mentioned going up; scan_beep in Ch6; stamp in Ch5; notify for the challenge in the outro.
-Licence reminder from Video 02: `card_tap` and `kaching` come from MyInstants and may contain commercial recordings. Replace them with commercially safe versions before monetization. Not needed for this video unless card_tap is used (it is not).
 
 ## 6. Music
 Same as before: "Monday Routine" (FreeToUse), flat 0.08, intro `funky_intro_sting.mp3` at 0.7 over the Penny sting, 3 s fade at the end. Put the exact FreeToUse credit line in the description.
@@ -81,6 +82,6 @@ Titles (A/B test): "Same Price, Less Stuff: The Price Trick You Never See" / "Th
 ## 8. Checklist before I start the video code
 1. 8 voice WAVs (+ transcript with timestamps, optional).
 2. 8 new worlds + 16 props (chat them to me as files or place them in `Assets/`).
-3. 3 new SFX (you pick from the MyInstants tabs I open).
+3. 3 new SFX: DONE (shrink, scan_beep, stamp are in `public/sfx/`).
 4. [S8] check: confirm on Congress.gov that no federal shrinkflation law passed since Oct 2026.
 Until then the video builds with dashed "missing: name" placeholders and nothing crashes (same behaviour as Video 02).
