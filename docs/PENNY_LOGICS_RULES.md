@@ -9,6 +9,7 @@ Dokumen ini adalah SATU-SATUNYA tempat aturan produksi. Berlaku untuk SETIAP vid
 Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video01_v2_revisions, video02_style_fusion, video02_style_guide, character_palette, leo_expression_map, reference_karhutla_paper_cutout_analysis.
 
 ## 0. Riwayat keputusan
+- 1 Nov (3): SHORTS diambil dari ISI video, bukan dari awalan/hook (aturan 1.20).
 - 1 Nov (2): ATURAN TETAP dari feedback Video 02, berlaku untuk SEMUA video berikutnya: kamera jarang dan pelan bergeser (aturan 1.18) dan pergantian scene tidak boleh terburu-buru (aturan 1.19). Bagian 3 butir 1 (kamera bergerak terus) diganti oleh aturan ini. Dokumen per video dirapikan di `docs/` (channel/, video01/, video02/, video03/, archive/).
 - 1 Nov (1): PERBAIKAN musik latar: `Html5Audio loop` wajib `loopVolumeCurveBehavior="extend"`. Tanpa itu frame volume diulang dari 0 di setiap putaran lagu, sehingga musik ikut 'diam' (meniru jeda sting) sekitar 6 dtk di putaran ke-2/ke-3 dan fade-out akhir tidak jalan. Sudah diperbaiki di kit (`makeVideo`) dan Video 02. Video 01 yang dirender sebelum perbaikan ini perlu dirender ulang. Video 02: beat dari forced alignment pocketsphinx + transkrip; PennySting sesudah cold open; captions.json untuk .srt.
 - 31 Okt (6): musik latar dikeraskan sedikit; opening (sting) memakai audio `funky_video_intro.mp3` dengan crossfade halus ke musik latar (aturan 1.16-1.17). Diterapkan di kit dan Video 01 (render 31 Okt sore).
@@ -50,6 +51,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
     - Elemen berikutnya baru masuk setelah transisi sebelumnya selesai (contoh: koin selesai menyapu dulu, baru persenan muncul).
     - QA sebelum render final: cek still tiap 2 dtk di sekitar setiap batas scene, dan tonton ulang semua bagian yang padat. Kalau terasa cepat, perpanjang (geser beat ke kata berikutnya) atau gabungkan scene.
     - Berlaku juga untuk Shorts (Shorts dipotong dari video panjang yang sudah mematuhi aturan ini).
+20. **Shorts dari isi, bukan awalan (1 Nov; SEMUA video).** Jangan potong Short dari cold open/hook atau sting; ambil bagian isi yang berdiri sendiri (satu angka atau satu "aha" yang lengkap, 25-50 dtk). Pilih bagian yang paling clickbait, menarik, dan berpotensi viral: angka mengejutkan, ketidakadilan ("orang lain yang bayar"), atau rahasia yang dibongkar. Judul hook memancing rasa penasaran tapi tetap jujur sesuai isi. Pipeline: `src/shorts/shorts.json` + `node scripts/short.mjs all <id>` (9:16, judul hook, caption terbakar, area aman tombol YouTube).
 
 ## 2. Kebijakan latar: SETIAP scene punya gambar latar (direvisi 31 Okt)
 Mengikuti referensi: Kok Bisa? dan reel kertas hampir selalu memakai latar adegan ilustrasi. Latar polos ala Antidote (hitam) tidak dipakai.

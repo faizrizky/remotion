@@ -34,15 +34,15 @@ Topik 6–14 adalah kandidat, **belum lolos filter FLSR** (channel besar, views 
 Tiap video panjang menghasilkan 2 Short: satu di hari tayang, satu di hari berikutnya (21:00 WIB).
 | Tanggal (21:00 WIB) | Dari video | Judul / isi |
 |---|---|---|
-| Rab 4 Nov | V1 | "3 companies get paid when you tap your card" |
+| Rab 4 Nov | V1 | "Your free card points are paid by someone else" (94% vs 27%, isi bab 3) |
 | Kam 5 Nov | V1 | "Your $5,000 balance costs $1,100 a year for nothing" |
 | Jum 6 Nov | V2 | "Stores pay for Pay in 4. Here's what they get" |
 | Sab 7 Nov | V2 | "$120 or $30? Your brain picks wrong" |
-| Min 8 Nov | V3 | potongan terkuat dari skrip V3 (tentukan saat skrip jadi) |
+| Min 8 Nov | V3 | "Your brain is 4x worse at this" (bab 2, bukan cold open) |
 | Sen 9 Nov | V3 | potongan kedua |
 | Sel 10 – Sen 30 Nov | V4–V14 | 2 per video (tentukan saat skrip jadi) |
 | Sel 1 Des | V14 | potongan kedua |
-Cadangan Short dari V1 dan V2 (tidak dipakai di atas): V1 "94% vs 27%: who really pays for rewards", V2 "63% had more than one at once" dan "Add up this one number today". Pakai kalau ada hari yang bolong.
+Cadangan Short dari V1 dan V2 (tidak dipakai di atas): V1 "3 companies get paid when you tap your card" TIDAK dipakai (diambil dari hook; aturan 1.20), V2 "63% had more than one at once" dan "Add up this one number today". Pakai kalau ada hari yang bolong.
 
 Aturan tiap Short: 9:16 (1080x1920), 30–45 detik, detik pertama langsung angka di layar, caption dibakar, link ke video penuh di kolom video terkait.
 

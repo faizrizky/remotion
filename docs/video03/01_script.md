@@ -124,9 +124,9 @@ On-screen disclaimer during Chapter 6 and Outro: "Education only. Not financial 
 ---
 
 ## Shorts to cut from this video (for the daily Short calendar)
-1. "Same price. Less inside." (Cold open + Toblerone, ~35 s)
-2. "Your brain is 4x worse at this" (Chapter 2, ~40 s)
-Spare: "Folgers still says 400 cups" (Chapter 3), "The number that catches it" (Chapter 6).
+1. "Your brain is 4x worse at this" (Chapter 2, ~40 s)
+2. "Folgers still says 400 cups" (Chapter 3, ~45 s)
+Spare: "It hits what you buy most" (Chapter 4), "The number that catches it" (Chapter 6). Never from the cold open (rule 1.20).
 
 ## Sources (put all of these in the description)
 - [S1] Toblerone UK bar change, 2016 (400 g to 360 g; 170 g to 150 g): https://en.wikipedia.org/wiki/Shrinkflation (cites Mondelez/BBC coverage, Nov 2016)
