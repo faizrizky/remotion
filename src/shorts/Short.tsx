@@ -81,7 +81,7 @@ const Title: React.FC<{text: string; accent: string}> = ({text, accent}) => {
     <div style={{position: 'absolute', left: 90, right: 90, top: 300, height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
       <div style={{transform: `scale(${0.85 + 0.15 * s}) rotate(-1.5deg)`, opacity: s, textAlign: 'center', fontFamily: SANS, fontWeight: 900, fontSize: 72, lineHeight: 1.12, color: INK, letterSpacing: -1}}>
         {parts.map((p, i) => p.startsWith('*')
-          ? <span key={i} style={{color: '#fff', background: accent, padding: '0 14px', borderRadius: 14, boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone'}}>{p.slice(1, -1)}</span>
+          ? <span key={i} style={{color: '#fff', background: accent, padding: '0 14px', borderRadius: 14, whiteSpace: 'nowrap', boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone'}}>{p.slice(1, -1)}</span>
           : <span key={i}>{p}</span>)}
       </div>
     </div>
