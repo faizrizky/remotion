@@ -1,7 +1,7 @@
 # Video 03 - Requirements: voice, backgrounds, props, SFX, music, thumbnail
 Topic: shrinkflation ("Same Price, Less Stuff"). Script: `01_script.md` (8 files, ~5:15). Written 1 Nov 2026. **No video code has been written yet**; this is the shopping list.
 
-Rules that apply (from `PENNY_LOGICS_RULES.md`): bright backgrounds, every scene has an illustrated background, no title cards, Penny sting after the cold open, few and slow pans (rule 1.18), no rushed scene changes (1.19), Shorts from the body (1.20), no burned-in subtitles in the long video but always an .srt.
+Rules that apply (from `PENNY_LOGICS_RULES.md`): new worlds only, no reuse from other videos (1.21); new SFX are picked by the owner from MyInstants candidates opened in a browser tab (1.22); bright backgrounds, every scene has an illustrated background, no title cards, Penny sting after the cold open, few and slow pans (rule 1.18), no rushed scene changes (1.19), Shorts from the body (1.20), no burned-in subtitles in the long video but always an .srt.
 
 **Brand rule for this video (important):** the narration names real brands as reported by NPR (Cottonelle, Kleenex, Gatorade, Folgers, Domino's, Toblerone). The pictures must be GENERIC products: no logos, no brand colours or packaging that copies the real one, no text on packaging. Each brand-named shot gets an on-screen caption "Reported by NPR, 2022" (or the right source). The description carries "Penny Logics is not affiliated with any brand mentioned."
 
@@ -13,18 +13,18 @@ Same narrator, model and settings as Video 01 and 02. WAV 48 kHz, one file per c
 Reading notes: Chapter 3 is a rapid list of sizes ("three hundred forty... to three hundred twelve"), give each pair a small beat so the picture can change. Chapter 4 has the honest twist ("For the economy it's tiny... but zoom in on your cart"), a slight lift on "but".
 After you generate them, send me the transcript with timestamps like for Video 2 (or just the WAVs; I can align them) and I will retime every shot to the real voice.
 
-## 2. Backgrounds (worlds): 4 new + 4 reused
+## 2. Backgrounds (worlds): 8 NEW (rule 1.21: no world is reused from another video)
 Wide panoramas like the Video 02 worlds (about 3,400-3,800 x 1080 px; if Gemini only gives 21:9 pieces, make two and I blend them). Use the usual style paragraph (flat cartoon, outline #191411, bright pastel, no people, no text, empty lower 25%, edges fade to cream) and attach `public/v1/bg_cafe.jpg` as the style reference.
 | Scene | World | Status | What it shows (add to the prompt) |
 |---|---|---|---|
 | Cold open | `world_grocery.jpg` | NEW | A supermarket snack and cereal aisle: tall shelves full of plain colourful boxes and bags (no labels, no text), wide polished floor, bright ceiling lights. |
-| Ch1 Invisible price hike | `world_kitchen.jpg` | reuse (V2) | home pantry/kitchen |
+| Ch1 Invisible price hike | `world_pantry.jpg` | NEW | A home pantry: wooden shelves with plain jars, boxes and a step stool, a window with daylight, a small table with an empty bowl. Different from the kitchen of Video 02 (no stove, no counter). |
 | Ch2 Why your brain misses it | `world_freezer.jpg` | NEW | A supermarket frozen-food aisle: glass freezer doors on both sides with plain tubs and boxes (no labels), cool mint-white light, clean floor. |
 | Ch3 Where it hides | `world_household.jpg` | NEW | A supermarket household aisle: shelves of toilet paper packs, tissue boxes, coffee cans and bottles as plain colourful shapes (no labels), bright and tidy. |
-| Ch4 Does it really matter? | `world_desk.jpg` | reuse (V2) | analyst desk (GAO report) |
-| Ch5 Some countries fight back | `world_mall.jpg` | reuse (V2) | large supermarket/mall interior |
+| Ch4 Does it really matter? | `world_library.jpg` | NEW | A government research office/library: tall bookcases, a long table with stacked report binders, a big window, a wall chart frame (blank). Not the bank or desk scenes of Video 02. |
+| Ch5 Some countries fight back | `world_hypermarket.jpg` | NEW | A very large hypermarket interior seen from the entrance: wide aisles, hanging aisle signs left blank, shopping carts parked, bright skylights. Different from the mall of Video 02. |
 | Ch6 The number that catches it | `world_checkout.jpg` | NEW | A supermarket shelf edge with a row of empty shelf-tag strips along the front and a checkout lane in the distance; calm, large clean surface in the middle for tag close-ups. |
-| Outro | `world_living.jpg` | reuse (V2) | living room, Leo with phone |
+| Outro | `world_apartment.jpg` | NEW | A bright apartment balcony/lounge with a sofa, a small plant, a window onto a calm neighbourhood, an open space on the right for the end screen. Not the living room of Video 02. |
 
 ## 3. Props to make in Gemini (16 new) -> `public/v3/<name>.png`
 Process as before: Gemini **Images** option, model **Argon High**, ALWAYS attach a reference image (use `public/v2/obj_cart_full.png` as the style reference), generate on a plain white background, remove background (transparent PNG), trim, at least 1000 px on the long side. Copy masters to `Channel/Objects/`.
@@ -59,10 +59,10 @@ Price tags and shelf tags, unit-price strip ("$0.41/oz"), phone with calculator,
 
 ## 5. Sound effects
 Existing (keep, same volumes): pop 0.32, whoosh 0.3, kaching 0.5, card_tap 0.5, ding 0.4, boom 0.45, notify 0.4.
-**New, 3 files** -> `public/sfx/` (WAV, normalised to -18 LUFS like the others). Source them from a clip site that states a free COMMERCIAL licence (Pixabay Sound Effects, Freesound with CC0 only). Do not use MyInstants clips (they can include commercial recordings).
-| File | Where | What it sounds like |
+**New, 3 files** -> `public/sfx/` (WAV, normalised to -18 LUFS like the others). Per rule 1.22 I open MyInstants candidates in browser tabs and YOU pick; I do not choose or download. After you pick, send me the clip (or its MyInstants link) and I normalise and name it. Search tabs to open: "shrink / deflate / squeeze", "barcode scanner beep", "rubber stamp".
+| File | Where | What it should sound like |
 |---|---|---|
-| `shrink.wav` | Packages shrinking (Ch1 Toblerone-style bar, Ch2 tub, Ch3 size list: about 10 times) | A short cartoon "deflate/squeeze" sound, pitched down, 0.4-0.6 s |
+| `shrink.wav` | Packages shrinking (Ch1 bar, Ch2 tub, Ch3 size list: about 10 times) | A short cartoon "deflate/squeeze" sound, pitched down, 0.4-0.6 s |
 | `scan_beep.wav` | Ch6 unit-price tags, the "number that catches it" reveal | A single supermarket barcode scanner beep, 0.2 s |
 | `stamp.wav` | Ch5 "NOT PASSED" stamp and the France/Korea fine banners | A soft rubber stamp thud, 0.3 s |
 Cue plan: pop on every object that appears; whoosh on each carried-object pan; shrink on every size change; ding on the key numbers (4x, 0.1, 3.0, 8.6%); boom once at "shrinkflation" (cold open reveal); kaching only if a price is mentioned going up; scan_beep in Ch6; stamp in Ch5; notify for the challenge in the outro.
@@ -80,7 +80,7 @@ Titles (A/B test): "Same Price, Less Stuff: The Price Trick You Never See" / "Th
 
 ## 8. Checklist before I start the video code
 1. 8 voice WAVs (+ transcript with timestamps, optional).
-2. 4 new worlds + 16 props (chat them to me as files or place them in `Assets/`).
-3. 3 new SFX.
+2. 8 new worlds + 16 props (chat them to me as files or place them in `Assets/`).
+3. 3 new SFX (you pick from the MyInstants tabs I open).
 4. [S8] check: confirm on Congress.gov that no federal shrinkflation law passed since Oct 2026.
 Until then the video builds with dashed "missing: name" placeholders and nothing crashes (same behaviour as Video 02).
