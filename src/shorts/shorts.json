@@ -1,4 +1,8 @@
 [
+  {"id": "S-V1-a", "long": "out/Video01_v2.mp4", "srt": "out/video01.srt", "from": 0.0, "to": 23.4,
+   "title": "Tap your card and *3 companies* get paid", "boxH": 700, "focusX": 0.5, "accent": "#E4572E"},
+  {"id": "S-V1-b", "long": "out/Video01_v2.mp4", "srt": "out/video01.srt", "from": 84.2, "to": 131.9,
+   "title": "A *$5,000* balance can cost you $1,100 a year", "boxH": 700, "focusX": 0.5, "accent": "#E4572E"},
   {"id": "S-V2-a", "long": "out/Video02.mp4", "srt": "out/video02.srt", "from": 71.0, "to": 115.0,
    "title": "Why do *stores* pay a fee when you Pay in 4?", "boxH": 700, "focusX": 0.5, "accent": "#E4572E"}
 ]
