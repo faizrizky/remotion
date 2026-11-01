@@ -14,7 +14,7 @@ export const Cold: React.FC = () => {
         return (
         <>
           {/* S1: four payments of $30 */}
-          <Shot exitPan="r" world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.2}} from={0} to={b('weird')}>
+          <Shot exitPan="r" world={{src: 'v2/world_living.jpg', x0: 200, x1: 327, a: 0, b: b('weird')}} from={0} to={b('weird')}>
             <Scene palette="sunrise" dur={b('weird')}>
               <Phone at={0} x={200} y={190} h={660}><CheckoutScreen pulseAt={b('tap')} /></Phone>
               <KeyTag text="0% interest. No fees." at={b('noInterest')} style={{position: 'absolute', left: 820, top: 170}} size={64} />
@@ -30,7 +30,7 @@ export const Cold: React.FC = () => {
           </Shot>
 
           {/* S2: the weird part, worth billions */}
-          <Shot world={{src: 'v2/world_bank.jpg', dir: 'l', at: 0.7}} from={b('weird')} to={b('whoPays')} trans="carry" pan="r" carry={{from: [1590, 430], to: [390, 330]}}>
+          <Shot exitSwap world={{src: 'v2/world_living.jpg', x0: 1327, x1: 1405, a: b('weird'), b: b('stores')}} from={b('weird')} to={b('whoPays')} trans="carry" pan="r" carry={{from: [1590, 430], to: [390, 330]}}>
             <Scene palette="sky" dur={b('whoPays') - b('weird')}>
               <PopIn at={0} style={{left: 260, top: 300}}><Prop name="obj_coinstack_transparent.png" h={460} /></PopIn>
               <Embers n={22} color="#FFD23F" seed={3} />
@@ -41,7 +41,7 @@ export const Cold: React.FC = () => {
           </Shot>
 
           {/* S3: so who pays? */}
-          <Shot world={{src: 'v2/world_street.jpg', dir: 'r', at: 0.45}} from={b('whoPays')} to={b('stores')} trans="wipe">
+          <Shot world={{src: 'v2/world_living.jpg', x0: 1327, x1: 1405, a: b('weird'), b: b('stores')}} from={b('whoPays')} to={b('stores')} trans="swap">
             <Scene palette="peri" dur={b('stores') - b('whoPays')}>
               <LeoBadge head="head_suspicious.png" at={0} x={330} y={330} size={400} />
               <MascotCorner head="head_thinking.png" at={r('notPaying', 'whoPays')} x={1640} y={800} size={190} />
@@ -52,7 +52,7 @@ export const Cold: React.FC = () => {
           </Shot>
 
           {/* S4: stores hand over a cut */}
-          <Shot exitPan="d" world={{src: 'v2/world_clothes.jpg', dir: 'u', at: 0.8}} from={b('stores')} to={b('knowWhat')} trans="ink" seed="c4">
+          <Shot world={{src: 'v2/world_clothes.jpg', x0: 300, x1: 397, a: b('stores'), b: b('knowWhat')}} from={b('stores')} to={b('knowWhat')} trans="ink" seed="c4">
             <Scene palette="mint" dur={b('knowWhat') - b('stores')}>
               <PopIn at={r('storesW', 'stores')} style={{left: 150, top: 330}}><Prop name="v2/obj_store.png" h={340} /></PopIn>
               <PopIn at={r('hand', 'stores')} style={{left: 1400, top: 330}}><Prop name="obj_bank_transparent.png" h={340} /></PopIn>
@@ -67,7 +67,7 @@ export const Cold: React.FC = () => {
           </Shot>
 
           {/* S5: they are buying... you */}
-          <Shot world={{src: 'v2/world_mall.jpg', dir: 'd', at: 0.1}} from={b('knowWhat')} to={end} trans="carry" pan="d" carry={{from: [960, 520], to: [1300, 560], label: '%'}} exit={false} tail={sec(c.post) + 2}>
+          <Shot world={{src: 'v2/world_mall.jpg', x0: 500, x1: 622, a: b('knowWhat'), b: end}} from={b('knowWhat')} to={end} trans="wipe" tail={sec(c.post) + 2} exit={false}>
             <Scene palette="lilac" dur={end - b('knowWhat')}>
               <Char name="v2/char_shopper_worried.png" at={0} x={820} y={340} h={600} />
               <PopIn at={r('buying', 'knowWhat')} style={{left: 120, top: 330}}><Pill text="what they're buying..." bg="#5B4FFF" size={52} /></PopIn>

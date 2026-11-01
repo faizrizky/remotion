@@ -5,7 +5,7 @@ import React from 'react';
 import {ExitOut, PaperTexture} from './fx';
 import {AbsoluteFill, getStaticFiles, Html5Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import timing from './timing.json';
-import {WorldCtx, WorldPick} from '../style/worldpan';
+import {FadeLayer, useFade, WorldCtx, WorldPick} from '../style/worldpan';
 import {CountUp, DiagonalWipe, InkReveal, PopIn, SANS, HAND, WhipIn, ZoomThrough, CrossDissolve} from '../style/style_kit';
 
 export const FPS = timing.fps;
@@ -81,32 +81,51 @@ export const Prop: React.FC<{name: string; h?: number; w?: number; flip?: boolea
 };
 
 // ---------- shots ----------
-export type Trans = 'none' | 'ink' | 'whip' | 'wipe' | 'zoom' | 'dissolve' | 'carry';
-export const TRANS_FRAMES: Record<Trans, number> = {none: 0, ink: 30, whip: 10, wipe: 22, zoom: 24, dissolve: 22, carry: 16};
-/** Camera direction for a 'carry' transition: 'r' = the camera moves right (new scene comes in from the right). */
-export type PanDir = 'l' | 'r' | 'u' | 'd';
-/** The object carried across a 'carry' transition (screen px): a $30 coin by default, or a PNG prop. */
-export type CarrySpec = {from: [number, number]; to: [number, number]; label?: string; src?: string; h?: number; color?: string};
+export type Trans = 'none' | 'ink' | 'whip' | 'wipe' | 'zoom' | 'dissolve' | 'carry' | 'swap';
+export const TRANS_FRAMES: Record<Trans, number> = {none: 0, ink: 30, whip: 10, wipe: 22, zoom: 24, dissolve: 22, carry: 30, swap: 14};
+/** One-camera pan direction: 'r' = the camera moves right along the SAME world (the new shot's world x0 = old x1 + PAN_DIST). */
+export type PanDir = 'l' | 'r';
+/** The object carried across a pan (screen px): a $30 coin by default, or a PNG prop. handoff = vanish the moment it lands (the same object is already drawn there in the new shot). */
+export type CarrySpec = {from: [number, number]; to: [number, number]; label?: string; src?: string; h?: number; color?: string; handoff?: boolean};
 export const PAN_FRAMES = TRANS_FRAMES.carry;
-const PAN_VEC: Record<PanDir, [number, number]> = {r: [1, 0], l: [-1, 0], d: [0, 1], u: [0, -1]};
+/** How far the camera travels in a pan (scaled world px). */
+export const PAN_DIST = 1000;
 const easeIO = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
-/** One camera: the new scene slides in while the old one slides out the other way (see PanOut). */
+/** New shot of a pan: same world, starts PAN_DIST away. Its world stays hidden until the camera lands (the old shot's world,
+ *  drawn unclipped, already shows exactly those pixels), so the background is one continuous take; the content fades in. */
 const PanIn: React.FC<{dir: PanDir; children: React.ReactNode}> = ({dir, children}) => {
   const f = useCurrentFrame();
-  const t = Math.min(1, f / PAN_FRAMES);
-  const e = 1 - easeIO(t);
-  const [vx, vy] = PAN_VEC[dir];
-  const blur = Math.sin(Math.PI * t) * 6;
-  return <AbsoluteFill style={{overflow: 'hidden', transform: `translate(${vx * W * e}px, ${vy * H * e}px)`, filter: blur > 0.3 ? `blur(${blur}px)` : undefined}}>{children}</AbsoluteFill>;
+  const e = easeIO(interpolate(f, [0, PAN_FRAMES], [0, 1], cl));
+  const sx = dir === 'r' ? 1 : -1;
+  const content = interpolate(f, [PAN_FRAMES * 0.35, PAN_FRAMES * 0.9], [0, 1], cl);
+  return (
+    <AbsoluteFill style={{transform: `translateX(${sx * PAN_DIST * (1 - e)}px)`}}>
+      <FadeLayer world={f >= PAN_FRAMES ? 1 : 0} content={content}>{children}</FadeLayer>
+    </AbsoluteFill>
+  );
 };
+/** Old shot of a pan: its world moves with the camera (unclipped, revealing what comes next); its content fades away. */
 const PanOut: React.FC<{dir: PanDir; start: number; children: React.ReactNode}> = ({dir, start, children}) => {
   const f = useCurrentFrame();
-  const t = interpolate(f, [start, start + PAN_FRAMES], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const e = easeIO(t);
-  const [vx, vy] = PAN_VEC[dir];
-  const blur = Math.sin(Math.PI * t) * 6;
-  return <AbsoluteFill style={{overflow: 'hidden', transform: `translate(${-vx * W * e}px, ${-vy * H * e}px)`, filter: blur > 0.3 ? `blur(${blur}px)` : undefined, opacity: t >= 1 ? 0 : 1}}>{children}</AbsoluteFill>;
+  const t = interpolate(f, [start, start + PAN_FRAMES], [0, 1], cl);
+  const sx = dir === 'r' ? 1 : -1;
+  const content = interpolate(t, [0.1, 0.55], [1, 0], cl);
+  return (
+    <AbsoluteFill style={{transform: `translateX(${-sx * PAN_DIST * easeIO(t)}px)`}}>
+      <FadeLayer world={f >= start + PAN_FRAMES ? 0 : 1} content={content}>{children}</FadeLayer>
+    </AbsoluteFill>
+  );
+};
+/** Same world, same camera: only the content changes. The new world switches on when the old one switches off (same pixels). */
+const SwapIn: React.FC<{children: React.ReactNode}> = ({children}) => {
+  const f = useCurrentFrame();
+  return <FadeLayer world={f >= TRANS_FRAMES.swap ? 1 : 0} content={interpolate(f, [0, TRANS_FRAMES.swap], [0, 1], cl)}>{children}</FadeLayer>;
+};
+const SwapOut: React.FC<{start: number; children: React.ReactNode}> = ({start, children}) => {
+  const f = useCurrentFrame();
+  return <FadeLayer world={f >= start + TRANS_FRAMES.swap ? 0 : 1} content={interpolate(f, [start, start + TRANS_FRAMES.swap], [1, 0], cl)}>{children}</FadeLayer>;
 };
 
 /** Gold coin used as the carried object (the video's "$30 payment"). */
@@ -114,40 +133,43 @@ export const CoinToken: React.FC<{label?: string; size?: number; color?: string}
   <div style={{width: size, height: size, borderRadius: '50%', background: color, border: `7px solid ${INK}`, boxShadow: 'inset 0 -10px 0 rgba(0,0,0,0.12), 0 8px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: SANS, fontWeight: 900, fontSize: size * (label.length > 3 ? 0.27 : 0.32), color: INK, boxSizing: 'border-box'}}>{label}</div>
 );
 
-/** The carried object: flies from the old scene's spot to the new scene's spot during the pan (arc + trail), settles, then pops away. */
+/** Frame (within the new shot) at which a carried object lands. */
+export const CARRY_LAND = PAN_FRAMES;
+
+/** The carried object: flies from the old shot's spot to the new shot's spot during the pan (arc + light trail), then pops away (or hands off). */
 const CarryFly: React.FC<{c: CarrySpec}> = ({c}) => {
   const f = useCurrentFrame();
-  const LAND = PAN_FRAMES + 4, GONE = LAND + 18;
-  if (f > GONE + 8) return null;
+  const LAND = CARRY_LAND, GONE = LAND + 14;
+  if (c.handoff ? f >= LAND : f > GONE + 8) return null;
   const pos = (fr: number) => {
     const t = easeIO(Math.min(1, Math.max(0, fr / LAND)));
     const x = c.from[0] + (c.to[0] - c.from[0]) * t;
-    const y = c.from[1] + (c.to[1] - c.from[1]) * t - Math.sin(Math.PI * t) * 120;
+    const y = c.from[1] + (c.to[1] - c.from[1]) * t - Math.sin(Math.PI * t) * 90;
     return [x, y, t] as const;
   };
   const [x, y, t] = pos(f);
-  const out = interpolate(f, [GONE, GONE + 8], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const squash = f >= LAND && f < LAND + 6 ? 1 + 0.12 * Math.sin(((f - LAND) / 6) * Math.PI) : 1;
-  const rot = (1 - t) * -25;
+  const out = c.handoff ? 1 : interpolate(f, [GONE, GONE + 8], [1, 0], cl);
+  const rot = c.handoff ? 0 : (1 - t) * -20;
   const body = c.src ? <Img src={staticFile(c.src)} style={{height: c.h ?? 220, width: 'auto', display: 'block'}} /> : <CoinToken label={c.label} color={c.color} size={c.h ?? 130} />;
   const ghost = (k: number) => {
     const [gx, gy] = pos(f - k * 2);
-    return <div key={k} style={{position: 'absolute', left: gx, top: gy, transform: 'translate(-50%, -50%)', opacity: 0.18 / k}}>{body}</div>;
+    return <div key={k} style={{position: 'absolute', left: gx, top: gy, transform: 'translate(-50%, -50%)', opacity: 0.14 / k}}>{body}</div>;
   };
   return (
     <AbsoluteFill style={{pointerEvents: 'none'}}>
-      {f < LAND && [1, 2, 3].map(ghost)}
-      <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(${out * squash})`}}>{body}</div>
+      {f < LAND - 4 && [1, 2].map(ghost)}
+      <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(${out})`}}>{body}</div>
     </AbsoluteFill>
   );
 };
 
 /**
  * A shot from `from` to `to` (frames). It stays on screen for the length of the NEXT shot's transition so there is never a gap.
- * trans="carry": one-camera pan in direction `pan` + the `carry` object flown across (Video 01 style).
- * exitPan: this shot leaves by panning (set it on the shot BEFORE a carry, same direction).
+ * trans="carry": one-camera pan along the same world in direction `pan` + the `carry` object (Video 01 style).
+ * trans="swap": same world and camera, only the content changes. Put exitSwap on the shot before a swap.
+ * exitPan: this shot leaves with the camera (set it on the shot BEFORE a carry, same direction).
  */
-export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: boolean; exitPan?: PanDir; pan?: PanDir; carry?: CarrySpec; world?: WorldPick; children: React.ReactNode}> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = true, exitPan, pan = 'r', carry, world, children}) => {
+export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: boolean; exitPan?: PanDir; exitSwap?: boolean; pan?: PanDir; carry?: CarrySpec; world?: WorldPick; children: React.ReactNode}> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = true, exitPan, exitSwap, pan = 'r', carry, world, children}) => {
   const dur = Math.max(1, to - from + tail);
   const d = TRANS_FRAMES[trans];
   const body =
@@ -157,11 +179,12 @@ export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: num
     : trans === 'zoom' ? <ZoomThrough dur={d}>{children}</ZoomThrough>
     : trans === 'dissolve' ? <CrossDissolve dur={d}>{children}</CrossDissolve>
     : trans === 'carry' ? <PanIn dir={pan}>{children}</PanIn>
+    : trans === 'swap' ? <SwapIn>{children}</SwapIn>
     : <AbsoluteFill>{children}</AbsoluteFill>;
-  const inner = exitPan ? <PanOut dir={exitPan} start={to - from}>{body}</PanOut> : exit ? <ExitOut start={to - from - 10} dur={16}>{body}</ExitOut> : body;
+  const inner = exitPan ? <PanOut dir={exitPan} start={to - from}>{body}</PanOut> : exitSwap ? <SwapOut start={to - from}>{body}</SwapOut> : exit ? <ExitOut start={to - from - 10} dur={16}>{body}</ExitOut> : body;
   return (
     <Sequence from={from} durationInFrames={exitPan ? Math.max(dur, to - from + PAN_FRAMES + 1) : dur}>
-      <WorldCtx.Provider value={world ?? null}>{inner}</WorldCtx.Provider>
+      <WorldCtx.Provider value={world ? {...world, from} : null}>{inner}</WorldCtx.Provider>
       <PaperTexture />
       {trans === 'carry' && carry && <CarryFly c={carry} />}
     </Sequence>
@@ -296,6 +319,7 @@ export const CheckoutScreen: React.FC<{total?: string; pulseAt?: number}> = ({to
 
 /** Leo head canvases are 790x1539 with the head inside this box (measured from the PNGs). */
 const HEAD_CANVAS = {w: 790, h: 1539};
+const LEO_BODY = 'v1/leo_body.png';
 const HEAD_BOX = {x0: 207, x1: 527, y0: 0, y1: 361};
 /** Leo reaction badge: his head in a circle that pops in (no body, so no alignment issues). */
 export const LeoBadge: React.FC<{head: string; at: number; x: number; y: number; size?: number; ring?: string}> = ({head, at, x, y, size = 300, ring = '#FFD23F'}) => {
@@ -305,7 +329,11 @@ export const LeoBadge: React.FC<{head: string; at: number; x: number; y: number;
     <PopIn at={at} origin="50% 50%" style={{left: x, top: y}}>
       <div style={{width: size, height: size, borderRadius: '50%', background: ring, border: `8px solid ${INK}`, overflow: 'hidden', position: 'relative', boxShadow: '0 12px 0 rgba(0,0,0,0.2)'}}>
         {hasFile(head) ? (
-          <Img src={staticFile(head)} style={{position: 'absolute', width: HEAD_CANVAS.w * k, height: HEAD_CANVAS.h * k, left: size / 2 - cx * k, top: size * 0.9 - HEAD_BOX.y1 * k}} />
+          <>
+            {/* body (neck + hoodie) under the head so the head's flat-cut chin never shows (same 790x1539 canvas) */}
+            {hasFile(LEO_BODY) && <Img src={staticFile(LEO_BODY)} style={{position: 'absolute', width: HEAD_CANVAS.w * k, height: HEAD_CANVAS.h * k, left: size / 2 - cx * k, top: size * 0.07 - HEAD_BOX.y0 * k}} />}
+            <Img src={staticFile(head)} style={{position: 'absolute', width: HEAD_CANVAS.w * k, height: HEAD_CANVAS.h * k, left: size / 2 - cx * k, top: size * 0.07 - HEAD_BOX.y0 * k}} />
+          </>
         ) : (
           <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: SANS, fontWeight: 700, fontSize: 20, textAlign: 'center'}}>missing: {head}</div>
         )}
@@ -316,8 +344,12 @@ export const LeoBadge: React.FC<{head: string; at: number; x: number; y: number;
 
 /** Small banner that reads "Education only. Not financial advice." */
 export const Disclaimer: React.FC = () => (
-  <div style={{position: 'absolute', top: 30, left: 40, fontFamily: SANS, fontWeight: 700, fontSize: 24, color: '#fff', background: 'rgba(0,0,0,0.55)', padding: '8px 18px', borderRadius: 12}}>Education only. Not financial advice.</div>
+  <DisclaimerBox />
 );
+const DisclaimerBox: React.FC = () => {
+  const fade = useFade();
+  return <div style={{opacity: fade.content, position: 'absolute', top: 30, left: 40, fontFamily: SANS, fontWeight: 700, fontSize: 24, color: '#fff', background: 'rgba(0,0,0,0.55)', padding: '8px 18px', borderRadius: 12}}>Education only. Not financial advice.</div>
+};
 
 /** Centered big headline in handwriting (used for short punchlines). */
 export const Punch: React.FC<{text: string; at: number; color?: string; y?: number; size?: number}> = ({text, at, color = INK, y = 430, size = 120}) => (
@@ -329,8 +361,9 @@ export const Punch: React.FC<{text: string; at: number; color?: string; y?: numb
 /** Source line, bottom-left, readable on any background. Show it whenever a number is on screen. */
 export const Src: React.FC<{text: string; at?: number}> = ({text, at = 0}) => {
   const f = useCurrentFrame();
+  const fade = useFade();
   if (f < at) return null;
-  return <div style={{position: 'absolute', left: 124, bottom: 36, fontFamily: SANS, fontWeight: 600, fontSize: 24, color: '#fff', background: 'rgba(0,0,0,0.55)', padding: '6px 16px', borderRadius: 10}}>Source: {text}</div>;
+  return <div style={{opacity: fade.content, position: 'absolute', left: 124, bottom: 36, fontFamily: SANS, fontWeight: 600, fontSize: 24, color: '#fff', background: 'rgba(0,0,0,0.55)', padding: '6px 16px', borderRadius: 10}}>Source: {text}</div>;
 };
 
 /** Story-beat background in the Kok Bisa look: soft desaturated scene, slight depth blur, one warm light leak,

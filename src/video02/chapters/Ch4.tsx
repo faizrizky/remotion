@@ -3,7 +3,7 @@ import {Embers, MascotCorner, Chip} from '../paper';
 import {useCurrentFrame} from 'remotion';
 import {IsoBlock, NameTag, Pill, PopIn, SANS, Scene} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
-import {INK, PayCircle, Person, Phone, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Char, PAN_FRAMES} from '../v2kit';
+import {INK, PayCircle, Person, Phone, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Char, PAN_FRAMES, CARRY_LAND} from '../v2kit';
 
 const LoanScreen: React.FC<{n: number; amt: string; color: string}> = ({n, amt, color}) => (
   <div style={{height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10, background: color}}>
@@ -15,6 +15,8 @@ const LoanScreen: React.FC<{n: number; amt: string; color: string}> = ({n, amt, 
 
 /** Renders its children only from frame `at` on (IsoBlock draws a ghost base from frame 0). */
 const After: React.FC<{at: number; children: React.ReactNode}> = ({at, children}) => (useCurrentFrame() >= at ? <>{children}</> : null);
+/** Renders its children only BEFORE frame `at` (the object leaves with the carried copy). */
+const Before: React.FC<{at: number; children: React.ReactNode}> = ({at, children}) => (useCurrentFrame() < at ? <>{children}</> : null);
 
 const LOANS = [
   {amt: '$30', color: '#FFD23F'},
@@ -61,7 +63,7 @@ export const Ch4: React.FC = () => (
       return (
         <>
           {/* A: one is easy... now open five */}
-          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'r', at: 0.2}} trans="carry" pan="r" carry={{from: [975, 500], to: [265, 820]}} from={0} to={b('cfpbStart')}>
+          <Shot exitSwap world={{src: 'v2/world_street.jpg', x0: 1310, x1: 1310, a: 0, b: b('ownLoans')}} from={0} to={b('cfpbStart')} trans="carry" pan="r" carry={{from: [975, 500], to: [265, 820]}}>
             <Scene palette="sky" dur={b('cfpbStart')}>
               <MascotCorner head="head_suspicious.png" at={b('ph2')} x={1640} y={820} size={200} />
               {LOANS.map((l, i) => (
@@ -75,7 +77,7 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* B: CFPB 63% */}
-          <Shot world={{src: 'v2/world_desk.jpg', dir: 'l', at: 0.7}} from={b('cfpbStart')} to={b('one3')} trans="ink" seed="c4b">
+          <Shot exitSwap world={{src: 'v2/world_street.jpg', x0: 1310, x1: 1310, a: 0, b: b('ownLoans')}} from={b('cfpbStart')} to={b('one3')} trans="swap" seed="c4b">
             <Scene palette="teal" dur={r('one3', 'cfpbStart')}>
               <PopIn at={r('cfpbW', 'cfpbStart')} style={{left: 120, top: 330}}><Prop name="bld_cfpb_transparent.png" w={700} /></PopIn>
               <StatCard to={63} label="had 2+ loans at the same time" at={r('s63', 'cfpbStart')} x={880} y={250} w={760} />
@@ -85,7 +87,7 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* B2: about one in three: more than one company */}
-          <Shot exitPan="u" world={{src: 'v2/world_clothes.jpg', dir: 'r', at: 0.5}} from={b('one3')} to={b('ownLoans')} trans="wipe">
+          <Shot exitPan="l" world={{src: 'v2/world_street.jpg', x0: 1310, x1: 1310, a: 0, b: b('ownLoans')}} from={b('one3')} to={b('ownLoans')} trans="swap">
             <Scene palette="peri" dur={r('ownLoans', 'one3')}>
               {[0, 1, 2].map((i) => (
                 <PopIn key={i} at={r('one3W', 'one3') + i * 5} style={{left: 300 + i * 220, top: 330}}><Person color={i === 1 ? '#E4572E' : '#4FB7C0'} h={380} dim={i !== 1} /></PopIn>
@@ -96,7 +98,7 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* C: each app only sees its own loans; you see the pile */}
-          <Shot world={{src: 'v2/world_bank.jpg', dir: 'u', at: 0.45}} from={b('ownLoans')} to={b('fico')} trans="carry" pan="u" carry={{from: [520, 600], to: [480, 220]}}>
+          <Shot world={{src: 'v2/world_street.jpg', x0: 310, x1: 396, a: b('ownLoans'), b: b('fico')}} from={b('ownLoans')} to={b('fico')} trans="carry" pan="l" carry={{from: [1400, 600], to: [480, 220]}}>
             <Scene palette="lilac" dur={r('fico', 'ownLoans')}>
               {[0, 1, 2].map((i) => (
                 <Phone key={i} at={r('eachApp', 'ownLoans') + i * 10} x={120 + i * 270} y={300} h={420}>
@@ -113,7 +115,7 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* D: FICO BNPL scores */}
-          <Shot world={{src: 'v2/world_bakery.jpg', dir: 'd', at: 0.8}} from={b('fico')} to={b('groceries')} trans="wipe">
+          <Shot world={{src: 'v2/world_bakery.jpg', x0: 1500, x1: 1619, a: b('fico'), b: b('groceries')}} from={b('fico')} to={b('groceries')} trans="wipe">
             <Scene palette="peri" dur={r('groceries', 'fico')}>
               <PopIn at={r('changePill', 'fico')} style={{left: 820, top: 180}}><Pill text="starting to change..." bg="#5B4FFF" size={54} /></PopIn>
               <CreditReport at={r('changePill', 'fico')} />
@@ -125,9 +127,9 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* E: groceries 14% -> 29% */}
-          <Shot exitPan="l" world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.1}} from={b('groceries')} to={b('food')} trans="ink" seed="c4e">
+          <Shot exitPan="r" world={{src: 'v2/world_living.jpg', x0: 250, x1: 366, a: b('groceries'), b: b('food')}} from={b('groceries')} to={b('food')} trans="ink" seed="c4e">
             <Scene palette="sunrise" dur={r('food', 'groceries')}>
-              <PopIn at={sec(0.2)} style={{left: 150, top: 300}}><Prop name="v2/obj_grocery_bag.png" h={460} /></PopIn>
+              <Before at={r('food', 'groceries')}><PopIn at={sec(0.2)} style={{left: 150, top: 330}}><Prop name="v2/obj_grocery_bag.png" h={380} /></PopIn></Before>
               <PopIn at={r('sneakers', 'groceries')} style={{left: 520, top: 150}}><Pill text="not just sneakers anymore" bg="#2B1230" size={44} /></PopIn>
               <After at={r('s29', 'groceries')}><IsoBlock h={348} at={r('s29', 'groceries')} label="29%" style={{left: 1220, bottom: 330}} top="#FFB26B" left="#E4572E" right="#B5401F" /></After>
               <PopIn at={r('s29', 'groceries')} style={{left: 1290, top: 775}}><Pill text="now" bg="#3B1F1A" size={34} /></PopIn>
@@ -139,10 +141,10 @@ export const Ch4: React.FC = () => (
           </Shot>
 
           {/* F: food in four payments = a warning light */}
-          <Shot exitPan="u" world={{src: 'v2/world_kitchen.jpg', dir: 'l', at: 0.6}} from={b('food')} to={len - PAN_FRAMES} trans="carry" pan="l" carry={{from: [330, 530], to: [260, 470], src: 'v2/obj_grocery_bag.png', h: 340}}>
+          <Shot exitPan="l" world={{src: 'v2/world_living.jpg', x0: 1366, x1: 1458, a: b('food'), b: len - PAN_FRAMES}} from={b('food')} to={len - PAN_FRAMES} trans="carry" pan="r" carry={{from: [274, 520], to: [254, 490], src: 'v2/obj_grocery_bag.png', h: 380, handoff: true}}>
             <Scene palette="sky" dur={len - b('food')}>
               <Embers n={24} color="#FF3B30" seed={7} />
-              <PopIn at={20} style={{left: 130, top: 300}}><Prop name="v2/obj_grocery_bag.png" h={340} /></PopIn>
+              <After at={CARRY_LAND}><div style={{position: 'absolute', left: 130, top: 300}}><Prop name="v2/obj_grocery_bag.png" h={380} /></div></After>
               <PopIn at={r('foodW', 'food')} style={{left: 130, top: 150}}><Pill text="your food, in 4 payments" bg="#E4572E" size={44} /></PopIn>
               {[0, 1, 2, 3].map((i) => (
                 <PayCircle key={i} amount="1/4" label="" at={r('fourPay', 'food') + i * 5} x={650 + i * 170} y={400} size={130} color={LOANS[i].color} />

@@ -56,7 +56,7 @@ export const Ch5: React.FC = () => (
       return (
         <>
           {/* A: autopay pulls, money isn't there */}
-          <Shot world={{src: 'v2/world_mall.jpg', dir: 'l', at: 0.2}} trans="carry" pan="u" carry={{from: [1520, 400], to: [850, 700]}} from={0} to={b('lateFee')}>
+          <Shot world={{src: 'v2/world_living.jpg', x0: 458, x1: 589, a: 0, b: b('lateFee')}} from={0} to={b('lateFee')} trans="carry" pan="l" carry={{from: [1520, 400], to: [850, 700]}}>
             <Scene palette="teal" dur={b('lateFee')}>
               <Balance at={b('intro')} />
               <PopIn at={b('intro')} style={{left: 180, top: 200}}><Pill text="What if a payment fails?" bg="#2B1230" size={48} /></PopIn>
@@ -69,7 +69,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* B: hit twice */}
-          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'd', at: 0.7}} from={b('lateFee')} to={b('klarnaStart')} trans="wipe">
+          <Shot world={{src: 'v2/world_kitchen.jpg', x0: 400, x1: 400, a: b('lateFee'), b: b('klarnaStart')}} from={b('lateFee')} to={b('klarnaStart')} trans="wipe">
             <Scene palette="sunrise" dur={r('klarnaStart', 'lateFee')}>
               <Chip text="Late fee  (lender)" kind="warn" at={r('lateW', 'lateFee')} x={250} y={380} size={66} />
               <Chip text="Overdraft fee  (bank)" kind="warn" at={r('overdraft', 'lateFee')} x={1000} y={380} size={66} rot={2} />
@@ -79,7 +79,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* C: Klarna up to $7, Afterpay up to $8 */}
-          <Shot exitPan="u" world={{src: 'v2/world_bank.jpg', dir: 'r', at: 0.45}} from={b('klarnaStart')} to={b('small')} trans="ink" seed="c5c">
+          <Shot exitPan="l" world={{src: 'v2/world_bank.jpg', x0: 1250, x1: 1355, a: b('klarnaStart'), b: b('small')}} from={b('klarnaStart')} to={b('small')} trans="ink" seed="c5c">
             <Scene palette="rose" dur={r('small', 'klarnaStart')}>
               <FeeCard who="Klarna (US)" fee="up to $7" at={r('klarna7', 'klarnaStart')} x={240} color="#FFD23F" />
               <FeeCard who="Afterpay (US)" fee="up to $8" note="max 25% of the order" at={r('afterpay8', 'klarnaStart')} x={1040} color="#BDEBD3" />
@@ -89,7 +89,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* C2: sounds small... on a $30 payment it isn't, and it happens a lot */}
-          <Shot world={{src: 'v2/world_desk.jpg', dir: 'u', at: 0.8}} from={b('small')} to={b('s47Start')} trans="carry" pan="u" carry={{from: [560, 400], to: [800, 520], label: '$7'}}>
+          <Shot world={{src: 'v2/world_bank.jpg', x0: 355, x1: 355, a: b('small'), b: b('s47Start')}} from={b('small')} to={b('s47Start')} trans="carry" pan="l" carry={{from: [560, 400], to: [800, 520], label: '$7'}}>
             <Scene palette="peri" dur={r('s47Start', 'small')}>
               <PopIn at={r('smallW', 'small')} style={{left: 130, top: 190}}><Pill text="Sounds small." bg="#2B1230" size={64} /></PopIn>
               <PayCircle amount="$30" label="payment" at={r('onThirty', 'small')} x={460} y={560} size={200} />
@@ -100,7 +100,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* D: 47% paid late */}
-          <Shot world={{src: 'v2/world_clothes.jpg', dir: 'l', at: 0.6}} from={b('s47Start')} to={b('fedStart')} trans="wipe">
+          <Shot world={{src: 'v2/world_clothes.jpg', x0: 900, x1: 900, a: b('s47Start'), b: b('fedStart')}} from={b('s47Start')} to={b('fedStart')} trans="wipe">
             <Scene palette="sky" dur={r('fedStart', 's47Start')}>
               <MascotCorner head="head_shocked.png" at={r('s47', 's47Start') + sec(0.8)} x={1620} y={780} size={210} />
               <StatCard to={47} label="of users paid late at least once in the past year" at={r('s47', 's47Start')} x={600} y={250} w={720} />
@@ -110,7 +110,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* D2: Federal Reserve: 21% */}
-          <Shot exitPan="r" world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.4}} from={b('fedStart')} to={b('grocStart')} trans="ink" seed="c5d">
+          <Shot exitSwap world={{src: 'v2/world_mall.jpg', x0: 300, x1: 418, a: b('fedStart'), b: b('notFree')}} from={b('fedStart')} to={b('grocStart')} trans="ink" seed="c5d">
             <Scene palette="mint" dur={r('grocStart', 'fedStart')}>
               <PopIn at={r('fedW', 'fedStart')} style={{left: 100, top: 330}}><Prop name="bld_fed_g19_transparent.png" w={640} /></PopIn>
               <StatCard to={21} label="paid a late fee or got hit with an overdraft fee" at={r('fed21', 'fedStart')} x={800} y={170} w={860} bg="#FFD23F" />
@@ -122,7 +122,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* D3: grocery users 43% */}
-          <Shot exitPan="u" world={{src: 'v2/world_bakery.jpg', dir: 'u', at: 0.3}} from={b('grocStart')} to={b('notFree')} trans="carry" pan="r" carry={{from: [1230, 330], to: [1200, 450], label: '21%'}}>
+          <Shot world={{src: 'v2/world_mall.jpg', x0: 300, x1: 418, a: b('fedStart'), b: b('notFree')}} from={b('grocStart')} to={b('notFree')} trans="swap">
             <Scene palette="rose" dur={r('notFree', 'grocStart')}>
               <PopIn at={r('bag', 'grocStart')} style={{left: 150, top: 320}}><Prop name="v2/obj_grocery_bag.png" h={440} /></PopIn>
               <StatCard to={43} label="of grocery users paid a late or overdraft fee" at={r('grocery43', 'grocStart')} x={760} y={250} w={820} bg="#FF9F9F" />
@@ -132,7 +132,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* E: not every plan is interest-free */}
-          <Shot world={{src: 'v2/world_street.jpg', dir: 'l', at: 0.5}} from={b('notFree')} to={b('aprStart')} trans="carry" pan="u" carry={{from: [1170, 420], to: [1500, 700], label: '43%'}}>
+          <Shot exitSwap world={{src: 'v2/world_street.jpg', x0: 1250, x1: 1146, a: b('notFree'), b: len - PAN_FRAMES}} from={b('notFree')} to={b('aprStart')} trans="wipe">
             <Scene palette="sunrise" dur={r('aprStart', 'notFree')}>
               <Punch text="One more thing..." at={r('oneMore', 'notFree')} y={250} size={120} />
               <Chip text="not every plan is interest-free" kind="warn" at={r('interestFree', 'notFree') - 18} x={560} y={560} size={60} />
@@ -141,8 +141,9 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* F: APR up to about 36% */}
-          <Shot exitPan="d" world={{src: 'v2/world_kitchen.jpg', dir: 'r', at: 0.2}} from={b('aprStart')} to={b('sameApp')} trans="ink" seed="c5f">
+          <Shot exitSwap world={{src: 'v2/world_street.jpg', x0: 1250, x1: 1146, a: b('notFree'), b: len - PAN_FRAMES}} from={b('aprStart')} to={b('sameApp')} trans="swap" seed="c5f">
             <Scene palette="mint" dur={r('sameApp', 'aprStart')}>
+              <PopIn at={sec(0.3)} style={{left: 560, top: 130}}><Pill text={'longer "pay monthly" plans'} bg="#2B1230" size={52} /></PopIn>
               <Gauge value={36} max={40} at={r('apr36', 'aprStart')} x={960} y={600} label={'APR on longer "pay monthly" plans'} />
             </Scene>
             <Src text="Affirm terms (0-36% APR); Klarna financing 0-35.99% APR (NerdWallet)" at={r('aprSrc', 'aprStart')} />
@@ -150,7 +151,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* G: same app, very different deal */}
-          <Shot exitPan="l" world={{src: 'v2/world_mall.jpg', dir: 'd', at: 0.6}} from={b('sameApp')} to={len - PAN_FRAMES} trans="carry" pan="d" carry={{from: [960, 460], to: [1400, 560], label: '36%'}}>
+          <Shot exitPan="l" world={{src: 'v2/world_street.jpg', x0: 1250, x1: 1146, a: b('notFree'), b: len - PAN_FRAMES}} from={b('sameApp')} to={len - PAN_FRAMES} trans="swap">
             <Scene palette="peri" dur={len - b('sameApp')}>
               <Chip text="same app" kind="label" at={r('sameW', 'sameApp')} x={830} y={120} size={64} />
               <BranchFork at={r('sameW', 'sameApp') + 4} x0={960} y0={215} x1={520} x2={1400} y1={255} />

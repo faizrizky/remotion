@@ -25,7 +25,7 @@ export const Ch6: React.FC = () => (
     {(b, len) => (
       <>
         {/* A: is it evil? no. Used on purpose... the trick is YOU use it */}
-        <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.2}} trans="carry" pan="l" carry={{from: [1400, 500], to: [1350, 330]}} from={0} to={b('ruleStart')}>
+        <Shot world={{src: 'v2/world_street.jpg', x0: 146, x1: 253, a: 0, b: b('ruleStart')}} from={0} to={b('ruleStart')} trans="carry" pan="l" carry={{from: [1400, 500], to: [1350, 330]}}>
           <Scene palette="sunrise" dur={b('ruleStart')}>
             <LeoBadge head="head_thinking.png" at={0} x={760} y={120} size={380} />
             <Punch text="Is it evil?" at={b('evil')} color={INK} y={520} size={110} />
@@ -38,7 +38,7 @@ export const Ch6: React.FC = () => (
         </Shot>
 
         {/* B: four rules */}
-        <Shot exitPan="d" world={{src: 'v2/world_bakery.jpg', dir: 'l', at: 0.7}} from={b('ruleStart')} to={len - PAN_FRAMES} trans="ink" seed="c6b">
+        <Shot exitPan="l" world={{src: 'v2/world_bakery.jpg', x0: 1200, x1: 1351, a: b('ruleStart'), b: len - PAN_FRAMES}} from={b('ruleStart')} to={len - PAN_FRAMES} trans="ink" seed="c6b">
           <Scene palette="mint" dur={len - b('ruleStart')}>
             <LeoBadge head="head_proud.png" at={0} x={160} y={300} size={420} ring="#FFD23F" />
             {RULES.map((rule, i) => (

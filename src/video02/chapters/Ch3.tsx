@@ -11,7 +11,7 @@ export const Ch3: React.FC = () => (
       return (
         <>
           {/* A: your brain sees $120... it sees $30 */}
-          <Shot world={{src: 'v2/world_bakery.jpg', dir: 'l', at: 0.2}} trans="carry" pan="d" carry={{from: [900, 600], to: [1450, 470]}} from={0} to={b('lunch')}>
+          <Shot world={{src: 'v2/world_living.jpg', x0: 1395, x1: 1471, a: 0, b: b('lunch')}} from={0} to={b('lunch')} trans="carry" pan="r" carry={{from: [900, 600], to: [1450, 470]}}>
             <Scene palette="rose" dur={b('lunch')}>
               <MascotCorner head="head_thinking.png" at={b('brain')} x={850} y={620} size={230} />
               <PopIn at={b('brain')} style={{left: 660, top: 440}}><Pill text="your brain doesn't see..." bg="#2B1230" size={44} /></PopIn>
@@ -22,7 +22,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* B: lunch vs decision */}
-          <Shot exitPan="u" world={{src: 'v2/world_clothes.jpg', dir: 'r', at: 0.7}} from={b('lunch')} to={b('hoodie')} trans="wipe">
+          <Shot exitPan="r" world={{src: 'v2/world_clothes.jpg', x0: 700, x1: 700, a: b('lunch'), b: b('hoodie')}} from={b('lunch')} to={b('hoodie')} trans="wipe">
             <Scene palette="teal" dur={r('hoodie', 'lunch')}>
               <PopIn at={0} style={{left: 250, top: 250}}><Prop name="v2/obj_lunch.png" h={380} /></PopIn>
               <KeyTag text="$30 = lunch" at={r('lunchTag', 'lunch')} style={{position: 'absolute', left: 230, top: 690}} size={72} />
@@ -33,7 +33,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* C: the cart fills up, $30 at a time */}
-          <Shot world={{src: 'v2/world_desk.jpg', dir: 'u', at: 0.45}} from={b('hoodie')} to={b('notFeel')} trans="carry" pan="u" carry={{from: [1350, 450], to: [900, 480]}}>
+          <Shot world={{src: 'v2/world_clothes.jpg', x0: 1700, x1: 1780, a: b('hoodie'), b: b('notFeel')}} from={b('hoodie')} to={b('notFeel')} trans="carry" pan="r" carry={{from: [1350, 450], to: [900, 480]}}>
             <Scene palette="mint" dur={r('notFeel', 'hoodie')}>
               <PopIn at={0} style={{left: 700, top: 300}}><Prop name="v2/obj_cart_empty.png" h={480} /></PopIn>
               <PopIn at={r('hoodieW', 'hoodie')} style={{left: 160, top: 300}}><Prop name="v2/obj_hoodie.png" h={300} /></PopIn>
@@ -46,7 +46,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* D1: not just a feeling: Harvard researchers */}
-          <Shot world={{src: 'v2/world_bank.jpg', dir: 'r', at: 0.8}} from={b('notFeel')} to={b('research')} trans="ink" seed="c3d">
+          <Shot world={{src: 'v2/world_bank.jpg', x0: 300, x1: 396, a: b('notFeel'), b: b('research')}} from={b('notFeel')} to={b('research')} trans="ink" seed="c3d">
             <Scene palette="sky" dur={r('research', 'notFeel')}>
               <Punch text="Not just a feeling." at={sec(0.3)} color={INK} y={110} size={110} />
               <PopIn at={r('harvard', 'notFeel')} style={{left: 700, top: 280}}><Prop name="v2/obj_research_paper.png" h={560} /></PopIn>
@@ -57,7 +57,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* D2: total spending goes up */}
-          <Shot world={{src: 'v2/world_living.jpg', dir: 'd', at: 0.1}} from={b('research')} to={b('survey68')} trans="wipe">
+          <Shot world={{src: 'v2/world_kitchen.jpg', x0: 600, x1: 699, a: b('research'), b: b('survey68')}} from={b('research')} to={b('survey68')} trans="wipe">
             <Scene palette="sky" dur={r('survey68', 'research')}>
               <PopIn at={0} style={{left: 160, top: 260}}><Prop name="v2/obj_research_paper.png" h={480} /></PopIn>
               <div style={{position: 'absolute', left: 820, top: 230, width: 960, height: 520}}>
@@ -73,7 +73,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* E: 68% overspend */}
-          <Shot world={{src: 'v2/world_mall.jpg', dir: 'r', at: 0.5}} from={b('survey68')} to={b('half')} trans="ink" seed="c3e">
+          <Shot exitSwap world={{src: 'v2/world_mall.jpg', x0: 1200, x1: 1329, a: b('survey68'), b: b('notTrap')}} from={b('survey68')} to={b('half')} trans="ink" seed="c3e">
             <Scene palette="peri" dur={r('half', 'survey68')}>
               <PopIn at={r('survey2026', 'survey68')} style={{left: 980, top: 130}}><Pill text="2026 survey" bg="#5B4FFF" size={44} /></PopIn>
               <PercentGrid n={68} at={r('s68', 'survey68') + 6} x={230} y={260} on="#FF6B6B" />
@@ -84,7 +84,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* E2: more than half regretted */}
-          <Shot exitPan="r" world={{src: 'v2/world_street.jpg', dir: 'l', at: 0.3}} from={b('half')} to={b('notTrap')} trans="wipe">
+          <Shot world={{src: 'v2/world_mall.jpg', x0: 1200, x1: 1329, a: b('survey68'), b: b('notTrap')}} from={b('half')} to={b('notTrap')} trans="swap">
             <Scene palette="rose" dur={r('notTrap', 'half')}>
               <PercentGrid n={54} at={sec(0.3)} x={230} y={260} on="#FF9F1C" />
               <StickyNote text="54% regretted a purchase" at={r('regret', 'half')} style={{left: 1060, top: 400}} size={64} />
@@ -94,7 +94,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* F: overspending once isn't the trap */}
-          <Shot world={{src: 'v2/world_clothes.jpg', dir: 'r', at: 0.2}} from={b('notTrap')} to={b('stackStart')} trans="carry" pan="r" carry={{from: [1200, 500], to: [960, 600]}}>
+          <Shot exitSwap world={{src: 'v2/world_street.jpg', x0: 200, x1: 310, a: b('notTrap'), b: len - PAN_FRAMES}} from={b('notTrap')} to={b('stackStart')} trans="wipe">
             <Scene palette="sunrise" dur={r('stackStart', 'notTrap')}>
               <Punch text="Overspending once?" at={sec(0.2)} y={330} size={130} />
               <PopIn at={r('notTrapTag', 'notTrap')} style={{left: 560, top: 560}}><Pill text="isn't the real trap" bg="#2B1230" size={64} /></PopIn>
@@ -103,7 +103,7 @@ export const Ch3: React.FC = () => (
           </Shot>
 
           {/* G: the real trap: stacking */}
-          <Shot exitPan="r" world={{src: 'v2/world_street.jpg', dir: 'l', at: 0.6}} from={b('stackStart')} to={len - PAN_FRAMES} trans="ink" seed="c3g">
+          <Shot exitPan="r" world={{src: 'v2/world_street.jpg', x0: 200, x1: 310, a: b('notTrap'), b: len - PAN_FRAMES}} from={b('stackStart')} to={len - PAN_FRAMES} trans="swap" seed="c3g">
             <Scene palette="lilac" dur={len - b('stackStart')}>
               <Punch text="The real trap?" at={sec(0.2)} y={110} size={110} />
               <CutawayPan at={r('stack1', 'stackStart')} dur={sec(3)} dy={110}>

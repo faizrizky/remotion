@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Sequence} from 'remotion';
-import {PopSpeed} from '../style/style_kit';
+import {Finish, PopSpeed} from '../style/style_kit';
 import {PennySting} from '../kit/sting';
 import {beatOf, chapterFrames, ChapterId, getChapter, sec, Voice, Watermark} from './v2kit';
 
@@ -29,6 +29,8 @@ export const ChapterShell: React.FC<{id: ChapterId; children: (b: (k: string) =>
         <Sequence from={pre} durationInFrames={len}>
           {children(b, len)}
         </Sequence>
+        {/* grade once for the whole chapter (fixed to the screen, unaffected by pans) */}
+        <Sequence from={overlap}><Finish /></Sequence>
         {stingIn && <Sequence durationInFrames={pre + 10}><PennySting dur={pre + 10} reveal quiet /></Sequence>}
         <Watermark />
         <Voice c={c} />

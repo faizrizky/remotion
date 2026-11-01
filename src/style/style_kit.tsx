@@ -7,7 +7,7 @@
 import React from 'react';
 import {AbsoluteFill, Img, interpolate, random, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {loadFont} from '@remotion/fonts';
-import {WorldPan, useWorld} from './worldpan';
+import {WorldPan, useWorld, useFade} from './worldpan';
 
 export const HAND = 'Caveat';
 export const SANS = 'Poppins';
@@ -251,10 +251,25 @@ export const Flashback: React.FC<{children: React.ReactNode}> = ({children}) => 
 export const Scene: React.FC<{palette: keyof typeof PALETTES; dur: number; stars?: boolean; bokeh?: boolean; subtitle?: string; cta?: boolean; children: React.ReactNode}> = ({palette, dur, stars, bokeh, subtitle, cta, children}) => {
   const p = PALETTES[palette];
   const world = useWorld(); // Video 02: a wide illustrated world drifts behind the scene when the Shot provides one
+  const fade = useFade();
+  if (world) {
+    // world in one layer, content in another, so pans and swaps keep the background pixel-identical.
+    // The grade (grain + vignette) is drawn once per chapter by the chapter shell, not per scene, so it never moves.
+    return (
+      <AbsoluteFill>
+        <AbsoluteFill style={{opacity: fade.world}}><WorldPan world={world} /></AbsoluteFill>
+        <AbsoluteFill style={{opacity: fade.content}}>
+          <Camera dur={dur} z1={1.02}>{children}</Camera>
+          {cta && <CornerCTA />}
+          {subtitle && <Subtitle text={subtitle} />}
+        </AbsoluteFill>
+      </AbsoluteFill>
+    );
+  }
   return (
     <AbsoluteFill>
       <Camera dur={dur}>
-        {world ? <WorldPan world={world} dur={dur} /> : <Backdrop p={p} stars={stars} bokeh={bokeh} />}
+        {world ? <WorldPan world={world} /> : <Backdrop p={p} stars={stars} bokeh={bokeh} />}
         {children}
       </Camera>
       <Finish />
@@ -531,14 +546,25 @@ export const Scale: React.FC<{left: string; right: string; tilt?: number; at?: n
 export const IsoBlock: React.FC<{w?: number; d?: number; h: number; at?: number; dur?: number; top?: string; left?: string; right?: string; label?: string; style?: React.CSSProperties}> = ({w = 160, d = 160, h, at = 0, dur = 24, top = '#9BF05A', left = '#4FCB2B', right = '#2FB432', label, style}) => {
   const f = useCurrentFrame();
   const cur = h * ease(interpolate(f, [at, at + dur], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}));
+  // true isometric box drawn as SVG polygons (faces always meet at the same edges)
+  const a = w * 0.5, b = d * 0.5; // 30-degree drop of each face
+  const H = h + a + b + 70; // canvas height, baseline at the bottom
+  const y0 = H; // front-bottom vertex y
+  const pt = (x: number, y: number) => `${x},${y}`;
+  const lf = [pt(0, y0 - a), pt(w, y0), pt(w, y0 - cur), pt(0, y0 - a - cur)].join(' ');
+  const rf = [pt(w, y0), pt(w + d, y0 - b), pt(w + d, y0 - b - cur), pt(w, y0 - cur)].join(' ');
+  const tf = [pt(0, y0 - a - cur), pt(w, y0 - cur), pt(w + d, y0 - b - cur), pt(d, y0 - a - b - cur)].join(' ');
+  const ink = 'rgba(25,20,17,0.85)';
   return (
     <div style={{position: 'absolute', ...style}}>
-      <div style={{position: 'relative', width: w + d, height: cur + d / 2 + 20}}>
-        <div style={{position: 'absolute', left: 0, bottom: 0, width: w, height: cur, background: left, transform: 'skewY(30deg)', transformOrigin: 'bottom left'}} />
-        <div style={{position: 'absolute', left: w, bottom: 0, width: d, height: cur, background: right, transform: 'skewY(-30deg)', transformOrigin: 'bottom left'}} />
-        <div style={{position: 'absolute', left: 0, bottom: cur, width: w, height: d, background: top, transform: 'skewX(-60deg) scaleY(0.5)', transformOrigin: 'bottom left'}} />
-        {label && <div style={{position: 'absolute', left: 0, right: 0, top: -50, textAlign: 'center', fontFamily: SANS, fontWeight: 800, fontSize: 40, color: '#fff'}}>{label}</div>}
-      </div>
+      <svg width={w + d} height={H} style={{overflow: 'visible', display: 'block'}}>
+        {cur > 0.5 && <>
+          <polygon points={lf} fill={left} stroke={ink} strokeWidth={5} strokeLinejoin="round" />
+          <polygon points={rf} fill={right} stroke={ink} strokeWidth={5} strokeLinejoin="round" />
+          <polygon points={tf} fill={top} stroke={ink} strokeWidth={5} strokeLinejoin="round" />
+        </>}
+        {label && cur > 0.5 && <text x={(w + d) / 2} y={y0 - a - b - cur - 22} textAnchor="middle" fontFamily={SANS} fontWeight={900} fontSize={52} fill="#191411" stroke="#FFF4E0" strokeWidth={8} paintOrder="stroke">{label}</text>}
+      </svg>
     </div>
   );
 };
