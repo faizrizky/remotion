@@ -3,14 +3,14 @@ import {KeyTag, Pill, PopIn, Scene, StickyNote} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {BeforeAfter, Chip, Embers} from '../paper';
 import {RulerTimeline} from '../paper';
-import {sec, DashArrow, PayCircle, PercentGrid, PriceTag, Prop, Sfx, Shot, Src, StatCard, Char} from '../v2kit';
+import {sec, DashArrow, PayCircle, PercentGrid, PriceTag, Prop, Sfx, Shot, Src, StatCard, Char, PAN_FRAMES} from '../v2kit';
 
 export const Ch1: React.FC = () => (
   <ChapterShell id="ch1">
     {(b, len) => (
       <>
         {/* A: how it works */}
-        <Shot world={{src: 'v2/world_clothes.jpg', dir: 'r', at: 0.2}} from={0} to={b('plan')}>
+        <Shot exitPan="l" world={{src: 'v2/world_clothes.jpg', dir: 'r', at: 0.2}} from={0} to={b('plan')}>
           <Scene palette="mint" dur={b('plan')}>
             <BeforeAfter swapAt={b('split') + 6} before={<PriceTag text="$120" at={0} x={120} y={330} />} after={<PriceTag text="4 x $30" at={-60} x={120} y={330} color="#2E9E8F" />} />
             <DashArrow x0={620} y0={420} x1={790} y1={420} at={b('split')} />
@@ -28,7 +28,7 @@ export const Ch1: React.FC = () => (
         </Shot>
 
         {/* A2: no interest, and it's everywhere */}
-        <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'l', at: 0.6}} from={b('plan')} to={b('fedStart')} trans="whip">
+        <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'l', at: 0.6}} from={b('plan')} to={b('fedStart')} trans="carry" pan="l" carry={{from: [920, 420], to: [1500, 560]}}>
           <Scene palette="sunrise" dur={b('fedStart') - b('plan')}>
             <Char name="v2/char_shopper_happy.png" at={0} x={110} y={400} h={520} />
             <Chip text="the classic pay-in-full plan" kind="label" at={sec(0.4)} x={640} y={230} size={46} />
@@ -54,7 +54,7 @@ export const Ch1: React.FC = () => (
         </Shot>
 
         {/* C: 47% tried it */}
-        <Shot world={{src: 'v2/world_mall.jpg', dir: 'u', at: 0.45}} from={b('survey47')} to={b('popular')} trans="wipe">
+        <Shot exitPan="d" world={{src: 'v2/world_mall.jpg', dir: 'u', at: 0.45}} from={b('survey47')} to={b('popular')} trans="wipe">
           <Scene palette="peri" dur={b('popular') - b('survey47')}>
             <Embers n={16} color="#FFB703" seed={4} />
             <PopIn at={sec(0.4)} style={{left: 980, top: 150}}><Pill text="A March 2026 survey..." bg="#2B1230" size={50} /></PopIn>
@@ -66,7 +66,7 @@ export const Ch1: React.FC = () => (
         </Shot>
 
         {/* D: popular, free, smart... hold that thought */}
-        <Shot world={{src: 'v2/world_street.jpg', dir: 'd', at: 0.8}} from={b('popular')} to={len} trans="whip">
+        <Shot exitPan="r" world={{src: 'v2/world_street.jpg', dir: 'd', at: 0.8}} from={b('popular')} to={len - PAN_FRAMES} trans="carry" pan="d" carry={{from: [1300, 420], to: [1150, 330], label: '47%'}}>
           <Scene palette="sunrise" dur={len - b('popular')}>
             <Char name="v2/char_shopper_thinking.png" at={sec(0.6)} x={1560} y={330} h={600} />
             <PopIn at={b('pPopular') - b('popular')} style={{left: 300, top: 260}}><Pill text="Popular" bg="#2E86AB" size={64} /></PopIn>

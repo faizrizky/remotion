@@ -1,6 +1,6 @@
 import React from 'react';
 import {Composition, Folder, Html5Audio, interpolate, Sequence, staticFile} from 'remotion';
-import {STING_IN, STING_OVERLAP} from './ChapterShell';
+import {STING_IN} from './ChapterShell';
 import {Cold} from './chapters/Cold';
 import {Ch1} from './chapters/Ch1';
 import {Ch2} from './chapters/Ch2';
@@ -23,12 +23,12 @@ const PARTS: {id: ChapterId; comp: React.FC; name: string}[] = [
 ];
 
 const frames = (id: ChapterId) => chapterFrames(getChapter(id));
-/** Chapter start frames: back to back, except a sting chapter starts STING_OVERLAP frames early. */
+/** Chapter start frames: each chapter starts `overlapFrames` early (sting burst / carry pan over the previous one). */
 export const STARTS: number[] = [];
 {
   let cur = 0;
   for (const p of PARTS) {
-    if (STING_IN.includes(p.id)) cur -= STING_OVERLAP;
+    cur -= getChapter(p.id).overlapFrames ?? 0;
     STARTS.push(cur);
     cur += frames(p.id);
   }

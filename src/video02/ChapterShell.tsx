@@ -8,8 +8,6 @@ import {beatOf, chapterFrames, ChapterId, getChapter, sec, Voice, Watermark} fro
 export const V2_TEMPO = 0.62;
 /** Chapters that open with the Penny Logics sting (rule 1.3: right after the cold open). Their `pre` = sting length. */
 export const STING_IN: string[] = ['ch1'];
-/** Frames a sting chapter starts before the previous chapter ends, so the burst circles cover the cold open's last frame. */
-export const STING_OVERLAP = 10;
 
 /**
  * One chapter = voice + content (no title cards). A sting chapter plays the PennySting during `pre`
@@ -22,11 +20,12 @@ export const ChapterShell: React.FC<{id: ChapterId; children: (b: (k: string) =>
   const len = chapterFrames(c) - pre;
   const b = beatOf(c);
   const stingIn = STING_IN.includes(id) && pre > 0;
+  const overlap = c.overlapFrames ?? 0; // frames the previous chapter is still panning out / under the sting burst
   return (
     <PopSpeed.Provider value={V2_TEMPO}>
       <AbsoluteFill>
-        {/* with the sting, the previous chapter stays visible under the burst circles for the first frames */}
-        <Sequence from={stingIn ? STING_OVERLAP : 0}><AbsoluteFill style={{background: '#FFF4E0'}} /></Sequence>
+        {/* the previous chapter stays visible for the first `overlap` frames (sting burst / carry pan) */}
+        <Sequence from={overlap}><AbsoluteFill style={{background: '#FFF4E0'}} /></Sequence>
         <Sequence from={pre} durationInFrames={len}>
           {children(b, len)}
         </Sequence>

@@ -42,7 +42,7 @@ export const Outro: React.FC = () => (
       return (
         <>
           {/* A: the one number */}
-          <Shot world={{src: 'v2/world_street.jpg', dir: 'r', at: 0.2}} from={0} to={b('sysStart')}>
+          <Shot world={{src: 'v2/world_street.jpg', dir: 'r', at: 0.2}} trans="carry" pan="d" carry={{from: [1260, 540], to: [960, 500]}} from={0} to={b('sysStart')}>
             <Scene palette="lilac" dur={b('sysStart')}>
               <Punch text="The ONE number" at={b('oneWord')} y={40} size={90} />
               <Tally at={b('hereItIs')} totalAt={b('sum')} />
@@ -54,7 +54,7 @@ export const Outro: React.FC = () => (
           </Shot>
 
           {/* A2: if it surprises you, the system is working, just not for you */}
-          <Shot world={{src: 'v2/world_clothes.jpg', dir: 'l', at: 0.3}} from={b('sysStart')} to={b('next')} trans="wipe">
+          <Shot exitPan="l" world={{src: 'v2/world_clothes.jpg', dir: 'l', at: 0.3}} from={b('sysStart')} to={b('next')} trans="wipe">
             <Scene palette="rose" dur={r('next', 'sysStart')}>
               <LeoBadge head="head_suspicious.png" at={0} x={160} y={260} size={420} />
               <PopIn at={r('surprise', 'sysStart')} style={{left: 700, top: 260}}><Pill text="if it surprises you..." bg="#5B4FFF" size={56} /></PopIn>
@@ -66,7 +66,7 @@ export const Outro: React.FC = () => (
           </Shot>
 
           {/* B: next video + subscribe. Keep x 1100-1790, y 230-930 EMPTY for the end screen. */}
-          <Shot world={{src: 'v2/world_mall.jpg', dir: 'l', at: 0.7}} from={b('next')} to={len} trans="whip">
+          <Shot world={{src: 'v2/world_mall.jpg', dir: 'l', at: 0.7}} from={b('next')} to={len} trans="carry" pan="l" carry={{from: [450, 470], to: [800, 500]}}>
             <Scene palette="peri" dur={len - b('next')}>
               <LeoBadge head="head_happy.png" at={0} x={240} y={230} size={420} />
               <PopIn at={r('nextPill', 'next')} style={{left: 120, top: 700}}><Pill text="Next time:" bg="#FF6B6B" size={44} /></PopIn>

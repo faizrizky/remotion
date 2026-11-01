@@ -3,7 +3,7 @@ import {interpolate, useCurrentFrame} from 'remotion';
 import {Bubble, KeyTag, Pill, PopIn, Scene, Sunburst} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {CoinWipe, HighlightSwipe, Chip} from '../paper';
-import {CoinFly, DashArrow, INK, LeoBadge, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Char} from '../v2kit';
+import {CoinFly, DashArrow, INK, LeoBadge, Prop, Punch, sec, Sfx, Shot, Src, StatCard, Char, PAN_FRAMES} from '../v2kit';
 
 /** Shopping cart that grows as the scene goes on (the "bigger cart"). */
 const GrowingCart: React.FC<{at: number}> = ({at}) => {
@@ -23,7 +23,7 @@ export const Ch2: React.FC = () => (
       return (
         <>
           {/* A: the store pays the lender */}
-          <Shot world={{src: 'v2/world_mall.jpg', dir: 'r', at: 0.2}} from={0} to={b('cfpbStart')}>
+          <Shot world={{src: 'v2/world_mall.jpg', dir: 'r', at: 0.2}} trans="carry" pan="r" carry={{from: [1500, 520], to: [620, 330]}} from={0} to={b('cfpbStart')}>
             <Scene palette="peri" dur={b('cfpbStart')}>
               <Char name="v2/char_shopper_happy.png" at={0} x={110} y={440} h={480} />
               <PopIn at={sec(0.2)} style={{left: 440, top: 150}}><Pill text="the part most people never see" bg="#2B1230" size={50} /></PopIn>
@@ -38,7 +38,7 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* A2: CFPB: 2-4% */}
-          <Shot world={{src: 'v2/world_clothes.jpg', dir: 'l', at: 0.4}} from={b('cfpbStart')} to={b('why')} trans="wipe">
+          <Shot exitPan="l" world={{src: 'v2/world_clothes.jpg', dir: 'l', at: 0.4}} from={b('cfpbStart')} to={b('why')} trans="wipe">
             <Scene palette="teal" dur={r('why', 'cfpbStart')}>
               <PopIn at={0} style={{left: 130, top: 330}}><Prop name="bld_cfpb_transparent.png" w={700} /></PopIn>
               <Chip text="2-4% fee" kind="warn" at={r('twoFour', 'cfpbStart')} x={960} y={330} size={96} />
@@ -49,7 +49,7 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* B: why would a store pay that? */}
-          <Shot world={{src: 'v2/world_street.jpg', dir: 'l', at: 0.7}} from={b('why')} to={b('klarna')} trans="whip">
+          <Shot world={{src: 'v2/world_street.jpg', dir: 'l', at: 0.7}} from={b('why')} to={b('klarna')} trans="carry" pan="l" carry={{from: [1100, 380], to: [450, 520], label: '%'}}>
             <Scene palette="rose" dur={r('klarna', 'why')}>
               <Char name="v2/char_cashier_wave.png" at={4} x={690} y={380} h={560} />
               <PopIn at={0} style={{left: 260, top: 330}}><Prop name="v2/obj_store.png" h={400} /></PopIn>
@@ -72,7 +72,7 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* C2: the three numbers */}
-          <Shot world={{src: 'v2/world_desk.jpg', dir: 'r', at: 0.3}} from={b('s20Start')} to={b('vary')} trans="wipe">
+          <Shot exitPan="u" world={{src: 'v2/world_desk.jpg', dir: 'r', at: 0.3}} from={b('s20Start')} to={b('vary')} trans="wipe">
             <Scene palette="peri" dur={r('vary', 's20Start')}>
               <StatCard to={20} prefix="+" label="more sales completed" at={r('s20', 's20Start')} x={110} y={250} w={540} />
               <StatCard to={40} prefix="+" label="bigger orders" at={r('s40', 's20Start')} x={690} y={250} w={540} bg="#FFD23F" />
@@ -83,7 +83,7 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* C3: Klarna's own numbers, results vary */}
-          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'u', at: 0.5}} from={b('vary')} to={b('readAgain')} trans="whip">
+          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'u', at: 0.5}} from={b('vary')} to={b('readAgain')} trans="carry" pan="u" carry={{from: [960, 330], to: [650, 640], label: '+40%'}}>
             <Scene palette="lilac" dur={r('readAgain', 'vary')}>
               <LeoBadge head="head_suspicious.png" at={0} x={200} y={300} size={400} />
               <PopIn at={r('varyW', 'vary')} style={{left: 700, top: 330}}><Pill text="Klarna's own numbers" bg="#5B4FFF" size={68} /></PopIn>
@@ -103,7 +103,7 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* E: not a payment button, a bigger cart */}
-          <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.3}} from={b('notButton')} to={b('cart')} trans="wipe">
+          <Shot exitPan="r" world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.3}} from={b('notButton')} to={b('cart')} trans="wipe">
             <Scene palette="mint" dur={r('cart', 'notButton')}>
               <PopIn at={sec(0.2)} style={{left: 360, top: 200}}><Pill text="The store isn't paying for..." bg="#2B1230" size={56} /></PopIn>
               <PopIn at={r('btnW', 'notButton')} style={{left: 360, top: 380}}>
@@ -119,9 +119,9 @@ export const Ch2: React.FC = () => (
           </Shot>
 
           {/* F: the bigger cart is yours */}
-          <Shot world={{src: 'v2/world_bakery.jpg', dir: 'r', at: 0.1}} from={b('cart')} to={len} trans="whip">
+          <Shot exitPan="d" world={{src: 'v2/world_bakery.jpg', dir: 'r', at: 0.1}} from={b('cart')} to={len - PAN_FRAMES} trans="carry" pan="r" carry={{from: [1300, 560], to: [900, 640], src: 'v2/obj_cart_empty.png', h: 220}}>
             <Scene palette="sunrise" dur={len - b('cart')}>
-              <GrowingCart at={0} />
+              <GrowingCart at={20} />
               <DashArrow x0={1220} y0={560} x1={1480} y1={560} at={r('yours', 'cart') - 6} />
               <Char name="v2/char_shopper_worried.png" at={r('yours', 'cart')} x={1520} y={400} h={540} />
               <Punch text="...is yours." at={r('yours', 'cart')} color={INK} y={60} size={110} />

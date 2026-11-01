@@ -1,5 +1,5 @@
 {
-  "_readme": "Seconds. audioDur = length of the chapter WAV. beats = seconds from the START OF THAT WAV (forced-aligned word onsets, +-0.1 s; shot boundaries sit ~0.25 s before the first word of a sentence). pre = silent chapter card before the voice, post = silent tail after it. Run `node scripts/video.mjs check video02` after editing. ch1.pre = 4.35 s PennySting (it starts 10 frames before the cold open ends).",
+  "_readme": "Seconds. audioDur = length of the chapter WAV. beats = seconds from the START OF THAT WAV (forced-aligned word onsets, +-0.1 s; shot boundaries sit ~0.25 s before the first word of a sentence). pre = silent chapter card before the voice, post = silent tail after it. Run `node scripts/video.mjs check video02` after editing. ch1.pre = 4.35 s PennySting. overlapFrames = frames a chapter starts before the previous one ends (sting 10, carry pan 16).",
   "fps": 24,
   "chapters": [
     {
@@ -42,7 +42,7 @@
       "audio": "v2/audio/v2_01_free.wav",
       "pre": 4.35,
       "audioDur": 33.05,
-      "post": 0.6,
+      "post": 0.7,
       "beats": {
         "split": 2.34,
         "every2wk": 5.3,
@@ -69,7 +69,7 @@
       "audio": "v2/audio/v2_02_who.wav",
       "pre": 0,
       "audioDur": 43.75,
-      "post": 0.5,
+      "post": 0.7,
       "beats": {
         "payIn4": 3.7,
         "storeW": 4.95,
@@ -97,7 +97,8 @@
         "bigW": 40.65,
         "cart": 41.55,
         "yours": 43.0
-      }
+      },
+      "overlapFrames": 16
     },
     {
       "id": "ch3",
@@ -105,7 +106,7 @@
       "audio": "v2/audio/v2_03_illusion.wav",
       "pre": 0,
       "audioDur": 50.93,
-      "post": 0.5,
+      "post": 0.7,
       "beats": {
         "brain": 1.8,
         "hundred": 3.25,
@@ -138,7 +139,8 @@
         "stack2": 49.1,
         "stack3": 49.9,
         "stack4": 50.3
-      }
+      },
+      "overlapFrames": 16
     },
     {
       "id": "ch4",
@@ -146,7 +148,7 @@
       "audio": "v2/audio/v2_04_stack.wav",
       "pre": 0,
       "audioDur": 48.1,
-      "post": 0.5,
+      "post": 0.7,
       "beats": {
         "ph2": 2.7,
         "ph3": 2.85,
@@ -175,7 +177,8 @@
         "hack": 44.6,
         "warning": 46.6,
         "punch": 47.0
-      }
+      },
+      "overlapFrames": 16
     },
     {
       "id": "ch5",
@@ -220,7 +223,8 @@
         "sameApp": 50.95,
         "sameW": 51.15,
         "monthly": 52.2
-      }
+      },
+      "overlapFrames": 16
     },
     {
       "id": "ch6",
@@ -228,7 +232,7 @@
       "audio": "v2/audio/v2_06_rules.wav",
       "pre": 0,
       "audioDur": 26.53,
-      "post": 0.5,
+      "post": 0.7,
       "beats": {
         "evil": 0.15,
         "no": 2.4,
@@ -239,7 +243,8 @@
         "rule2": 12.85,
         "rule3": 16.55,
         "rule4": 20.6
-      }
+      },
+      "overlapFrames": 16
     },
     {
       "id": "outro",
@@ -263,7 +268,8 @@
         "nextPill": 17.45,
         "subscribe": 21.2,
         "seeYou": 23.2
-      }
+      },
+      "overlapFrames": 16
     }
   ]
 }

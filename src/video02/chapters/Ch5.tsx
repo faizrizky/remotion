@@ -3,7 +3,7 @@ import {useCurrentFrame} from 'remotion';
 import {KeyTag, Pill, PopIn, SANS, Scene} from '../../style/style_kit';
 import {ChapterShell} from '../ChapterShell';
 import {BranchFork, Chip, Embers, LensZoom, MascotCorner} from '../paper';
-import {DashArrow, Gauge, INK, PayCircle, Phone, Prop, Punch, sec, Sfx, Shot, Src, StatCard} from '../v2kit';
+import {DashArrow, Gauge, INK, PayCircle, Phone, Prop, Punch, sec, Sfx, Shot, Src, StatCard, PAN_FRAMES} from '../v2kit';
 
 /** Phone screen that switches from "Autopay" to "Payment failed" at frame `failAt`. */
 const AutopayScreen: React.FC<{failAt: number}> = ({failAt}) => {
@@ -56,7 +56,7 @@ export const Ch5: React.FC = () => (
       return (
         <>
           {/* A: autopay pulls, money isn't there */}
-          <Shot world={{src: 'v2/world_mall.jpg', dir: 'l', at: 0.2}} from={0} to={b('lateFee')}>
+          <Shot world={{src: 'v2/world_mall.jpg', dir: 'l', at: 0.2}} trans="carry" pan="u" carry={{from: [1520, 400], to: [850, 700]}} from={0} to={b('lateFee')}>
             <Scene palette="teal" dur={b('lateFee')}>
               <Balance at={b('intro')} />
               <PopIn at={b('intro')} style={{left: 180, top: 200}}><Pill text="What if a payment fails?" bg="#2B1230" size={48} /></PopIn>
@@ -79,7 +79,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* C: Klarna up to $7, Afterpay up to $8 */}
-          <Shot world={{src: 'v2/world_bank.jpg', dir: 'r', at: 0.45}} from={b('klarnaStart')} to={b('small')} trans="ink" seed="c5c">
+          <Shot exitPan="u" world={{src: 'v2/world_bank.jpg', dir: 'r', at: 0.45}} from={b('klarnaStart')} to={b('small')} trans="ink" seed="c5c">
             <Scene palette="rose" dur={r('small', 'klarnaStart')}>
               <FeeCard who="Klarna (US)" fee="up to $7" at={r('klarna7', 'klarnaStart')} x={240} color="#FFD23F" />
               <FeeCard who="Afterpay (US)" fee="up to $8" note="max 25% of the order" at={r('afterpay8', 'klarnaStart')} x={1040} color="#BDEBD3" />
@@ -89,7 +89,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* C2: sounds small... on a $30 payment it isn't, and it happens a lot */}
-          <Shot world={{src: 'v2/world_desk.jpg', dir: 'u', at: 0.8}} from={b('small')} to={b('s47Start')} trans="whip">
+          <Shot world={{src: 'v2/world_desk.jpg', dir: 'u', at: 0.8}} from={b('small')} to={b('s47Start')} trans="carry" pan="u" carry={{from: [560, 400], to: [800, 520], label: '$7'}}>
             <Scene palette="peri" dur={r('s47Start', 'small')}>
               <PopIn at={r('smallW', 'small')} style={{left: 130, top: 190}}><Pill text="Sounds small." bg="#2B1230" size={64} /></PopIn>
               <PayCircle amount="$30" label="payment" at={r('onThirty', 'small')} x={460} y={560} size={200} />
@@ -110,7 +110,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* D2: Federal Reserve: 21% */}
-          <Shot world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.4}} from={b('fedStart')} to={b('grocStart')} trans="ink" seed="c5d">
+          <Shot exitPan="r" world={{src: 'v2/world_living.jpg', dir: 'r', at: 0.4}} from={b('fedStart')} to={b('grocStart')} trans="ink" seed="c5d">
             <Scene palette="mint" dur={r('grocStart', 'fedStart')}>
               <PopIn at={r('fedW', 'fedStart')} style={{left: 100, top: 330}}><Prop name="bld_fed_g19_transparent.png" w={640} /></PopIn>
               <StatCard to={21} label="paid a late fee or got hit with an overdraft fee" at={r('fed21', 'fedStart')} x={800} y={170} w={860} bg="#FFD23F" />
@@ -122,7 +122,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* D3: grocery users 43% */}
-          <Shot world={{src: 'v2/world_bakery.jpg', dir: 'u', at: 0.3}} from={b('grocStart')} to={b('notFree')} trans="whip">
+          <Shot exitPan="u" world={{src: 'v2/world_bakery.jpg', dir: 'u', at: 0.3}} from={b('grocStart')} to={b('notFree')} trans="carry" pan="r" carry={{from: [1230, 330], to: [1200, 450], label: '21%'}}>
             <Scene palette="rose" dur={r('notFree', 'grocStart')}>
               <PopIn at={r('bag', 'grocStart')} style={{left: 150, top: 320}}><Prop name="v2/obj_grocery_bag.png" h={440} /></PopIn>
               <StatCard to={43} label="of grocery users paid a late or overdraft fee" at={r('grocery43', 'grocStart')} x={760} y={250} w={820} bg="#FF9F9F" />
@@ -132,7 +132,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* E: not every plan is interest-free */}
-          <Shot world={{src: 'v2/world_street.jpg', dir: 'l', at: 0.5}} from={b('notFree')} to={b('aprStart')} trans="wipe">
+          <Shot world={{src: 'v2/world_street.jpg', dir: 'l', at: 0.5}} from={b('notFree')} to={b('aprStart')} trans="carry" pan="u" carry={{from: [1170, 420], to: [1500, 700], label: '43%'}}>
             <Scene palette="sunrise" dur={r('aprStart', 'notFree')}>
               <Punch text="One more thing..." at={r('oneMore', 'notFree')} y={250} size={120} />
               <Chip text="not every plan is interest-free" kind="warn" at={r('interestFree', 'notFree') - 18} x={560} y={560} size={60} />
@@ -141,7 +141,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* F: APR up to about 36% */}
-          <Shot world={{src: 'v2/world_kitchen.jpg', dir: 'r', at: 0.2}} from={b('aprStart')} to={b('sameApp')} trans="ink" seed="c5f">
+          <Shot exitPan="d" world={{src: 'v2/world_kitchen.jpg', dir: 'r', at: 0.2}} from={b('aprStart')} to={b('sameApp')} trans="ink" seed="c5f">
             <Scene palette="mint" dur={r('sameApp', 'aprStart')}>
               <Gauge value={36} max={40} at={r('apr36', 'aprStart')} x={960} y={600} label={'APR on longer "pay monthly" plans'} />
             </Scene>
@@ -150,7 +150,7 @@ export const Ch5: React.FC = () => (
           </Shot>
 
           {/* G: same app, very different deal */}
-          <Shot world={{src: 'v2/world_mall.jpg', dir: 'd', at: 0.6}} from={b('sameApp')} to={len} trans="whip">
+          <Shot exitPan="l" world={{src: 'v2/world_mall.jpg', dir: 'd', at: 0.6}} from={b('sameApp')} to={len - PAN_FRAMES} trans="carry" pan="d" carry={{from: [960, 460], to: [1400, 560], label: '36%'}}>
             <Scene palette="peri" dur={len - b('sameApp')}>
               <Chip text="same app" kind="label" at={r('sameW', 'sameApp')} x={830} y={120} size={64} />
               <BranchFork at={r('sameW', 'sameApp') + 4} x0={960} y0={215} x1={520} x2={1400} y1={255} />

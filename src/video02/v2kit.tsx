@@ -15,7 +15,7 @@ export const INK = '#191411';
 
 // ---------- timing ----------
 export type ChapterId = 'cold' | 'ch1' | 'ch2' | 'ch3' | 'ch4' | 'ch5' | 'ch6' | 'outro';
-export type Chapter = {id: string; title: string; audio: string; pre: number; audioDur: number; post: number; beats: Record<string, number>};
+export type Chapter = {id: string; title: string; audio: string; pre: number; audioDur: number; post: number; overlapFrames?: number; beats: Record<string, number>};
 export const CHAPTERS = timing.chapters as unknown as Chapter[];
 export const sec = (s: number) => Math.round(s * FPS);
 export const getChapter = (id: ChapterId): Chapter => {
@@ -81,10 +81,73 @@ export const Prop: React.FC<{name: string; h?: number; w?: number; flip?: boolea
 };
 
 // ---------- shots ----------
-export type Trans = 'none' | 'ink' | 'whip' | 'wipe' | 'zoom' | 'dissolve';
-export const TRANS_FRAMES: Record<Trans, number> = {none: 0, ink: 30, whip: 10, wipe: 22, zoom: 24, dissolve: 22};
-/** A shot from `from` to `to` (frames). It stays on screen for the length of the NEXT shot's transition so there is never a gap. */
-export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: boolean; world?: WorldPick; children: React.ReactNode}> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = true, world, children}) => {
+export type Trans = 'none' | 'ink' | 'whip' | 'wipe' | 'zoom' | 'dissolve' | 'carry';
+export const TRANS_FRAMES: Record<Trans, number> = {none: 0, ink: 30, whip: 10, wipe: 22, zoom: 24, dissolve: 22, carry: 16};
+/** Camera direction for a 'carry' transition: 'r' = the camera moves right (new scene comes in from the right). */
+export type PanDir = 'l' | 'r' | 'u' | 'd';
+/** The object carried across a 'carry' transition (screen px): a $30 coin by default, or a PNG prop. */
+export type CarrySpec = {from: [number, number]; to: [number, number]; label?: string; src?: string; h?: number; color?: string};
+export const PAN_FRAMES = TRANS_FRAMES.carry;
+const PAN_VEC: Record<PanDir, [number, number]> = {r: [1, 0], l: [-1, 0], d: [0, 1], u: [0, -1]};
+const easeIO = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+/** One camera: the new scene slides in while the old one slides out the other way (see PanOut). */
+const PanIn: React.FC<{dir: PanDir; children: React.ReactNode}> = ({dir, children}) => {
+  const f = useCurrentFrame();
+  const t = Math.min(1, f / PAN_FRAMES);
+  const e = 1 - easeIO(t);
+  const [vx, vy] = PAN_VEC[dir];
+  const blur = Math.sin(Math.PI * t) * 6;
+  return <AbsoluteFill style={{overflow: 'hidden', transform: `translate(${vx * W * e}px, ${vy * H * e}px)`, filter: blur > 0.3 ? `blur(${blur}px)` : undefined}}>{children}</AbsoluteFill>;
+};
+const PanOut: React.FC<{dir: PanDir; start: number; children: React.ReactNode}> = ({dir, start, children}) => {
+  const f = useCurrentFrame();
+  const t = interpolate(f, [start, start + PAN_FRAMES], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const e = easeIO(t);
+  const [vx, vy] = PAN_VEC[dir];
+  const blur = Math.sin(Math.PI * t) * 6;
+  return <AbsoluteFill style={{overflow: 'hidden', transform: `translate(${-vx * W * e}px, ${-vy * H * e}px)`, filter: blur > 0.3 ? `blur(${blur}px)` : undefined, opacity: t >= 1 ? 0 : 1}}>{children}</AbsoluteFill>;
+};
+
+/** Gold coin used as the carried object (the video's "$30 payment"). */
+export const CoinToken: React.FC<{label?: string; size?: number; color?: string}> = ({label = '$30', size = 130, color = '#FFD23F'}) => (
+  <div style={{width: size, height: size, borderRadius: '50%', background: color, border: `7px solid ${INK}`, boxShadow: 'inset 0 -10px 0 rgba(0,0,0,0.12), 0 8px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: SANS, fontWeight: 900, fontSize: size * (label.length > 3 ? 0.27 : 0.32), color: INK, boxSizing: 'border-box'}}>{label}</div>
+);
+
+/** The carried object: flies from the old scene's spot to the new scene's spot during the pan (arc + trail), settles, then pops away. */
+const CarryFly: React.FC<{c: CarrySpec}> = ({c}) => {
+  const f = useCurrentFrame();
+  const LAND = PAN_FRAMES + 4, GONE = LAND + 18;
+  if (f > GONE + 8) return null;
+  const pos = (fr: number) => {
+    const t = easeIO(Math.min(1, Math.max(0, fr / LAND)));
+    const x = c.from[0] + (c.to[0] - c.from[0]) * t;
+    const y = c.from[1] + (c.to[1] - c.from[1]) * t - Math.sin(Math.PI * t) * 120;
+    return [x, y, t] as const;
+  };
+  const [x, y, t] = pos(f);
+  const out = interpolate(f, [GONE, GONE + 8], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const squash = f >= LAND && f < LAND + 6 ? 1 + 0.12 * Math.sin(((f - LAND) / 6) * Math.PI) : 1;
+  const rot = (1 - t) * -25;
+  const body = c.src ? <Img src={staticFile(c.src)} style={{height: c.h ?? 220, width: 'auto', display: 'block'}} /> : <CoinToken label={c.label} color={c.color} size={c.h ?? 130} />;
+  const ghost = (k: number) => {
+    const [gx, gy] = pos(f - k * 2);
+    return <div key={k} style={{position: 'absolute', left: gx, top: gy, transform: 'translate(-50%, -50%)', opacity: 0.18 / k}}>{body}</div>;
+  };
+  return (
+    <AbsoluteFill style={{pointerEvents: 'none'}}>
+      {f < LAND && [1, 2, 3].map(ghost)}
+      <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%, -50%) rotate(${rot}deg) scale(${out * squash})`}}>{body}</div>
+    </AbsoluteFill>
+  );
+};
+
+/**
+ * A shot from `from` to `to` (frames). It stays on screen for the length of the NEXT shot's transition so there is never a gap.
+ * trans="carry": one-camera pan in direction `pan` + the `carry` object flown across (Video 01 style).
+ * exitPan: this shot leaves by panning (set it on the shot BEFORE a carry, same direction).
+ */
+export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: boolean; exitPan?: PanDir; pan?: PanDir; carry?: CarrySpec; world?: WorldPick; children: React.ReactNode}> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = true, exitPan, pan = 'r', carry, world, children}) => {
   const dur = Math.max(1, to - from + tail);
   const d = TRANS_FRAMES[trans];
   const body =
@@ -93,9 +156,16 @@ export const Shot: React.FC<{from: number; to: number; trans?: Trans; tail?: num
     : trans === 'wipe' ? <DiagonalWipe dur={d}>{children}</DiagonalWipe>
     : trans === 'zoom' ? <ZoomThrough dur={d}>{children}</ZoomThrough>
     : trans === 'dissolve' ? <CrossDissolve dur={d}>{children}</CrossDissolve>
+    : trans === 'carry' ? <PanIn dir={pan}>{children}</PanIn>
     : <AbsoluteFill>{children}</AbsoluteFill>;
-  const inner = exit ? <ExitOut start={to - from - 10} dur={16}>{body}</ExitOut> : body;
-  return <Sequence from={from} durationInFrames={dur}><WorldCtx.Provider value={world ?? null}>{inner}</WorldCtx.Provider><PaperTexture /></Sequence>;
+  const inner = exitPan ? <PanOut dir={exitPan} start={to - from}>{body}</PanOut> : exit ? <ExitOut start={to - from - 10} dur={16}>{body}</ExitOut> : body;
+  return (
+    <Sequence from={from} durationInFrames={exitPan ? Math.max(dur, to - from + PAN_FRAMES + 1) : dur}>
+      <WorldCtx.Provider value={world ?? null}>{inner}</WorldCtx.Provider>
+      <PaperTexture />
+      {trans === 'carry' && carry && <CarryFly c={carry} />}
+    </Sequence>
+  );
 };
 
 // ---------- small graphics (code-drawn, so numbers are always exact) ----------
