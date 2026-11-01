@@ -3,6 +3,7 @@ import {Composition, Folder} from 'remotion';
 import {StyleKitDemo, DEMO_FRAMES} from './style/StyleKitDemo';
 import {Video01Compositions} from './video01/Video01';
 import {Video02Compositions} from './video02/Video02';
+import {Video03Compositions} from './video03/Video03';
 import {ShortCompositions} from './shorts/Shorts';
 import {KitDemo} from './kitdemo/KitDemo';
 
@@ -10,6 +11,7 @@ export const RemotionRoot: React.FC = () => (
   <>
     <Video01Compositions />
     <Video02Compositions />
+    <Video03Compositions />
     <ShortCompositions />
     <KitDemo.Compositions />
     <Folder name="StyleKit">

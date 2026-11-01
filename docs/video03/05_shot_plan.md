@@ -105,3 +105,9 @@ Tightened pauses (orig start s / orig len / new len): [[26.62, 0.97, 0.65]]
 Tightened pauses (orig start s / orig len / new len): [[9.64, 0.74, 0.91], [18.29, 0.93, 0.65]]
 
 **Total voice 307.8 s (5.1 min)** plus sting and 7 carry pans. Shots under 3.5 s: none (shortest 3.5). Pan-free ch3 and ch5 per plan.
+## Code (2 Nov 2026)
+Built in `src/video03/` (composition `V3-Full`, 5:17, plus one composition per chapter `V3-00-Cold` ... `V3-07-Outro`).
+- `timing.json` + `captions.json` are GENERATED: `python3 docs/video03/make_timing.py` (shot starts s1..sN from this plan, word anchors from the transcript). Never hand-edit them; edit the script and re-run.
+- `v3kit.tsx` `Shots` cuts every chapter exactly at s1..sN, so shot lengths always equal this table. Every chapter has its own world; the 6 chapter joins are one-camera pans that slide the next world in with a soft seam and carry an object ($4 tag, net-weight label, paper towels, cereal box, "this product shrank" sticker, basket).
+- Stills QA done at every shot end and every join (2 Nov): no overlaps after 3 fixes; outro keeps x 1100-1790 empty.
+- Render on the Mac: `npm install`, `node scripts/video.mjs check video03`, `npx remotion render src/index.ts V3-Full out/Video03.mp4`, `node scripts/video.mjs srt video03` (93 subtitle cues, sentence-based).

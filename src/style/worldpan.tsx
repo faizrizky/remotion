@@ -15,6 +15,8 @@ export const WorldCtx = createContext<WorldCtxValue | null>(null);
 export const WORLD_W: Record<string, number> = {
   'v2/world_street.jpg': 2915, 'v2/world_bank.jpg': 3493, 'v2/world_clothes.jpg': 3342, 'v2/world_kitchen.jpg': 3742,
   'v2/world_bakery.jpg': 3735, 'v2/world_mall.jpg': 3658, 'v2/world_living.jpg': 3678, 'v2/world_desk.jpg': 3238,
+  'v3/world_grocery.jpg': 3821, 'v3/world_pantry.jpg': 3789, 'v3/world_freezer.jpg': 3654, 'v3/world_household.jpg': 3692,
+  'v3/world_library.jpg': 3644, 'v3/world_hypermarket.jpg': 3515, 'v3/world_checkout.jpg': 3547, 'v3/world_apartment.jpg': 4602,
 };
 const VW = 1920, VH = 1080, FPS = 24;
 export const WORLD_ZOOM = 1.16; // drawn 16% larger than the screen
