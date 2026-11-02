@@ -1,3 +1,4 @@
+from PIL import Image
 import asyncio, pathlib
 from playwright.async_api import async_playwright
 P='file:///home/claude/remotion/public/'
@@ -15,11 +16,11 @@ FONT=f"""
 def head(name,x,y,h,flip=False,rot=0):
     w=h*320/361
     return f'<div class="a" style="left:{x}px;top:{y}px;width:{w}px;height:{h}px;transform:rotate({rot}deg) scaleX({-1 if flip else 1});filter:drop-shadow(0 8px 0 rgba(20,33,61,.3))"><div style="width:100%;height:100%;background:url({P}{name}) -{207*h/361}px 0/{790*h/361}px {1539*h/361}px no-repeat"></div></div>'
+HF={'shocked':.5,'suspicious':.49,'proud':.6,'happy':.6,'calm':.6,'tired':.6}
 def leo(name,x,y,h,flip=False,vis=None):
-    n=name.replace('head_','leofull/leofull_')
-    s=h/361; w=560*s; vh=(vis if vis else 1539*s)
-    layer=f'<div style="position:absolute;inset:0;background:url({P}{n}) -{87*s}px 0/{790*s}px {1539*s}px no-repeat"></div>'
-    return f'<div class="a" style="left:{x}px;top:{y}px;width:{w}px;height:{vh}px;overflow:hidden;transform:scaleX({-1 if flip else 1});filter:drop-shadow(0 8px 0 rgba(20,33,61,.3))">{layer}</div>'
+    e=name.replace('head_','').replace('.png','')
+    im=Image.open(f'/home/claude/remotion/public/leogem/leo_{e}.png'); H=h/HF[e]; w=H*im.width/im.height; vh=(vis if vis else H)
+    return f'<div class="a" style="left:{x}px;top:{y}px;width:{w}px;height:{vh}px;overflow:hidden;transform:scaleX({-1 if flip else 1});filter:drop-shadow(0 8px 0 rgba(20,33,61,.3))"><img src="{P}leogem/leo_{e}.png" style="position:absolute;left:0;top:0;width:{w}px;height:{H}px"></div>'
 def coin(x,y,d,txt='$',rot=0):
     return f'<div class="a" style="left:{x}px;top:{y}px;width:{d}px;height:{d}px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE27A,#F5B700 70%);border:{d*.07}px solid #14213D;display:flex;align-items:center;justify-content:center;font:900 {d*.38}px Pop;color:#14213D;transform:rotate({rot}deg);box-shadow:0 8px 0 rgba(20,33,61,.28)">{txt}</div>'
 T1=f"""<html><style>{FONT}</style><body style="width:1280px;height:720px;background:linear-gradient(120deg,#FFC93C 0%,#FFB347 45%,#F2674A 100%);position:relative">
@@ -38,7 +39,7 @@ T2=f"""<html><style>{FONT}</style><body style="width:1280px;height:720px;backgro
 <img class="sh" src="{P}v2/obj_cart_full.png" style="left:40px;top:190px;width:470px">
 {coin(540,230,150,'$30',-8)}{coin(700,330,150,'$30',6)}{coin(540,420,150,'$30',8)}{coin(700,520,150,'$30',-6)}
 <div class="a" style="left:290px;top:330px;background:#D7263D;border:12px solid #fff;border-radius:18px;padding:6px 36px;transform:rotate(-9deg);box-shadow:0 12px 0 rgba(20,33,61,.35)"><div class="t" style="font-size:112px;color:#fff;letter-spacing:2px">NOT FREE</div></div>
-{leo('head_suspicious.png',830,250,330,False,470)}
+{leo('head_suspicious.png',885,250,330,False,470)}
 </body></html>"""
 T3=f"""<html><style>{FONT}</style><body style="width:1280px;height:720px;background:linear-gradient(135deg,#BDEBD3 0%,#8FD9C0 55%,#6CC5D9 100%);position:relative">
 <div class="a" style="inset:0;background:radial-gradient(circle at 50% 70%,rgba(255,255,255,.5),transparent 55%)"></div>
