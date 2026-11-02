@@ -34,7 +34,7 @@ export const Ch2: React.FC = () => (
         // 1: why does option two work? You check prices, not weights.  (catches the "$4" tag from Ch1)
         {trans: 'join', pan: 'r', carry: {from: [CH1_TAG.x, CH1_TAG.y], to: [TAG.x, TAG.y], node: <TagNode text="$4" />, handoff: true}, body: (r) => (
           <>
-            <ShrinkProp name="v3/obj_icecream_tub.png" h={480} x={240} y={400} at={8} />
+            <Keep x={240} y={400} handoff><ShrinkProp name="v3/obj_icecream_tub.png" h={480} x={240} y={400} at={8} /></Keep>
             <Centered carried x={TAG.x} y={TAG.y}><TagNode text="$4" /></Centered>
             <Bubble text="why does it work?" at={r('why', 26)} tail="left" style={{left: 1150, top: 250}} size={52} />
             <CheckRow text="you check prices" at={r('checkPrices')} x={720} y={620} />
@@ -45,7 +45,7 @@ export const Ch2: React.FC = () => (
         // 2: researchers studied years of ice cream sales in Chicago
         {body: (r) => (
           <>
-            <P name="v3/obj_icecream_tub.png" x={240} y={400} h={480} />
+            <Keep x={240} y={400}><P name="v3/obj_icecream_tub.png" x={240} y={400} h={480} /></Keep>
             <InfoCard title="Chicago ice cream study" sub="years of real sales data" at={r('study')} x={780} y={300} w={860} size={56} />
             <PopIn at={r('chicago')} style={{left: 800, top: 560}}><Pill text="Chicago, USA" bg="#2E86AB" size={52} /></PopIn>
             <Src text={SRC_STUDY} at={r('study')} />

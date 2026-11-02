@@ -260,7 +260,8 @@ export const Shots: React.FC<{b: (k: string) => number; len: number; c: Chapter;
             exitPan={last ? exitPan : undefined}
             exit={last ? 'none' : (next.trans ?? 'swap') === 'swap' ? 'swap' : 'fade'}
             tail={last ? len - to + 2 : 34}>
-            <Scene palette="sunrise" dur={to - from}>{rest}</Scene>
+            {/* rule 1.31: no per-shot camera zoom (zoom={1}); it restarted at every swap and ghosted still objects */}
+            <Scene palette="sunrise" dur={to - from} zoom={1}>{rest}</Scene>
           </Shot>
         );
       })}

@@ -248,7 +248,7 @@ export const Flashback: React.FC<{children: React.ReactNode}> = ({children}) => 
 
 // ---------- 7. SCENE SHELL ----------
 /** Standard scene: backdrop + camera + content + grain/vignette + CTA + subtitle. */
-export const Scene: React.FC<{palette: keyof typeof PALETTES; dur: number; stars?: boolean; bokeh?: boolean; subtitle?: string; cta?: boolean; children: React.ReactNode}> = ({palette, dur, stars, bokeh, subtitle, cta, children}) => {
+export const Scene: React.FC<{palette: keyof typeof PALETTES; dur: number; zoom?: number; stars?: boolean; bokeh?: boolean; subtitle?: string; cta?: boolean; children: React.ReactNode}> = ({palette, dur, zoom = 1.02, stars, bokeh, subtitle, cta, children}) => {
   const p = PALETTES[palette];
   const world = useWorld(); // Video 02: a wide illustrated world drifts behind the scene when the Shot provides one
   const fade = useFade();
@@ -259,7 +259,7 @@ export const Scene: React.FC<{palette: keyof typeof PALETTES; dur: number; stars
       <AbsoluteFill>
         <AbsoluteFill style={{opacity: fade.world}}><WorldPan world={world} /></AbsoluteFill>
         <AbsoluteFill style={{opacity: fade.content}}>
-          <Camera dur={dur} z1={1.02}>{children}</Camera>
+          <Camera dur={dur} z1={zoom}>{children}</Camera>
           {cta && <CornerCTA />}
           {subtitle && <Subtitle text={subtitle} />}
         </AbsoluteFill>

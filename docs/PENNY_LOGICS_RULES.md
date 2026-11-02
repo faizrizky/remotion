@@ -10,6 +10,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 
 ## 0. Riwayat keputusan
 - 1 Nov (6): setiap video: suara dipotong jadi shot sesuai aturan dan tempo disetel agar tidak terlalu cepat maupun terlalu lambat (aturan 1.24).
+- 2 Nov (4): zoom kamera per shot dimatikan karena benda diam tampak dobel saat swap (aturan 1.31).
 - 2 Nov (3): revisi Video 3 lanjutan: elemen terbawa meluncur/berubah ukuran tanpa memudar (1.29), properti harus satu objek (1.30), `paper_rip` otomatis di setiap coretan.
 - 2 Nov (2): efek suara baru dari owner `paper_rip` untuk coretan/sobekan (aturan 1.28).
 - 2 Nov (1): revisi Video 3: entrance harus tuntas sebelum transisi (1.25), carry tanpa bayangan/duplikat (1.26), Leo di outro sejajar tengah dengan Subscribe (1.27).
@@ -71,6 +72,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
     - **Bukan kasus ini:** benda yang sama tapi baru muncul lagi belakangan di shot berikutnya, bukan saat pergantian (Video 3 Cold serangga otak). Itu dua kemunculan terpisah.
     - Sebelum render, daftar setiap pasangan shot yang punya elemen sama dan putuskan: Keep, atau memudar karena pengecualian.
 30. **Properti Gemini harus satu objek (2 Nov).** Kalau hasil Gemini berisi objek ganda (misalnya dua keranjang), pakai yang ada isinya/yang paling sesuai naskah dan buang sisanya (masker + garis tepi gelap di bekas potongan supaya gayanya sama). Video 3: `obj_basket.png` sekarang satu keranjang berisi roti dan apel.
+31. **Tidak ada zoom kamera per shot di dalam satu bab (2 Nov, revisi Video 3; SEMUA video).** Zoom pelan 1.00 → 1.02 per shot mulai ulang dari 1.00 di setiap shot baru, jadi di akhir shot isinya sudah membesar ~19 px di tepi lalu langsung "lompat" kembali di shot berikutnya: benda yang diam terlihat dobel/bergeser (garis tepi ganda) pada saat swap, dan isi sedikit melayang di atas latar yang tidak ikut zoom. Karena itu `Scene` di Video 3 memakai `zoom={1}` (latar dan isi sama-sama diam; gerak latar hanya drift pelan dari `Shots`). Sebelum render, kalau ada kamera/zoom baru, pastikan awal shot berikutnya sama dengan akhir shot sebelumnya.
 
 ## 2. Kebijakan latar: SETIAP scene punya gambar latar (direvisi 31 Okt)
 Mengikuti referensi: Kok Bisa? dan reel kertas hampir selalu memakai latar adegan ilustrasi. Latar polos ala Antidote (hitam) tidak dipakai.
