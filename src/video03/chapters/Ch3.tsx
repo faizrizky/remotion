@@ -3,7 +3,7 @@ import {KeyTag, Pill, PopIn, StickyNote} from '../../style/style_kit';
 import {Chip} from '../../video02/paper';
 import {ChapterShell} from '../ChapterShell';
 import {CH2_NET} from './Ch2';
-import {Centered, CheckRow, FromTo, LeoBadge, NetWt, P, PriceTag, Prop, Sfx, Shots, Src, WordSwipe} from '../v3kit';
+import {Centered, CheckRow, FromTo, LeoBadge, NetWt, P, PriceTag, Prop, Sfx, Shots, Src, WordSwipe, Keep, MORPH} from '../v3kit';
 
 const NPR = 'NPR, "Shrinkflation accelerates globally..." (June 8, 2022)';
 /** Brand-named shots: generic products + "reported by NPR" caption (brand rule in 02_assets_sfx_music.md). */
@@ -89,10 +89,10 @@ export const Ch3: React.FC = () => (
         // 7: its quieter cousin: SKIMPFLATION. Same size...
         {body: (r) => (
           <>
-            <P name="v3/obj_breakfast_tray.png" x={150} y={440} w={560} at={4} />
+            <Keep x={150} y={440} handoff><P name="v3/obj_breakfast_tray.png" x={150} y={440} w={560} at={4} /></Keep>
             <Chip text="a quieter cousin" at={r('cousin')} x={780} y={260} size={50} />
             <WordSwipe text="skimpflation" at={r('skimp')} x={780} y={360} size={140} color="#9FD2F7" />
-            <CheckRow text="same size" at={r('sameSize')} x={790} y={640} />
+            <Keep x={790} y={640} handoff><CheckRow text="same size" at={r('sameSize')} x={790} y={640} /></Keep>
             <Src text="NPR Planet Money (Oct 2021), via Wikipedia: Shrinkflation" at={r('skimp')} />
             <Sfx name="pop" at={4} /><Sfx name="pop" at={r('cousin')} /><Sfx name="boom" at={r('skimp')} /><Sfx name="pop" at={r('sameSize')} />
           </>
@@ -100,14 +100,14 @@ export const Ch3: React.FC = () => (
         // 8: same price, but cheaper ingredients or less service; not on the label. (paper towels ride on to Ch4)
         {body: (r) => (
           <>
-            <P name="v3/obj_breakfast_tray.png" x={150} y={440} w={560} />
-            <CheckRow text="same size" at={-30} x={790} y={250} />
-            <CheckRow text="same price" at={4} x={790} y={370} />
+            <Keep x={150} y={440}><P name="v3/obj_breakfast_tray.png" x={150} y={440} w={560} /></Keep>
+            <Keep x={790} y={250} from={{x: 790, y: 640}}><CheckRow text="same size" at={-30} x={790} y={250} /></Keep>
+            <CheckRow text="same price" at={MORPH + 2} x={790} y={370} />
             <CheckRow text="cheaper ingredients" ok={false} at={r('cheaper')} x={790} y={490} />
             <CheckRow text="less service" ok={false} at={r('service')} x={790} y={610} />
             <KeyTag text="not even on the label" at={r('label')} style={{left: 790, top: 760}} size={64} />
             <Centered carried at={r('label', 18)} x={CH3_TOWELS.x} y={CH3_TOWELS.y}><Prop name="v3/obj_paper_towels.png" h={CH3_TOWELS.h} /></Centered>
-            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('cheaper')} /><Sfx name="pop" at={r('service')} /><Sfx name="pop" at={r('label')} /><Sfx name="pop" at={r('label', 18)} />
+            <Sfx name="pop" at={MORPH + 2} /><Sfx name="pop" at={r('cheaper')} /><Sfx name="pop" at={r('service')} /><Sfx name="pop" at={r('label')} /><Sfx name="pop" at={r('label', 18)} />
           </>
         )},
       ]} />

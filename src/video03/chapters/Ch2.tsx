@@ -4,7 +4,7 @@ import {Bubble, KeyTag, Pill, PopIn} from '../../style/style_kit';
 import {Chip} from '../../video02/paper';
 import {ChapterShell} from '../ChapterShell';
 import {CH1_TAG} from './Ch1';
-import {Centered, CheckRow, HBars, InfoCard, NetWt, P, Person, PriceTag, Sfx, Shots, ShrinkProp, Src, TagNode, WordSwipe} from '../v3kit';
+import {Centered, CheckRow, HBars, InfoCard, NetWt, P, Person, PriceTag, Sfx, Shots, ShrinkProp, Src, TagNode, WordSwipe, Keep} from '../v3kit';
 
 const SRC_STUDY = 'Cakir & Balagtas (2014), Journal of Retailing 90(1): Chicago ice cream market';
 const TAG = {x: 860, y: 430};
@@ -92,7 +92,7 @@ export const Ch2: React.FC = () => (
           <>
             <Chip text="built to help" at={0} x={170} y={250} size={50} />
             <P name="v3/obj_icecream_tub.png" x={170} y={430} h={420} at={6} />
-            <P name="v3/obj_icecream_tub.png" x={560} y={430} h={420} at={12} />
+            <Keep x={560} y={430} s={420} handoff><P name="v3/obj_icecream_tub.png" x={560} y={430} h={420} at={12} /></Keep>
             <Chip text="before" at={6} x={250} y={360} size={36} />
             <Chip text="after" at={12} x={650} y={360} size={36} />
             <CheckRow text="same colors" at={r('colors')} x={1080} y={330} />
@@ -104,7 +104,7 @@ export const Ch2: React.FC = () => (
         // 7: often the only change is one small number: the net weight (it rides on to Ch3)
         {body: (r) => (
           <>
-            <P name="v3/obj_icecream_tub.png" x={230} y={330} h={560} />
+            <Keep x={230} y={330} s={560} from={{x: 560, y: 430, s: 420}}><P name="v3/obj_icecream_tub.png" x={230} y={330} h={560} /></Keep>
             <PopIn at={r('only')} style={{left: 900, top: 300}}><Pill text="one small number on the front" bg="#2B1230" size={50} /></PopIn>
             <Centered carried at={r('only', 10)} x={CH2_NET.x} y={CH2_NET.y}><NetWt text="?? oz" hot /></Centered>
             <Centered carried at={r('netWt')} x={CH2_NET.x} y={CH2_NET.y}><div style={{width: 380, height: 150, borderRadius: '50%', border: '8px solid #E5484D'}} /></Centered>

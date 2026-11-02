@@ -136,11 +136,74 @@ const CarryFly: React.FC<{c: CarrySpec}> = ({c}) => {
   );
 };
 
+// ---------- Keep: an element that continues into the next shot (rule 1.29) ----------
+/** Pose of a kept element: top-left anchor + a size number (any unit, only the ratio between shots matters). */
+export type Pose = {x: number; y: number; s?: number};
+/** Frames a kept element takes to move/resize from its previous pose into this shot's pose. */
+export const MORPH = 18;
+/**
+ * An element that stays on screen across a swap. It is drawn OUTSIDE the fading content layer, so it never fades.
+ * - handoff: the next shot continues it (a <Keep> there takes over on the same frame); it vanishes exactly at the cut.
+ * - from: its pose in the previous shot; it glides and resizes from there into (x, y, s) over MORPH frames.
+ * The children are drawn at this shot's pose (their own x/y/size props) and should use at={-30} when continuing.
+ */
+export const Keep: React.FC<{x: number; y: number; s?: number; from?: Pose; handoff?: boolean; children: React.ReactNode}> = ({x, y, s = 1, from, children}) => {
+  const f = useCurrentFrame();
+  if (!from) return <AbsoluteFill>{children}</AbsoluteFill>;
+  const t = easeIO(interpolate(f, [0, MORPH], [0, 1], cl));
+  const k0 = (from.s ?? s) / s;
+  const sc = k0 + (1 - k0) * t;
+  return (
+    <AbsoluteFill style={{transform: `translate(${(from.x - x) * (1 - t)}px, ${(from.y - y) * (1 - t)}px) scale(${sc})`, transformOrigin: `${x}px ${y}px`}}>
+      {children}
+    </AbsoluteFill>
+  );
+};
+/** Splits a shot body into <Keep> elements and the rest (top level and inside fragments). */
+const splitKeeps = (node: React.ReactNode): [React.ReactElement[], React.ReactNode[]] => {
+  const keeps: React.ReactElement[] = [];
+  const rest: React.ReactNode[] = [];
+  const walk = (n: React.ReactNode) => React.Children.forEach(n, (c) => {
+    if (React.isValidElement(c) && c.type === React.Fragment) walk((c.props as {children?: React.ReactNode}).children);
+    else if (React.isValidElement(c) && c.type === Keep) keeps.push(c);
+    else rest.push(c);
+  });
+  walk(node);
+  const key = (c: React.ReactNode, i: number) => (React.isValidElement(c) ? React.cloneElement(c, {key: `k${i}`}) : c);
+  return [keeps.map((c, i) => key(c, i) as React.ReactElement), rest.map(key)];
+};
+/** Draws a shot's kept elements: same entry as the content for joins, NO fade for swaps; handoff ones vanish at the cut, the others leave like the content. */
+const KeepLayer: React.FC<{keeps: React.ReactElement[]; trans: Trans; pan: PanDir; dur: number; exit: 'fade' | 'swap' | 'none'; exitPan?: PanDir}> = ({keeps, trans, pan, dur, exit, exitPan}) => {
+  const f = useCurrentFrame();
+  if (!keeps.length) return null;
+  const hand = keeps.filter((c) => (c.props as {handoff?: boolean}).handoff);
+  const stay = keeps.filter((c) => !(c.props as {handoff?: boolean}).handoff);
+  let entry: React.CSSProperties = {};
+  if (trans === 'join') {
+    const e = easeIO(interpolate(f, [0, PAN_FRAMES], [0, 1], cl));
+    entry = {transform: `translateX(${(pan === 'r' ? 1 : -1) * JOIN_DIST * (1 - e)}px)`, opacity: interpolate(f, [PAN_FRAMES * 0.45, PAN_FRAMES], [0, 1], cl)};
+  } else if (trans !== 'swap' && trans !== 'none') {
+    entry = {opacity: interpolate(f, [0, TRANS_FRAMES[trans]], [0, 1], cl)};
+  }
+  let leave: React.CSSProperties = {};
+  if (exitPan) {
+    const t = interpolate(f, [dur, dur + PAN_FRAMES], [0, 1], cl);
+    leave = {transform: `translateX(${-(exitPan === 'r' ? 1 : -1) * JOIN_DIST * easeIO(t)}px)`, opacity: interpolate(t, [0.05, 0.45], [1, 0], cl)};
+  } else if (exit === 'swap') leave = {opacity: interpolate(f, [dur, dur + SWAP], [1, 0], cl)};
+  else if (exit === 'fade') leave = {opacity: interpolate(f, [dur - 10, dur + 6], [1, 0], cl)};
+  return (
+    <AbsoluteFill style={entry}>
+      {f < dur && hand}
+      <AbsoluteFill style={leave}>{stay}</AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
 /** What a carried object's copies need to know about their shot: is it a join-in, and when does its exit pan start. */
 const CarryClock = React.createContext<{joinIn: boolean; exitAt: number | null}>({joinIn: false, exitAt: null});
-type ShotProps = {from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: 'fade' | 'swap' | 'none'; exitPan?: PanDir; pan?: PanDir; carry?: CarrySpec; world: WorldPick; children: React.ReactNode};
+type ShotProps = {from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: 'fade' | 'swap' | 'none'; exitPan?: PanDir; pan?: PanDir; carry?: CarrySpec; world: WorldPick; keeps?: React.ReactElement[]; children: React.ReactNode};
 /** One shot. It stays on screen through the next shot's transition, so there is never a gap. */
-export const Shot: React.FC<ShotProps> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = 'fade', exitPan, pan = 'r', carry, world, children}) => {
+export const Shot: React.FC<ShotProps> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = 'fade', exitPan, pan = 'r', carry, world, keeps = [], children}) => {
   const d = TRANS_FRAMES[trans];
   const body =
     trans === 'ink' ? <InkReveal dur={d} seed={seed}>{children}</InkReveal>
@@ -159,6 +222,7 @@ export const Shot: React.FC<ShotProps> = ({from, to, trans = 'none', tail = 34, 
       <CarryClock.Provider value={{joinIn: trans === 'join' && !!carry, exitAt: exitPan ? to - from : null}}>
         <WorldCtx.Provider value={{...world, from}}>{inner}</WorldCtx.Provider>
       </CarryClock.Provider>
+      <KeepLayer keeps={keeps} trans={trans} pan={pan} dur={to - from} exit={exit} exitPan={exitPan} />
       <PaperTexture />
       {trans === 'join' && carry && <CarryFly c={carry} />}
     </Sequence>
@@ -190,12 +254,13 @@ export const Shots: React.FC<{b: (k: string) => number; len: number; c: Chapter;
         const next = list[k + 1];
         const last = k === n - 1;
         const r = (key: string, off = 0) => Math.max(0, Math.min(b(key) - from + off, to - from - ENTRANCE_LATE));
+        const [keeps, rest] = splitKeeps(s.body(r, to - from));
         return (
-          <Shot key={k} from={from} to={to} trans={s.trans ?? (k === 0 ? 'none' : 'swap')} seed={s.seed ?? `${c.id}${k}`} pan={s.pan} carry={s.carry} world={world}
+          <Shot key={k} from={from} to={to} trans={s.trans ?? (k === 0 ? 'none' : 'swap')} seed={s.seed ?? `${c.id}${k}`} pan={s.pan} carry={s.carry} world={world} keeps={keeps}
             exitPan={last ? exitPan : undefined}
             exit={last ? 'none' : (next.trans ?? 'swap') === 'swap' ? 'swap' : 'fade'}
             tail={last ? len - to + 2 : 34}>
-            <Scene palette="sunrise" dur={to - from}>{s.body(r, to - from)}</Scene>
+            <Scene palette="sunrise" dur={to - from}>{rest}</Scene>
           </Shot>
         );
       })}
@@ -225,7 +290,7 @@ export const NetWt: React.FC<{text: string; size?: number; hot?: boolean}> = ({t
   </div>
 );
 
-/** Old value -> new value. At `swapAt` the old one is struck through and the new one pops in coral. */
+/** Old value -> new value. At `swapAt` the old one is struck through (with the paper_rip sound, rule 1.28) and the new one pops in coral. */
 export const FromTo: React.FC<{from: string; to: string; unit?: string; at: number; swapAt: number; x: number; y: number; size?: number; label?: string}> = ({from, to, unit, at, swapAt, x, y, size = 120, label}) => {
   const f = useCurrentFrame();
   const strike = interpolate(f, [swapAt - 6, swapAt + 4], [0, 1], cl);
@@ -247,6 +312,8 @@ export const FromTo: React.FC<{from: string; to: string; unit?: string; at: numb
         </div>
         {unit && <div style={{fontWeight: 700, fontSize: 36, marginTop: 8}}>{unit}</div>}
       </div>
+      {/* rule 1.28: every strike-through gets the paper-rip sound, on the frame the line starts */}
+      <Sfx name="paper_rip" at={Math.max(0, swapAt - 6)} />
     </PopIn>
   );
 };

@@ -3,7 +3,7 @@ import {KeyTag, Pill, PopIn} from '../../style/style_kit';
 import {Chip} from '../../video02/paper';
 import {ChapterShell} from '../ChapterShell';
 import {CH5_STICKER} from './Ch5';
-import {CalcScreen, Centered, CheckRow, Disclaimer, FromTo, HabitCard, Phone, Prop, Sfx, ShelfTag, ShrankSticker, Shots, ShrinkProp, Src, WordSwipe} from '../v3kit';
+import {CalcScreen, Centered, CheckRow, Disclaimer, FromTo, HabitCard, Phone, Prop, Sfx, ShelfTag, ShrankSticker, Shots, ShrinkProp, Src, WordSwipe, Keep} from '../v3kit';
 
 const STICKER = {x: 1460, y: 420};
 /** Basket in the last shot; the outro catches it (carry, pan left). */
@@ -19,7 +19,7 @@ export const Ch6: React.FC = () => (
         // 1: the one number on the shelf tag: the unit price  (the sticker lands next to the tag)
         {trans: 'join', pan: 'r', carry: {from: [CH5_STICKER.x, CH5_STICKER.y], to: [STICKER.x, STICKER.y], node: <ShrankSticker size={200} />, handoff: true}, body: (r) => (
           <>
-            <ShelfTag price="$4.00" unit="$0.29" at={8} x={250} y={330} scale={1.25} hiAt={r('unitPrice')} />
+            <Keep x={250} y={330} s={1.25} handoff><ShelfTag price="$4.00" unit="$0.29" at={8} x={250} y={330} scale={1.25} hiAt={r('unitPrice')} /></Keep>
             <Centered carried x={STICKER.x} y={STICKER.y}><ShrankSticker size={200} /></Centered>
             <WordSwipe text="the unit price" at={r('unitPrice')} x={1020} y={700} size={110} />
             <Disclaimer />
@@ -29,7 +29,7 @@ export const Ch6: React.FC = () => (
         // 2: what you pay per ounce, per sheet, or per 100 grams
         {body: (r) => (
           <>
-            <ShelfTag price="$4.00" unit="$0.29" at={-30} x={170} y={330} scale={0.95} hiAt={-30} />
+            <Keep x={170} y={330} s={0.95} from={{x: 250, y: 330, s: 1.25}}><ShelfTag price="$4.00" unit="$0.29" at={-30} x={170} y={330} scale={0.95} hiAt={-30} /></Keep>
             <Chip text="the small print" at={4} x={180} y={250} size={48} />
             <PopIn at={r('oz')} style={{left: 960, top: 300}}><Pill text="per ounce" bg="#2E86AB" size={60} /></PopIn>
             <PopIn at={r('sheet')} style={{left: 960, top: 450}}><Pill text="per sheet" bg="#2E9E8F" size={60} /></PopIn>
@@ -74,8 +74,8 @@ export const Ch6: React.FC = () => (
         // 6: three habits. One: compare unit prices
         {body: (r) => (
           <>
-            <PopIn at={0} style={{left: 160, top: 250}}><Pill text="3 habits" bg="#2B1230" size={56} /></PopIn>
-            <HabitCard n={1} text={H1} at={r('h1')} x={160} y={380} />
+            <Keep x={160} y={250} handoff><PopIn at={0} style={{left: 160, top: 250}}><Pill text="3 habits" bg="#2B1230" size={56} /></PopIn></Keep>
+            <Keep x={160} y={380} handoff><HabitCard n={1} text={H1} at={r('h1')} x={160} y={380} /></Keep>
             <Disclaimer />
             <Sfx name="pop" at={0} /><Sfx name="pop" at={r('h1')} />
           </>
@@ -83,9 +83,9 @@ export const Ch6: React.FC = () => (
         // 7: two: new design -> check the net weight
         {body: (r) => (
           <>
-            <PopIn at={-30} style={{left: 160, top: 250}}><Pill text="3 habits" bg="#2B1230" size={56} /></PopIn>
-            <HabitCard n={1} text={H1} at={-30} x={160} y={380} />
-            <HabitCard n={2} text={H2} at={4} x={160} y={560} color="#FF9F43" />
+            <Keep x={160} y={250} handoff><PopIn at={-30} style={{left: 160, top: 250}}><Pill text="3 habits" bg="#2B1230" size={56} /></PopIn></Keep>
+            <Keep x={160} y={380} handoff><HabitCard n={1} text={H1} at={-30} x={160} y={380} /></Keep>
+            <Keep x={160} y={560} handoff><HabitCard n={2} text={H2} at={4} x={160} y={560} color="#FF9F43" /></Keep>
             <Disclaimer />
             <Sfx name="pop" at={4} />
           </>
@@ -93,9 +93,9 @@ export const Ch6: React.FC = () => (
         // 8: three: count what you use  (the basket rides on to the outro)
         {body: (r) => (
           <>
-            <PopIn at={-30} style={{left: 160, top: 250}}><Pill text="3 habits" bg="#2B1230" size={56} /></PopIn>
-            <HabitCard n={1} text={H1} at={-30} x={160} y={380} />
-            <HabitCard n={2} text={H2} at={-30} x={160} y={560} color="#FF9F43" />
+            <Keep x={160} y={250}><PopIn at={-30} style={{left: 160, top: 250}}><Pill text="3 habits" bg="#2B1230" size={56} /></PopIn></Keep>
+            <Keep x={160} y={380}><HabitCard n={1} text={H1} at={-30} x={160} y={380} /></Keep>
+            <Keep x={160} y={560}><HabitCard n={2} text={H2} at={-30} x={160} y={560} color="#FF9F43" /></Keep>
             <HabitCard n={3} text={H3} at={4} x={160} y={740} color="#E5484D" />
             <Centered carried at={r('boxes')} x={CH6_BASKET.x} y={CH6_BASKET.y}><Prop name="v3/obj_basket.png" h={CH6_BASKET.h} /></Centered>
             <Disclaimer />

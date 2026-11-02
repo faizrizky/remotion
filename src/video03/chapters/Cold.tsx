@@ -2,7 +2,7 @@ import React from 'react';
 import {Pill, PopIn} from '../../style/style_kit';
 import {BeforeAfter, Chip} from '../../video02/paper';
 import {ChapterShell} from '../ChapterShell';
-import {CheckRow, InfoCard, LeoBadge, P, PriceTag, Sfx, ShelfTag, Shots, ShrinkProp, WordSwipe} from '../v3kit';
+import {CheckRow, InfoCard, LeoBadge, P, PriceTag, Sfx, ShelfTag, Shots, ShrinkProp, WordSwipe, Keep} from '../v3kit';
 
 export const Cold: React.FC = () => (
   <ChapterShell id="cold">
@@ -14,7 +14,7 @@ export const Cold: React.FC = () => (
             <BeforeAfter swapAt={r('openIt')}
               before={<P name="v3/obj_cereal_box.png" x={250} y={330} h={560} at={0} />}
               after={<P name="v3/obj_cereal_box_open.png" x={230} y={330} h={560} at={r('openIt')} />} />
-            <PriceTag text="$4" at={r('samePrice')} x={820} y={290} />
+            <Keep x={820} y={290} handoff><PriceTag text="$4" at={r('samePrice')} x={820} y={290} /></Keep>
             <Chip text="same spot on the shelf" at={r('sameSpot')} x={820} y={520} size={52} />
             <PopIn at={r('less')} style={{left: 820, top: 690}}><Pill text="...less inside" bg="#E5484D" size={64} /></PopIn>
             <Sfx name="pop" at={0} /><Sfx name="pop" at={r('samePrice')} /><Sfx name="pop" at={r('sameSpot')} /><Sfx name="pop" at={r('openIt')} /><Sfx name="shrink" at={r('less')} />
@@ -23,7 +23,7 @@ export const Cold: React.FC = () => (
         // 2: nobody raised the price, no memo, the bag got lighter
         {body: (r) => (
           <>
-            <PriceTag text="$4" at={0} x={200} y={290} />
+            <Keep x={200} y={290} from={{x: 820, y: 290}}><PriceTag text="$4" at={-30} x={200} y={290} /></Keep>
             <CheckRow text="price: same" at={r('nobody', 4)} x={170} y={520} />
             <CheckRow text="no memo" ok={false} at={r('memo')} x={170} y={660} />
             <ShrinkProp name="v3/obj_snack_bag.png" h={560} x={1100} y={330} at={6} shrinkAt={r('lighter', 6)} to={0.78} />

@@ -3,7 +3,7 @@ import {Bubble, KeyTag, Pill, PopIn} from '../../style/style_kit';
 import {Chip} from '../../video02/paper';
 import {ChapterShell} from '../ChapterShell';
 import {CH4_CEREAL} from './Ch4';
-import {Centered, CheckRow, Flag, InfoCard, Magnifier, P, Prop, Sfx, ShrankSticker, Shots, Src, Stamp} from '../v3kit';
+import {Centered, CheckRow, Flag, InfoCard, Magnifier, P, Prop, Sfx, ShrankSticker, Shots, Src, Stamp, Keep} from '../v3kit';
 
 const FR = 'Euronews (July 3, 2024); service-public.gouv.fr';
 const KR = 'KFTC 2024 rules (FoodNavigator, Aug 2024; Korea JoongAng Daily)';
@@ -32,7 +32,7 @@ export const Ch5: React.FC = () => (
             <PopIn at={r('july')} style={{left: 160, top: 600}}><Pill text="France · since July 2024" bg="#1F4E9E" size={48} /></PopIn>
             <InfoCard title="Large supermarkets must put up a notice" at={r('notice', -10)} x={780} y={270} w={940} size={50} />
             <PopIn at={r('notice')} style={{left: 900, top: 520}}><ShrankSticker size={240} /></PopIn>
-            <P name="v3/obj_cereal_box.png" x={1260} y={470} h={400} at={r('notice', 6)} />
+            <Keep x={1260} y={470} s={400} handoff><P name="v3/obj_cereal_box.png" x={1260} y={470} h={400} at={r('notice', 6)} /></Keep>
             <Src text={FR} at={r('july')} />
             <Sfx name="pop" at={4} /><Sfx name="pop" at={r('july')} /><Sfx name="pop" at={r('notice', -10)} /><Sfx name="pop" at={r('notice')} />
           </>
@@ -40,7 +40,7 @@ export const Ch5: React.FC = () => (
         // 3: ...on products that shrank while the price per unit went up
         {body: (r) => (
           <>
-            <P name="v3/obj_cereal_box.png" x={200} y={400} h={470} />
+            <Keep x={200} y={400} s={470} from={{x: 1260, y: 470, s: 400}}><P name="v3/obj_cereal_box.png" x={200} y={400} h={470} /></Keep>
             <PopIn at={r('shrank')} style={{left: 360, top: 300}}><ShrankSticker size={210} /></PopIn>
             <CheckRow text="the product shrank" at={r('shrank')} x={860} y={340} />
             <CheckRow text="price per unit went up" at={r('unit')} x={860} y={490} />
