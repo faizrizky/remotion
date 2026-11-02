@@ -1,35 +1,68 @@
 [
-  {
-    "id": "S-V1-a",
-    "long": "out/Video01_v2.mp4",
-    "srt": "out/video01.srt",
-    "from": 132.0,
-    "to": 175.4,
-    "title": "*Someone else* pays for your card rewards",
-    "boxH": 608,
-    "focusX": 0.5,
-    "accent": "#E4572E"
-  },
-  {
-    "id": "S-V1-b",
-    "long": "out/Video01_v2.mp4",
-    "srt": "out/video01.srt",
-    "from": 84.2,
-    "to": 131.9,
-    "title": "A *$5,000* balance can cost you $1,100 a year",
-    "boxH": 700,
-    "focusX": 0.5,
-    "accent": "#E4572E"
-  },
-  {
-    "id": "S-V2-a",
-    "long": "out/Video02.mp4",
-    "srt": "out/video02.srt",
-    "from": 71.0,
-    "to": 115.0,
-    "title": "Why do *stores* pay a fee when you Pay in 4?",
-    "boxH": 700,
-    "focusX": 0.5,
-    "accent": "#E4572E"
-  }
+ {
+  "id": "S-V1-a",
+  "long": "out/Video01_v2.mp4",
+  "srt": "out/video01.srt",
+  "from": 132.0,
+  "to": 175.4,
+  "title": "*Someone else* pays for your card rewards",
+  "boxH": 608,
+  "focusX": 0.5,
+  "accent": "#E4572E"
+ },
+ {
+  "id": "S-V1-b",
+  "long": "out/Video01_v2.mp4",
+  "srt": "out/video01.srt",
+  "from": 84.2,
+  "to": 131.9,
+  "title": "A *$5,000* balance can cost you $1,100 a year",
+  "boxH": 700,
+  "focusX": 0.5,
+  "accent": "#E4572E"
+ },
+ {
+  "id": "S-V2-a",
+  "long": "out/Video02.mp4",
+  "srt": "out/video02.srt",
+  "from": 71.0,
+  "to": 115.0,
+  "title": "Why do *stores* pay a fee when you Pay in 4?",
+  "boxH": 700,
+  "focusX": 0.5,
+  "accent": "#E4572E"
+ },
+ {
+  "id": "S-V2-b",
+  "long": "out/Video02.mp4",
+  "srt": "out/video02.srt",
+  "from": 115.4,
+  "to": 148.85,
+  "title": "$30 feels like *lunch*. $120 feels like a decision",
+  "boxH": 700,
+  "focusX": 0.5,
+  "accent": "#E4572E"
+ },
+ {
+  "id": "S-V3-a",
+  "long": "out/Video03.mp4",
+  "srt": "out/video03.srt",
+  "from": 74.9,
+  "to": 108.1,
+  "title": "You react *4x* more to price than to size",
+  "boxH": 608,
+  "focusX": 0.5,
+  "accent": "#E4572E"
+ },
+ {
+  "id": "S-V3-b",
+  "long": "out/Video03.mp4",
+  "srt": "out/video03.srt",
+  "from": 122.4,
+  "to": 156.6,
+  "title": "The can still says *400 cups*",
+  "boxH": 608,
+  "focusX": 0.5,
+  "accent": "#E4572E"
+ }
 ]
