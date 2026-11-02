@@ -4,7 +4,7 @@
 // YouTube UI, the right ~140 px by the like/comment buttons):
 //   title (y 230-560) -> video window (y 600-) -> burned captions -> small brand line.
 import React, {useEffect, useMemo, useState} from 'react';
-import {AbsoluteFill, Img, OffthreadVideo, continueRender, delayRender, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Img, OffthreadVideo, continueRender, delayRender, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {HAND, SANS} from '../style/style_kit';
 
 export type ShortSpec = {
@@ -108,7 +108,7 @@ const Caption: React.FC<{cue: Cue | null; local: number; accent: string; y: numb
 
 export const Short: React.FC<ShortSpec> = ({src, srt, from, to, title, boxH = 700, focusX = 0.5, bg = '#F7EFE2', accent = '#E4572E'}) => {
   const f = useCurrentFrame();
-  const {fps, durationInFrames} = useVideoConfig();
+  const {fps} = useVideoConfig();
   const [cues, setCues] = useState<Cue[] | null>(null);
   const [handle] = useState(() => delayRender('srt'));
   useEffect(() => {
@@ -122,7 +122,7 @@ export const Short: React.FC<ShortSpec> = ({src, srt, from, to, title, boxH = 70
   const vh = boxH, vw = (vh * 16) / 9;
   const left = -(vw - SHORT_W) * focusX;
   const top = 630;
-  const vol = (fr: number) => interpolate(fr, [0, 6, durationInFrames - 8, durationInFrames - 1], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  // No audio fade in or out (rule 1.34): the cut points sit in real voice pauses (scripts/short_pick.py), so a fade only makes the voice sound chopped.
 
   return (
     <AbsoluteFill style={{background: bg}}>
@@ -130,7 +130,7 @@ export const Short: React.FC<ShortSpec> = ({src, srt, from, to, title, boxH = 70
       <AbsoluteFill style={{backgroundImage: 'radial-gradient(rgba(31,27,46,0.07) 2px, transparent 2.5px)', backgroundSize: '34px 34px'}} />
       <Title text={title} accent={accent} />
       <div style={{position: 'absolute', left: 0, top, width: SHORT_W, height: vh, overflow: 'hidden', borderTop: `8px solid ${INK}`, borderBottom: `8px solid ${INK}`, background: '#000'}}>
-        <OffthreadVideo src={staticFile(src)} startFrom={Math.round(from * fps)} endAt={Math.round(to * fps)} volume={vol}
+        <OffthreadVideo src={staticFile(src)} startFrom={Math.round(from * fps)} endAt={Math.round(to * fps)} volume={1}
           style={{position: 'absolute', left, top: 0, width: vw, height: vh}} />
       </div>
       <Caption cue={cue} local={t} accent={accent} y={top + boxH + 20} />
