@@ -21,7 +21,7 @@ export const Ch1: React.FC = () => (
             <InfoCard title="Option 1: raise the price" at={r('opt1')} x={780} y={380} w={820} size={52} />
             <FromTo from="$4" to="$4.50" at={r('box4')} swapAt={r('b450')} x={800} y={560} size={110} />
             <Chip text="...and you notice" at={r('notice')} x={1340} y={820} size={46} />
-            <Sfx name="pop" at={r('costs')} /><Sfx name="pop" at={r('twoOpt')} /><Sfx name="pop" at={r('opt1')} /><Sfx name="pop" at={r('box4')} /><Sfx name="kaching" at={r('b450')} />
+            <Sfx name="pop" at={r('costs')} /><Sfx name="pop" at={r('twoOpt')} /><Sfx name="pop" at={r('opt1')} /><Sfx name="pop" at={r('box4')} />
           </>
         )},
         // 2: option two: keep $4, put less inside. Same price, less product = still a price increase
@@ -67,7 +67,7 @@ export const Ch1: React.FC = () => (
             <Keep x={150} y={600} s={760} from={{x: 260, y: 500, s: 900}} handoff><P name="v3/obj_choc_peaks_gappy.png" x={150} y={600} w={760} at={-30} /></Keep>
             <FromTo from="400 g" to="360 g" label="the big bar" at={4} swapAt={r('g360')} x={980} y={300} size={120} />
             <Src text={SRC_TOB} />
-            <Sfx name="pop" at={4} /><Sfx name="shrink" at={r('g360')} />
+            <Sfx name="pop" at={4} />
           </>
         )},
         // 6: the shape stayed, the chocolate didn't. The "$4" tag rides on to the next chapter.

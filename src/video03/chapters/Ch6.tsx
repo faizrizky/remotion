@@ -58,7 +58,7 @@ export const Ch6: React.FC = () => (
             <CheckRow text="most states: not required" ok={false} at={r('notReq')} x={560} y={650} size={50} />
             <Src text="NIST, unit pricing laws by state" at={r('nineStates')} />
             <Disclaimer />
-            <Sfx name="shrink" at={16} /><Sfx name="pop" at={10} /><Sfx name="ding" at={r('jumps')} /><Sfx name="pop" at={r('nineStates')} /><Sfx name="pop" at={r('dc')} /><Sfx name="pop" at={r('notReq')} />
+            <Sfx name="shrink" at={16} /><Sfx name="pop" at={10} /><Sfx name="pop" at={r('nineStates')} /><Sfx name="pop" at={r('dc')} /><Sfx name="pop" at={r('notReq')} />
           </>
         )},
         // 5: if it's there, read it; if not, do the math on your phone

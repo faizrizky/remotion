@@ -39,7 +39,7 @@ export const Ch3: React.FC = () => (
             <FromTo from="340" to="312" unit="sheets per roll" at={r('sh340')} swapAt={r('sh312')} x={860} y={320} size={140} />
             <Brand name="Cottonelle" />
             <Src text={NPR} />
-            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('sh340')} /><Sfx name="shrink" at={r('sh312')} />
+            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('sh340')} />
           </>
         )},
         // 3: tissues: 65 -> 60 per box
@@ -49,7 +49,7 @@ export const Ch3: React.FC = () => (
             <FromTo from="65" to="60" unit="tissues per box" at={r('t65')} swapAt={r('t60')} x={860} y={320} size={140} />
             <Brand name="Kleenex" />
             <Src text={NPR} />
-            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('t65')} /><Sfx name="shrink" at={r('t60')} />
+            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('t65')} />
           </>
         )},
         // 4: sports drink: 32 oz -> 28 oz bottles
@@ -59,7 +59,7 @@ export const Ch3: React.FC = () => (
             <FromTo from="32 oz" to="28 oz" unit="per bottle" at={r('oz32')} swapAt={r('oz28')} x={860} y={320} size={130} />
             <Brand name="Gatorade" />
             <Src text={NPR} />
-            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('oz32')} /><Sfx name="shrink" at={r('oz28')} />
+            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('oz32')} />
           </>
         )},
         // 5: coffee: 51 oz -> 43.5 oz, the can still says "up to 400 cups"
@@ -71,7 +71,7 @@ export const Ch3: React.FC = () => (
             <KeyTag text="really?" at={r('cups400', 6)} style={{left: 1440, top: 640}} size={70} />
             <Brand name="Folgers" />
             <Src text={NPR} />
-            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('oz51')} /><Sfx name="shrink" at={r('oz435')} /><Sfx name="pop" at={r('cups')} /><Sfx name="pop" at={r('cups400', 6)} />
+            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('oz51')} /><Sfx name="pop" at={r('cups')} /><Sfx name="pop" at={r('cups400', 6)} />
           </>
         )},
         // 6: wings: 10 -> 8 pieces, same $7.99
@@ -83,7 +83,7 @@ export const Ch3: React.FC = () => (
             <CheckRow text="same price" at={r('p799', 10)} x={1280} y={640} />
             <Brand name="Domino's" />
             <Src text={NPR} />
-            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('w10')} /><Sfx name="shrink" at={r('w8')} /><Sfx name="kaching" at={r('p799')} />
+            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('w10')} /><Sfx name="kaching" at={r('p799')} />
           </>
         )},
         // 7: its quieter cousin: SKIMPFLATION. Same size...
