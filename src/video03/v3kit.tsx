@@ -39,10 +39,10 @@ export const shotCount = (c: Chapter) => Object.keys(c.beats).filter((k) => /^s\
 // ---------- audio ----------
 export const SFX = {
   pop: 'sfx/pop.wav', whoosh: 'sfx/whoosh.wav', kaching: 'sfx/kaching.wav', ding: 'sfx/ding.wav', boom: 'sfx/boom.wav', notify: 'sfx/notify.wav',
-  shrink: 'sfx/shrink.wav', scan_beep: 'sfx/scan_beep.wav', stamp: 'sfx/stamp.wav',
+  shrink: 'sfx/shrink.wav', scan_beep: 'sfx/scan_beep.wav', stamp: 'sfx/stamp.wav', paper_rip: 'sfx/paper_rip.wav',
 } as const;
 /** Existing volumes kept; new ones from 02_assets_sfx_music.md (peaks about -6 dB). */
-export const SFX_VOL: Record<keyof typeof SFX, number> = {pop: 0.32, whoosh: 0.3, kaching: 0.5, ding: 0.4, boom: 0.45, notify: 0.4, shrink: 0.35, scan_beep: 0.35, stamp: 0.4};
+export const SFX_VOL: Record<keyof typeof SFX, number> = {pop: 0.32, whoosh: 0.3, kaching: 0.5, ding: 0.4, boom: 0.45, notify: 0.4, shrink: 0.35, scan_beep: 0.35, stamp: 0.4, paper_rip: 0.4};
 export type SfxName = keyof typeof SFX;
 export const Sfx: React.FC<{name: SfxName; at: number}> = ({name, at}) => {
   const file = SFX[name];
