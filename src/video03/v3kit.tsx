@@ -136,6 +136,8 @@ const CarryFly: React.FC<{c: CarrySpec}> = ({c}) => {
   );
 };
 
+/** What a carried object's copies need to know about their shot: is it a join-in, and when does its exit pan start. */
+const CarryClock = React.createContext<{joinIn: boolean; exitAt: number | null}>({joinIn: false, exitAt: null});
 type ShotProps = {from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: 'fade' | 'swap' | 'none'; exitPan?: PanDir; pan?: PanDir; carry?: CarrySpec; world: WorldPick; children: React.ReactNode};
 /** One shot. It stays on screen through the next shot's transition, so there is never a gap. */
 export const Shot: React.FC<ShotProps> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = 'fade', exitPan, pan = 'r', carry, world, children}) => {
@@ -154,15 +156,19 @@ export const Shot: React.FC<ShotProps> = ({from, to, trans = 'none', tail = 34, 
   const dur = exitPan ? to - from + PAN_FRAMES + 1 : Math.max(1, to - from + tail);
   return (
     <Sequence from={from} durationInFrames={dur}>
-      <WorldCtx.Provider value={{...world, from}}>{inner}</WorldCtx.Provider>
+      <CarryClock.Provider value={{joinIn: trans === 'join' && !!carry, exitAt: exitPan ? to - from : null}}>
+        <WorldCtx.Provider value={{...world, from}}>{inner}</WorldCtx.Provider>
+      </CarryClock.Provider>
       <PaperTexture />
       {trans === 'join' && carry && <CarryFly c={carry} />}
     </Sequence>
   );
 };
 
-/** One entry of a chapter's shot list. `body(r, dur)`: r('beat') = frame of a beat relative to this shot (never < 0). */
-export type ShotDef = {trans?: Trans; seed?: string; pan?: PanDir; carry?: CarrySpec; body: (r: (k: string) => number, dur: number) => React.ReactNode};
+/** One entry of a chapter's shot list. `body(r, dur)`: r('beat', off) = frame of a beat (+ off) relative to this shot, clamped to [0, dur - ENTRANCE_LATE]. */
+export type ShotDef = {trans?: Trans; seed?: string; pan?: PanDir; carry?: CarrySpec; body: (r: (k: string, off?: number) => number, dur: number) => React.ReactNode};
+/** Rule 1.25: an entrance must FINISH before the shot's transition starts. r() never returns a frame later than (shot length - ENTRANCE_LATE). */
+export const ENTRANCE_LATE = 30;
 
 /**
  * Runs a chapter's shots: shot k lasts from beat s(k) to s(k+1) (the voice-based cuts from rule 1.24).
@@ -183,7 +189,7 @@ export const Shots: React.FC<{b: (k: string) => number; len: number; c: Chapter;
         const to = k < n - 1 ? b(`s${k + 2}`) : end;
         const next = list[k + 1];
         const last = k === n - 1;
-        const r = (key: string) => Math.max(0, b(key) - from);
+        const r = (key: string, off = 0) => Math.max(0, Math.min(b(key) - from + off, to - from - ENTRANCE_LATE));
         return (
           <Shot key={k} from={from} to={to} trans={s.trans ?? (k === 0 ? 'none' : 'swap')} seed={s.seed ?? `${c.id}${k}`} pan={s.pan} carry={s.carry} world={world}
             exitPan={last ? exitPan : undefined}
@@ -413,9 +419,17 @@ export const P: React.FC<{name: string; x: number; y: number; h?: number; w?: nu
   <PopIn at={at} style={{left: x, top: y}}><Prop name={name} h={h} w={w} flip={flip} /></PopIn>
 );
 
-/** Anything placed by its CENTER (cx, cy) with a pop; used for carried objects so the carry lands exactly on it. */
-export const Centered: React.FC<{x: number; y: number; at?: number; children: React.ReactNode}> = ({x, y, at = -30, children}) => (
-  <PopIn at={at} origin="0 0" style={{left: x, top: y}}><div style={{transform: 'translate(-50%, -50%)'}}>{children}</div></PopIn>
-);
+/**
+ * Anything placed by its CENTER (cx, cy) with a pop; used for carried objects so the carry lands exactly on it.
+ * carried: this is a copy of the carried object. In a join-in shot it appears only when the carry LANDS;
+ * in a chapter's last shot it disappears the moment the exit pan starts (the flying carry takes over), so there is never a double.
+ */
+export const Centered: React.FC<{x: number; y: number; at?: number; carried?: boolean; children: React.ReactNode}> = ({x, y, at = -30, carried, children}) => {
+  const f = useCurrentFrame();
+  const {joinIn, exitAt} = React.useContext(CarryClock);
+  if (carried && joinIn && f < PAN_FRAMES) return null;
+  if (carried && exitAt !== null && f >= exitAt) return null;
+  return <PopIn at={at} origin="0 0" style={{left: x, top: y}}><div style={{transform: 'translate(-50%, -50%)'}}>{children}</div></PopIn>;
+};
 
 export {CountUp};

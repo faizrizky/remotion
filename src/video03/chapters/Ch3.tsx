@@ -21,15 +21,15 @@ export const Ch3: React.FC = () => (
           <>
             <LeoBadge head="head_suspicious.png" at={10} x={150} y={330} size={360} />
             <P name="v3/obj_toilet_paper_pack.png" x={640} y={420} h={270} at={4} />
-            <Centered x={NET_ON_PACK.x} y={NET_ON_PACK.y}><NetWt text="?? oz" hot /></Centered>
+            <Centered carried x={NET_ON_PACK.x} y={NET_ON_PACK.y}><NetWt text="?? oz" hot /></Centered>
             <P name="v3/obj_tissue_box.png" x={960} y={500} h={190} at={r('everywhere')} />
-            <P name="v3/obj_sports_bottle.png" x={1200} y={430} h={260} at={r('everywhere') + 5} />
-            <P name="v3/obj_coffee_can.png" x={1330} y={450} h={240} at={r('everywhere') + 10} />
-            <P name="v3/obj_wings_box.png" x={1530} y={480} h={210} at={r('everywhere') + 15} />
+            <P name="v3/obj_sports_bottle.png" x={1200} y={430} h={260} at={r('everywhere', 5)} />
+            <P name="v3/obj_coffee_can.png" x={1330} y={450} h={240} at={r('everywhere', 10)} />
+            <P name="v3/obj_wings_box.png" x={1530} y={480} h={210} at={r('everywhere', 15)} />
             <PopIn at={r('y2022')} style={{left: 640, top: 250}}><Pill text="2022: NPR documented a wave of it" bg="#2B1230" size={50} /></PopIn>
             <Chip text="Penny Logics is not affiliated with any brand mentioned." at={r('npr')} x={640} y={760} size={30} rot={0} />
             <Src text={NPR} at={r('npr')} />
-            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={10} />{[0, 5, 10, 15].map((k) => <Sfx key={k} name="pop" at={r('everywhere') + k} />)}<Sfx name="pop" at={r('y2022')} />
+            <Sfx name="whoosh" at={0} /><Sfx name="pop" at={10} />{[0, 5, 10, 15].map((k) => <Sfx key={k} name="pop" at={r('everywhere', k)} />)}<Sfx name="pop" at={r('y2022')} />
           </>
         )},
         // 2: toilet paper: 340 -> 312 sheets per roll
@@ -68,10 +68,10 @@ export const Ch3: React.FC = () => (
             <P name="v3/obj_coffee_can.png" x={230} y={330} h={540} at={4} />
             <FromTo from="51 oz" to="43.5 oz" unit="per can" at={r('oz51')} swapAt={r('oz435')} x={820} y={260} size={120} />
             <StickyNote text={'the can still says: "up to 400 cups"'} at={r('cups')} style={{left: 840, top: 560}} size={50} />
-            <KeyTag text="really?" at={r('cups400') + 6} style={{left: 1440, top: 640}} size={70} />
+            <KeyTag text="really?" at={r('cups400', 6)} style={{left: 1440, top: 640}} size={70} />
             <Brand name="Folgers" />
             <Src text={NPR} />
-            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('oz51')} /><Sfx name="shrink" at={r('oz435')} /><Sfx name="pop" at={r('cups')} /><Sfx name="pop" at={r('cups400') + 6} />
+            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('oz51')} /><Sfx name="shrink" at={r('oz435')} /><Sfx name="pop" at={r('cups')} /><Sfx name="pop" at={r('cups400', 6)} />
           </>
         )},
         // 6: wings: 10 -> 8 pieces, same $7.99
@@ -80,7 +80,7 @@ export const Ch3: React.FC = () => (
             <P name="v3/obj_wings_box.png" x={170} y={400} h={450} at={4} />
             <FromTo from="10" to="8" unit="wings per order" at={r('w10')} swapAt={r('w8')} x={820} y={260} size={140} />
             <PriceTag text="$7.99" at={r('p799')} x={840} y={610} size={100} />
-            <CheckRow text="same price" at={r('p799') + 10} x={1280} y={640} />
+            <CheckRow text="same price" at={r('p799', 10)} x={1280} y={640} />
             <Brand name="Domino's" />
             <Src text={NPR} />
             <Sfx name="pop" at={4} /><Sfx name="pop" at={r('w10')} /><Sfx name="shrink" at={r('w8')} /><Sfx name="kaching" at={r('p799')} />
@@ -106,8 +106,8 @@ export const Ch3: React.FC = () => (
             <CheckRow text="cheaper ingredients" ok={false} at={r('cheaper')} x={790} y={490} />
             <CheckRow text="less service" ok={false} at={r('service')} x={790} y={610} />
             <KeyTag text="not even on the label" at={r('label')} style={{left: 790, top: 760}} size={64} />
-            <Centered at={r('label') + 18} x={CH3_TOWELS.x} y={CH3_TOWELS.y}><Prop name="v3/obj_paper_towels.png" h={CH3_TOWELS.h} /></Centered>
-            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('cheaper')} /><Sfx name="pop" at={r('service')} /><Sfx name="pop" at={r('label')} /><Sfx name="pop" at={r('label') + 18} />
+            <Centered carried at={r('label', 18)} x={CH3_TOWELS.x} y={CH3_TOWELS.y}><Prop name="v3/obj_paper_towels.png" h={CH3_TOWELS.h} /></Centered>
+            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('cheaper')} /><Sfx name="pop" at={r('service')} /><Sfx name="pop" at={r('label')} /><Sfx name="pop" at={r('label', 18)} />
           </>
         )},
       ]} />

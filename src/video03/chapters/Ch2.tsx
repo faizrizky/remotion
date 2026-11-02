@@ -35,8 +35,8 @@ export const Ch2: React.FC = () => (
         {trans: 'join', pan: 'r', carry: {from: [CH1_TAG.x, CH1_TAG.y], to: [TAG.x, TAG.y], node: <TagNode text="$4" />, handoff: true}, body: (r) => (
           <>
             <ShrinkProp name="v3/obj_icecream_tub.png" h={480} x={240} y={400} at={8} />
-            <Centered x={TAG.x} y={TAG.y}><TagNode text="$4" /></Centered>
-            <Bubble text="why does it work?" at={r('why') + 26} tail="left" style={{left: 1150, top: 250}} size={52} />
+            <Centered carried x={TAG.x} y={TAG.y}><TagNode text="$4" /></Centered>
+            <Bubble text="why does it work?" at={r('why', 26)} tail="left" style={{left: 1150, top: 250}} size={52} />
             <CheckRow text="you check prices" at={r('checkPrices')} x={720} y={620} />
             <CheckRow text="you don't check weights" ok={false} at={r('notWeights')} x={720} y={760} />
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={8} /><Sfx name="pop" at={r('checkPrices')} /><Sfx name="pop" at={r('notWeights')} />
@@ -61,7 +61,7 @@ export const Ch2: React.FC = () => (
             ]} />
             <WordSwipe text="four times." at={r('four2')} x={1260} y={760} size={110} />
             <Src text={SRC_STUDY} />
-            <Sfx name="ding" at={r('fourX') + 20} /><Sfx name="pop" at={r('sizeWord')} /><Sfx name="ding" at={r('four2')} />
+            <Sfx name="ding" at={r('fourX', 20)} /><Sfx name="pop" at={r('sizeWord')} /><Sfx name="ding" at={r('four2')} />
           </>
         )},
         // 4 (ink): the bug in your brain -> the choice is easy
@@ -79,12 +79,12 @@ export const Ch2: React.FC = () => (
             <InfoCard title="Raise the price" at={0} x={150} y={250} w={640} size={50} />
             <PriceTag text="$4.50" at={6} x={200} y={400} size={100} />
             <Crowd at={8} x={180} y={640} leave={r('walk')} />
-            <Chip text="some walk away" kind="warn" at={r('walk') + 10} x={260} y={880} size={40} />
+            <Chip text="some walk away" kind="warn" at={r('walk', 10)} x={260} y={880} size={40} />
             <InfoCard title="Shrink the package" at={r('shrinkPkg')} x={1000} y={250} w={700} size={50} />
-            <ShrinkProp name="v3/obj_icecream_tub.png" h={300} x={1060} y={420} at={r('shrinkPkg')} shrinkAt={r('shrinkPkg') + 14} to={0.8} />
-            <Crowd at={r('shrinkPkg') + 6} x={1300} y={500} />
+            <ShrinkProp name="v3/obj_icecream_tub.png" h={300} x={1060} y={420} at={r('shrinkPkg')} shrinkAt={r('shrinkPkg', 14)} to={0.8} />
+            <Crowd at={r('shrinkPkg', 6)} x={1300} y={500} />
             <Chip text="most never notice" at={r('never')} x={1240} y={790} size={44} />
-            <Sfx name="pop" at={0} /><Sfx name="pop" at={r('walk')} /><Sfx name="pop" at={r('shrinkPkg')} /><Sfx name="shrink" at={r('shrinkPkg') + 14} /><Sfx name="pop" at={r('never')} />
+            <Sfx name="pop" at={0} /><Sfx name="pop" at={r('walk')} /><Sfx name="pop" at={r('shrinkPkg')} /><Sfx name="shrink" at={r('shrinkPkg', 14)} /><Sfx name="pop" at={r('never')} />
           </>
         )},
         // 6: the package is built to help: same colours, same logo, same size on the shelf
@@ -106,10 +106,10 @@ export const Ch2: React.FC = () => (
           <>
             <P name="v3/obj_icecream_tub.png" x={230} y={330} h={560} />
             <PopIn at={r('only')} style={{left: 900, top: 300}}><Pill text="one small number on the front" bg="#2B1230" size={50} /></PopIn>
-            <Centered at={r('only') + 10} x={CH2_NET.x} y={CH2_NET.y}><NetWt text="?? oz" hot /></Centered>
-            <Centered at={r('netWt')} x={CH2_NET.x} y={CH2_NET.y}><div style={{width: 380, height: 150, borderRadius: '50%', border: '8px solid #E5484D'}} /></Centered>
+            <Centered carried at={r('only', 10)} x={CH2_NET.x} y={CH2_NET.y}><NetWt text="?? oz" hot /></Centered>
+            <Centered carried at={r('netWt')} x={CH2_NET.x} y={CH2_NET.y}><div style={{width: 380, height: 150, borderRadius: '50%', border: '8px solid #E5484D'}} /></Centered>
             <WordSwipe text="the net weight" at={r('netWt')} x={920} y={480} size={120} />
-            <Sfx name="pop" at={r('only')} /><Sfx name="pop" at={r('only') + 10} /><Sfx name="ding" at={r('netWt')} />
+            <Sfx name="pop" at={r('only')} /><Sfx name="pop" at={r('only', 10)} /><Sfx name="ding" at={r('netWt')} />
           </>
         )},
       ]} />

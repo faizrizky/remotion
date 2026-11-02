@@ -16,7 +16,7 @@ export const Ch1: React.FC = () => (
         {body: (r) => (
           <>
             <Chip text="costs go up" kind="warn" at={r('costs')} x={170} y={250} size={52} />
-            <P name="v3/obj_cereal_box.png" x={220} y={400} h={480} at={r('box4') - 6} />
+            <P name="v3/obj_cereal_box.png" x={220} y={400} h={480} at={r('box4', -6)} />
             <PopIn at={r('twoOpt')} style={{left: 780, top: 250}}><Pill text="two options" bg="#2B1230" size={52} /></PopIn>
             <InfoCard title="Option 1: raise the price" at={r('opt1')} x={780} y={380} w={820} size={52} />
             <FromTo from="$4" to="$4.50" at={r('box4')} swapAt={r('b450')} x={800} y={560} size={110} />
@@ -54,9 +54,9 @@ export const Ch1: React.FC = () => (
             <BeforeAfter swapAt={r('gaps')}
               before={<P name="v3/obj_choc_peaks_full.png" x={260} y={440} w={900} at={r('toblerone')} />}
               after={<P name="v3/obj_choc_peaks_gappy.png" x={260} y={500} w={900} at={r('gaps')} />} />
-            <KeyTag text="wider gaps" at={r('gaps') + 8} style={{left: 1260, top: 330}} size={70} />
+            <KeyTag text="wider gaps" at={r('gaps', 8)} style={{left: 1260, top: 330}} size={70} />
             <Src text={SRC_TOB} at={r('toblerone')} />
-            <Sfx name="pop" at={r('y2016')} /><Sfx name="pop" at={r('toblerone')} /><Sfx name="shrink" at={r('gaps')} /><Sfx name="pop" at={r('gaps') + 8} />
+            <Sfx name="pop" at={r('y2016')} /><Sfx name="pop" at={r('toblerone')} /><Sfx name="shrink" at={r('gaps')} /><Sfx name="pop" at={r('gaps', 8)} />
           </>
         )},
         // 5: the big bar: 400 g -> 360 g
@@ -74,8 +74,8 @@ export const Ch1: React.FC = () => (
             <P name="v3/obj_choc_peaks_gappy.png" x={170} y={290} w={900} at={-30} />
             <CheckRow text="shape: same" at={6} x={260} y={600} />
             <CheckRow text="chocolate: less" ok={false} at={r('choco')} x={260} y={740} />
-            <Centered at={r('choco') + 14} x={CH1_TAG.x} y={CH1_TAG.y}><TagNode text="$4" /></Centered>
-            <Sfx name="pop" at={6} /><Sfx name="pop" at={r('choco')} /><Sfx name="pop" at={r('choco') + 14} />
+            <Centered carried at={r('choco', 14)} x={CH1_TAG.x} y={CH1_TAG.y}><TagNode text="$4" /></Centered>
+            <Sfx name="pop" at={6} /><Sfx name="pop" at={r('choco')} /><Sfx name="pop" at={r('choco', 14)} />
           </>
         )},
       ]} />

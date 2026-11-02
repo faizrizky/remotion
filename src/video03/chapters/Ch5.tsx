@@ -19,8 +19,8 @@ export const Ch5: React.FC = () => (
         {trans: 'join', pan: 'l', carry: {from: [CH4_CEREAL.x, CH4_CEREAL.y], to: [BOX.x, BOX.y], src: 'v3/obj_cereal_box.png', h: CH4_CEREAL.h, handoff: true}, body: (r) => (
           <>
             <P name="v3/obj_gov_building.png" x={150} y={360} h={460} at={6} />
-            <Centered x={BOX.x} y={BOX.y}><Prop name="v3/obj_cereal_box.png" h={CH4_CEREAL.h} /></Centered>
-            <PopIn at={r('detective') - 4} style={{left: 860, top: 330}}><Magnifier size={300} /></PopIn>
+            <Centered carried x={BOX.x} y={BOX.y}><Prop name="v3/obj_cereal_box.png" h={CH4_CEREAL.h} /></Centered>
+            <PopIn at={r('detective', -4)} style={{left: 860, top: 330}}><Magnifier size={300} /></PopIn>
             <Chip text="no more detective work" kind="warn" at={r('detective')} x={800} y={700} size={50} />
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={6} /><Sfx name="pop" at={r('detective')} />
           </>
@@ -30,11 +30,11 @@ export const Ch5: React.FC = () => (
           <>
             <PopIn at={4} style={{left: 170, top: 300}}><Flag kind="fr" h={220} /></PopIn>
             <PopIn at={r('july')} style={{left: 160, top: 600}}><Pill text="France · since July 2024" bg="#1F4E9E" size={48} /></PopIn>
-            <InfoCard title="Large supermarkets must put up a notice" at={r('notice') - 10} x={780} y={270} w={940} size={50} />
+            <InfoCard title="Large supermarkets must put up a notice" at={r('notice', -10)} x={780} y={270} w={940} size={50} />
             <PopIn at={r('notice')} style={{left: 900, top: 520}}><ShrankSticker size={240} /></PopIn>
-            <P name="v3/obj_cereal_box.png" x={1260} y={470} h={400} at={r('notice') + 6} />
+            <P name="v3/obj_cereal_box.png" x={1260} y={470} h={400} at={r('notice', 6)} />
             <Src text={FR} at={r('july')} />
-            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('july')} /><Sfx name="pop" at={r('notice') - 10} /><Sfx name="pop" at={r('notice')} />
+            <Sfx name="pop" at={4} /><Sfx name="pop" at={r('july')} /><Sfx name="pop" at={r('notice', -10)} /><Sfx name="pop" at={r('notice')} />
           </>
         )},
         // 3: ...on products that shrank while the price per unit went up
@@ -44,9 +44,9 @@ export const Ch5: React.FC = () => (
             <PopIn at={r('shrank')} style={{left: 360, top: 300}}><ShrankSticker size={210} /></PopIn>
             <CheckRow text="the product shrank" at={r('shrank')} x={860} y={340} />
             <CheckRow text="price per unit went up" at={r('unit')} x={860} y={490} />
-            <Chip text="both -> a notice on the shelf" at={r('unit') + 16} x={870} y={650} size={46} />
+            <Chip text="both -> a notice on the shelf" at={r('unit', 16)} x={870} y={650} size={46} />
             <Src text={FR} />
-            <Sfx name="pop" at={r('shrank')} /><Sfx name="pop" at={r('unit')} /><Sfx name="pop" at={r('unit') + 16} />
+            <Sfx name="pop" at={r('shrank')} /><Sfx name="pop" at={r('unit')} /><Sfx name="pop" at={r('unit', 16)} />
           </>
         )},
         // 4: break the rule -> fined up to EUR 15,000
@@ -63,7 +63,7 @@ export const Ch5: React.FC = () => (
           <>
             <PopIn at={4} style={{left: 170, top: 300}}><Flag kind="kr" h={220} /></PopIn>
             <PopIn at={10} style={{left: 160, top: 600}}><Pill text="South Korea" bg="#D62E3B" size={52} /></PopIn>
-            <Chip text="companies must disclose it:" at={r('korea') + 20} x={860} y={250} size={46} />
+            <Chip text="companies must disclose it:" at={r('korea', 20)} x={860} y={250} size={46} />
             <CheckRow text="on the package" at={r('pkg')} x={860} y={360} />
             <CheckRow text="in the store" at={r('store')} x={860} y={500} />
             <CheckRow text="or online" at={r('online')} x={860} y={640} />
@@ -87,7 +87,7 @@ export const Ch5: React.FC = () => (
             <Stamp text="NOT PASSED" at={r('nonePassed')} x={260} y={520} size={96} />
             <Bubble text="you're on your own..." at={r('own')} tail="left" style={{left: 1080, top: 280}} size={52} />
             <KeyTag text="...almost." at={r('almost')} style={{left: 1150, top: 470}} size={80} />
-            <Centered at={r('almost') + 8} x={CH5_STICKER.x} y={CH5_STICKER.y}><ShrankSticker size={200} /></Centered>
+            <Centered carried at={r('almost', 8)} x={CH5_STICKER.x} y={CH5_STICKER.y}><ShrankSticker size={200} /></Centered>
             <Src text="Congress.gov, 118th Congress (S.3819)" at={r('nonePassed')} />
             <Sfx name="pop" at={4} /><Sfx name="stamp" at={r('nonePassed')} /><Sfx name="pop" at={r('own')} /><Sfx name="pop" at={r('almost')} />
           </>

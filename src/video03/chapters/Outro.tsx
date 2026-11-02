@@ -16,9 +16,9 @@ export const Outro: React.FC = () => (
         {trans: 'join', pan: 'l', carry: {from: [CH6_BASKET.x, CH6_BASKET.y], to: [BASKET.x, BASKET.y], src: 'v3/obj_basket.png', h: CH6_BASKET.h, handoff: true}, body: (r) => (
           <>
             <LeoBadge head="head_thinking.png" at={8} x={150} y={300} size={360} />
-            <Centered x={BASKET.x} y={BASKET.y}><Prop name="v3/obj_basket.png" h={CH6_BASKET.h} /></Centered>
+            <Centered carried x={BASKET.x} y={BASKET.y}><Prop name="v3/obj_basket.png" h={CH6_BASKET.h} /></Centered>
             <PriceTag text="$4" at={r('wrongNum')} x={600} y={300} />
-            <Chip text="the wrong number" kind="warn" at={r('wrongNum') + 6} x={600} y={500} size={44} />
+            <Chip text="the wrong number" kind="warn" at={r('wrongNum', 6)} x={600} y={500} size={44} />
             <Chip text="the one they want you to see" at={r('want')} x={150} y={860} size={40} />
             <Disclaimer />
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={8} /><Sfx name="pop" at={r('wrongNum')} /><Sfx name="pop" at={r('want')} />
@@ -56,7 +56,7 @@ export const Outro: React.FC = () => (
         // 5: subscribe + see you next time (end screen on the right)
         {body: (r) => (
           <>
-            <LeoBadge head="head_happy.png" at={4} x={250} y={250} size={380} />
+            <LeoBadge head="head_happy.png" at={4} x={158} y={250} size={380} />
             <PopIn at={r('subscribe')} style={{left: 160, top: 680}}><Pill text="Subscribe" bg="#FFD23F" color="#191411" size={60} /></PopIn>
             <WordSwipe text="See you next time!" at={r('seeYou')} x={170} y={800} size={86} />
             <Disclaimer />

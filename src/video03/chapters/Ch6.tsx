@@ -20,7 +20,7 @@ export const Ch6: React.FC = () => (
         {trans: 'join', pan: 'r', carry: {from: [CH5_STICKER.x, CH5_STICKER.y], to: [STICKER.x, STICKER.y], node: <ShrankSticker size={200} />, handoff: true}, body: (r) => (
           <>
             <ShelfTag price="$4.00" unit="$0.29" at={8} x={250} y={330} scale={1.25} hiAt={r('unitPrice')} />
-            <Centered x={STICKER.x} y={STICKER.y}><ShrankSticker size={200} /></Centered>
+            <Centered carried x={STICKER.x} y={STICKER.y}><ShrankSticker size={200} /></Centered>
             <WordSwipe text="the unit price" at={r('unitPrice')} x={1020} y={700} size={110} />
             <Disclaimer />
             <Sfx name="whoosh" at={0} /><Sfx name="pop" at={8} /><Sfx name="scan_beep" at={r('unitPrice')} />
@@ -66,9 +66,9 @@ export const Ch6: React.FC = () => (
           <>
             <CheckRow text="on the tag? read it" at={r('read')} x={170} y={330} />
             <CheckRow text="not there? do the math" at={r('math')} x={170} y={480} />
-            <Phone at={r('math') + 6} x={1150} y={270} h={620}><CalcScreen at={r('math') + 16} /></Phone>
+            <Phone at={r('math', 6)} x={1150} y={270} h={620}><CalcScreen at={r('math', 16)} /></Phone>
             <Disclaimer />
-            <Sfx name="pop" at={r('read')} /><Sfx name="pop" at={r('math')} /><Sfx name="pop" at={r('math') + 6} />
+            <Sfx name="pop" at={r('read')} /><Sfx name="pop" at={r('math')} /><Sfx name="pop" at={r('math', 6)} />
           </>
         )},
         // 6: three habits. One: compare unit prices
@@ -97,7 +97,7 @@ export const Ch6: React.FC = () => (
             <HabitCard n={1} text={H1} at={-30} x={160} y={380} />
             <HabitCard n={2} text={H2} at={-30} x={160} y={560} color="#FF9F43" />
             <HabitCard n={3} text={H3} at={4} x={160} y={740} color="#E5484D" />
-            <Centered at={r('boxes')} x={CH6_BASKET.x} y={CH6_BASKET.y}><Prop name="v3/obj_basket.png" h={CH6_BASKET.h} /></Centered>
+            <Centered carried at={r('boxes')} x={CH6_BASKET.x} y={CH6_BASKET.y}><Prop name="v3/obj_basket.png" h={CH6_BASKET.h} /></Centered>
             <Disclaimer />
             <Sfx name="pop" at={4} /><Sfx name="pop" at={r('boxes')} />
           </>
