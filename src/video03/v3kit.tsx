@@ -172,25 +172,19 @@ const splitKeeps = (node: React.ReactNode): [React.ReactElement[], React.ReactNo
   const key = (c: React.ReactNode, i: number) => (React.isValidElement(c) ? React.cloneElement(c, {key: `k${i}`}) : c);
   return [keeps.map((c, i) => key(c, i) as React.ReactElement), rest.map(key)];
 };
-/** Draws a shot's kept elements: same entry as the content for joins, NO fade for swaps; handoff ones vanish at the cut, the others leave like the content. */
-const KeepLayer: React.FC<{keeps: React.ReactElement[]; trans: Trans; pan: PanDir; dur: number; exit: 'fade' | 'swap' | 'none'; exitPan?: PanDir}> = ({keeps, trans, pan, dur, exit, exitPan}) => {
+/** Draws a shot's kept elements UNDER the content (rule 1.32): NO fade for swaps; handoff ones vanish at the cut, the others leave like the content. */
+export const KeepLayer: React.FC<{keeps: React.ReactElement[]; trans: Trans; pan: PanDir; dur: number; exit: 'fade' | 'swap' | 'none'; exitPan?: PanDir}> = ({keeps, trans, pan, dur, exit, exitPan}) => {
   const f = useCurrentFrame();
   if (!keeps.length) return null;
   const hand = keeps.filter((c) => (c.props as {handoff?: boolean}).handoff);
   const stay = keeps.filter((c) => !(c.props as {handoff?: boolean}).handoff);
+  // Drawn inside the Scene (between world and content): JoinIn/JoinOut already move it with the camera,
+  // ink/wipe already clip it and ExitOut already fades it, so only the content-style fades are added here.
   let entry: React.CSSProperties = {};
-  if (trans === 'join') {
-    const e = easeIO(interpolate(f, [0, PAN_FRAMES], [0, 1], cl));
-    entry = {transform: `translateX(${(pan === 'r' ? 1 : -1) * JOIN_DIST * (1 - e)}px)`, opacity: interpolate(f, [PAN_FRAMES * 0.45, PAN_FRAMES], [0, 1], cl)};
-  } else if (trans !== 'swap' && trans !== 'none') {
-    entry = {opacity: interpolate(f, [0, TRANS_FRAMES[trans]], [0, 1], cl)};
-  }
+  if (trans === 'join') entry = {opacity: interpolate(f, [PAN_FRAMES * 0.45, PAN_FRAMES], [0, 1], cl)};
   let leave: React.CSSProperties = {};
-  if (exitPan) {
-    const t = interpolate(f, [dur, dur + PAN_FRAMES], [0, 1], cl);
-    leave = {transform: `translateX(${-(exitPan === 'r' ? 1 : -1) * JOIN_DIST * easeIO(t)}px)`, opacity: interpolate(t, [0.05, 0.45], [1, 0], cl)};
-  } else if (exit === 'swap') leave = {opacity: interpolate(f, [dur, dur + SWAP], [1, 0], cl)};
-  else if (exit === 'fade') leave = {opacity: interpolate(f, [dur - 10, dur + 6], [1, 0], cl)};
+  if (exitPan) leave = {opacity: interpolate(interpolate(f, [dur, dur + PAN_FRAMES], [0, 1], cl), [0.05, 0.45], [1, 0], cl)};
+  else if (exit === 'swap') leave = {opacity: interpolate(f, [dur, dur + SWAP], [1, 0], cl)};
   return (
     <AbsoluteFill style={entry}>
       {f < dur && hand}
@@ -201,9 +195,9 @@ const KeepLayer: React.FC<{keeps: React.ReactElement[]; trans: Trans; pan: PanDi
 
 /** What a carried object's copies need to know about their shot: is it a join-in, and when does its exit pan start. */
 const CarryClock = React.createContext<{joinIn: boolean; exitAt: number | null}>({joinIn: false, exitAt: null});
-type ShotProps = {from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: 'fade' | 'swap' | 'none'; exitPan?: PanDir; pan?: PanDir; carry?: CarrySpec; world: WorldPick; keeps?: React.ReactElement[]; children: React.ReactNode};
+type ShotProps = {from: number; to: number; trans?: Trans; tail?: number; seed?: string; exit?: 'fade' | 'swap' | 'none'; exitPan?: PanDir; pan?: PanDir; carry?: CarrySpec; world: WorldPick; children: React.ReactNode};
 /** One shot. It stays on screen through the next shot's transition, so there is never a gap. */
-export const Shot: React.FC<ShotProps> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = 'fade', exitPan, pan = 'r', carry, world, keeps = [], children}) => {
+export const Shot: React.FC<ShotProps> = ({from, to, trans = 'none', tail = 34, seed = 's', exit = 'fade', exitPan, pan = 'r', carry, world, children}) => {
   const d = TRANS_FRAMES[trans];
   const body =
     trans === 'ink' ? <InkReveal dur={d} seed={seed}>{children}</InkReveal>
@@ -222,7 +216,6 @@ export const Shot: React.FC<ShotProps> = ({from, to, trans = 'none', tail = 34, 
       <CarryClock.Provider value={{joinIn: trans === 'join' && !!carry, exitAt: exitPan ? to - from : null}}>
         <WorldCtx.Provider value={{...world, from}}>{inner}</WorldCtx.Provider>
       </CarryClock.Provider>
-      <KeepLayer keeps={keeps} trans={trans} pan={pan} dur={to - from} exit={exit} exitPan={exitPan} />
       <PaperTexture />
       {trans === 'join' && carry && <CarryFly c={carry} />}
     </Sequence>
@@ -255,13 +248,16 @@ export const Shots: React.FC<{b: (k: string) => number; len: number; c: Chapter;
         const last = k === n - 1;
         const r = (key: string, off = 0) => Math.max(0, Math.min(b(key) - from + off, to - from - ENTRANCE_LATE));
         const [keeps, rest] = splitKeeps(s.body(r, to - from));
+        const trans: Trans = s.trans ?? (k === 0 ? 'none' : 'swap');
+        const exit = last ? 'none' : (next.trans ?? 'swap') === 'swap' ? 'swap' : 'fade';
+        const under = <KeepLayer keeps={keeps} trans={trans} pan={s.pan ?? 'r'} dur={to - from} exit={exit} exitPan={last ? exitPan : undefined} />;
         return (
-          <Shot key={k} from={from} to={to} trans={s.trans ?? (k === 0 ? 'none' : 'swap')} seed={s.seed ?? `${c.id}${k}`} pan={s.pan} carry={s.carry} world={world} keeps={keeps}
+          <Shot key={k} from={from} to={to} trans={trans} seed={s.seed ?? `${c.id}${k}`} pan={s.pan} carry={s.carry} world={world}
             exitPan={last ? exitPan : undefined}
-            exit={last ? 'none' : (next.trans ?? 'swap') === 'swap' ? 'swap' : 'fade'}
+            exit={exit}
             tail={last ? len - to + 2 : 34}>
             {/* rule 1.31: no per-shot camera zoom (zoom={1}); it restarted at every swap and ghosted still objects */}
-            <Scene palette="sunrise" dur={to - from} zoom={1}>{rest}</Scene>
+            <Scene palette="sunrise" dur={to - from} zoom={1} under={under}>{rest}</Scene>
           </Shot>
         );
       })}
@@ -302,7 +298,7 @@ export const FromTo: React.FC<{from: string; to: string; unit?: string; at: numb
         <div style={{display: 'flex', alignItems: 'center', gap: 28}}>
           <div style={{position: 'relative', fontWeight: 900, fontSize: size, lineHeight: 1, opacity: f >= swapAt ? 0.5 : 1}}>
             {from}
-            <div style={{position: 'absolute', left: -8, top: '52%', height: size * 0.09, width: `calc(${strike * 100}% + 16px)`, background: '#E5484D', borderRadius: 8, transform: 'rotate(-6deg)'}} />
+            {strike > 0 && <div style={{position: 'absolute', left: -8, top: '52%', height: size * 0.09, width: `calc((100% + 16px) * ${strike})`, background: '#E5484D', borderRadius: 8, transform: 'rotate(-6deg)'}} />}
           </div>
           <PopIn at={swapAt} origin="0% 50%" style={{position: 'relative'}}>
             <div style={{display: 'flex', alignItems: 'center', gap: 22}}>
