@@ -10,6 +10,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 
 ## 0. Riwayat keputusan
 - 1 Nov (6): setiap video: suara dipotong jadi shot sesuai aturan dan tempo disetel agar tidak terlalu cepat maupun terlalu lambat (aturan 1.24).
+- 3 Nov (3): struktur folder hasil akhir di Mac: Final/Video NN/{Long,Short,Thumbnail}, Branding terpisah (1.35).
 - 3 Nov (2): aturan potong Short: tanpa fade suara di akhir, awal di frame yang tenang + awal kalimat (1.34).
 - 3 Nov (1): revisi Video 3: penanda selalu di atas benda (1.32), coretan tanpa titik merah sebelum mulai (1.33).
 - 2 Nov (4): zoom kamera per shot dimatikan karena benda diam tampak dobel saat swap (aturan 1.31).
@@ -78,6 +79,13 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 32. **Urutan lapisan: penanda selalu DI ATAS benda (3 Nov, revisi Video 3; SEMUA video).** Lingkaran/sorotan, label (net wt), stiker, tag, panah, dan tulisan yang menunjuk sebuah benda tidak boleh tertutup benda itu. Benda yang terbawa antar-shot (`Keep`) digambar di antara latar dan isi shot (prop `under` di `Scene`), jadi semua isi shot otomatis di atasnya. QA: render still setiap shot yang punya penanda di atas benda dan cek tidak ada yang tertutup (Video 3: ring + label "?? oz" di tub Bab 2, stiker di kotak sereal Bab 5).
 33. **Coretan tidak boleh muncul sebelum waktunya (3 Nov, revisi Video 3; SEMUA video).** Garis coret baru digambar saat coretan mulai; tidak boleh ada titik/sisa garis (misalnya lebar minimum) sebelum itu. `FromTo`: garis hanya dirender saat progres > 0 dan lebarnya `(100% + 16px) × progres`.
 34. **Titik potong Short (3 Nov; SEMUA Short).** (a) **Akhir:** tanpa fade-out suara (fade membuat suara terdengar terpotong). Potong 0,3 detik setelah kalimat terakhir benar-benar selesai, di jeda suara yang terdeteksi, bukan di tengah kata. (b) **Awal:** frame pertama harus tenang: tidak di tengah transisi, tidak ada benda yang sedang pop, dan tidak ada benda yang akan hilang dalam ~1 detik pertama. Suara langsung mulai dari awal kalimat (jeda pendek ±0,12 detik, bukan bagian "baru mau ngomong" yang menggantung). Benda baru boleh pop bersamaan dengan kata yang diucapkan setelah itu. Cara: `python3 -I scripts/short_pick.py <id>` mendaftar kandidat awal (awal kalimat yang dicocokkan ke jeda suara + nilai gerakan 1,2 detik pertama; tenang ≤ 1,6) dan kandidat akhir; lalu cek frame 0 / 0,4 / 0,8 / 1,2 detik kandidat yang dipilih. Durasi tetap 30–45 detik (maks ~46).
+
+35. **Struktur folder hasil akhir (3 Nov; SEMUA video).** Setiap selesai generate video, SRT, thumbnail (dan Short), Claude langsung menaruhnya di `/Users/faiz/Faiz Things/Project/YT/Final/` dengan struktur tetap:
+    - `Final/Video NN/Long/`: video panjang (.mp4), file subtitle (.srt), dan teks upload bila ada.
+    - `Final/Video NN/Short/`: semua Short dari video itu, nama `Short DDMon - judul.mp4` (tanggal tayang di depan).
+    - `Final/Video NN/Thumbnail/`: thumbnail final (`Thumbnail Video NN.jpg`, 1280x720).
+    - `Final/Branding/`: banner, watermark, dan aset channel lain; TIDAK dimasukkan ke folder per video.
+    - Versi lama dipindah ke subfolder `_old` (tidak dihapus tanpa izin), tidak dibiarkan bercampur dengan versi final. Folder video baru dibuat dengan tiga subfolder yang sama sejak awal.
 
 ## 2. Kebijakan latar: SETIAP scene punya gambar latar (direvisi 31 Okt)
 Mengikuti referensi: Kok Bisa? dan reel kertas hampir selalu memakai latar adegan ilustrasi. Latar polos ala Antidote (hitam) tidak dipakai.
