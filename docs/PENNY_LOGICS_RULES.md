@@ -10,6 +10,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 
 ## 0. Riwayat keputusan
 - 1 Nov (6): setiap video: suara dipotong jadi shot sesuai aturan dan tempo disetel agar tidak terlalu cepat maupun terlalu lambat (aturan 1.24).
+- 8 Nov (4): 14 latar V4 digenerate di akun gshinpact (satu chat) + 4 kartu warna dibuat di kode; semua di `public/v4/bg/`.
 - 8 Nov (3): pembuka video Style 2 harus divariasikan, tidak mirip referensi (1.45); 12 properti V4 sudah digenerate di akun gshinpact.
 - 8 Nov (2): generate gambar Gemini selalu di satu kolom chat, tidak pindah-pindah chat (1.44).
 - 8 Nov (1): semua generate gambar Gemini memakai akun gshinpact (1.44).
