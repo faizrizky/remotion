@@ -10,7 +10,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
 
 ## 0. Riwayat keputusan
 - 1 Nov (6): setiap video: suara dipotong jadi shot sesuai aturan dan tempo disetel agar tidak terlalu cepat maupun terlalu lambat (aturan 1.24).
-- 7 Nov (1): tokoh nyata tidak digambar sebagai karakter; pakai karakter generik atau kartu teks bersumber (1.36). Bedah referensi hanya mengambil struktur (1.37).
+- 7 Nov (1): tokoh nyata tidak di-generate; pakai cutout ala Antidote dengan foto dari owner + kartu sumber, atau kartu teks lembaga (1.36). Bedah referensi hanya mengambil struktur (1.37).
 - 3 Nov (3): struktur folder hasil akhir di Mac: Final/Video NN/{Long,Short,Thumbnail}, Branding terpisah (1.35).
 - 3 Nov (2): aturan potong Short: tanpa fade suara di akhir, awal di frame yang tenang + awal kalimat (1.34).
 - 3 Nov (1): revisi Video 3: penanda selalu di atas benda (1.32), coretan tanpa titik merah sebelum mulai (1.33).
@@ -88,7 +88,7 @@ Menggabungkan (31 Okt 2026): component_registry, hyperframes_onetake_plan, video
     - `Final/Branding/`: banner, watermark, dan aset channel lain; TIDAK dimasukkan ke folder per video.
     - Versi lama dipindah ke subfolder `_old` (tidak dihapus tanpa izin), tidak dibiarkan bercampur dengan versi final. Folder video baru dibuat dengan tiga subfolder yang sama sejak awal.
 
-36. **Tokoh nyata tidak digambar (7 Nov; SEMUA video).** Presiden, pejabat, CEO, dan orang terkenal tidak dibuat sebagai karakter bergaya kita (karikatur bisa dianggap menyindir atau menaruh kata di mulut mereka). Pakai karakter generik ("regulator", "CEO") atau kartu teks: jabatan/nama + kutipan singkat tertulis + "as reported by ...". Tidak ada foto tokoh publik di video. Klaim yang dibantah pihak terkait diberi label "claimed" / "denied by ...".
+36. **Tokoh nyata (7 Nov, direvisi owner; SEMUA video).** Tokoh nyata (presiden, pejabat, CEO, orang terkenal) TIDAK di-generate dengan gaya kita dan tidak dibuat mirip lewat AI. Kalau perlu menampilkan orangnya, tiru gaya Antidote: potret cutout bertepi putih tebal di atas panggung warna (`OutlinedCutout` di style kit) + kartu nama, jabatan, kutipan tertulis, dan sumber ("as reported by ..."). Foto DISEDIAKAN OWNER (foto resmi atau domain publik, mis. potret resmi lembaga pemerintah); Claude tidak mencari, mengunduh, atau memasukkan foto tokoh dari web sendiri. Kutipan harus nyata dan bersumber; tanpa edit yang mengolok. Sering cukup lembaga sebagai kartu teks (FTC, Consumer Reports) tanpa orang. Klaim yang dibantah pihak terkait diberi label "claimed" / "denied by ...".
 37. **Bedah referensi: struktur saja (7 Nov; SEMUA video).** Dari video orang lain hanya diambil kerangka (hook, urutan beat, tempo, pengait); fakta, contoh, visual, dan suara dibuat sendiri dari sumber primer. Tidak menyalin kalimat atau urutan persis. Hasil bedah disimpan sebagai `videoNN_reference_teardown.md` (contoh: V4). Setiap angka dari video referensi diverifikasi ke sumber primer sebelum dipakai (aturan 1.10).
 
 ## 2. Kebijakan latar: SETIAP scene punya gambar latar (direvisi 31 Okt)
