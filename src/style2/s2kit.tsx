@@ -2,7 +2,7 @@
 // ("How Are Americans Buying $80,000 Trucks on a $70,000 Salary?", see docs video04_animation_teardown.md).
 // Only the techniques are taken; every drawing here is our own. Characters/props stay Penny Logics style.
 import React from 'react';
-import {AbsoluteFill, Html5Audio, Img, interpolate, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, continueRender, delayRender, Html5Audio, Img, interpolate, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {SANS} from '../style/style_kit';
 
 export const W = 1920;
@@ -47,8 +47,11 @@ export const Cam: React.FC<{keys: Key[]; drift?: number; children: React.ReactNo
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
   const c = camAt(f, keys, fps, drift);
+  const p = camAt(Math.max(0, f - 1), keys, fps, 0), q = camAt(f, keys, fps, 0);
+  const moving = Math.hypot(q.x - p.x, q.y - p.y) * q.z > 0.5 || Math.abs(Math.log(q.z / p.z)) > 0.003;
   return (
     <AbsoluteFill style={{background: bg, overflow: 'hidden'}}>
+      {moving && <div data-fg-cammove="1" />}
       <div style={{position: 'absolute', left: 0, top: 0, transformOrigin: '0 0', transform: `translate(${W / 2 - c.x * c.z}px, ${H / 2 - c.y * c.z}px) scale(${c.z})`}}>{children}</div>
     </AbsoluteFill>
   );
@@ -187,7 +190,7 @@ export const Pill2: React.FC<{text: React.ReactNode; at: number; x: number; y: n
   if (f < at) return null;
   const s = pop(f, at, fps);
   return (
-    <div style={{position: 'absolute', left: x, top: y, transform: `translate(${anchor === 'center' ? '-50%' : '0'}, -50%) scale(${s})`, transformOrigin: anchor === 'center' ? '50% 50%' : '0% 50%', background: bg, color, fontFamily: SANS, fontWeight: 800, fontSize: size, padding: `${size * 0.22}px ${size * 0.5}px`, borderRadius: size * 0.28, whiteSpace: 'nowrap', boxShadow: '0 10px 24px rgba(0,0,0,0.28)', textTransform: 'uppercase', letterSpacing: 0.5}}>{text}</div>
+    <div data-fg="pill" style={{position: 'absolute', left: x, top: y, transform: `translate(${anchor === 'center' ? '-50%' : '0'}, -50%) scale(${s})`, transformOrigin: anchor === 'center' ? '50% 50%' : '0% 50%', background: bg, color, fontFamily: SANS, fontWeight: 800, fontSize: size, padding: `${size * 0.22}px ${size * 0.5}px`, borderRadius: size * 0.28, whiteSpace: 'nowrap', boxShadow: '0 10px 24px rgba(0,0,0,0.28)', textTransform: 'uppercase', letterSpacing: 0.5}}>{text}</div>
   );
 };
 /** Letters drop in one by one and bounce (reference 2:13). */
@@ -196,7 +199,7 @@ export const LetterBounce: React.FC<{text: string; at: number; x: number; y: num
   const {fps} = useVideoConfig();
   const chars = text.split('');
   return (
-    <div style={{position: 'absolute', left: x, top: y, transform: 'translate(-50%, -50%)', fontFamily: SANS, fontWeight: 900, fontSize: size, color, whiteSpace: 'nowrap', textShadow: '0 8px 0 rgba(0,0,0,0.35)', display: 'flex'}}>
+    <div data-fg="letters" style={{position: 'absolute', left: x, top: y, transform: 'translate(-50%, -50%)', fontFamily: SANS, fontWeight: 900, fontSize: size, color, whiteSpace: 'nowrap', textShadow: '0 8px 0 rgba(0,0,0,0.35)', display: 'flex'}}>
       {chars.map((ch, i) => {
         const t0 = at + i * gap;
         if (f < t0) return <span key={i} style={{opacity: 0}}>{ch === ' ' ? ' ' : ch}</span>;
@@ -207,13 +210,13 @@ export const LetterBounce: React.FC<{text: string; at: number; x: number; y: num
   );
 };
 /** Context chip top-left ("LOCATION: Texas", "DATE: 2024"). */
-export const Chip2: React.FC<{label: string; value: string; icon: 'pin' | 'cal'; at: number; x?: number; y?: number}> = ({label, value, icon, at, x = 40, y = 40}) => {
+export const Chip2: React.FC<{label: string; value: string; icon: 'pin' | 'cal'; at: number; x?: number; y?: number}> = ({label, value, icon, at, x = 132, y = 60}) => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
   if (f < at) return null;
   const s = pop(f, at, fps);
   return (
-    <div style={{position: 'absolute', left: x, top: y, transform: `translateX(${(1 - s) * -60}px)`, background: '#FFFFFF', borderRadius: 12, padding: '10px 22px 10px 14px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 16px rgba(0,0,0,0.22)', fontFamily: SANS}}>
+    <div data-fg="chip" style={{position: 'absolute', left: x, top: y, transform: `translateX(${(1 - s) * -60}px)`, background: '#FFFFFF', borderRadius: 12, padding: '10px 22px 10px 14px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 16px rgba(0,0,0,0.22)', fontFamily: SANS}}>
       {icon === 'pin' ? (
         <svg width={40} height={46} viewBox="0 0 40 46"><path d="M20 44 C20 44 4 26 4 16 A16 16 0 0 1 36 16 C36 26 20 44 20 44Z" fill="#E5484D" /><circle cx={20} cy={16} r={6} fill="#fff" /></svg>
       ) : (
@@ -231,7 +234,7 @@ export const Src2: React.FC<{text: string; at: number}> = ({text, at}) => {
   const f = useCurrentFrame();
   if (f < at) return null;
   return (
-    <div style={{position: 'absolute', left: W / 2, bottom: 34, transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 10, fontFamily: SANS, fontSize: 18}}>
+    <div data-fg="src" style={{position: 'absolute', left: W / 2, bottom: 62, transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 10, fontFamily: SANS, fontSize: 18}}>
       <span style={{color: '#fff', fontWeight: 800, textShadow: '0 2px 4px rgba(0,0,0,0.6)'}}>FACT SOURCE:</span>
       <span style={{background: '#fff', color: INK, fontWeight: 600, padding: '3px 12px', borderRadius: 4}}>{text}</span>
     </div>
@@ -243,11 +246,11 @@ export const Count: React.FC<{to: number; at: number; dur?: number; prefix?: str
   const v = to * ease(interpolate(f, [at, at + dur], [0, 1], C));
   return <>{prefix}{v.toLocaleString('en-US', {minimumFractionDigits: decimals, maximumFractionDigits: decimals})}{suffix}</>;
 };
-export const Popped: React.FC<{at: number; x: number; y: number; children: React.ReactNode; origin?: string}> = ({at, x, y, children, origin = '50% 100%'}) => {
+export const Popped: React.FC<{at: number; x: number; y: number; children: React.ReactNode; origin?: string; id?: string}> = ({at, x, y, children, origin = '50% 100%', id}) => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
   if (f < at) return null;
-  return <div style={{position: 'absolute', left: x, top: y, transform: `scale(${pop(f, at, fps)})`, transformOrigin: origin}}>{children}</div>;
+  return <div data-fg={id} style={{position: 'absolute', left: x, top: y, transform: `scale(${pop(f, at, fps)})`, transformOrigin: origin}}>{children}</div>;
 };
 
 // ---------- backgrounds (Style 2: flat, soft gradients, no outlines; placeholders until Gemini art) ----------
@@ -289,7 +292,7 @@ export const Car: React.FC<{color: string; w?: number; tag?: string; tagColor?: 
 };
 /** Leo full body (existing art). */
 export const Leo: React.FC<{pose: 'calm' | 'shocked' | 'happy' | 'thinking' | 'proud' | 'suspicious'; h: number; flip?: boolean}> = ({pose, h, flip}) => (
-  <Img src={staticFile(`leofull/leofull_${pose}.png`)} style={{height: h, transform: flip ? 'scaleX(-1)' : undefined}} />
+  <Img data-fg="leo" src={staticFile(`leofull/leofull_${pose}.png`)} style={{height: h, transform: flip ? 'scaleX(-1)' : undefined}} />
 );
 
 // ---------- timeline: scenes joined by wipes or straight camera joins ----------
@@ -307,7 +310,7 @@ export const Timeline: React.FC<{scenes: SceneDef[]; joins: Join[]}> = ({scenes,
     const j = joins[i];
     if (j && j.kind !== 'cut' && f >= end - j.dur && f < end) {
       const t = (f - (end - j.dur)) / j.dur;
-      return <WipeFx id={`j${i}`} kind={j.kind} t={t} a={at(i)} b={at(i + 1)} cx={j.cx} cy={j.cy} color={j.color} />;
+      return <><WipeFx id={`j${i}`} kind={j.kind} t={t} a={at(i)} b={at(i + 1)} cx={j.cx} cy={j.cy} color={j.color} /><div data-fg-wipe="1" /></>;
     }
     if (f < end || i === scenes.length - 1) {
       if (f >= starts[i]) return <AbsoluteFill>{at(i)}</AbsoluteFill>;
@@ -316,3 +319,157 @@ export const Timeline: React.FC<{scenes: SceneDef[]; joins: Join[]}> = ({scenes,
   return null;
 };
 export const timelineLength = (scenes: SceneDef[], joins: Join[]) => scenes.reduce((s, x) => s + x.len, 0) - joins.reduce((s, j) => s + (j.kind === 'cut' ? 0 : j.dur), 0);
+
+// ---------- layout probe (rule 1.43: no overlap, nothing off-screen, nothing hidden behind) ----------
+// Foreground elements carry data-fg="<id>" (and optional data-fg-under="1" when shown over a DimPill).
+// With inputProps {check: true}, every still logs their boxes; scripts/s2check.mjs checks them.
+export const LayoutProbe: React.FC<{check?: boolean}> = ({check}) => {
+  const f = useCurrentFrame();
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    if (!check) return;
+    const h = delayRender('layout probe');
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (ref.current) {
+        const o = ref.current.getBoundingClientRect();
+        const k = o.width > 0 ? o.width / W : 1;
+        const all = Array.from(document.querySelectorAll('[data-fg]')) as HTMLElement[];
+        const els = all.filter((el) => !(el.parentElement && el.parentElement.closest('[data-fg]:not([data-fg-dim])'))).map((el) => {
+          const r = el.getBoundingClientRect();
+          return {id: el.dataset.fg, exit: !!el.closest('[data-fg-exit="1"]'), dim: !!el.closest('[data-fg-dim="1"]'), x: Math.round((r.left - o.left) / k), y: Math.round((r.top - o.top) / k), w: Math.round(r.width / k), h: Math.round(r.height / k)};
+        }).filter((bx) => bx.w > 2 && bx.h > 2);
+        // eslint-disable-next-line no-console
+        console.log('S2BOX ' + JSON.stringify({f, wipe: !!document.querySelector('[data-fg-wipe]'), cam: !!document.querySelector('[data-fg-cammove]'), els}));
+      }
+      continueRender(h);
+    }));
+  }, [f, check]);
+  return check ? <AbsoluteFill ref={ref} style={{pointerEvents: 'none'}} /> : null;
+};
+
+// ---------- DimPill: whole scene darkens, white pill on top (reference pattern, 14x) ----------
+export const DimPill: React.FC<{text: React.ReactNode; at: number; size?: number; y?: number; until?: number}> = ({text, at, size = 64, y = H / 2, until}) => {
+  const f = useCurrentFrame();
+  if (f < at || (until !== undefined && f >= until)) return null;
+  const k = interpolate(f, [at, at + 5], [0, 0.5], C);
+  return (
+    <AbsoluteFill>
+      <AbsoluteFill style={{background: `rgba(8,10,20,${k})`}} />
+      <div data-fg="dimpill" data-fg-dim="1" style={{position: 'absolute', left: W / 2, top: y, width: 0, height: 0}}>
+        <Pill2 text={text} at={at + 2} x={0} y={0} size={size} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// ---------- entrances (reference: almost nothing just appears) ----------
+export type EnterKind = 'pop' | 'left' | 'right' | 'rise' | 'drop' | 'flip' | 'grow';
+/** Wraps a positioned element; it enters with the given motion and a small overshoot. */
+export const Enter: React.FC<{kind: EnterKind; at: number; x: number; y: number; children: React.ReactNode; id?: string; dist?: number}> = ({kind, at, x, y, children, id, dist = 700}) => {
+  const f = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  if (f < at) return null;
+  const s = spring({frame: f - at, fps, config: {damping: 12, stiffness: 140, mass: 0.8}});
+  let t = '';
+  if (kind === 'pop') t = `scale(${s})`;
+  if (kind === 'grow') t = `scale(${Math.max(0.02, s)})`;
+  if (kind === 'left') t = `translateX(${(1 - s) * -dist}px)`;
+  if (kind === 'right') t = `translateX(${(1 - s) * dist}px)`;
+  if (kind === 'rise') t = `translateY(${(1 - s) * dist}px) rotate(${(1 - s) * -6}deg)`;
+  if (kind === 'drop') t = `translateY(${(1 - s) * -dist}px)`;
+  if (kind === 'flip') t = `perspective(1400px) rotateX(${(1 - s) * 95}deg)`;
+  return <div data-fg={id} style={{position: 'absolute', left: x, top: y, transform: t, transformOrigin: kind === 'flip' ? '50% 100%' : '50% 100%'}}>{children}</div>;
+};
+
+// ---------- cartoon smoke: a car drives off inside it (SmokeOut) or something appears from it (SmokeIn) ----------
+export const SmokePuff: React.FC<{at: number; x: number; y: number; size?: number; dur?: number}> = ({at, x, y, size = 1, dur = 26}) => {
+  const f = useCurrentFrame();
+  const t = (f - at) / dur;
+  if (t < 0 || t > 1) return null;
+  const grow = t < 0.45 ? ease(t / 0.45) : 1;
+  const burst = t > 0.55 ? ease((t - 0.55) / 0.45) : 0;
+  const balls = Array.from({length: 11}, (_, i) => ({dx: Math.cos(i * 2.1) * (60 + (i % 3) * 50), dy: -Math.abs(Math.sin(i * 1.3)) * (70 + (i % 4) * 30), r: 70 + (i % 4) * 26}));
+  return (
+    <svg width={900 * size} height={700 * size} viewBox="-450 -560 900 700" style={{position: 'absolute', left: x - 450 * size, top: y - 560 * size, overflow: 'visible'}}>
+      {balls.map((b, i) => {
+        const r = b.r * grow * (1 - burst * 0.9);
+        const ox = b.dx * (1 + burst * 2.2), oy = b.dy * (1 + burst * 1.6);
+        return r > 1 ? <g key={i}><circle cx={ox} cy={oy + 10} r={r} fill="#C9D6E0" /><circle cx={ox} cy={oy} r={r} fill="#FFFFFF" /></g> : null;
+      })}
+    </svg>
+  );
+};
+
+// ---------- money pile built layer by layer (reference 1:10) ----------
+const Bundle: React.FC<{w: number}> = ({w}) => (
+  <svg width={w} height={w * 0.42} viewBox="0 0 200 84" style={{overflow: 'visible'}}>
+    <path d="M10 30 L150 30 L190 14 L50 14Z" fill="#9BD86A" stroke={INK} strokeWidth={4} strokeLinejoin="round" />
+    <path d="M10 30 L150 30 L150 70 L10 70Z" fill="#6DBE45" stroke={INK} strokeWidth={4} strokeLinejoin="round" />
+    <path d="M150 30 L190 14 L190 54 L150 70Z" fill="#4E9A32" stroke={INK} strokeWidth={4} strokeLinejoin="round" />
+    <rect x={64} y={30} width={18} height={40} fill="#F2EDE9" stroke={INK} strokeWidth={3} />
+    {[40, 50, 60].map((yy) => <line key={yy} x1={12} y1={yy} x2={148} y2={yy} stroke="#3F7F28" strokeWidth={2} />)}
+  </svg>
+);
+export const MoneyPile: React.FC<{at: number; x: number; y: number; rows?: number; w?: number; stagger?: number}> = ({at, x, y, rows = 4, w = 180, stagger = 3}) => {
+  const f = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const items: {cx: number; cy: number; i: number}[] = [];
+  let i = 0;
+  for (let r = 0; r < rows; r++) {
+    const n = rows - r;
+    for (let c = 0; c < n; c++) items.push({cx: (c - (n - 1) / 2) * w * 0.86, cy: -r * w * 0.3, i: i++});
+  }
+  return (
+    <div style={{position: 'absolute', left: x, top: y}}>
+      {items.map((it) => {
+        const t0 = at + it.i * stagger;
+        if (f < t0) return null;
+        const s = spring({frame: f - t0, fps, config: {damping: 10, stiffness: 220, mass: 0.6}});
+        return <div key={it.i} style={{position: 'absolute', left: it.cx - w / 2, top: it.cy - w * 0.42 - (1 - s) * 160, opacity: Math.min(1, (f - t0) / 2)}}><Bundle w={w} /></div>;
+      })}
+    </div>
+  );
+};
+
+// ---------- calendar that flips in, then red X marks one by one (reference 14:26) ----------
+export const CalendarX: React.FC<{at: number; x: number; y: number; marks: number; every?: number; w?: number}> = ({at, x, y, marks, every = 7, w = 620}) => {
+  const f = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  if (f < at) return null;
+  const s = spring({frame: f - at, fps, config: {damping: 11, stiffness: 120, mass: 0.9}});
+  const h = w * 0.78;
+  const cell = (w - 60) / 7;
+  return (
+    <div data-fg="calendar" style={{position: 'absolute', left: x, top: y, width: w, height: h, transform: `perspective(1600px) rotateX(${(1 - s) * 100}deg) rotate(${(1 - s) * -8 - 3}deg)`, transformOrigin: '50% 100%'}}>
+      <div style={{position: 'absolute', inset: 0, background: '#FFFFFF', borderRadius: 14, border: `5px solid ${INK}`, boxShadow: '10px 12px 0 rgba(0,0,0,0.18)'}} />
+      <div style={{position: 'absolute', left: 0, top: 0, width: '100%', height: 70, background: '#E5484D', borderRadius: '10px 10px 0 0', borderBottom: `5px solid ${INK}`}} />
+      {Array.from({length: 7}, (_, i) => <div key={i} style={{position: 'absolute', left: 40 + i * (w - 80) / 6, top: -18, width: 14, height: 44, borderRadius: 7, background: '#9AA5B8', border: `4px solid ${INK}`}} />)}
+      {Array.from({length: 35}, (_, i) => (
+        <div key={i} style={{position: 'absolute', left: 30 + (i % 7) * cell, top: 95 + Math.floor(i / 7) * (cell * 0.72), width: cell - 8, height: cell * 0.72 - 8, borderRadius: 6, background: '#F3EFE8'}} />
+      ))}
+      {Array.from({length: marks}, (_, i) => {
+        const t0 = at + 18 + i * every;
+        if (f < t0) return null;
+        const k = spring({frame: f - t0, fps, config: {damping: 9, stiffness: 260, mass: 0.5}});
+        return <div key={`x${i}`} style={{position: 'absolute', left: 30 + (i % 7) * cell, top: 88 + Math.floor(i / 7) * (cell * 0.72), width: cell - 8, fontFamily: SANS, fontWeight: 900, fontSize: cell * 0.7, color: '#E5484D', textAlign: 'center', transform: `scale(${k})`}}>✕</div>;
+      })}
+    </div>
+  );
+};
+
+/** Title typed letter by letter with a small wave on each new letter (reference: most titles). */
+export const TypeWave: React.FC<{text: string; at: number; x: number; y: number; size?: number; color?: string; rate?: number; align?: 'center' | 'left'}> = ({text, at, x, y, size = 72, color = '#FFFFFF', rate = 1.2, align = 'center'}) => {
+  const f = useCurrentFrame();
+  const n = Math.floor((f - at) * rate);
+  if (n <= 0) return null;
+  return (
+    <div data-fg="title" style={{position: 'absolute', left: x, top: y, transform: `translate(${align === 'center' ? '-50%' : '0'}, -50%)`, fontFamily: SANS, fontWeight: 900, fontSize: size, color, whiteSpace: 'nowrap', textShadow: '0 6px 0 rgba(0,0,0,0.3)'}}>
+      {text.split('').map((ch, i) => {
+        if (i >= n) return null;
+        const age = n - i;
+        const wob = age < 6 ? (6 - age) / 6 : 0;
+        return <span key={i} style={{display: 'inline-block', transform: `translateY(${wob * 18 * Math.sin(i)}px) rotate(${wob * 14 * Math.cos(i)}deg) scale(${1 - wob * 0.25})`}}>{ch === ' ' ? ' ' : ch}</span>;
+      })}
+    </div>
+  );
+};

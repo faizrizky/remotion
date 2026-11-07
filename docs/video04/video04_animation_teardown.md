@@ -95,6 +95,47 @@ Dibuat 7 Nov 2026 dari mp4 yang diunggah owner. Tujuan: mencatat CARA animasinya
 | 16:00–17:00 | Pensiunan khawatir; pai dana pensiun publik (kredit swasta); koran keuangan; "do you know where our pension is invested?" | zoom-out; kembali ke truk dari langit (16:54) | percikan hijau (16:44) | bubble chat; pai tumbuh |
 | 17:00–17:30 | "They're not"; callback bank dan truk derek; layar akhir "Watch this" | zoom-out + pan kiri | - | struk panjang; truk derek |
 
+## Bedah ulang frame demi frame (7 Nov malam, setelah koreksi owner)
+Koreksi: bedah pertama hanya melihat 1 frame per 2 detik + 12 transisi, jadi banyak animasi terlewat. Bedah ulang: SELURUH video 2 frame per detik (2.100 frame, 18 lembar per menit) + 6 frame per detik di titik yang owner sebut. Semua pola di bawah tercatat dengan contoh waktunya.
+
+### Titik dari owner (dicek 6 fps)
+| Waktu | Yang terjadi (urutan frame) | Nama di kit |
+|---|---|---|
+| 0:07.3–0:09.5 | Truk berbaris lewat; latar **digelapkan sekitar 50% dalam 0,2 dtk**; pill putih "$80,000 TRUCKS" pop dari kecil ke penuh; pill diam di atas latar gelap; dari sudut pill keluar cairan biru yang menyapu layar | `DimPill` |
+| 0:10.0–0:15.6 | Wajah close-up meluncur masuk dari kiri (sedikit memantul) → kamera mundur pelan; di belakangnya papan tulis besar muncul: grid dulu, lalu garis grafik tergambar kiri→kanan, judul dan tahun diketik huruf per huruf; kamera terus mundur sampai papan, tiang, dan ruangan terlihat; ditutup sinar putih pecah | `PullBackBoard` |
+| 1:09.3–1:14.0 | Ledakan tinta hitam dari tengah → latar marun; **tumpukan uang dibangun bertahap**: 2 ikat muncul, lalu lapisan demi lapisan jatuh dan memantul kecil sampai jadi piramida (sekitar 1,4 dtk); kamera mundur sedikit; teks "$1.7 TRILLION" diketik bergelombang; label sumber; lalu kamera whip ke kanan ke adegan berikutnya | `MoneyPile` |
+| 6:51.5–6:52.6 | Asap knalpot kecil di belakang truk → **awan asap putih besar mengembang** menutupi truk, truk melaju keluar di balik asap, asap pecah jadi gumpalan kecil lalu hilang; orang tertinggal sendirian | `SmokeOut` |
+| 6:53.1–6:54.0 | **Kepulan asap kecil muncul di lantai**, karakter BANK keluar dari asap sambil membawa kertas "CREDIT DEBT"; sisa asap pecah ke luar | `SmokeIn` |
+| 7:04.6–7:08.5 | Layar pecah jadi partikel → meja tampak atas; **kamera terus geser ke kiri** (tanaman, kacamata keluar ke kanan), buku catatan masuk dari kiri atas, lalu **papan klip naik dari bawah** ke tengah dengan pantulan dan sedikit rotasi; judul diketik bergelombang | `SlideRise` |
+| 14:25.0–14:30.3 | Kamera geser menjauh dari pembaca koran ke latar tosca kosong; **kalender jatuh-terbalik masuk** (berputar dari bawah seperti halaman dibalik, lalu memantul); tanda X merah muncul satu per satu sekitar 0,3 dtk sekali (1 → 7); kamera mundur pelan; ditutup ledakan sinar | `CalendarX` |
+
+### Pola yang berulang di seluruh video
+**1. Latar digelapkan + pill (DimPill).** Terjadi sekitar 14 kali: 0:07, 3:07, 3:58, 8:36, 9:16, 9:47, 10:22, 14:00, 14:04, 15:05, 15:13, 15:18, 17:02. Adegan tetap terlihat tapi gelap sekitar 50%, pill putih di tengah. Inilah satu-satunya cara teks boleh menimpa gambar.
+**2. Cara benda masuk (hampir tidak pernah muncul begitu saja):**
+- pop dengan pantulan (skala 0 → 1,1 → 1) untuk ikon kecil
+- meluncur dari tepi layar dengan pantulan (karakter, papan, map, mobil, papan reklame)
+- naik dari bawah (papan klip, mikrofon satu per satu, laptop, tiga karakter berjejer)
+- jatuh dari atas dan memantul (papan SALE, pill MISSED PAYMENT)
+- keluar dari kepulan asap (BANK)
+- keluar dari tanah dengan cipratan (truk dari kuburan, 0:05)
+- tumbuh dari satu titik (pai dari titik putih, pill merah dari kecil)
+- dibalik masuk seperti halaman (kalender)
+- dibangun bertahap (tumpukan uang, tumpukan koran yang beterbangan lalu menumpuk 13:05 dan 15:33)
+- papan bergeser keluar lalu papan berikutnya masuk seperti karosel (1:35)
+- layar terbagi dua yang meluncur (13:48)
+**3. Cara benda keluar:** melaju pergi di balik asap; meluncur keluar layar; mengecil ke titik; kamera meninggalkannya (whip/pan).
+**4. Teks:** diketik huruf per huruf dengan huruf bergoyang seperti ombak (hampir semua judul); huruf memantul; baris angka meluncur dari kanan; angka berputar 50K → 60K → 70K; baris dihapus lalu diketik ulang (60 MONTHS → 84 MONTHS); teks kertas muncul baris demi baris seperti mesin tik.
+**5. Grafik:** bar tumbuh + angka naik; pill kuartal terisi berurutan; pai tumbuh dari titik, irisan menyapu, garis penunjuk tergambar, label diketik, irisan menyala; grafik garis tergambar dengan cahaya; bar menyusut lalu tumbuh lagi untuk metrik berikutnya (12:46–12:58); bar 7 blok menyala satu per satu lalu terisi hijau/merah.
+**6. Kamera:** whip pan dari satu subjek ke subjek berikutnya (1:14); turun dari langit; geser di atas meja sambil benda lewat; tracking kendaraan; push-in; pull-back; geser antar dua tokoh yang bercakap (12:22, 9:50); tilt di dalam mobil (dasbor → spion → kursi belakang, 7:52); zoom-out sangat panjang (gudang kertas, 7:44).
+**7. Karakter:** jalan masuk; isyarat (memegang kepala, menepuk dahi, menunjuk papan dengan tongkat); bicara; mengusap muka; memegang ponsel; duduk di jendela mobil; bintang benturan di kepala; tanduk tumbuh; api di sekeliling; kerumunan memegang papan yang naik-turun.
+**8. Efek:** api, bara, asap kartun putih, cipratan air, tinta, sinar, hujan simbol $ dan %, cahaya pada grafik.
+**9. Transisi tambahan** (selain yang di atas): cairan keluar dari benda (0:09); sinar putih pecah (0:15); garis silang seperti gunting (0:46); tangan raksasa menepuk (1:24); ledakan tinta gelap (1:09); siluet daun menyapu (6:02); paku/duri putih (6:21); partikel berhamburan (7:04); zoom tembus putih (7:21); tetesan meleleh (11:09); tirai panggung menutup (11:22); riak lingkaran (15:58); retakan garis di layar (17:23); mobil melintas sebagai wipe (12:44, 15:22); gumpalan kertas sobek (9:04); serpihan merah (9:33).
+
+### Aturan tata letak yang terlihat di referensi
+- Teks dan pill tidak pernah menimpa benda penting kecuali latar digelapkan (pola 1).
+- Benda fokus (yang sedang dibicarakan) selalu utuh di dalam layar saat kamera berhenti; hanya pemandangan latar yang terpotong tepi layar.
+- Penanda (label, papan nama, gelembung bicara) selalu di depan benda, tidak tertutup.
+
 ## Yang TIDAK kita tiru (bertentangan dengan aturan kita)
 - **Orang nyata digambar sebagai karakter** (pakar di 4:02, CEO di 11:22) dan **foto orang nyata** (8:22). Kita hanya kartu nama + kutipan + sumber, tanpa menggambar orangnya (aturan 1.36).
 - **Logo merek** (logo biro kredit di koran, nama koran besar, merek truk). Kita pakai versi generik (aturan 1.11).

@@ -15,7 +15,7 @@ export const RemotionRoot: React.FC = () => (
     <Video03Compositions />
     <ShortCompositions />
     <Folder name="Style2">
-      <Composition id="S2-HookTest" component={HookTest} durationInFrames={HOOK_TEST_LEN} fps={24} width={1920} height={1080} />
+      <Composition id="S2-HookTest" component={HookTest} defaultProps={{check: false}} durationInFrames={HOOK_TEST_LEN} fps={24} width={1920} height={1080} />
     </Folder>
     <KitDemo.Compositions />
     <Folder name="StyleKit">

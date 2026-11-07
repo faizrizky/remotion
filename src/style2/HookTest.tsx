@@ -4,7 +4,7 @@ import React from 'react';
 import {AbsoluteFill, Html5Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {PennySting} from '../kit/sting';
 import {SANS} from '../style/style_kit';
-import {Cam, camAt, Car, Chip2, Cloud, Count, H, INK, Leo, LetterBounce, Parallax, PatternCard, Pill2, Popped, SceneDef, Sfx, Src2, Timeline, timelineLength, W, Join, Key} from './s2kit';
+import {Cam, camAt, Car, DimPill, LayoutProbe, Chip2, Cloud, Count, H, INK, Leo, LetterBounce, Parallax, PatternCard, Pill2, Popped, SceneDef, Sfx, Src2, Timeline, timelineLength, W, Join, Key} from './s2kit';
 
 const C = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 const Watermark = () => (
@@ -13,9 +13,9 @@ const Watermark = () => (
 
 // ---------- scene 1: sky -> trade-in lot -> push in on Leo's car ----------
 const LOT_KEYS: Key[] = [
-  {t: 0, x: 1600, y: 560, z: 1.05},
-  {t: 34, x: 1600, y: 1560, z: 1.12, dur: 30},
-  {t: 128, x: 1840, y: 1700, z: 1.55, dur: 30},
+  {t: 0, x: 1680, y: 560, z: 1.05},
+  {t: 34, x: 1680, y: 1620, z: 1.12, dur: 30},
+  {t: 128, x: 1900, y: 1700, z: 1.55, dur: 30},
 ];
 const Lot: React.FC = () => {
   const f = useCurrentFrame();
@@ -37,23 +37,25 @@ const Lot: React.FC = () => {
             <rect y={1960} width={4400} height={1040} fill="url(#ground)" />
             <rect y={2130} width={4400} height={260} fill="#C9C3B8" />
             {Array.from({length: 18}, (_, i) => <rect key={i} x={i * 260 + 40} y={2250} width={120} height={14} rx={7} fill="#E9E4DA" />)}
-            <path d="M200 1990 Q1200 2050 2200 1990 T4200 1990" stroke="#5B4B3A" strokeWidth={4} fill="none" />
-            {Array.from({length: 26}, (_, i) => <path key={i} d={`M${260 + i * 150} ${1995 + Math.sin(i) * 6} l24 46 l24 -46z`} fill={['#EA6E5C', '#F5C842', '#4FB7C0'][i % 3]} />)}
+            <path d="M200 1990 Q1150 2050 2140 1990" stroke="#5B4B3A" strokeWidth={4} fill="none" />
+            <rect x={2134} y={1960} width={12} height={180} fill="#5B4B3A" />
+            {Array.from({length: 13}, (_, i) => <path key={i} d={`M${260 + i * 150} ${1995 + Math.sin(i) * 6} l24 46 l24 -46z`} fill={['#EA6E5C', '#F5C842', '#4FB7C0'][i % 3]} />)}
           </svg>
           {/* parked cars, Leo's car is the mustard one with the space around it */}
           {[0, 1, 2].map((i) => <div key={i} style={{position: 'absolute', left: 300 + i * 560, top: 2240}}><Car color={cars[i]} w={500} tag="x" /></div>)}
-          <div style={{position: 'absolute', left: 2060, top: 2196}}><Car color="#E8A520" w={600} /></div>
-          {[3, 4].map((i) => <div key={i} style={{position: 'absolute', left: 2900 + (i - 3) * 560, top: 2240}}><Car color={cars[i]} w={500} tag="x" /></div>)}
-          <div style={{position: 'absolute', left: 2650, top: 1830}}><Leo pose={leoPose} h={560} flip /></div>
+          <div data-fg="car" style={{position: 'absolute', left: 2060, top: 2196}}><Car color="#E8A520" w={600} /></div>
+          {[3, 4].map((i) => <div key={i} style={{position: 'absolute', left: 3060 + (i - 3) * 560, top: 2240}}><Car color={cars[i]} w={500} tag="x" /></div>)}
+          <div style={{position: 'absolute', left: 2720, top: 1830}}><Leo pose={leoPose} h={560} flip /></div>
           {/* labels hang over the car */}
-          <Popped at={112} x={2190} y={2050} origin="50% 100%"><Tag text="VALUE $15,000" bg="#FFFFFF" color={INK} /></Popped>
-          <Popped at={146} x={2190} y={2132} origin="50% 100%"><Tag text="LOAN $22,000" bg="#E5484D" color="#FFFFFF" /></Popped>
-          <Popped at={162} x={2560} y={2075} origin="0% 50%"><div style={{fontFamily: SANS, fontWeight: 600, fontSize: 26, color: '#555', background: '#FFFFFFCC', padding: '2px 10px', borderRadius: 6}}>Example</div></Popped>
+          <Popped id="value" at={112} x={2190} y={1960} origin="50% 100%"><Tag text="VALUE $15,000" bg="#FFFFFF" color={INK} /></Popped>
+          <Popped id="loan" at={146} x={2190} y={2080} origin="50% 100%"><Tag text="LOAN $22,000" bg="#E5484D" color="#FFFFFF" /></Popped>
+          <Popped id="example" at={162} x={2190} y={1872} origin="0% 100%"><div style={{fontFamily: SANS, fontWeight: 600, fontSize: 26, color: '#555', background: '#FFFFFFCC', padding: '2px 10px', borderRadius: 6}}>Example</div></Popped>
         </div>
       </Cam>
       <Chip2 label="LOCATION:" value="United States" icon="pin" at={22} />
-      <Chip2 label="DATE:" value="Q3 2026" icon="cal" at={30} y={128} />
-      <Sfx name="whoosh" at={4} /><Sfx name="pop" at={22} /><Sfx name="pop" at={30} /><Sfx name="pop" at={112} /><Sfx name="boom" at={146} />
+      <Chip2 label="DATE:" value="Q3 2026" icon="cal" at={30} y={186} />
+      <DimPill text="owes $7,000 more than it's worth" at={172} size={58} />
+      <Sfx name="whoosh" at={4} /><Sfx name="pop" at={22} /><Sfx name="pop" at={30} /><Sfx name="pop" at={112} /><Sfx name="boom" at={146} /><Sfx name="pop" at={174} />
     </AbsoluteFill>
   );
 };
@@ -94,12 +96,12 @@ const QCard: React.FC = () => {
       <PatternCard base="#12301C" light="#1A4228" />
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.08}]} drift={0.035}>
         <div style={{position: 'absolute', width: W, height: H}}>
-          <LetterBounce text="WHERE DOES" at={6} x={960} y={450} size={130} />
-          <LetterBounce text="THE GAP GO?" at={24} x={960} y={600} size={130} />
+          <LetterBounce text="WHERE DOES" at={6} x={960} y={395} size={120} />
+          <LetterBounce text="THE GAP GO?" at={24} x={960} y={655} size={120} />
         </div>
       </Cam>
       {f >= 40 && (
-        <div style={{position: 'absolute', left: 1460 + out * out * 800, top: 820, transform: `rotate(${out * 25}deg)`}}>
+        <div data-fg-exit={out > 0 ? '1' : '0'} style={{position: 'absolute', left: 1460 + out * out * 800, top: 870, transform: `rotate(${out * 25}deg)`}}>
           <Pill2 text="$7,107" at={40} x={0} y={0} size={56} bg="#E5484D" color="#FFFFFF" />
         </div>
       )}
@@ -109,7 +111,7 @@ const QCard: React.FC = () => {
 };
 
 // ---------- scene 5 (after the sting): pull back from Leo's face to the whiteboard in the paper hall ----------
-const HALL_KEYS: Key[] = [{t: 0, x: 1488, y: 452, z: 3.1}, {t: 58, x: 960, y: 560, z: 1.06, dur: 52}];
+const HALL_KEYS: Key[] = [{t: 0, x: 1447, y: 443, z: 3.1}, {t: 58, x: 900, y: 470, z: 1.06, dur: 52}];
 const PaperHall: React.FC = () => {
   const f = useCurrentFrame();
   const flip = interpolate(f, [92, 108], [0, 180], C);
@@ -137,13 +139,13 @@ const PaperHall: React.FC = () => {
             })}
           </svg>
           {/* whiteboard */}
-          <div style={{position: 'absolute', left: 860, top: 420, width: 640, height: 420, background: '#FFFFFF', border: '14px solid #8C6B4A', borderRadius: 10}}>
+          <div data-fg="board" style={{position: 'absolute', left: 780, top: 420, width: 640, height: 420, background: '#FFFFFF', border: '14px solid #8C6B4A', borderRadius: 10}}>
             <div style={{position: 'absolute', left: 230, top: 150, transform: `rotate(${flip}deg)`, transformOrigin: '90px 40px'}}><Car color="#E8A520" w={180} /></div>
             <div style={{position: 'absolute', left: 0, bottom: 0, width: '100%', height: 190 * water, background: '#5FB4E6AA'}} />
           </div>
-          <div style={{position: 'absolute', left: 940, top: 840, width: 14, height: 300, background: '#8C6B4A'}} /><div style={{position: 'absolute', left: 1400, top: 840, width: 14, height: 300, background: '#8C6B4A'}} />
-          <div style={{position: 'absolute', left: 1580, top: 520}}><Leo pose={f < 92 ? 'calm' : 'thinking'} h={780} flip /></div>
-          <Pill2 text="negative equity" at={66} x={1180} y={360} size={56} />
+          <div style={{position: 'absolute', left: 860, top: 868, width: 14, height: 260, background: '#8C6B4A'}} /><div style={{position: 'absolute', left: 1320, top: 868, width: 14, height: 260, background: '#8C6B4A'}} />
+          <div style={{position: 'absolute', left: 1500, top: 560}}><Leo pose={f < 92 ? 'calm' : 'thinking'} h={520} flip /></div>
+          <Pill2 text="negative equity" at={66} x={1114} y={320} size={56} />
         </div>
       </Cam>
       <Sfx name="pop" at={66} /><Sfx name="whoosh" at={92} />
@@ -181,18 +183,18 @@ const Road: React.FC = () => {
           <rect y={800} width={7000} height={300} fill="#55565E" />
           {Array.from({length: 40}, (_, i) => <rect key={i} x={i * 220} y={930} width={110} height={12} rx={6} fill="#E9E4DA" />)}
         </svg>
-        <div style={{position: 'absolute', left: carX, top: 640 + bob}}><Car color="#E8A520" w={560} /></div>
+        <div data-fg="car" style={{position: 'absolute', left: carX, top: 640 + bob}}><Car color="#E8A520" w={560} /></div>
       </Cam>
       {/* numbers ride on the right like the reference */}
-      <div style={{position: 'absolute', left: 1120, top: 150, fontFamily: SANS, color: INK, background: '#FFFFFFE6', padding: '18px 34px', borderRadius: 18, boxShadow: '0 8px 20px rgba(0,0,0,0.2)', opacity: f >= 16 ? 1 : 0}}>
-        {rows.map(([t, a], i) => f >= a && <div key={i} style={{fontSize: 64, fontWeight: 800, transform: `translateX(${(1 - Math.min(1, (f - a) / 8)) * 40}px)`}}>{t}</div>)}
+      <div data-fg="numbers" style={{position: 'absolute', left: 1080, top: 150, width: 640, boxSizing: 'border-box', fontFamily: SANS, color: INK, background: '#FFFFFFE6', padding: '18px 34px', borderRadius: 18, boxShadow: '0 8px 20px rgba(0,0,0,0.2)', display: f >= 16 ? 'block' : 'none'}}>
+        {rows.map(([t, a], i) => f >= a && <div key={i} style={{fontSize: 56, fontWeight: 800, transform: `translateX(${(1 - Math.min(1, (f - a) / 8)) * 40}px)`}}>{t}</div>)}
         {f >= 56 && (
-          <div style={{fontSize: 64, fontWeight: 800, marginTop: 10}}>
+          <div style={{fontSize: 56, fontWeight: 800, marginTop: 10}}>
             <Strike on={swap} f={f} from="60" to="84" /> MONTHS → <Strike on={swap} f={f} from="$813" to="$625" />/MO
           </div>
         )}
       </div>
-      <Pill2 text="-$188 a month" at={122} x={1460} y={560} size={60} bg="#2E9E5B" color="#FFFFFF" />
+      <Pill2 text="-$188 a month" at={122} x={1400} y={640} size={60} bg="#2E9E5B" color="#FFFFFF" />
       <Src2 text="computed for this video" at={56} />
       <Sfx name="pop" at={16} /><Sfx name="pop" at={28} /><Sfx name="ding" at={56} /><Sfx name="paper_rip" at={90} /><Sfx name="ding" at={124} />
     </AbsoluteFill>
@@ -226,7 +228,7 @@ const SCENES: SceneDef[] = [
   {len: 150, node: <Road />},
 ];
 const JOINS: Join[] = [
-  {kind: 'splat', dur: 16, cx: 960, cy: 620},
+  {kind: 'splat', dur: 16, cx: 1300, cy: 540},
   {kind: 'swirl', dur: 24, cx: 960, cy: 760, color: '#0B1A12'},
   {kind: 'cut', dur: 0},
   {kind: 'cut', dur: 0},
@@ -235,7 +237,7 @@ const JOINS: Join[] = [
 export const HOOK_TEST_LEN = timelineLength(SCENES, JOINS);
 const STING_START = 208 + 200 + 100 - 16 - 24;
 
-export const HookTest: React.FC = () => {
+export const HookTest: React.FC<{check?: boolean}> = ({check = false}) => {
   const music = (f: number) => {
     if (f < STING_START - 10) return 0.08;
     if (f < STING_START) return interpolate(f, [STING_START - 10, STING_START], [0.08, 0], C);
@@ -246,6 +248,7 @@ export const HookTest: React.FC = () => {
     <AbsoluteFill style={{background: '#000'}}>
       <Timeline scenes={SCENES} joins={JOINS} />
       <Watermark />
+      <LayoutProbe check={check} />
       <Html5Audio src={staticFile('music/monday_routine.mp3')} loop loopVolumeCurveBehavior="extend" volume={music} />
       <Sequence from={STING_START} layout="none"><Html5Audio src={staticFile('music/funky_intro_sting.mp3')} volume={0.7} /></Sequence>
       <Sfx name="whoosh" at={192} /><Sfx name="whoosh" at={368} /><Sfx name="whoosh" at={698} />
