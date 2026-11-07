@@ -6,6 +6,7 @@ import {Video02Compositions} from './video02/Video02';
 import {Video03Compositions} from './video03/Video03';
 import {ShortCompositions} from './shorts/Shorts';
 import {HookTest, HOOK_TEST_LEN} from './style2/HookTest';
+import {HookSplit, HOOK_SPLIT_LEN} from './style2/HookSplit';
 import {KitDemo} from './kitdemo/KitDemo';
 
 export const RemotionRoot: React.FC = () => (
@@ -16,6 +17,7 @@ export const RemotionRoot: React.FC = () => (
     <ShortCompositions />
     <Folder name="Style2">
       <Composition id="S2-HookTest" component={HookTest} defaultProps={{check: false}} durationInFrames={HOOK_TEST_LEN} fps={24} width={1920} height={1080} />
+      <Composition id="S2-HookSplit" component={HookSplit} defaultProps={{check: false}} durationInFrames={HOOK_SPLIT_LEN} fps={24} width={1920} height={1080} />
     </Folder>
     <KitDemo.Compositions />
     <Folder name="StyleKit">
