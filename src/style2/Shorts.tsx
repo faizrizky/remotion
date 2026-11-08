@@ -46,9 +46,9 @@ const A2: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.02}>
         <VCard color="navy" />
-        <LetterBounce text="THE ONE" at={t(5.65)} x={VW / 2} y={700} size={150} />
+        <LetterBounce text="THE ONE" at={t(5.65)} x={VW / 2} y={650} size={150} />
         <LetterBounce text="NUMBER" at={t(5.9)} x={VW / 2} y={930} size={150} />
-        <LetterBounce text="TO CHECK" at={t(6.4)} x={VW / 2} y={1130} size={110} color="#F5C842" />
+        <LetterBounce text="TO CHECK" at={t(6.4)} x={VW / 2} y={1160} size={110} color="#F5C842" />
       </Cam>
       <Sfx name="pop" at={t(5.65)} /><Sfx name="pop" at={t(5.9)} /><Sfx name="ding" at={t(6.4)} />
     </AbsoluteFill>
@@ -103,11 +103,11 @@ const A4: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.01}>
         <VBg src="road_full.jpg" groundFrac={0.848} groundY={1500} />
-        <StandLeo x={335} y={700} h={800} pose={f < t(17.1) ? 'calm' : 'proud'} />
+        <StandLeo x={350} y={760} h={740} pose={f < t(17.1) ? 'calm' : 'proud'} />
       </Cam>
-      <Pill2 text="CHECK YOURS" at={t(15.7)} x={540} y={330} size={64} />
-      <Pill2 text="THIS WEEK" at={t(16.2)} x={540} y={470} size={64} bg="#F5C842" />
-      <Pill2 text="FULL VIDEO ON THE CHANNEL" at={t(17.15)} x={540} y={610} size={44} bg="#2E9E5B" color="#FFFFFF" />
+      <Pill2 text="CHECK YOURS" at={t(15.7)} x={540} y={290} size={64} />
+      <Pill2 text="THIS WEEK" at={t(16.2)} x={540} y={440} size={64} bg="#F5C842" />
+      <Pill2 text="FULL VIDEO ON THE CHANNEL" at={t(17.15)} x={540} y={590} size={44} bg="#2E9E5B" color="#FFFFFF" />
       <Sfx name="pop" at={t(15.7)} /><Sfx name="pop" at={t(16.2)} /><Sfx name="ding" at={t(17.15)} />
     </AbsoluteFill>
   );
@@ -160,11 +160,11 @@ const B2: SceneFn = ({s0}) => {
         <VBg src="stage_spot.jpg" groundFrac={0.8} groundY={1450} />
         <FloorShadow x={540} y={1440} w={640} h={60} o={0.45} />
         <Enter kind="drop" at={t(3.5)} x={190} y={1450 - 700 * 0.6692} id="cash" dist={900}><Prop name="obj_cash_stack_l" w={700} /></Enter>
-        <PopIn at={t(3.9)} x={540} y={540} id="big"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={170} color="#FFFFFF" style={{textShadow: '0 8px 0 rgba(0,0,0,0.35)'}}><Count to={16610} at={t(4.0)} dur={50} prefix="$" /></Label></div></PopIn>
+        <PopIn at={t(3.9)} x={540} y={520} id="big"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={170} color="#FFFFFF" style={{textShadow: '0 8px 0 rgba(0,0,0,0.35)'}}><Count to={16610} at={t(4.0)} dur={50} prefix="$" /></Label></div></PopIn>
       </Cam>
-      <Pill2 text="ESTIMATED" at={t(3.6)} x={540} y={330} size={56} bg="#F5C842" />
-      <Pill2 text="INTEREST OVER THE LOAN" at={t(7.2)} x={540} y={760} size={50} />
-      <SrcPill at={t(7.4)} y={870} />
+      <Pill2 text="ESTIMATED" at={t(3.6)} x={540} y={320} size={56} bg="#F5C842" />
+      <Pill2 text="INTEREST OVER THE LOAN" at={t(7.2)} x={540} y={770} size={50} />
+      <SrcPill at={t(7.4)} y={890} />
       <Sfx name="pop" at={t(3.6)} /><Sfx name="boom" at={t(3.5) + 10} /><Sfx name="kaching" at={t(4.0)} /><Sfx name="pop" at={t(7.2)} />
     </AbsoluteFill>
   );
@@ -194,11 +194,11 @@ const B4: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.01}>
         <VBg src="road_full.jpg" groundFrac={0.848} groundY={1500} />
-        <StandLeo x={335} y={700} h={800} pose={f < t(17.3) ? 'suspicious' : 'proud'} />
+        <StandLeo x={350} y={760} h={740} pose={f < t(17.3) ? 'suspicious' : 'proud'} />
       </Cam>
-      <Pill2 text="BEFORE YOU TRADE IN" at={t(16.0)} x={540} y={330} size={56} />
-      <Pill2 text="KNOW YOUR GAP" at={t(17.3)} x={540} y={470} size={60} bg="#2E9E5B" color="#FFFFFF" />
-      <Pill2 text="FULL VIDEO ON THE CHANNEL" at={t(18.65)} x={540} y={610} size={44} />
+      <Pill2 text="BEFORE YOU TRADE IN" at={t(16.0)} x={540} y={290} size={56} />
+      <Pill2 text="KNOW YOUR GAP" at={t(17.3)} x={540} y={440} size={60} bg="#2E9E5B" color="#FFFFFF" />
+      <Pill2 text="FULL VIDEO ON THE CHANNEL" at={t(18.65)} x={540} y={590} size={44} />
       <Sfx name="pop" at={t(16.0)} /><Sfx name="ding" at={t(17.3)} /><Sfx name="pop" at={t(18.65)} />
     </AbsoluteFill>
   );
