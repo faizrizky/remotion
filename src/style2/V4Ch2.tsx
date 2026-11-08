@@ -77,7 +77,7 @@ const Interest: SceneFn = ({s0}) => {
         <CardBg color="navy" />
         <LetterBounce text="TOTAL INTEREST" at={t(35.0)} x={960} y={150} size={90} />
         <PopIn at={t(35.6)} x={340} y={290} id="stack60" origin="50% 100%"><Prop name="obj_cash_stack_s" w={340} /></PopIn>
-        <PopIn at={t(38.0)} x={1100} y={255} id="stack84" origin="50% 100%"><Prop name="obj_cash_stack_l" w={480} /></PopIn>
+        <PopIn at={t(38.0)} x={1110} y={268} id="stack84" origin="50% 100%"><Prop name="obj_cash_stack_l" w={460} /></PopIn>
         <PopIn at={t(35.6)} x={510} y={625} id="lbl60" origin="50% 0%"><div style={{transform: 'translateX(-50%)', textAlign: 'center'}}><Label size={40} color="#C9D3E6">60 MONTHS</Label><Label size={76} color="#FFFFFF"><Count to={8778} at={t(36.0)} prefix="$" /></Label></div></PopIn>
         <PopIn at={t(38.0)} x={1340} y={625} id="lbl84" origin="50% 0%"><div style={{transform: 'translateX(-50%)', textAlign: 'center'}}><Label size={40} color="#C9D3E6">84 MONTHS</Label><Label size={76} color="#FF8A80"><Count to={12537} at={t(38.4)} prefix="$" /></Label></div></PopIn>
         <Pill2 text="+$3,759 for the same car" at={t(41.2)} x={960} y={900} size={50} bg="#E5484D" color="#FFFFFF" />
