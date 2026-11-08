@@ -10,6 +10,7 @@ import {HookSplit, HOOK_SPLIT_LEN} from './style2/HookSplit';
 import {V4Ch1, V4_CH1_LEN} from './style2/V4Ch1';
 import {V4Full, V4_FULL_LEN} from './style2/V4Full';
 import {V4Outro, V4_OUTRO_LEN} from './style2/V4Outro';
+import {ShortA, ShortB, SHORT_A_LEN, SHORT_B_LEN} from './style2/Shorts';
 import {V4Ch6, V4_CH6_LEN} from './style2/V4Ch6';
 import {V4Ch5, V4_CH5_LEN} from './style2/V4Ch5';
 import {V4Ch4, V4_CH4_LEN} from './style2/V4Ch4';
@@ -31,6 +32,8 @@ export const RemotionRoot: React.FC = () => (
       <Composition id="V4-Ch5" component={V4Ch5} defaultProps={{check: false}} durationInFrames={V4_CH5_LEN} fps={24} width={1920} height={1080} />
       <Composition id="V4-Ch6" component={V4Ch6} defaultProps={{check: false}} durationInFrames={V4_CH6_LEN} fps={24} width={1920} height={1080} />
       <Composition id="V4-Outro" component={V4Outro} defaultProps={{check: false}} durationInFrames={V4_OUTRO_LEN} fps={24} width={1920} height={1080} />
+      <Composition id="S-V4-A" component={ShortA} defaultProps={{check: false}} durationInFrames={SHORT_A_LEN} fps={24} width={1080} height={1920} />
+      <Composition id="S-V4-B" component={ShortB} defaultProps={{check: false}} durationInFrames={SHORT_B_LEN} fps={24} width={1080} height={1920} />
       <Composition id="V4-Full" component={V4Full} defaultProps={{check: false}} durationInFrames={V4_FULL_LEN} fps={24} width={1920} height={1080} />
       <Composition id="V4-Ch1" component={V4Ch1} defaultProps={{check: false}} durationInFrames={V4_CH1_LEN} fps={24} width={1920} height={1080} />
       <Composition id="S2-HookSplit" component={HookSplit} defaultProps={{check: false}} durationInFrames={HOOK_SPLIT_LEN} fps={24} width={1920} height={1080} />

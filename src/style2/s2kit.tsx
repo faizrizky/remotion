@@ -5,8 +5,10 @@ import React from 'react';
 import {AbsoluteFill, continueRender, delayRender, Html5Audio, Img, interpolate, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {SANS} from '../style/style_kit';
 
-export const W = 1920;
-export const H = 1080;
+export let W = 1920;
+export let H = 1080;
+/** Vertical Shorts (1080x1920) switch the canvas size before they render. */
+export const setDims = (w: number, h: number) => { W = w; H = h; };
 export const INK = '#191411';
 const C = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 export const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);

@@ -14,7 +14,8 @@ const serveUrl = await bundle({entryPoint: path.resolve('src/index.ts')});
 globalThis.__su = serveUrl;
 const inputProps = {check: true};
 const comp = await selectComposition({serveUrl, id, inputProps, browserExecutable});
-const SAFE = {x0: 130, x1: 1790, y0: 60, y1: 1020};
+const CW = comp.width, CH = comp.height;
+const SAFE = CH > CW ? {x0: 80, x1: 1000, y0: 220, y1: 1500} : {x0: 130, x1: 1790, y0: 60, y1: 1020};
 const problems = [];
 for (let f = 0; f < comp.durationInFrames; f += step) {
   let boxes = null;
@@ -26,7 +27,7 @@ for (let f = 0; f < comp.durationInFrames; f += step) {
   const dimOn = els.some((e) => e.dim);
   for (const e of els) {
     if (boxes.cam) break; // camera moving: things enter/leave the frame through the camera move
-    if (e.x < 0 || e.y < 0 || e.x + e.w > 1920 || e.y + e.h > 1080) problems.push(`f${f} OFF-FRAME ${e.id} [${e.x},${e.y},${e.w}x${e.h}]`);
+    if (e.x < 0 || e.y < 0 || e.x + e.w > CW || e.y + e.h > CH) problems.push(`f${f} OFF-FRAME ${e.id} [${e.x},${e.y},${e.w}x${e.h}]`);
     else if (e.x < SAFE.x0 || e.y < SAFE.y0 || e.x + e.w > SAFE.x1 || e.y + e.h > SAFE.y1) problems.push(`f${f} OUTSIDE-SAFE ${e.id} [${e.x},${e.y},${e.w}x${e.h}]`);
   }
   for (let i = 0; i < els.length; i++) for (let j = i + 1; j < els.length; j++) {
