@@ -97,9 +97,9 @@ const Riskier: SceneFn = ({s0}) => {
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.04}]} drift={0.01}>
         <Bg src="chart_grid.jpg" />
         <LetterBounce text="THE RISKIER END" at={t(25.0)} x={960} y={150} size={90} />
-        <PopIn at={t(29.6)} x={960} y={262} id="sub"><div style={{transform: 'translateX(-50%)'}}><Label size={40} color="#BFE3CF">subprime car-loan pools · 60+ days behind</Label></div></PopIn>
-        <GrowBar id="b2026" x={1020} base={860} w={240} h={440} at={t(34.3)} color="#E5484D" top="≈7%" label="SEP 2026" />
-        <GrowBar id="b2019" x={640} base={860} w={240} h={220} at={t(30.2)} color="#9AA5B8" label="SEP 2019" />
+        <PopIn at={t(29.6)} x={510} y={240} id="sub"><div style={{width: 900, textAlign: 'center'}}><Label size={40} color="#BFE3CF">subprime car-loan pools · 60+ days behind</Label></div></PopIn>
+        <GrowBar id="b2026" x={1020} base={860} w={240} h={400} at={t(34.3)} color="#E5484D" top="≈7%" label="SEP 2026" />
+        <GrowBar id="b2019" x={640} base={860} w={240} h={200} at={t(30.2)} color="#9AA5B8" label="SEP 2019" />
         <Pill2 text="roughly 2x" at={t(38.0)} x={1530} y={520} size={60} bg="#F5C842" />
       </Cam>
       <Src2 text="LoanTape via 24/7 Wall St., Sep 2026" at={t(34.3)} />
@@ -125,7 +125,7 @@ const Tow: SceneFn = ({s0}) => {
           <div style={{position: 'absolute', left: 580, top: 0}}><Prop name="obj_tow_truck" w={860} /></div>
         </div>
         <Pill2 text="the story may not end there" at={t(42.8)} x={960} y={210} size={54} />
-        <Pill2 text="many states: you can still owe the difference" at={t(47.0)} x={960} y={330} size={46} bg="#E5484D" color="#FFFFFF" />
+        <Pill2 text="many states: you can still owe the difference" at={t(47.0)} x={960} y={350} size={46} bg="#E5484D" color="#FFFFFF" />
       </Cam>
       <Sfx name="whoosh" at={2} /><Sfx name="pop" at={t(42.8)} /><Sfx name="boom" at={t(47.0)} />
     </AbsoluteFill>

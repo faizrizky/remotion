@@ -76,11 +76,11 @@ const Interest: SceneFn = ({s0}) => {
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.0}]} drift={0.006}>
         <CardBg color="navy" />
         <LetterBounce text="TOTAL INTEREST" at={t(35.0)} x={960} y={150} size={90} />
-        <PopIn at={t(35.6)} x={300} y={290} id="stack60" origin="50% 100%"><Prop name="obj_cash_stack_s" w={420} /></PopIn>
-        <PopIn at={t(38.0)} x={1040} y={230} id="stack84" origin="50% 100%"><Prop name="obj_cash_stack_l" w={600} /></PopIn>
-        <PopIn at={t(35.6)} x={510} y={660} id="lbl60" origin="50% 0%"><div style={{transform: 'translateX(-50%)', textAlign: 'center'}}><Label size={40} color="#C9D3E6">60 MONTHS</Label><Label size={76} color="#FFFFFF"><Count to={8778} at={t(36.0)} prefix="$" /></Label></div></PopIn>
-        <PopIn at={t(38.0)} x={1340} y={660} id="lbl84" origin="50% 0%"><div style={{transform: 'translateX(-50%)', textAlign: 'center'}}><Label size={40} color="#C9D3E6">84 MONTHS</Label><Label size={76} color="#FF8A80"><Count to={12537} at={t(38.4)} prefix="$" /></Label></div></PopIn>
-        <Pill2 text="+$3,759 for the same car" at={t(41.2)} x={960} y={920} size={56} bg="#E5484D" color="#FFFFFF" />
+        <PopIn at={t(35.6)} x={320} y={290} id="stack60" origin="50% 100%"><Prop name="obj_cash_stack_s" w={380} /></PopIn>
+        <PopIn at={t(38.0)} x={1070} y={250} id="stack84" origin="50% 100%"><Prop name="obj_cash_stack_l" w={540} /></PopIn>
+        <PopIn at={t(35.6)} x={510} y={650} id="lbl60" origin="50% 0%"><div style={{transform: 'translateX(-50%)', textAlign: 'center'}}><Label size={40} color="#C9D3E6">60 MONTHS</Label><Label size={76} color="#FFFFFF"><Count to={8778} at={t(36.0)} prefix="$" /></Label></div></PopIn>
+        <PopIn at={t(38.0)} x={1340} y={650} id="lbl84" origin="50% 0%"><div style={{transform: 'translateX(-50%)', textAlign: 'center'}}><Label size={40} color="#C9D3E6">84 MONTHS</Label><Label size={76} color="#FF8A80"><Count to={12537} at={t(38.4)} prefix="$" /></Label></div></PopIn>
+        <Pill2 text="+$3,759 for the same car" at={t(41.2)} x={960} y={900} size={50} bg="#E5484D" color="#FFFFFF" />
       </Cam>
       <Src2 text="computed for this video: $40,000 at 8.1% APR" at={t(36.0)} />
       <Sfx name="pop" at={t(35.0)} /><Sfx name="kaching" at={t(36.0)} /><Sfx name="kaching" at={t(38.4)} /><Sfx name="boom" at={t(41.2)} />
@@ -156,12 +156,12 @@ const Warranty: SceneFn = ({s0}) => {
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.0}]} drift={0.006}>
         <CardBg color="purple" />
         <LetterBounce text="ANOTHER CATCH" at={t(58.9)} x={960} y={150} size={90} />
-        <div data-fg="rows" style={{position: 'absolute', left: 175, top: 260, display: 'flex', flexDirection: 'column', gap: 70}}>
+        <div data-fg="rows" style={{position: 'absolute', left: 175, top: 290, display: 'flex', flexDirection: 'column', gap: 70}}>
           <YearRow label="7-YEAR LOAN" at={t(60.4)} blockAt={t(60.6)} green={0} red note="years of payments" />
           <YearRow label="FORD BASIC" at={t(63.4)} blockAt={t(63.6)} green={3} note="3 years or 36,000 miles" />
           <YearRow label="HYUNDAI BASIC" at={t(69.2)} blockAt={t(69.4)} green={5} note="5 years" />
         </div>
-        <Pill2 text="some: engine + transmission up to 10 yrs, not every part" at={t(71.6)} x={960} y={900} size={40} />
+        <Pill2 text="some: engine + transmission up to 10 yrs, not every part" at={t(71.6)} x={960} y={910} size={40} />
       </Cam>
       <Src2 text="Ford & Hyundai basic warranty terms" at={t(63.6)} />
       <Sfx name="pop" at={t(58.9)} />{[60.6, 63.6, 69.4].map((s) => <Sfx key={s} name="pop" at={t(s)} />)}<Sfx name="ding" at={t(71.6)} />

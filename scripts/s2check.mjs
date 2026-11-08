@@ -3,12 +3,15 @@
 // safe area (x 130-1790, y 60-1020) or off the frame. Elements shown over a DimPill are exempt.
 // usage: node scripts/s2check.mjs <CompositionId> [step=4]
 import path from 'node:path';
+import fs from 'node:fs';
+process.on('exit', () => { try { if (globalThis.__su) fs.rmSync(globalThis.__su, {recursive: true, force: true}); } catch {} });
 const [id = 'S2-HookTest', stepArg = '4'] = process.argv.slice(2);
 const step = Number(stepArg);
 const {bundle} = await import('@remotion/bundler');
 const {selectComposition, renderStill} = await import('@remotion/renderer');
 const browserExecutable = process.env.BROWSER || '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome';
 const serveUrl = await bundle({entryPoint: path.resolve('src/index.ts')});
+globalThis.__su = serveUrl;
 const inputProps = {check: true};
 const comp = await selectComposition({serveUrl, id, inputProps, browserExecutable});
 const SAFE = {x0: 130, x1: 1790, y0: 60, y1: 1020};

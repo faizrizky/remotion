@@ -96,8 +96,8 @@ const Sky: SceneFn = ({s0}) => {
         <Bg src="sky_strip.jpg" />
         <div style={{position: 'absolute', left: 806, top: 410}}><Leo pose={f < t(31.5) ? 'calm' : 'proud'} h={600} /></div>
       </Cam>
-      <Pill2 text="you can see it coming" at={t(29.4)} x={960} y={190} size={58} />
-      <Pill2 text="so you can avoid it" at={t(31.5)} x={960} y={320} size={58} bg="#2E9E5B" color="#FFFFFF" />
+      <Pill2 text="you can see it coming" at={t(29.4)} x={960} y={180} size={58} />
+      <Pill2 text="so you can avoid it" at={t(31.5)} x={960} y={330} size={58} bg="#2E9E5B" color="#FFFFFF" />
       <Sfx name="whoosh" at={2} /><Sfx name="pop" at={t(29.4)} /><Sfx name="ding" at={t(31.5)} />
     </AbsoluteFill>
   );
