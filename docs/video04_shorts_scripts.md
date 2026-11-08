@@ -51,7 +51,7 @@ Owe **$22,000** / on a **$15,000** car? / That's a **$7,000** / **gap** / Here's
 Audiens: pemilik mobil AS yang mau/pernah trade-in. Sudut: angka + akibat. Sumber: Edmunds Q3 2026.
 
 ### Hook alternatif
-- Utama: "Rolled old car debt into a new loan? On average, that's $16,610 in interest."
+- Utama: "Rolled old car debt into a new loan? On average, that's an estimated $16,610 in interest."
 - Alt 1: "$16,610. That's interest on one rolled-over car loan."
 - Alt 2: "Trading in a car you owe more on? Look at this loan."
 
@@ -59,7 +59,7 @@ Audiens: pemilik mobil AS yang mau/pernah trade-in. Sudut: angka + akibat. Sumbe
 ```
 [HOOK]
 Rolled old car debt into a new loan? //
-On average, that's sixteen thousand six hundred ten dollars in INTEREST. //
+On average, that's an estimated sixteen thousand six hundred ten dollars / in INTEREST over the loan. //
 [ISI]
 The average loan: / fifty-seven thousand borrowed, /
 nine fifty-two a month, / eight-point-one percent. //
@@ -67,21 +67,21 @@ nine fifty-two a month, / eight-point-one percent. //
 Before you trade in, / know your gap. //
 Full video's on the channel.
 ```
-Jumlah kata: 42 · Perkiraan durasi: ~18 dtk.
-[cek sebelum publish: Edmunds menyebut $16.610 sebagai bunga selama masa pinjaman penuh atau periode lain? Di naskah Ch3 hanya "interest alone: $16,610". Samakan kata dengan sumber. Tulis "on average" agar tidak terbaca sebagai biaya tambahan.]
+Jumlah kata: 48 · Perkiraan durasi: ~19 dtk.
+[TERVERIFIKASI 8 Nov: Edmunds (Q3 2026 report, 21 Okt 2026): "on track to pay an estimated $16,610 in interest over the life of their loans" pada APR rata-rata 8,1%. Ini PERKIRAAN bunga seumur pinjaman rata-rata yang digulung, bukan bunga yang sudah dibayar. Naskah wajib memuat "estimated" dan "over the loan".]
 
 ### Shot list (vertikal, 3 adegan)
 | Waktu (dtk, perkiraan) | Teks di layar / subtitle | Adegan dan kamera | SFX / transisi |
 |---|---|---|---|
 | 0.0-2.8 | $16,610 (besar sejak detik 1) + ROLLED OVER | Kartu kontrak "NEW CAR LOAN" dengan peti utang meluncur masuk | whoosh, kaching |
-| 2.8-6.5 | $16,610 IN INTEREST (rata-rata) | angka membesar di panggung sorot (stage_spot), tumpukan uang | boom, pop |
+| 2.8-6.5 | EST. $16,610 INTEREST OVER THE LOAN | angka membesar di panggung sorot (stage_spot), tumpukan uang | boom, pop |
 | 6.5-12.5 | $57,235 BORROWED / $952 A MONTH / 8.1% | kartu maroon, tiga pill vertikal muncul mengikuti suara | ding, ding, ding |
 | 12.5-15.5 | KNOW YOUR GAP | mobil baru dengan peti utang di belakang, jalan | whoosh, pop |
 | 15.5-18.5 | FULL VIDEO ON THE CHANNEL | Leo di jalan, ruang bawah kosong | pop |
 Sumber kecil di pojok: "Edmunds, Q3 2026".
 
 ### Subtitle
-Rolled old car **debt** / into a **new loan?** / On average, **$16,610** / in **interest** / The average **loan** / **$57,000** borrowed / **$952** a month / **8.1%** / Before you **trade in** / know your **gap** / **Full video** on the channel
+Rolled old car **debt** / into a **new loan?** / On average, **$16,610** / estimated **interest** over the loan / The average **loan** / **$57,000** borrowed / **$952** a month / **8.1%** / Before you **trade in** / know your **gap** / **Full video** on the channel
 
 ---
 
@@ -94,8 +94,8 @@ Pakai bersama untuk A dan B, ganti hook.
 - YouTube Shorts: Judul "Owe $22,000 on a $15,000 car?" Deskripsi: "The one number to check: what the car is worth minus what you owe. Full video on the channel. Education only, not financial advice. #Shorts #cardebt"
 
 **Short B**
-- Instagram: "Rolled old car debt into a new loan? On average, that's $16,610 in interest (Edmunds, Q3 2026). Know your gap before you trade in. #personalfinance #cardebt #carloan #moneytips #negativeequity"
-- TikTok: "Rolled old car debt into a new loan? $16,610 in interest on average. #cardebt #carloan #personalfinance"
+- Instagram: "Rolled old car debt into a new loan? On average, that's an estimated $16,610 in interest over the life of the loan (Edmunds, Q3 2026). Know your gap before you trade in. #personalfinance #cardebt #carloan #moneytips #negativeequity"
+- TikTok: "Rolled old car debt into a new loan? an estimated $16,610 in interest on average. #cardebt #carloan #personalfinance"
 - YouTube Shorts: Judul "Rolled old car debt into a new loan?" Deskripsi: "The average rolled-over loan: $57,235 borrowed, $952 a month, 8.1% (Edmunds, Q3 2026). Full video on the channel. Education only, not financial advice. #Shorts #carloan"
 
 ## Jadwal dan uji
