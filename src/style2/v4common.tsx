@@ -220,7 +220,7 @@ export const ChapterShell: React.FC<{built: {scenes: SceneDef[]; joins: Join[]};
     {!mute && <JoinSfx scenes={built.scenes} joins={built.joins} />}
     {!bare && <Watermark />}
     {!bare && <LayoutProbe check={check} />}
-    {!mute && <Html5Audio src={staticFile(`v4/voice/${voice}`)} />}
+    {!mute && voice !== '' && <Html5Audio src={staticFile(`v4/voice/${voice}`)} />}
     {music && !bare && <Html5Audio src={staticFile('music/monday_routine.mp3')} loop volume={0.06} />}
   </AbsoluteFill>
 );
@@ -244,14 +244,14 @@ export const JoinSfx: React.FC<{scenes: {len: number}[]; joins: Join[]; offset?:
 
 /** Soft contact shadow so people and objects sit on the floor instead of floating. */
 export const FloorShadow: React.FC<{x: number; y: number; w: number; h?: number; o?: number}> = ({x, y, w, h = w * 0.16, o = 0.32}) => (
-  <div style={{position: 'absolute', left: x - w / 2, top: y - h / 2, width: w, height: h, borderRadius: '50%', background: `radial-gradient(ellipse at center, rgba(40,28,18,${o}) 0%, rgba(40,28,18,${o * 0.6}) 45%, rgba(40,28,18,0) 72%)`}} />
+  <div style={{position: 'absolute', left: x - w / 2, top: y - h / 2, width: w, height: h, borderRadius: '50%', background: `radial-gradient(closest-side, rgba(40,28,18,${o}) 0%, rgba(40,28,18,${o * 0.9}) 55%, rgba(40,28,18,0) 100%)`}} />
 );
 
 type Pose = 'calm' | 'shocked' | 'happy' | 'thinking' | 'proud' | 'suspicious';
 /** Leo standing on the floor: contact shadow under the feet, then the character. */
 export const StandLeo: React.FC<{x: number; y: number; h: number; pose: Pose; flip?: boolean}> = ({x, y, h, pose, flip}) => (
   <>
-    <FloorShadow x={x + h * 0.257} y={y + h * 0.985} w={h * 0.46} />
+    <FloorShadow x={x + h * (flip ? 0.28 : 0.233)} y={y + h * 1.012} w={h * 0.62} h={h * 0.085} o={0.75} />
     <div style={{position: 'absolute', left: x, top: y}}><Leo pose={pose} h={h} flip={flip} /></div>
   </>
 );

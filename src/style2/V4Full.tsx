@@ -1,5 +1,5 @@
 // Video 04 full cut (Style 2): split-screen hook + sting, then chapters 1-6.
-// Outro is not included yet (no outro voice file).
+// Outro is included without voice until the outro recording exists (see V4Outro.OUTRO_VOICE).
 import React from 'react';
 import {AbsoluteFill, Freeze, Html5Audio, interpolate, Sequence, staticFile} from 'remotion';
 import {Join, LayoutProbe, SceneDef, Timeline, timelineLength} from './s2kit';
@@ -10,6 +10,7 @@ import {V4Ch3, V4_CH3_LEN} from './V4Ch3';
 import {V4Ch4, V4_CH4_LEN} from './V4Ch4';
 import {V4Ch5, V4_CH5_LEN} from './V4Ch5';
 import {V4Ch6, V4_CH6_LEN} from './V4Ch6';
+import {V4Outro, V4_OUTRO_LEN} from './V4Outro';
 import {JoinSfx, Watermark} from './v4common';
 
 const SCENES: SceneDef[] = [
@@ -20,6 +21,7 @@ const SCENES: SceneDef[] = [
   {len: V4_CH4_LEN, node: <V4Ch4 bare />},
   {len: V4_CH5_LEN, node: <V4Ch5 bare />},
   {len: V4_CH6_LEN, node: <V4Ch6 bare />},
+  {len: V4_OUTRO_LEN, node: <V4Outro bare />},
 ];
 const JOINS: Join[] = [
   {kind: 'cut', dur: 0},
@@ -28,6 +30,7 @@ const JOINS: Join[] = [
   {kind: 'puff', dur: 12},
   {kind: 'shatter', dur: 12},
   {kind: 'splat', dur: 12, cx: 960, cy: 560},
+  {kind: 'swirl', dur: 14, cx: 960, cy: 540, color: '#0B1A12'},
 ];
 export const V4_FULL_LEN = timelineLength(SCENES, JOINS);
 const BED_FROM = HOOK_SPLIT_LEN - 20;

@@ -115,16 +115,16 @@ const Disclaimer: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.05}]} drift={0.02}>
         <CardBg color="green" />
-        <LetterBounce text="EDUCATION ONLY" at={t(39.4)} x={960} y={400} size={120} />
+        <LetterBounce text="EDUCATION ONLY" at={t(37.6)} x={960} y={400} size={120} />
         <Pill2 text="your numbers are different from the average" at={t(41.9)} x={960} y={640} size={50} />
-        <PopIn at={t(42.6)} x={960} y={790} id="nfa"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={40} color="#CFE8D8">not financial advice</Label></div></PopIn>
+        <PopIn at={t(39.6)} x={960} y={790} id="nfa"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={40} color="#CFE8D8">not financial advice</Label></div></PopIn>
       </Cam>
-      <Sfx name="pop" at={t(39.4)} /><Sfx name="pop" at={t(41.9)} />
+      <Sfx name="pop" at={t(37.6)} /><Sfx name="pop" at={t(39.6)} /><Sfx name="pop" at={t(41.9)} />
     </AbsoluteFill>
   );
 };
 
-const BUILT = buildChapter([0, 5.6, 16.1, 39.2], 45.0, [OneNumber, Check, Habits, Disclaimer], [
+const BUILT = buildChapter([0, 5.6, 16.1, 37.4], 45.0, [OneNumber, Check, Habits, Disclaimer], [
   {kind: 'splat', dur: 16, cx: 960, cy: 600},
   {kind: 'puff', dur: 14},
   {kind: 'swirl', dur: 22, cx: 960, cy: 540, color: '#0B1A12'},
