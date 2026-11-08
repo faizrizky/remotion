@@ -1,8 +1,8 @@
 // Video 04, Chapter 5 "The Honest Part" (Style 2), timed to ch5.wav (33.2 s).
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {Cam, INK, Key, Leo, Pill2, Sfx, Src2} from './s2kit';
-import {Bg, Board, buildChapter, CardBg, ChapterShell, Label, lt, Pie, PopIn, Prop, QLines, SceneFn, StrikeSwap} from './v4common';
+import {Cam, INK, Key, Pill2, Sfx, Src2} from './s2kit';
+import {FloorShadow, StandLeo, Bg, Board, buildChapter, CardBg, ChapterShell, Label, lt, Pie, PopIn, Prop, QLines, SceneFn, StrikeSwap} from './v4common';
 
 const Q: SceneFn = ({s0}) => {
   const t = lt(s0);
@@ -24,7 +24,7 @@ const Most: SceneFn = ({s0}) => {
   return (
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.03}]} drift={0.015} bg="#E9D9BE">
-        <Bg src="paper_hall.jpg" blur={6} />
+        <Bg src="paper_hall_clean.jpg" blur={6} />
         <Board x={260} y={170} w={1400} h={720}>
           <div style={{position: 'absolute', left: 80, top: 130}}><Pie r={220} part={0.29} at={t(5.9)} /></div>
           <PopIn at={t(3.6)} x={620} y={90} id="l1" origin="0% 50%"><Label size={38}>✓ Most keep paying on time</Label></PopIn>
@@ -59,7 +59,7 @@ const News: SceneFn = ({s0}) => {
         </PopIn>
         <Pill2 text="exact predictions = guessing" at={t(16.6)} x={960} y={850} size={54} bg="#F5C842" />
       </Cam>
-      <Sfx name="whoosh" at={2} /><Sfx name="paper_rip" at={t(12.6)} /><Sfx name="pop" at={t(14.2)} /><Sfx name="pop" at={t(16.6)} />
+      <Sfx name="paper_rip" at={t(12.6)} /><Sfx name="pop" at={t(14.2)} /><Sfx name="pop" at={t(16.6)} />
     </AbsoluteFill>
   );
 };
@@ -74,7 +74,7 @@ const Show: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={keys} drift={0}>
         <Bg src="suburb_sun.jpg" />
-        <div style={{position: 'absolute', left: 150 + f * 5.5, top: 838}}><Prop name="obj_car_leo_side" w={460} flip /></div>
+        <FloorShadow x={150 + f * 5.5 + 230} y={838 + 460 * 0.3761 - 5} w={420} h={30} o={0.4} /><div style={{position: 'absolute', left: 150 + f * 5.5, top: 838}}><Prop name="obj_car_leo_side" w={460} flip /></div>
       </Cam>
       <Pill2 text="what the numbers show" at={t(20.0)} x={960} y={110} size={50} />
       <Pill2 text="cars cost more" at={t(22.5)} x={600} y={275} size={58} bg="#E5484D" color="#FFFFFF" />
@@ -93,12 +93,12 @@ const Sky: SceneFn = ({s0}) => {
   return (
     <AbsoluteFill>
       <Cam keys={keys} drift={0.01}>
-        <Bg src="sky_strip.jpg" />
-        <div style={{position: 'absolute', left: 811, top: 440}}><Leo pose={f < t(31.5) ? 'calm' : 'proud'} h={570} /></div>
+        <Bg src="road_full.jpg" />
+        <StandLeo x={811} y={440} h={570} pose={f < t(31.5) ? 'calm' : 'proud'} />
       </Cam>
       <Pill2 text="you can see it coming" at={t(29.4)} x={960} y={160} size={58} />
       <Pill2 text="so you can avoid it" at={t(31.5)} x={960} y={320} size={58} bg="#2E9E5B" color="#FFFFFF" />
-      <Sfx name="whoosh" at={2} /><Sfx name="pop" at={t(29.4)} /><Sfx name="ding" at={t(31.5)} />
+      <Sfx name="pop" at={t(29.4)} /><Sfx name="ding" at={t(31.5)} />
     </AbsoluteFill>
   );
 };
@@ -110,4 +110,4 @@ const BUILT = buildChapter([0, 3.3, 9.9, 19.8, 29.1], 33.8, [Q, Most, News, Show
   {kind: 'puff', dur: 14},
 ]);
 export const V4_CH5_LEN = BUILT.len;
-export const V4Ch5: React.FC<{check?: boolean; bare?: boolean}> = ({check = false, bare = false}) => <ChapterShell built={BUILT} voice="ch5.wav" check={check} bare={bare} />;
+export const V4Ch5: React.FC<{check?: boolean; bare?: boolean; mute?: boolean}> = ({check = false, bare = false, mute = false}) => <ChapterShell built={BUILT} voice="ch5.wav" check={check} bare={bare} mute={mute} />;

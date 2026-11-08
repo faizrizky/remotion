@@ -2,6 +2,7 @@
 import React from 'react';
 import {AbsoluteFill, Html5Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {PennySting} from '../kit/sting';
+import {JoinSfx} from './v4common';
 import {Cam, Car, Chip2, Count, Enter, H, Join, Key, LayoutProbe, LetterBounce, PatternCard, Pill2, Popped, SceneDef, Sfx, Src2, Timeline, timelineLength, W} from './s2kit';
 
 const C = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
@@ -108,8 +109,9 @@ export const HOOK_SPLIT_LEN = timelineLength(SCENES, JOINS);
 const STING_START = 262 + 292 + 112 - 16 - 24;
 
 export const HookSplit: React.FC<{check?: boolean; bare?: boolean}> = ({check = false, bare = false}) => (
-  <AbsoluteFill style={{background: '#000'}}>
+  <AbsoluteFill style={{background: bare ? 'transparent' : '#000'}}>
     <Timeline scenes={SCENES} joins={JOINS} />
+    <JoinSfx scenes={SCENES} joins={JOINS} />
     {!bare && <Watermark />}
     {!bare && <LayoutProbe check={check} />}
     <Html5Audio src={staticFile('v4/voice/cold_open.wav')} />

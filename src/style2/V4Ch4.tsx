@@ -2,7 +2,7 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {Cam, Chip2, INK, Key, LetterBounce, Pill2, Sfx, Src2} from './s2kit';
-import {Bg, Board, buildChapter, C, CardBg, ChapterShell, GrowBar, Label, lt, Pie, PopIn, Prop, QLines, SceneFn} from './v4common';
+import {FloorShadow, Bg, Board, buildChapter, C, CardBg, ChapterShell, GrowBar, Label, lt, Pie, PopIn, Prop, QLines, SceneFn} from './v4common';
 
 // 1. question card
 const Q: SceneFn = ({s0}) => {
@@ -47,7 +47,7 @@ const Three: SceneFn = ({s0}) => {
   return (
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.03}]} drift={0.015} bg="#E9D9BE">
-        <Bg src="paper_hall.jpg" blur={6} />
+        <Bg src="paper_hall_clean.jpg" blur={6} />
         <Board x={260} y={170} w={1400} h={720}>
           <div style={{position: 'absolute', left: 90, top: 150}}><Pie r={200} part={0.03} at={t(12.8)} rest="#9AA5B8" /></div>
           <PopIn at={t(13.0)} x={600} y={150} id="t3" origin="0% 50%">
@@ -84,7 +84,7 @@ const Quote: SceneFn = ({s0}) => {
           </div>
         </PopIn>
       </Cam>
-      {Array.from({length: 9}, (_, i) => <Sfx key={i} name="card_tap" at={t(20.6) + i * 9} />)}
+      <Sfx name="typing" at={t(20.6)} />
     </AbsoluteFill>
   );
 };
@@ -122,12 +122,12 @@ const Tow: SceneFn = ({s0}) => {
         <Bg src="suburb_grey.jpg" blur={3} />
         <div data-fg="tow" style={{position: 'absolute', left: x, top: 480 + bob, width: 1440, height: 480}}>
           <div style={{position: 'absolute', left: 0, top: 170, transform: 'rotate(-7deg)', transformOrigin: '100% 100%'}}><Prop name="obj_car_leo_side" w={600} flip /></div>
-          <div style={{position: 'absolute', left: 580, top: 0}}><Prop name="obj_tow_truck" w={860} /></div>
+          <FloorShadow x={1010} y={860 * 0.5577 - 10} w={820} h={56} o={0.4} /><FloorShadow x={300} y={474} w={540} h={40} o={0.3} /><div style={{position: 'absolute', left: 580, top: 0}}><Prop name="obj_tow_truck" w={860} /></div>
         </div>
         <Pill2 text="the story may not end there" at={t(42.8)} x={960} y={210} size={54} />
         <Pill2 text="many states: you can still owe the difference" at={t(47.0)} x={960} y={368} size={46} bg="#E5484D" color="#FFFFFF" />
       </Cam>
-      <Sfx name="whoosh" at={2} /><Sfx name="pop" at={t(42.8)} /><Sfx name="boom" at={t(47.0)} />
+      <Sfx name="pop" at={t(42.8)} /><Sfx name="boom" at={t(47.0)} />
     </AbsoluteFill>
   );
 };
@@ -141,7 +141,7 @@ const Report: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 560, z: 1.05}]} drift={0.02}>
         <Bg src="closeup_soft.jpg" />
-        <PopIn at={2} x={300} y={330} origin="50% 100%"><Prop name="obj_phone_hand" w={520} /></PopIn>
+        <PopIn at={2} x={300} y={440} origin="50% 100%"><Prop name="obj_phone_hand" w={520} /></PopIn>
         <PopIn at={t(50.9)} x={880} y={300} id="notif" origin="0% 50%">
           <div style={{width: 820, background: '#FFFFFF', borderRadius: 26, padding: '24px 34px', boxSizing: 'border-box', boxShadow: '0 14px 30px rgba(0,0,0,0.2)', borderLeft: '16px solid #E5484D'}}>
             <Label size={30} color="#777">CREDIT REPORT</Label>
@@ -177,4 +177,4 @@ const BUILT = buildChapter([0, 3.0, 12.4, 19.1, 24.6, 39.9, 50.4], 57.7, [Q, Big
   {kind: 'splat', dur: 16, cx: 1000, cy: 600},
 ]);
 export const V4_CH4_LEN = BUILT.len;
-export const V4Ch4: React.FC<{check?: boolean; bare?: boolean}> = ({check = false, bare = false}) => <ChapterShell built={BUILT} voice="ch4.wav" check={check} bare={bare} />;
+export const V4Ch4: React.FC<{check?: boolean; bare?: boolean; mute?: boolean}> = ({check = false, bare = false, mute = false}) => <ChapterShell built={BUILT} voice="ch4.wav" check={check} bare={bare} mute={mute} />;

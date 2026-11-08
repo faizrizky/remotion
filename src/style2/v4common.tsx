@@ -3,7 +3,7 @@
 import React from 'react';
 import {AbsoluteFill, Html5Audio, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {SANS} from '../style/style_kit';
-import {ease, H, INK, Join, LayoutProbe, LetterBounce, SceneDef, Timeline, W} from './s2kit';
+import {ease, H, INK, Join, LayoutProbe, Leo, LetterBounce, SceneDef, Sfx, Timeline, W} from './s2kit';
 
 export const C = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 export const FPS = 24;
@@ -92,8 +92,9 @@ export const GapChart: React.FC<{w: number; h: number; atAxes: number; atCar: nu
       {area && <path d={area} fill="#E5484D" opacity={0.28 * pa} />}
       {pc > 0 && <path d={path(car, pc)} stroke="#2F80ED" strokeWidth={12} fill="none" strokeLinecap="round" strokeLinejoin="round" />}
       {pl > 0 && <path d={path(loan, pl)} stroke="#E5484D" strokeWidth={12} fill="none" strokeLinecap="round" strokeLinejoin="round" />}
-      {pc > 0.9 && <text x={pt(0.5, car(0.5))[0]} y={pt(0.5, car(0.5))[1] + 62} textAnchor="start" fontFamily={SANS} fontWeight={800} fontSize={34} fill="#2F80ED">CAR VALUE</text>}
-      {pl > 0.9 && <text x={pt(0.1, loan(0.1))[0] + 10} y={pt(0.1, loan(0.1))[1] - 24} fontFamily={SANS} fontWeight={800} fontSize={34} fill="#E5484D">LOAN BALANCE</text>}
+      {/* legend in the empty lower-left corner, never on the lines */}
+      {pc > 0.05 && <g transform={`translate(${x0 + 40}, ${y0 - 120})`}><line x1={0} y1={0} x2={56} y2={0} stroke="#2F80ED" strokeWidth={12} strokeLinecap="round" /><text x={74} y={12} fontFamily={SANS} fontWeight={800} fontSize={32} fill="#2F80ED">CAR VALUE</text></g>}
+      {pl > 0.05 && <g transform={`translate(${x0 + 40}, ${y0 - 64})`}><line x1={0} y1={0} x2={56} y2={0} stroke="#E5484D" strokeWidth={12} strokeLinecap="round" /><text x={74} y={12} fontFamily={SANS} fontWeight={800} fontSize={32} fill="#E5484D">LOAN BALANCE</text></g>}
     </svg>
   );
 };
@@ -213,12 +214,51 @@ export const RoadBands: React.FC<{camX: number; z?: number}> = ({camX}) => {
 };
 
 /** A chapter: scenes on a Timeline + its voice file + quiet music bed. */
-export const ChapterShell: React.FC<{built: {scenes: SceneDef[]; joins: Join[]}; voice: string; check?: boolean; music?: boolean; bare?: boolean}> = ({built, voice, check = false, music = true, bare = false}) => (
+export const ChapterShell: React.FC<{built: {scenes: SceneDef[]; joins: Join[]}; voice: string; check?: boolean; music?: boolean; bare?: boolean; mute?: boolean}> = ({built, voice, check = false, music = true, bare = false, mute = false}) => (
   <AbsoluteFill style={{background: '#000'}}>
     <Timeline scenes={built.scenes} joins={built.joins} />
+    {!mute && <JoinSfx scenes={built.scenes} joins={built.joins} />}
     {!bare && <Watermark />}
     {!bare && <LayoutProbe check={check} />}
-    <Html5Audio src={staticFile(`v4/voice/${voice}`)} />
+    {!mute && <Html5Audio src={staticFile(`v4/voice/${voice}`)} />}
     {music && !bare && <Html5Audio src={staticFile('music/monday_routine.mp3')} loop volume={0.06} />}
   </AbsoluteFill>
+);
+
+/** Transition sound: every wipe gets a whoosh as it starts; a splat also lands with a pop. */
+export const JoinSfx: React.FC<{scenes: {len: number}[]; joins: Join[]; offset?: number}> = ({scenes, joins, offset = 0}) => {
+  const out: React.ReactNode[] = [];
+  let acc = 0;
+  scenes.forEach((s, i) => {
+    const j = joins[i];
+    const end = acc + s.len;
+    if (j && j.kind !== 'cut') {
+      const st = offset + end - j.dur;
+      out.push(<Sfx key={`w${i}`} name="whoosh" at={st - 2} vol={0.42} />);
+      if (j.kind === 'splat') out.push(<Sfx key={`p${i}`} name="pop" at={st + j.dur / 2} vol={0.3} />);
+    }
+    acc = end - (j && j.kind !== 'cut' ? j.dur : 0);
+  });
+  return <>{out}</>;
+};
+
+/** Soft contact shadow so people and objects sit on the floor instead of floating. */
+export const FloorShadow: React.FC<{x: number; y: number; w: number; h?: number; o?: number}> = ({x, y, w, h = w * 0.16, o = 0.32}) => (
+  <div style={{position: 'absolute', left: x - w / 2, top: y - h / 2, width: w, height: h, borderRadius: '50%', background: `radial-gradient(ellipse at center, rgba(40,28,18,${o}) 0%, rgba(40,28,18,${o * 0.6}) 45%, rgba(40,28,18,0) 72%)`}} />
+);
+
+type Pose = 'calm' | 'shocked' | 'happy' | 'thinking' | 'proud' | 'suspicious';
+/** Leo standing on the floor: contact shadow under the feet, then the character. */
+export const StandLeo: React.FC<{x: number; y: number; h: number; pose: Pose; flip?: boolean}> = ({x, y, h, pose, flip}) => (
+  <>
+    <FloorShadow x={x + h * 0.257} y={y + h * 0.985} w={h * 0.46} />
+    <div style={{position: 'absolute', left: x, top: y}}><Leo pose={pose} h={h} flip={flip} /></div>
+  </>
+);
+/** A prop that stands on the ground (car, truck, desk...): shadow under its base. ratio = height / width. */
+export const GroundProp: React.FC<{name: string; x: number; y: number; w: number; ratio: number; flip?: boolean; id?: string; shadow?: number}> = ({name, x, y, w, ratio, flip, id, shadow = 0.92}) => (
+  <>
+    <FloorShadow x={x + w / 2} y={y + w * ratio - w * 0.012} w={w * shadow} h={w * 0.07} o={0.38} />
+    <div data-fg={id} style={{position: 'absolute', left: x, top: y}}><Prop name={name} w={w} flip={flip} /></div>
+  </>
 );

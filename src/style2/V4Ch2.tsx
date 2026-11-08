@@ -1,8 +1,8 @@
 // Video 04, Chapter 2 "The Long Loan" (Style 2), timed to ch2.wav (81.4 s).
 import React from 'react';
 import {AbsoluteFill, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {Cam, Count, INK, Key, Leo, LetterBounce, Pill2, Sfx, Src2} from './s2kit';
-import {Bg, Board, buildChapter, CardBg, ChapterShell, GapChart, Label, lt, Pie, PopIn, Prop, RoadBands, RowPanel, SceneFn, StrikeSwap} from './v4common';
+import {Cam, Count, INK, Key, LetterBounce, Pill2, Sfx, Src2} from './s2kit';
+import {FloorShadow, GroundProp, StandLeo, Bg, Board, buildChapter, CardBg, ChapterShell, GapChart, Label, lt, Pie, PopIn, Prop, RoadBands, RowPanel, SceneFn, StrikeSwap} from './v4common';
 
 // 1. question card
 const Q: SceneFn = ({s0}) => {
@@ -31,7 +31,7 @@ const Stretch: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={keys} drift={0.01}>
         <Bg src="bank_hall.jpg" blur={4} />
-        <div style={{position: 'absolute', left: 580, top: 560}}><Prop name="obj_banker_desk" w={760} /></div>
+        <FloorShadow x={960} y={1090} w={820} h={80} o={0.35} /><div style={{position: 'absolute', left: 580, top: 560}}><Prop name="obj_banker_desk" w={760} /></div>
         <div data-fg="contract" style={{position: 'absolute', left: 960, top: 380, transform: `translateX(-50%) scaleX(${1 + 1.0 * st})`, transformOrigin: '50% 50%', width: 520, height: 120, background: '#FFFDF7', border: `5px solid ${INK}`, borderRadius: 12, boxShadow: '0 8px 0 rgba(0,0,0,0.15)'}} />
         <div style={{position: 'absolute', left: 960, top: 380, width: 0, height: 120}}>
           <Label size={48} style={{position: 'absolute', left: 0, top: 30, transform: 'translateX(-50%)'}}>LOAN: {months} MONTHS</Label>
@@ -53,7 +53,7 @@ const Road: SceneFn = ({s0}) => {
   return (
     <AbsoluteFill>
       <RoadBands camX={f * 24} />
-      <div style={{position: 'absolute', left: 120, top: 700 + bob}}><Prop name="obj_car_leo_side" w={700} flip /></div>
+      <FloorShadow x={470} y={700 + 700 * 0.3761 - 8} w={650} h={46} o={0.4} /><div style={{position: 'absolute', left: 120, top: 700 + bob}}><Prop name="obj_car_leo_side" w={700} flip /></div>
       <RowPanel x={1000} y={150} w={760} at={t(12.8)} size={50} rows={[
         {at: t(12.8), node: '$40,000 LOAN'},
         {at: t(14.6), node: '8.1% APR'},
@@ -62,7 +62,7 @@ const Road: SceneFn = ({s0}) => {
       <Pill2 text="-$188 a month" at={t(29.5)} x={1350} y={700} size={60} bg="#2E9E5B" color="#FFFFFF" />
       <Pill2 text="feels like a win" at={t(33.3)} x={1350} y={860} size={50} />
       <Src2 text="rate: Edmunds Q3 2026 · payments computed for this video" at={t(16.5)} />
-      <Sfx name="whoosh" at={2} /><Sfx name="pop" at={t(12.8)} /><Sfx name="pop" at={t(14.6)} /><Sfx name="ding" at={t(21.6)} />
+      <Sfx name="pop" at={t(12.8)} /><Sfx name="pop" at={t(14.6)} /><Sfx name="ding" at={t(21.6)} />
       <Sfx name="paper_rip" at={t(24.9)} /><Sfx name="paper_rip" at={t(26.6)} /><Sfx name="ding" at={t(29.5)} /><Sfx name="pop" at={t(33.3)} />
     </AbsoluteFill>
   );
@@ -95,7 +95,7 @@ const ChartAgain: SceneFn = ({s0}) => {
   return (
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.0}]} drift={0.015} bg="#E9D9BE">
-        <Bg src="paper_hall.jpg" blur={6} />
+        <Bg src="paper_hall_clean.jpg" blur={6} />
         <Board x={260} y={150} w={1400} h={760}>
           <GapChart w={1368} h={728} atAxes={0} atCar={t(44.9)} atLoan={t(45.6)} atArea={t(47.0)} loanFlat={0.3} dur={22} />
           {f >= t(47.2) && <Label size={52} color="#B42318" style={{position: 'absolute', left: 760, top: 110, opacity: Math.min(1, (f - t(47.2)) / 5)}}>GAP LASTS LONGER</Label>}
@@ -177,8 +177,8 @@ const Smoke: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 560, z: 1.05}]} drift={0.02}>
         <Bg src="suburb_grey.jpg" blur={3} />
-        <div data-fg="car" style={{position: 'absolute', left: 420, top: 640}}><Prop name="obj_car_smoke" w={800} /></div>
-        <div style={{position: 'absolute', left: 1380, top: 420}}><Leo pose={f < t(79.3) ? 'shocked' : 'suspicious'} h={560} flip /></div>
+        <GroundProp name="obj_car_smoke" x={420} y={640} w={800} ratio={0.3696} id="car" />
+        <StandLeo x={1380} y={420} h={560} pose={f < t(79.3) ? 'shocked' : 'suspicious'} flip />
         <Pill2 text="still making payments" at={t(76.9)} x={860} y={250} size={54} bg="#E5484D" color="#FFFFFF" />
         <Pill2 text="repair coverage: ended" at={t(79.3)} x={820} y={420} size={50} bg="#33384A" color="#FFFFFF" />
       </Cam>
@@ -197,4 +197,4 @@ const BUILT = buildChapter([0, 4.6, 12.3, 34.7, 44.6, 49.7, 58.6, 76.6], 82.0, [
   {kind: 'splat', dur: 16, cx: 960, cy: 520},
 ]);
 export const V4_CH2_LEN = BUILT.len;
-export const V4Ch2: React.FC<{check?: boolean; bare?: boolean}> = ({check = false, bare = false}) => <ChapterShell built={BUILT} voice="ch2.wav" check={check} bare={bare} />;
+export const V4Ch2: React.FC<{check?: boolean; bare?: boolean; mute?: boolean}> = ({check = false, bare = false, mute = false}) => <ChapterShell built={BUILT} voice="ch2.wav" check={check} bare={bare} mute={mute} />;

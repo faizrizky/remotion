@@ -1,8 +1,8 @@
 // Video 04, Chapter 3 "Rolled Over" (Style 2), timed to ch3.wav (57.2 s).
 import React from 'react';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {Cam, Chip2, Count, INK, Key, Leo, LetterBounce, Pill2, Sfx, Src2} from './s2kit';
-import {Bg, buildChapter, C, CardBg, ChapterShell, Label, lt, PopIn, Prop, QLines, RoadBands, SceneFn, Stamp} from './v4common';
+import {Cam, Chip2, Count, INK, Key, LetterBounce, Pill2, Sfx, Src2} from './s2kit';
+import {FloorShadow, StandLeo, Bg, buildChapter, C, CardBg, ChapterShell, Label, lt, PopIn, Prop, QLines, RoadBands, SceneFn, Stamp} from './v4common';
 
 // 1. question card with the $7,107 callback
 const Q: SceneFn = ({s0}) => {
@@ -34,8 +34,8 @@ const Showroom: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={keys} drift={0.01}>
         <Bg src="showroom.jpg" blur={6} dim={0.06} />
-        <div style={{position: 'absolute', left: 260 + walk, top: 420 + bob}}><Leo pose={f < t(5.6) ? 'happy' : 'suspicious'} h={560} /></div>
-        <PopIn at={t(2.8)} x={820} y={600} id="newcar" origin="50% 100%"><Prop name="obj_car_new_side" w={900} /></PopIn>
+        <StandLeo x={260 + walk} y={420 + bob} h={560} pose={f < t(5.6) ? 'happy' : 'suspicious'} />
+        {f >= t(2.8) && <FloorShadow x={1270} y={600 + 900 * 0.4156 - 10} w={840} h={60} o={0.38} />}<PopIn at={t(2.8)} x={820} y={600} id="newcar" origin="50% 100%"><Prop name="obj_car_new_side" w={900} /></PopIn>
         <Pill2 text="into the next loan" at={t(3.2)} x={960} y={180} size={56} />
         <Pill2 text="old car: owe $7,000 more" at={t(5.8)} x={720} y={330} size={50} bg="#E5484D" color="#FFFFFF" />
         <Pill2 text="dealer pays off old loan" at={t(8.6)} x={1300} y={490} size={46} bg="#2E9E5B" color="#FFFFFF" />
@@ -104,7 +104,7 @@ const Stage: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 560, z: 1.06}]} drift={0.02}>
         <Bg src="stage_spot.jpg" />
-        <PopIn at={t(30.0)} x={580} y={470} id="cash" origin="50% 100%"><Prop name="obj_cash_stack_l" w={760} /></PopIn>
+        <FloorShadow x={960} y={470 + 760 * 0.6692 - 30} w={720} h={70} o={0.45} /><PopIn at={t(30.0)} x={580} y={470} id="cash" origin="50% 100%"><Prop name="obj_cash_stack_l" w={760} /></PopIn>
         <Pill2 text={<>interest alone: <Count to={16610} at={t(34.0)} dur={18} prefix="$" /></>} at={t(32.9)} x={960} y={300} size={64} />
       </Cam>
       <Src2 text="Edmunds, Q3 2026" at={t(32.9)} />
@@ -140,7 +140,7 @@ const Twist: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <RoadBands camX={f * 26} />
       <div style={{position: 'absolute', left: 200, top: 0, transform: `translateY(${bob}px)`}}>
-        <div style={{position: 'absolute', left: 0, top: 650}}><Prop name="obj_car_new_side" w={760} flip /></div>
+        <FloorShadow x={380} y={650 + 760 * 0.4156 - 8} w={700} h={48} o={0.4} /><div style={{position: 'absolute', left: 0, top: 650}}><Prop name="obj_car_new_side" w={760} flip /></div>
         <div data-fg="crate" style={{position: 'absolute', left: 250, top: 488}}>
           <Prop name="obj_debt_box" w={240} />
           <div style={{position: 'absolute', left: 120, top: 70, transform: 'translateX(-50%) rotate(-4deg)', background: '#FFFFFF', border: `4px solid ${INK}`, borderRadius: 10, padding: '2px 12px'}}><Label size={30}>OLD DEBT</Label></div>
@@ -148,7 +148,7 @@ const Twist: SceneFn = ({s0}) => {
       </div>
       <Pill2 text="upside down from day one" at={t(51.4)} x={1260} y={240} size={54} bg="#E5484D" color="#FFFFFF" />
       <Pill2 text="it travels to the next car" at={t(55.8)} x={1240} y={420} size={54} />
-      <Sfx name="whoosh" at={2} /><Sfx name="boom" at={t(51.4)} /><Sfx name="pop" at={t(55.8)} />
+      <Sfx name="boom" at={t(51.4)} /><Sfx name="pop" at={t(55.8)} />
     </AbsoluteFill>
   );
 };
@@ -162,4 +162,4 @@ const BUILT = buildChapter([0, 2.5, 10.0, 17.8, 29.3, 35.4, 48.7], 57.9, [Q, Sho
   {kind: 'splat', dur: 16, cx: 900, cy: 600},
 ]);
 export const V4_CH3_LEN = BUILT.len;
-export const V4Ch3: React.FC<{check?: boolean; bare?: boolean}> = ({check = false, bare = false}) => <ChapterShell built={BUILT} voice="ch3.wav" check={check} bare={bare} />;
+export const V4Ch3: React.FC<{check?: boolean; bare?: boolean; mute?: boolean}> = ({check = false, bare = false, mute = false}) => <ChapterShell built={BUILT} voice="ch3.wav" check={check} bare={bare} mute={mute} />;

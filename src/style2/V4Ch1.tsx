@@ -1,8 +1,8 @@
 // Video 04, Chapter 1 "The Gap" (Style 2), timed to ch1.wav (53.8 s).
 import React from 'react';
 import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
-import {Cam, Enter, INK, Key, Leo, LetterBounce, Pill2, Sfx, Src2} from './s2kit';
-import {Bg, Board, buildChapter, C, CardBg, ChapterShell, GapChart, GrowBar, Label, lt, PopIn, Prop, RoadBands, SceneFn, Stamp} from './v4common';
+import {Cam, Enter, INK, Key, LetterBounce, Pill2, Sfx, Src2} from './s2kit';
+import {FloorShadow, StandLeo, Bg, Board, buildChapter, C, CardBg, ChapterShell, GapChart, GrowBar, Label, lt, PopIn, Prop, RoadBands, SceneFn, Stamp} from './v4common';
 import {SANS} from '../style/style_kit';
 
 // 1. pull back from Leo's face: "It has a name: negative equity... upside down or underwater."
@@ -15,14 +15,14 @@ const Name: SceneFn = ({s0}) => {
   return (
     <AbsoluteFill>
       <Cam keys={keys} drift={0.02} bg="#E9D9BE">
-        <Bg src="paper_hall.jpg" blur={5} />
+        <Bg src="paper_hall_clean.jpg" blur={5} />
         <Board x={520} y={300} w={780} h={480}>
           <div style={{position: 'absolute', left: 245, top: 120, transform: `rotate(${flip}deg)`, transformOrigin: '130px 60px'}}><Prop name="obj_car_leo_side" w={260} /></div>
           <div style={{position: 'absolute', left: 0, bottom: 0, width: '100%', height: 210 * water, background: '#5FB4E6B0'}} />
           {f >= t(3.6) && <Label size={40} color="#E5484D" style={{position: 'absolute', left: 30, top: 24}}>UPSIDE DOWN</Label>}
           {f >= t(4.7) && <Label size={40} color="#FFFFFF" style={{position: 'absolute', right: 30, bottom: 24}}>UNDERWATER</Label>}
         </Board>
-        <div style={{position: 'absolute', left: 1420, top: 400}}><Leo pose={f < t(3.6) ? 'calm' : 'thinking'} h={600} flip /></div>
+        <StandLeo x={1420} y={400} h={600} pose={f < t(3.6) ? 'calm' : 'thinking'} flip />
         <Pill2 text="negative equity" at={t(1.3)} x={910} y={196} size={56} />
       </Cam>
       <Sfx name="pop" at={t(1.3)} /><Sfx name="whoosh" at={t(3.6)} /><Sfx name="pop" at={t(4.7)} />
@@ -39,7 +39,7 @@ const Drive: SceneFn = ({s0}) => {
   return (
     <AbsoluteFill>
       <RoadBands camX={f * 26} />
-      <div style={{position: 'absolute', left: 300, top: 690 + bob}}><Prop name="obj_car_leo_side" w={760} flip /></div>
+      <FloorShadow x={680} y={690 + 760 * 0.3761 - 8} w={700} h={50} o={0.4} /><div style={{position: 'absolute', left: 300, top: 690 + bob}}><Prop name="obj_car_leo_side" w={760} flip /></div>
       <PopIn at={t(7.8)} x={380} y={420} id="value" origin="50% 100%">
         <div style={{background: '#FFFFFF', borderRadius: 18, padding: '14px 34px', boxShadow: '0 10px 24px rgba(0,0,0,0.22)', width: 532, boxSizing: 'border-box'}}>
           <Label size={30} color="#555">CAR VALUE (example)</Label>
@@ -47,7 +47,7 @@ const Drive: SceneFn = ({s0}) => {
         </div>
       </PopIn>
       <Pill2 text="fastest in the first years" at={t(11.7)} x={1340} y={250} size={50} bg="#E5484D" color="#FFFFFF" />
-      <Sfx name="whoosh" at={2} /><Sfx name="pop" at={t(7.8)} /><Sfx name="ding" at={t(11.7)} />
+      <Sfx name="pop" at={t(7.8)} /><Sfx name="ding" at={t(11.7)} />
     </AbsoluteFill>
   );
 };
@@ -94,7 +94,7 @@ const Chart: SceneFn = ({s0}) => {
   return (
     <AbsoluteFill>
       <Cam keys={keys} drift={0.012} bg="#E9D9BE">
-        <Bg src="paper_hall.jpg" blur={6} />
+        <Bg src="paper_hall_clean.jpg" blur={6} />
         <Board x={260} y={150} w={1400} h={760}>
           <GapChart w={1368} h={728} atAxes={t(22.8)} atCar={t(28.3)} atLoan={t(30.2)} atArea={t(32.6)} />
           {f >= t(35.1) && (
@@ -118,8 +118,7 @@ const Moment: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.04}]} drift={0.015}>
         <Bg src="living_room.jpg" blur={5} dim={0.12} />
-        <div style={{position: 'absolute', left: 200, top: 330}}><Leo pose={f < t(41.1) ? 'happy' : 'thinking'} h={640} /></div>
-        <PopIn at={t(37.6)} x={590} y={600} id="keys"><Prop name="obj_keys" w={160} /></PopIn>
+        <StandLeo x={200} y={350} h={640} pose={f < t(41.1) ? 'happy' : 'thinking'} />
         {f < t(41.0) && <Pill2 text="keep paying = no problem" at={t(37.6)} x={1240} y={300} size={54} bg="#2E9E5B" color="#FFFFFF" />}
         {f >= t(41.1) && <Pill2 text="the gap matters when you..." at={t(41.1)} x={1260} y={300} size={54} />}
         <Enter kind="drop" at={t(43.4)} x={835} y={441} ><Pill2 text="sell" at={t(43.4)} x={125} y={39} size={54} bg="#F5C842" /></Enter>
@@ -158,4 +157,4 @@ const BUILT = buildChapter([0, 7.4, 14.5, 22.4, 37.0, 48.2], 54.4, [Name, Drive,
   {kind: 'puff', dur: 14},
 ]);
 export const V4_CH1_LEN = BUILT.len;
-export const V4Ch1: React.FC<{check?: boolean; bare?: boolean}> = ({check = false, bare = false}) => <ChapterShell built={BUILT} voice="ch1.wav" check={check} bare={bare} />;
+export const V4Ch1: React.FC<{check?: boolean; bare?: boolean; mute?: boolean}> = ({check = false, bare = false, mute = false}) => <ChapterShell built={BUILT} voice="ch1.wav" check={check} bare={bare} mute={mute} />;

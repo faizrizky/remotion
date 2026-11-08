@@ -130,4 +130,4 @@ const BUILT = buildChapter([0, 5.6, 16.1, 39.2], 45.0, [OneNumber, Check, Habits
   {kind: 'swirl', dur: 22, cx: 960, cy: 540, color: '#0B1A12'},
 ]);
 export const V4_CH6_LEN = BUILT.len;
-export const V4Ch6: React.FC<{check?: boolean; bare?: boolean}> = ({check = false, bare = false}) => <ChapterShell built={BUILT} voice="ch6.wav" check={check} bare={bare} />;
+export const V4Ch6: React.FC<{check?: boolean; bare?: boolean; mute?: boolean}> = ({check = false, bare = false, mute = false}) => <ChapterShell built={BUILT} voice="ch6.wav" check={check} bare={bare} mute={mute} />;

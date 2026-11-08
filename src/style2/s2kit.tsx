@@ -13,12 +13,12 @@ export const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * 
 export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // ---------- SFX (same set as Style 1) ----------
-const SFX = {pop: 'sfx/pop.wav', whoosh: 'sfx/whoosh.wav', kaching: 'sfx/kaching.wav', ding: 'sfx/ding.wav', boom: 'sfx/boom.wav', notify: 'sfx/notify.wav', paper_rip: 'sfx/paper_rip.wav', card_tap: 'sfx/card_tap.wav'} as const;
-const SFX_VOL: Record<keyof typeof SFX, number> = {pop: 0.32, whoosh: 0.3, kaching: 0.5, ding: 0.4, boom: 0.45, notify: 0.4, paper_rip: 0.4, card_tap: 0.4};
+const SFX = {typing: 'sfx/keyboard_typing.wav', pop: 'sfx/pop.wav', whoosh: 'sfx/whoosh.wav', kaching: 'sfx/kaching.wav', ding: 'sfx/ding.wav', boom: 'sfx/boom.wav', notify: 'sfx/notify.wav', paper_rip: 'sfx/paper_rip.wav', card_tap: 'sfx/card_tap.wav'} as const;
+const SFX_VOL: Record<keyof typeof SFX, number> = {typing: 0.5, pop: 0.32, whoosh: 0.3, kaching: 0.5, ding: 0.4, boom: 0.45, notify: 0.4, paper_rip: 0.4, card_tap: 0.4};
 export type SfxName = keyof typeof SFX;
-export const Sfx: React.FC<{name: SfxName; at: number}> = ({name, at}) => (
-  <Sequence from={Math.max(0, Math.round(at))} durationInFrames={48} layout="none">
-    <Html5Audio src={staticFile(SFX[name])} volume={SFX_VOL[name]} />
+export const Sfx: React.FC<{name: SfxName; at: number; vol?: number; dur?: number}> = ({name, at, vol, dur = 48}) => (
+  <Sequence from={Math.max(0, Math.round(at))} durationInFrames={name === 'typing' ? 96 : dur} layout="none">
+    <Html5Audio src={staticFile(SFX[name])} volume={vol ?? SFX_VOL[name]} />
   </Sequence>
 );
 
