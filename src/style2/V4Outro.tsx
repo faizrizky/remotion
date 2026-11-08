@@ -5,7 +5,7 @@ import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {Cam, Enter, LetterBounce, Pill2, Sfx} from './s2kit';
 import {Bg, buildChapter, CardBg, ChapterShell, FloorShadow, GroundProp, Label, lt, PopIn, Prop, SceneFn, StandLeo} from './v4common';
 
-export const OUTRO_VOICE = '';
+export const OUTRO_VOICE = 'outro.wav';
 
 // 1. back to the trade-in: $15,000 car, $22,000 loan, the gap crate
 const Callback: SceneFn = ({s0}) => {
@@ -15,13 +15,13 @@ const Callback: SceneFn = ({s0}) => {
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.04}]} drift={0.015}>
         <Bg src="suburb_sun.jpg" blur={2} />
         <GroundProp name="obj_car_leo_side" x={260} y={600} w={760} ratio={0.3761} id="car" />
-        <Pill2 text="VALUE $15,000" at={t(1.4)} x={640} y={240} size={56} />
-        <Pill2 text="LOAN $22,000" at={t(3.0)} x={1360} y={240} size={56} bg="#E5484D" color="#FFFFFF" />
-        <Enter kind="drop" at={t(5.0)} x={1330} y={520} id="gap" dist={500}>
+        <Pill2 text="VALUE $15,000" at={t(1.6)} x={640} y={240} size={56} />
+        <Pill2 text="LOAN $22,000" at={t(3.6)} x={1360} y={240} size={56} bg="#E5484D" color="#FFFFFF" />
+        <Enter kind="drop" at={t(5.4)} x={1330} y={520} id="gap" dist={500}>
           <div style={{background: '#FFE066', color: '#1B2230', fontFamily: 'sans-serif', fontWeight: 900, fontSize: 96, padding: '14px 40px', borderRadius: 26, border: '6px solid #1B2230', boxShadow: '0 12px 0 rgba(0,0,0,0.25)', whiteSpace: 'nowrap'}}>$7,000</div>
         </Enter>
       </Cam>
-      <Sfx name="pop" at={t(1.4)} /><Sfx name="pop" at={t(3.0)} /><Sfx name="boom" at={t(5.0) + 12} />
+      <Sfx name="pop" at={t(1.6)} /><Sfx name="pop" at={t(3.6)} /><Sfx name="boom" at={t(5.4) + 12} />
     </AbsoluteFill>
   );
 };
@@ -30,7 +30,7 @@ const Callback: SceneFn = ({s0}) => {
 const Leave: SceneFn = ({s0}) => {
   const f = useCurrentFrame();
   const t = lt(s0);
-  const go = Math.max(0, f - t(7.6));
+  const go = Math.max(0, f - t(8.0));
   const x = 700 + go * go * 0.9;
   return (
     <AbsoluteFill>
@@ -41,9 +41,9 @@ const Leave: SceneFn = ({s0}) => {
         <FloorShadow x={400} y={820} w={300} h={34} o={0.4} />
         <PopIn at={2} x={250} y={620} id="crate"><Prop name="obj_debt_box" w={300} /></PopIn>
       </Cam>
-      <Pill2 text="don't let it follow you" at={t(7.0)} x={960} y={140} size={56} />
-      <Pill2 text="a car loan is not a trap by itself" at={t(9.9)} x={960} y={300} size={56} bg="#2E9E5B" color="#FFFFFF" />
-      <Sfx name="pop" at={t(7.0)} /><Sfx name="whoosh" at={t(7.6)} /><Sfx name="ding" at={t(9.9)} />
+      <Pill2 text="don't let it follow you" at={t(7.4)} x={960} y={140} size={56} />
+      <Pill2 text="a car loan is not a trap by itself" at={t(10.05)} x={960} y={300} size={56} bg="#2E9E5B" color="#FFFFFF" />
+      <Sfx name="pop" at={t(7.4)} /><Sfx name="whoosh" at={t(8.0)} /><Sfx name="ding" at={t(10.05)} />
     </AbsoluteFill>
   );
 };
@@ -55,11 +55,11 @@ const Outlives: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.05}]} drift={0.02}>
         <CardBg color="navy" />
-        <LetterBounce text="IT BECOMES ONE WHEN" at={t(12.2)} x={960} y={330} size={84} />
-        <LetterBounce text="THE LOAN OUTLIVES" at={t(14.2)} x={960} y={560} size={110} color="#F5C842" />
-        <LetterBounce text="THE CAR'S VALUE" at={t(15.6)} x={960} y={780} size={110} color="#F5C842" />
+        <LetterBounce text="IT BECOMES ONE WHEN" at={t(12.6)} x={960} y={330} size={84} />
+        <LetterBounce text="THE LOAN OUTLIVES" at={t(13.5)} x={960} y={560} size={110} color="#F5C842" />
+        <LetterBounce text="THE CAR'S VALUE" at={t(14.1)} x={960} y={780} size={110} color="#F5C842" />
       </Cam>
-      <Sfx name="pop" at={t(12.2)} /><Sfx name="pop" at={t(14.2)} /><Sfx name="boom" at={t(15.6)} />
+      <Sfx name="pop" at={t(12.6)} /><Sfx name="pop" at={t(13.5)} /><Sfx name="boom" at={t(14.1)} />
     </AbsoluteFill>
   );
 };
@@ -71,13 +71,13 @@ const Challenge: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.04}]} drift={0.02}>
         <CardBg color="green" />
-        <LetterBounce text="YOUR CHALLENGE" at={t(18.0)} x={960} y={230} size={110} />
-        <Pill2 text="check your payoff" at={t(18.4)} x={600} y={420} size={56} />
-        <Pill2 text="check your car's value" at={t(20.0)} x={1260} y={580} size={56} />
-        <Pill2 text="this week" at={t(20.9)} x={960} y={740} size={56} bg="#F5C842" />
-        <PopIn at={t(22.4)} x={960} y={915} id="ask"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={50} color="#FFFFFF">comment: above or below the line?</Label></div></PopIn>
+        <LetterBounce text="YOUR CHALLENGE" at={t(15.65)} x={960} y={230} size={110} />
+        <Pill2 text="check your payoff" at={t(17.1)} x={600} y={420} size={56} />
+        <Pill2 text="check your car's value" at={t(19.4)} x={1260} y={580} size={56} />
+        <Pill2 text="this week" at={t(19.95)} x={960} y={740} size={56} bg="#F5C842" />
+        <PopIn at={t(23.1)} x={960} y={915} id="ask"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={50} color="#FFFFFF">comment: above or below the line?</Label></div></PopIn>
       </Cam>
-      <Sfx name="pop" at={t(18.0)} /><Sfx name="pop" at={t(18.4)} /><Sfx name="pop" at={t(20.0)} /><Sfx name="pop" at={t(20.9)} /><Sfx name="ding" at={t(22.4)} />
+      <Sfx name="pop" at={t(15.65)} /><Sfx name="pop" at={t(17.1)} /><Sfx name="pop" at={t(19.4)} /><Sfx name="pop" at={t(19.95)} /><Sfx name="ding" at={t(23.1)} />
     </AbsoluteFill>
   );
 };
@@ -90,16 +90,16 @@ const Bye: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.0}]} drift={0.008}>
         <Bg src="road_full.jpg" />
-        <StandLeo x={140} y={440} h={560} pose={f < t(26.4) ? 'happy' : 'proud'} />
+        <StandLeo x={140} y={440} h={560} pose={f < t(27.55) ? 'happy' : 'proud'} />
       </Cam>
-      <Pill2 text="SUBSCRIBE" at={t(23.8)} x={500} y={300} size={70} bg="#E5484D" color="#FFFFFF" anchor="left" />
-      <Pill2 text="see you next time" at={t(26.4)} x={500} y={520} size={48} anchor="left" />
-      <Sfx name="pop" at={t(23.8)} /><Sfx name="ding" at={t(24.6)} /><Sfx name="pop" at={t(26.4)} />
+      <Pill2 text="SUBSCRIBE" at={t(25.45)} x={500} y={300} size={70} bg="#E5484D" color="#FFFFFF" anchor="left" />
+      <Pill2 text="see you next time" at={t(27.55)} x={500} y={520} size={48} anchor="left" />
+      <Sfx name="pop" at={t(25.45)} /><Sfx name="ding" at={t(26.0)} /><Sfx name="pop" at={t(27.55)} />
     </AbsoluteFill>
   );
 };
 
-const BUILT = buildChapter([0, 6.9, 12.0, 17.8, 23.6], 28.8, [Callback, Leave, Outlives, Challenge, Bye], [
+const BUILT = buildChapter([0, 7.2, 12.3, 15.4, 25.2], 28.9, [Callback, Leave, Outlives, Challenge, Bye], [
   {kind: 'swirl', dur: 20, cx: 960, cy: 560, color: '#E9D9BE'},
   {kind: 'splat', dur: 16, cx: 960, cy: 540},
   {kind: 'shatter', dur: 16},
