@@ -56,10 +56,10 @@ const Outlives: SceneFn = ({s0}) => {
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.05}]} drift={0.02}>
         <CardBg color="navy" />
         <LetterBounce text="IT BECOMES ONE WHEN" at={t(12.6)} x={960} y={330} size={84} />
-        <LetterBounce text="THE LOAN OUTLIVES" at={t(13.5)} x={960} y={560} size={110} color="#F5C842" />
-        <LetterBounce text="THE CAR'S VALUE" at={t(14.1)} x={960} y={780} size={110} color="#F5C842" />
+        <LetterBounce text="THE LOAN OUTLIVES" at={t(13.6)} x={960} y={560} size={110} color="#F5C842" />
+        <LetterBounce text="THE CAR'S VALUE" at={t(15.65)} x={960} y={780} size={110} color="#F5C842" />
       </Cam>
-      <Sfx name="pop" at={t(12.6)} /><Sfx name="pop" at={t(13.5)} /><Sfx name="boom" at={t(14.1)} />
+      <Sfx name="pop" at={t(12.6)} /><Sfx name="pop" at={t(13.6)} /><Sfx name="boom" at={t(15.65)} />
     </AbsoluteFill>
   );
 };
@@ -71,13 +71,13 @@ const Challenge: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.04}]} drift={0.02}>
         <CardBg color="green" />
-        <LetterBounce text="YOUR CHALLENGE" at={t(15.65)} x={960} y={230} size={110} />
-        <Pill2 text="check your payoff" at={t(17.1)} x={600} y={420} size={56} />
+        <LetterBounce text="YOUR CHALLENGE" at={t(17.15)} x={960} y={230} size={110} />
+        <Pill2 text="check your payoff" at={t(18.1)} x={600} y={420} size={56} />
         <Pill2 text="check your car's value" at={t(19.4)} x={1260} y={580} size={56} />
         <Pill2 text="this week" at={t(19.95)} x={960} y={740} size={56} bg="#F5C842" />
         <PopIn at={t(23.1)} x={960} y={915} id="ask"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={50} color="#FFFFFF">comment: above or below the line?</Label></div></PopIn>
       </Cam>
-      <Sfx name="pop" at={t(15.65)} /><Sfx name="pop" at={t(17.1)} /><Sfx name="pop" at={t(19.4)} /><Sfx name="pop" at={t(19.95)} /><Sfx name="ding" at={t(23.1)} />
+      <Sfx name="pop" at={t(17.15)} /><Sfx name="pop" at={t(18.1)} /><Sfx name="pop" at={t(19.4)} /><Sfx name="pop" at={t(19.95)} /><Sfx name="ding" at={t(23.1)} />
     </AbsoluteFill>
   );
 };
@@ -99,7 +99,7 @@ const Bye: SceneFn = ({s0}) => {
   );
 };
 
-const BUILT = buildChapter([0, 7.2, 12.3, 15.4, 25.2], 28.9, [Callback, Leave, Outlives, Challenge, Bye], [
+const BUILT = buildChapter([0, 7.2, 12.3, 16.9, 25.2], 28.9, [Callback, Leave, Outlives, Challenge, Bye], [
   {kind: 'swirl', dur: 20, cx: 960, cy: 560, color: '#E9D9BE'},
   {kind: 'splat', dur: 16, cx: 960, cy: 540},
   {kind: 'shatter', dur: 16},
