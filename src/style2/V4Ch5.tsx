@@ -10,7 +10,7 @@ const Q: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.06}]} drift={0.03}>
         <CardBg color="green" />
-        <QLines lines={['IS THIS', 'A CRISIS?']} at={t(0.1)} size={140} y={470} gapY={230} />
+        <QLines lines={['IS THIS', 'A CRISIS?']} at={t(0.1)} size={140} y={470} gapY={260} />
         <PopIn at={t(1.8)} x={960} y={860} id="sub"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={46} color="#CFE8D8">let's keep it in proportion</Label></div></PopIn>
       </Cam>
       <Sfx name="pop" at={t(0.1)} /><Sfx name="pop" at={t(1.8)} />

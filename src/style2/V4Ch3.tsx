@@ -36,9 +36,9 @@ const Showroom: SceneFn = ({s0}) => {
         <Bg src="showroom.jpg" blur={6} dim={0.06} />
         <div style={{position: 'absolute', left: 260 + walk, top: 420 + bob}}><Leo pose={f < t(5.6) ? 'happy' : 'suspicious'} h={560} /></div>
         <PopIn at={t(2.8)} x={820} y={600} id="newcar" origin="50% 100%"><Prop name="obj_car_new_side" w={900} /></PopIn>
-        <Pill2 text="into the next loan" at={t(3.2)} x={960} y={200} size={56} />
+        <Pill2 text="into the next loan" at={t(3.2)} x={960} y={180} size={56} />
         <Pill2 text="old car: owe $7,000 more" at={t(5.8)} x={720} y={330} size={50} bg="#E5484D" color="#FFFFFF" />
-        <Pill2 text="dealer pays off old loan" at={t(8.6)} x={1300} y={470} size={46} bg="#2E9E5B" color="#FFFFFF" />
+        <Pill2 text="dealer pays off old loan" at={t(8.6)} x={1300} y={490} size={46} bg="#2E9E5B" color="#FFFFFF" />
       </Cam>
       <Sfx name="pop" at={t(2.8)} /><Sfx name="pop" at={t(3.2)} /><Sfx name="pop" at={t(5.8)} /><Sfx name="ding" at={t(8.6)} />
     </AbsoluteFill>
@@ -83,12 +83,12 @@ const BigLoan: SceneFn = ({s0}) => {
   const t = lt(s0);
   return (
     <AbsoluteFill>
-      <Cam keys={[{t: 0, x: 960, y: 540, z: 1.05}]} drift={0.012}>
+      <Cam keys={[{t: 0, x: 960, y: 540, z: 1.0}]} drift={0.006}>
         <CardBg color="maroon" />
-        <LetterBounce text="AVERAGE ROLLED-OVER LOAN" at={t(18.4)} x={960} y={260} size={66} />
-        <PopIn at={t(21.4)} x={960} y={480} id="big"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={180} color="#FFFFFF" style={{textShadow: '0 8px 0 rgba(0,0,0,0.3)'}}><Count to={57235} at={t(21.5)} dur={30} prefix="$" /></Label></div></PopIn>
-        <Pill2 text="$952 / month" at={t(25.8)} x={700} y={720} size={60} />
-        <Pill2 text="8.1% interest" at={t(27.9)} x={1300} y={720} size={60} bg="#F5C842" />
+        <LetterBounce text="AVERAGE ROLLED-OVER LOAN" at={t(18.4)} x={960} y={240} size={66} />
+        <PopIn at={t(21.4)} x={960} y={450} id="big"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={180} color="#FFFFFF" style={{textShadow: '0 8px 0 rgba(0,0,0,0.3)'}}><Count to={57235} at={t(21.5)} dur={30} prefix="$" /></Label></div></PopIn>
+        <Pill2 text="$952 / month" at={t(25.8)} x={700} y={770} size={60} />
+        <Pill2 text="8.1% interest" at={t(27.9)} x={1300} y={770} size={60} bg="#F5C842" />
       </Cam>
       <Chip2 label="DATE:" value="Q3 2026" icon="cal" at={t(18.3)} />
       <Src2 text="Edmunds, Q3 2026" at={t(21.5)} />
@@ -118,12 +118,12 @@ const Compare: SceneFn = ({s0}) => {
   const t = lt(s0);
   return (
     <AbsoluteFill>
-      <Cam keys={[{t: 0, x: 960, y: 540, z: 1.05}]} drift={0.012}>
+      <Cam keys={[{t: 0, x: 960, y: 540, z: 1.0}]} drift={0.006}>
         <CardBg color="navy" />
         <LetterBounce text="VS. THE AVERAGE NEW-CAR BUYER" at={t(35.6)} x={960} y={180} size={70} />
-        <Pill2 text="+$12,600 borrowed" at={t(39.8)} x={760} y={420} size={70} bg="#E5484D" color="#FFFFFF" />
+        <Pill2 text="+$12,600 borrowed" at={t(39.8)} x={760} y={400} size={70} bg="#E5484D" color="#FFFFFF" />
         <Pill2 text="+$165 a month" at={t(42.4)} x={1160} y={610} size={70} bg="#E5484D" color="#FFFFFF" />
-        <Pill2 text="+$6,700 in interest" at={t(46.8)} x={900} y={800} size={70} bg="#E5484D" color="#FFFFFF" />
+        <Pill2 text="+$6,700 in interest" at={t(46.8)} x={900} y={820} size={70} bg="#E5484D" color="#FFFFFF" />
       </Cam>
       <Src2 text="Edmunds, Q3 2026" at={t(39.8)} />
       <Sfx name="pop" at={t(35.6)} /><Sfx name="ding" at={t(39.8)} /><Sfx name="ding" at={t(42.4)} /><Sfx name="boom" at={t(46.8)} />
@@ -146,8 +146,8 @@ const Twist: SceneFn = ({s0}) => {
           <div style={{position: 'absolute', left: 120, top: 70, transform: 'translateX(-50%) rotate(-4deg)', background: '#FFFFFF', border: `4px solid ${INK}`, borderRadius: 10, padding: '2px 12px'}}><Label size={30}>OLD DEBT</Label></div>
         </div>
       </div>
-      <Pill2 text="upside down from day one" at={t(51.4)} x={1260} y={260} size={54} bg="#E5484D" color="#FFFFFF" />
-      <Pill2 text="it travels to the next car" at={t(55.8)} x={1240} y={400} size={54} />
+      <Pill2 text="upside down from day one" at={t(51.4)} x={1260} y={240} size={54} bg="#E5484D" color="#FFFFFF" />
+      <Pill2 text="it travels to the next car" at={t(55.8)} x={1240} y={420} size={54} />
       <Sfx name="whoosh" at={2} /><Sfx name="boom" at={t(51.4)} /><Sfx name="pop" at={t(55.8)} />
     </AbsoluteFill>
   );

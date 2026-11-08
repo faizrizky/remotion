@@ -117,7 +117,7 @@ export const Pie: React.FC<{r: number; part: number; at: number; dur?: number; c
 };
 
 /** Question card scene body: letters bounce in on a pattern card. */
-export const QLines: React.FC<{lines: string[]; at: number; size?: number; gapY?: number; y?: number}> = ({lines, at, size = 124, gapY = 220, y = 540}) => (
+export const QLines: React.FC<{lines: string[]; at: number; size?: number; gapY?: number; y?: number}> = ({lines, at, size = 124, gapY = 250, y = 540}) => (
   <>
     {lines.map((l, i) => <LetterBounce key={i} text={l} at={at + i * 14} x={W / 2} y={y - ((lines.length - 1) * gapY) / 2 + i * gapY} size={size} />)}
   </>
