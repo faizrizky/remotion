@@ -107,11 +107,11 @@ const JOINS: Join[] = [
 export const HOOK_SPLIT_LEN = timelineLength(SCENES, JOINS);
 const STING_START = 262 + 292 + 112 - 16 - 24;
 
-export const HookSplit: React.FC<{check?: boolean}> = ({check = false}) => (
+export const HookSplit: React.FC<{check?: boolean; bare?: boolean}> = ({check = false, bare = false}) => (
   <AbsoluteFill style={{background: '#000'}}>
     <Timeline scenes={SCENES} joins={JOINS} />
-    <Watermark />
-    <LayoutProbe check={check} />
+    {!bare && <Watermark />}
+    {!bare && <LayoutProbe check={check} />}
     <Html5Audio src={staticFile('v4/voice/cold_open.wav')} />
     <Html5Audio src={staticFile('music/monday_routine.mp3')} loop volume={(f) => (f < STING_START ? 0.07 : 0)} />
     <Sequence from={STING_START} layout="none"><Html5Audio src={staticFile('music/funky_intro_sting.mp3')} volume={0.7} /></Sequence>
