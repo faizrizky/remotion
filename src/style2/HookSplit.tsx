@@ -14,15 +14,15 @@ const Watermark = () => (
 const Split: React.FC = () => {
   const f = useCurrentFrame();
   const div = 960 + interpolate(f, [190, 212], [0, 70], C) - interpolate(f, [212, 226], [0, 70], C);
-  const bgKeys: Key[] = [{t: 0, x: 960, y: 560, z: 1.12}];
+  const bgKeys: Key[] = [{t: 0, x: 960, y: 560, z: 1.1}];
   const panel = (side: 'l' | 'r') => {
     const cx = side === 'l' ? 480 : 1440;
     return (
       <AbsoluteFill style={{clipPath: side === 'l' ? `inset(0 ${W - div}px 0 0)` : `inset(0 0 0 ${div}px)`}}>
-        <Cam keys={bgKeys} drift={0.03}>
+        <Cam keys={bgKeys} drift={0.015}>
           <div style={{position: 'absolute', width: W, height: H}}>
-            <Img src={staticFile('v4/bg/lot_a.jpg')} style={{position: 'absolute', left: -416, top: -230, width: 2752, height: 1536, filter: side === 'r' ? 'saturate(0.85) brightness(0.93)' : 'none'}} />
-            <Img src={staticFile('v4/obj_car_leo_side.png')} style={{position: 'absolute', left: cx - 400, top: 600, width: 800}} />
+            <Img src={staticFile(side === 'l' ? 'v4/bg/suburb_sun.jpg' : 'v4/bg/suburb_grey.jpg')} style={{position: 'absolute', left: -240, top: -150, width: 2400, height: 1340}} />
+            <Img src={staticFile('v4/obj_car_leo_side.png')} style={{position: 'absolute', left: cx - 320, top: 699, width: 640}} />
           </div>
         </Cam>
       </AbsoluteFill>
@@ -34,12 +34,12 @@ const Split: React.FC = () => {
       <div style={{position: 'absolute', left: div - 7, top: 0, width: 14, height: H, background: '#FFFFFF', boxShadow: '0 0 18px rgba(0,0,0,0.3)'}} />
       <Chip2 label="LOCATION:" value="United States" icon="pin" at={20} />
       <Chip2 label="DATE:" value="Q3 2026" icon="cal" at={28} y={186} />
-      <Pill2 text="VALUE $15,000" at={112} x={480} y={420} size={56} />
-      <Pill2 text="LOAN $22,000" at={187} x={1440} y={420} size={56} bg="#E5484D" color="#FFFFFF" />
-      <Enter kind="drop" at={214} x={960 - 190} y={520} id="gap" dist={600}>
+      <Pill2 text="VALUE $15,000" at={112} x={480} y={370} size={56} />
+      <Pill2 text="LOAN $22,000" at={187} x={1440} y={370} size={56} bg="#E5484D" color="#FFFFFF" />
+      <Enter kind="drop" at={214} x={960 - 190} y={600} id="gap" dist={600}>
         <div style={{background: '#FFE066', color: '#1B2230', fontFamily: 'sans-serif', fontWeight: 900, fontSize: 96, padding: '14px 40px', borderRadius: 26, border: '6px solid #1B2230', boxShadow: '0 12px 0 rgba(0,0,0,0.25)', whiteSpace: 'nowrap'}}>$7,000</div>
       </Enter>
-      <Enter kind="drop" at={238} x={1440 - 150} y={560} id="crate" dist={800}>
+      <Enter kind="drop" at={238} x={1440 - 150} y={480} id="crate" dist={800}>
         <Img src={staticFile('v4/obj_debt_box.png')} style={{width: 300, display: 'block'}} />
       </Enter>
       <Sfx name="whoosh" at={4} /><Sfx name="pop" at={20} /><Sfx name="pop" at={28} /><Sfx name="pop" at={112} />
