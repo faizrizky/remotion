@@ -76,10 +76,10 @@ const Show: SceneFn = ({s0}) => {
         <Bg src="suburb_sun.jpg" />
         <div style={{position: 'absolute', left: 150 + f * 5.5, top: 838}}><Prop name="obj_car_leo_side" w={460} flip /></div>
       </Cam>
-      <Pill2 text="what the numbers show" at={t(20.0)} x={960} y={130} size={50} />
-      <Pill2 text="cars cost more" at={t(22.5)} x={600} y={260} size={58} bg="#E5484D" color="#FFFFFF" />
-      <Pill2 text="loans are longer" at={t(23.8)} x={1300} y={420} size={58} bg="#E5484D" color="#FFFFFF" />
-      <Pill2 text="old debt rolls into new loans" at={t(25.2)} x={900} y={590} size={58} bg="#E5484D" color="#FFFFFF" />
+      <Pill2 text="what the numbers show" at={t(20.0)} x={960} y={110} size={50} />
+      <Pill2 text="cars cost more" at={t(22.5)} x={600} y={275} size={58} bg="#E5484D" color="#FFFFFF" />
+      <Pill2 text="loans are longer" at={t(23.8)} x={1300} y={435} size={58} bg="#E5484D" color="#FFFFFF" />
+      <Pill2 text="old debt rolls into new loans" at={t(25.2)} x={900} y={600} size={58} bg="#E5484D" color="#FFFFFF" />
       <Sfx name="pop" at={t(20.0)} /><Sfx name="pop" at={t(22.5)} /><Sfx name="pop" at={t(23.8)} /><Sfx name="pop" at={t(25.2)} />
     </AbsoluteFill>
   );
@@ -94,10 +94,10 @@ const Sky: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={keys} drift={0.01}>
         <Bg src="sky_strip.jpg" />
-        <div style={{position: 'absolute', left: 806, top: 410}}><Leo pose={f < t(31.5) ? 'calm' : 'proud'} h={600} /></div>
+        <div style={{position: 'absolute', left: 811, top: 440}}><Leo pose={f < t(31.5) ? 'calm' : 'proud'} h={570} /></div>
       </Cam>
-      <Pill2 text="you can see it coming" at={t(29.4)} x={960} y={180} size={58} />
-      <Pill2 text="so you can avoid it" at={t(31.5)} x={960} y={330} size={58} bg="#2E9E5B" color="#FFFFFF" />
+      <Pill2 text="you can see it coming" at={t(29.4)} x={960} y={160} size={58} />
+      <Pill2 text="so you can avoid it" at={t(31.5)} x={960} y={320} size={58} bg="#2E9E5B" color="#FFFFFF" />
       <Sfx name="whoosh" at={2} /><Sfx name="pop" at={t(29.4)} /><Sfx name="ding" at={t(31.5)} />
     </AbsoluteFill>
   );

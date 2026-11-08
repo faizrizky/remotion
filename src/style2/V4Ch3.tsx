@@ -86,9 +86,9 @@ const BigLoan: SceneFn = ({s0}) => {
       <Cam keys={[{t: 0, x: 960, y: 540, z: 1.0}]} drift={0.006}>
         <CardBg color="maroon" />
         <LetterBounce text="AVERAGE ROLLED-OVER LOAN" at={t(18.4)} x={960} y={240} size={66} />
-        <PopIn at={t(21.4)} x={960} y={430} id="big"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={180} color="#FFFFFF" style={{textShadow: '0 8px 0 rgba(0,0,0,0.3)'}}><Count to={57235} at={t(21.5)} dur={30} prefix="$" /></Label></div></PopIn>
-        <Pill2 text="$952 / month" at={t(25.8)} x={700} y={790} size={60} />
-        <Pill2 text="8.1% interest" at={t(27.9)} x={1300} y={790} size={60} bg="#F5C842" />
+        <PopIn at={t(21.4)} x={960} y={410} id="big"><div style={{transform: 'translate(-50%, -50%)'}}><Label size={180} color="#FFFFFF" style={{textShadow: '0 8px 0 rgba(0,0,0,0.3)'}}><Count to={57235} at={t(21.5)} dur={30} prefix="$" /></Label></div></PopIn>
+        <Pill2 text="$952 / month" at={t(25.8)} x={700} y={810} size={60} />
+        <Pill2 text="8.1% interest" at={t(27.9)} x={1300} y={810} size={60} bg="#F5C842" />
       </Cam>
       <Chip2 label="DATE:" value="Q3 2026" icon="cal" at={t(18.3)} />
       <Src2 text="Edmunds, Q3 2026" at={t(21.5)} />
