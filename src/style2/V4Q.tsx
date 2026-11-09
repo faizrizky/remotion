@@ -95,7 +95,7 @@ const Payoff: SceneFn = ({s0}) => {
         <GrowBar id="bar2" x={820} base={860} w={220} h={430} at={t(O0 + 9.18)} color={R} top="$12,537" label="84 MONTHS" />
       </Cam>
       <Pill2 text="SAME CAR" at={t(O0 + 11.27)} x={1460} y={400} size={56} />
-      <Pill2 text="+$3,759" at={t(O0 + 12.33)} x={1460} y={580} size={100} bg={R} color="#FFFFFF" />
+      <Pill2 text="+$3,759" at={t(O0 + 12.33)} x={1460} y={600} size={100} bg={R} color="#FFFFFF" />
       <Src2 text="Example: $40,000 at 8.1% APR, total interest (amortization)" at={t(O0 + 6.27)} />
       <Sfx name="pop" at={t(O0 + 0.3)} /><Sfx name="pop" at={t(O0 + 3.75)} /><Sfx name="ding" at={t(O0 + 5.18)} /><Sfx name="pop" at={t(O0 + 6.27)} /><Sfx name="pop" at={t(O0 + 9.18)} /><Sfx name="pop" at={t(O0 + 11.27)} /><Sfx name="boom" at={t(O0 + 12.33)} />
     </AbsoluteFill>
@@ -118,8 +118,8 @@ const Why: SceneFn = ({s0}) => {
           {big && <div style={{transform: `scale(${Math.min(1, 0.4 + (f - t(Y0 + 5.3)) / 8)})`, textAlign: 'center'}}><Label size={104} color="#B42318">91.2%</Label><Label size={40} color="#B42318" style={{marginTop: -6}}>OVER 6 YEARS</Label></div>}
         </div>
       </Cam>
-      <Pill2 text="of buyers who rolled over old debt" at={t(Y0 + 6.4)} x={960} y={190} size={56} />
-      <Pill2 text="chose loans longer than 6 years" at={t(Y0 + 9.1)} x={960} y={340} size={56} bg={GOLD} />
+      <Pill2 text="of buyers who rolled over old debt" at={t(Y0 + 6.4)} x={960} y={235} size={56} />
+      <Pill2 text="chose loans longer than 6 years" at={t(Y0 + 9.1)} x={960} y={385} size={56} bg={GOLD} />
       <Chip2 label="DATE:" value="Q3 2026" icon="cal" at={t(Y0 + 6.6)} />
       <Src2 text="Edmunds, Q3 2026" at={t(Y0 + 4.1)} />
       <Sfx name="pop" at={t(Y0 + 0.3)} /><Sfx name="pop" at={t(Y0 + 1.6)} /><Sfx name="pop" at={t(Y0 + 2.9)} /><Sfx name="whoosh" at={t(Y0 + 4.0)} /><Sfx name="ding" at={t(Y0 + 5.3)} /><Sfx name="pop" at={t(Y0 + 6.4)} /><Sfx name="pop" at={t(Y0 + 6.6)} /><Sfx name="ding" at={t(Y0 + 9.1)} />
