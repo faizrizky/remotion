@@ -69,8 +69,7 @@ const MathRow: React.FC<{at: number; top: number; label: string; value: string; 
 const A3: SceneFn = ({s0}) => {
   const f = useCurrentFrame();
   const t = lt(s0);
-  const pos = f >= t(10.75) && f < t(13.46);
-  const neg = f >= t(13.46);
+    const neg = f >= t(13.46);
   return (
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.008}>
@@ -80,14 +79,24 @@ const A3: SceneFn = ({s0}) => {
             <div style={{position: 'absolute', left: 40, top: 30}}><Label size={34} color="#777">your numbers (example)</Label></div>
             <MathRow at={t(7.5)} top={110} label="WORTH" value="$15,000" />
             <MathRow at={t(9.1)} top={310} label="OWE" value="−$22,000" color="#E5484D" />
-            {f >= t(10.6) && (
-              <>
-                <div style={{position: 'absolute', left: 40, top: 520}}><Label size={50}>WORTH − OWE =</Label></div>
-                <div style={{position: 'absolute', left: 40, top: 640, background: neg ? '#E5484D' : '#2E9E5B', borderRadius: 18, padding: '8px 30px', border: `5px solid ${INK}`}}>
-                  <Label size={neg ? 72 : 80} color="#FFFFFF">{neg ? '−$7,000 = GAP' : pos ? '+ = EQUITY' : ''}</Label>
-                </div>
-              </>
-            )}
+            {f >= t(10.6) && (() => {
+              const lk = Math.min(1, (f - t(10.6)) / 8);
+              const popAt = neg ? t(13.46) : t(10.75);
+              const pk = Math.max(0, f - popAt);
+              const bs = pk < 12 ? interpolate(pk, [0, 5, 9, 12], [0.4, 1.18, 0.95, 1], C) : 1;
+              const bo = Math.min(1, pk / 4);
+              const shake = neg && pk < 10 ? Math.sin(pk * 2.4) * 8 * (1 - pk / 10) : 0;
+              return (
+                <>
+                  <div style={{position: 'absolute', left: 40, top: 520, opacity: lk, transform: `translateX(${(1 - lk) * 40}px)`}}><Label size={50}>WORTH − OWE =</Label></div>
+                  {f >= t(10.75) && (
+                    <div style={{position: 'absolute', left: 40, top: 640, background: neg ? '#E5484D' : '#2E9E5B', borderRadius: 18, padding: '8px 30px', border: `5px solid ${INK}`, opacity: bo, transform: `translateX(${shake}px) scale(${bs})`, transformOrigin: '0% 50%'}}>
+                      <Label size={neg ? 72 : 80} color="#FFFFFF">{neg ? '−$7,000 = GAP' : '+ = EQUITY'}</Label>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </div>
         </PopIn>
       </Cam>
