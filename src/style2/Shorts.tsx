@@ -2,7 +2,7 @@
 // Cues are aligned to public/v4/voice/short_a.wav and short_b.wav by their pauses (silencedetect).
 import React from 'react';
 import {AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
-import {Cam, Count, Enter, INK, LetterBounce, Pill2, setDims, Sfx} from './s2kit';
+import {Cam, CalendarX, Count, Enter, INK, LetterBounce, MoneyPile, Pill2, setDims, Sfx} from './s2kit';
 import {buildChapter, C, ChapterShell, FloorShadow, GroundProp, Label, lt, PopIn, Prop, SceneFn, StandLeo} from './v4common';
 
 const VW = 1080, VH = 1920;
@@ -169,20 +169,78 @@ const B2: SceneFn = ({s0}) => {
     </AbsoluteFill>
   );
 };
-// B3: the average loan: $57,235 borrowed, $952 a month, 8.1%
-const B3: SceneFn = ({s0}) => {
+// B3a: the average loan (rolled-over buyers): the new car rolls in
+const B3a: SceneFn = ({s0}) => {
+  const f = useCurrentFrame();
+  const t = lt(s0);
+  const drive = interpolate(f, [4, 30], [0, 1], C);
+  const x = 1250 - (1250 - 220) * (1 - (1 - drive) * (1 - drive));
+  const bob = drive < 1 ? Math.sin(f / 2.2) * 3 : 0;
+  return (
+    <AbsoluteFill>
+      <Cam keys={CAM} drift={0.012}>
+        <VBg src="road_full.jpg" groundFrac={0.848} groundY={1500} />
+        <FloorShadow x={x + 320} y={1496} w={600} h={44} o={0.42} />
+        <div data-fg="car" style={{position: 'absolute', left: x, top: 1500 - 640 * 0.4156 + bob}}><Prop name="obj_car_new_side" w={640} /></div>
+      </Cam>
+      <LetterBounce text="THE AVERAGE LOAN" at={t(9.3)} x={VW / 2} y={340} size={76} />
+      <Pill2 text="ROLLED-OVER BUYERS" at={t(9.9)} x={540} y={520} size={46} bg="#F5C842" />
+      <Sfx name="whoosh" at={4} /><Sfx name="pop" at={t(9.3)} /><Sfx name="pop" at={t(9.9)} />
+    </AbsoluteFill>
+  );
+};
+// B3b: $57,235 borrowed: a pile of cash grows
+const B3b: SceneFn = ({s0}) => {
   const t = lt(s0);
   return (
     <AbsoluteFill>
-      <Cam keys={CAM} drift={0.008}>
-        <VCard color="maroon" />
-        <LetterBounce text="THE AVERAGE LOAN" at={t(9.3)} x={VW / 2} y={340} size={76} />
+      <Cam keys={[{t: 0, x: VW / 2, y: VH / 2 + 40, z: 1.0}, {t: t(12.2), x: VW / 2, y: VH / 2, z: 1.04, dur: 40}]} drift={0}>
+        <VBg src="road_full.jpg" groundFrac={0.848} groundY={1500} />
+        <FloorShadow x={540} y={1470} w={880} h={60} o={0.42} />
+        <MoneyPile at={t(10.65)} x={540} y={1440} rows={5} w={200} stagger={2} />
+        <PopIn at={t(10.65)} x={90} y={470} id="sum">
+          <div style={{width: 900, boxSizing: 'border-box', background: '#FFFFFF', borderRadius: 26, border: `5px solid ${INK}`, boxShadow: '0 16px 36px rgba(0,0,0,0.3)', textAlign: 'center', padding: '10px 0 22px'}}>
+            <Label size={150} style={{display: 'inline-block'}}><Count to={57235} at={t(10.7)} dur={40} prefix="$" /></Label>
+            <Label size={58} color="#E5484D" style={{display: 'block', marginTop: -6}}>BORROWED</Label>
+          </div>
+        </PopIn>
       </Cam>
-      <Pill2 text="$57,235 BORROWED" at={t(10.7)} x={540} y={620} size={58} />
-      <Pill2 text="$952 / MONTH" at={t(12.6)} x={540} y={820} size={58} />
-      <Pill2 text="8.1% INTEREST RATE" at={t(14.25)} x={540} y={1020} size={58} bg="#F5C842" />
-      <SrcPill at={t(14.4)} y={1200} />
-      <Sfx name="pop" at={t(9.3)} /><Sfx name="ding" at={t(10.7)} /><Sfx name="ding" at={t(12.6)} /><Sfx name="ding" at={t(14.25)} />
+      <Sfx name="pop" at={t(10.65)} /><Sfx name="kaching" at={t(10.8)} /><Sfx name="ding" at={t(12.3)} />
+    </AbsoluteFill>
+  );
+};
+// B3c: $952 a month: the calendar fills with payments
+const B3c: SceneFn = ({s0}) => {
+  const t = lt(s0);
+  return (
+    <AbsoluteFill>
+      <Cam keys={CAM} drift={0.01}>
+        <VBg src="desk_top.jpg" groundFrac={0.5} groundY={960} blur={2} />
+        <CalendarX at={t(12.55)} x={140} y={800} marks={12} every={3} w={800} />
+      </Cam>
+      <Pill2 text="$952" at={t(12.6)} x={540} y={420} size={110} bg="#FFE066" />
+      <Pill2 text="EVERY MONTH" at={t(13.0)} x={540} y={620} size={54} />
+      <Sfx name="pop" at={t(12.6)} /><Sfx name="card_tap" at={t(12.9)} /><Sfx name="card_tap" at={t(13.2)} /><Sfx name="card_tap" at={t(13.5)} /><Sfx name="pop" at={t(13.0)} />
+    </AbsoluteFill>
+  );
+};
+// B3d: 8.1% interest: the debt box swells
+const B3d: SceneFn = ({s0}) => {
+  const f = useCurrentFrame();
+  const t = lt(s0);
+  const grow = interpolate(f, [t(14.3), t(14.3) + 30], [0, 1], C);
+  const w = 300 + 220 * grow;
+  return (
+    <AbsoluteFill>
+      <Cam keys={CAM} drift={0.012}>
+        <VCard color="maroon" />
+        <FloorShadow x={540} y={1420} w={w * 1.05} h={44} o={0.5} />
+        <div data-fg="box" style={{position: 'absolute', left: 540 - w / 2, top: 1420 - w * 0.8247}}><Prop name="obj_debt_box" w={w} /></div>
+        <LetterBounce text="8.1%" at={t(14.25)} x={VW / 2} y={450} size={230} color="#F5C842" />
+      </Cam>
+      <Pill2 text="INTEREST RATE" at={t(14.5)} x={540} y={790} size={56} />
+      <SrcPill at={t(14.9)} y={900} />
+      <Sfx name="boom" at={t(14.25)} /><Sfx name="pop" at={t(14.5)} />
     </AbsoluteFill>
   );
 };
@@ -203,9 +261,12 @@ const B4: SceneFn = ({s0}) => {
     </AbsoluteFill>
   );
 };
-const BUILT_B = buildChapter([0, 3.4, 9.0, 15.7], 20.45, [B1, B2, B3, B4], [
+const BUILT_B = buildChapter([0, 3.4, 9.0, 10.39, 12.49, 14.05, 15.7], 20.45, [B1, B2, B3a, B3b, B3c, B3d, B4], [
   {kind: 'splat', dur: 10, cx: 540, cy: 960},
   {kind: 'shatter', dur: 12},
+  {kind: 'puff', dur: 10},
+  {kind: 'cut', dur: 0},
+  {kind: 'splat', dur: 8, cx: 540, cy: 960},
   {kind: 'puff', dur: 12},
 ]);
 export const SHORT_B_LEN = BUILT_B.len;
