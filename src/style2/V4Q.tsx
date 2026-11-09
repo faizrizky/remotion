@@ -88,6 +88,7 @@ const Payoff: SceneFn = ({s0}) => {
         <Bar x={830} w={260} max={376} at={t(31.0)} color={R} id="bar2" />
       </Cam>
       <Pill2 text="-$188 / MONTH" at={t(22.1)} x={960} y={130} size={64} bg={G} color="#FFFFFF" />
+      {f < t(28.0) && <Pill2 text="$813 → $625" at={t(22.6)} x={960} y={620} size={130} bg="#FFFFFF" />}
       {f >= t(25.55) && f < t(26.98) && <Pill2 text="FEELS LIKE A WIN" at={t(25.55)} x={960} y={300} size={56} />}
       <Pill2 text="BUT LOOK AT THE INTEREST" at={t(26.98)} x={960} y={300} size={56} bg={GOLD} />
       <Pill2 text="60 MO · $8,778" at={t(29.0)} x={330} y={BASE - 263 - 115} size={46} />
