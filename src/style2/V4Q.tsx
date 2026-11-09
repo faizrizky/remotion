@@ -10,7 +10,8 @@ import {SANS} from '../style/style_kit';
 import {Sting2s} from './StingOpener';
 
 const D = 0.75;
-const H0 = D, P0 = 9.5 + D, O0 = 21.8 + D, Y0 = 36.07 + D, A0 = 47.53 + D, C0 = 55.25 + D;
+const SH = 1.2; // hold after the loan card so the stamp can be read
+const H0 = D, P0 = 9.5 + D, O0 = 21.8 + D + SH, Y0 = 36.07 + D + SH, A0 = 47.53 + D + SH, C0 = 55.25 + D + SH;
 const G = '#2E9E5B';
 const R = '#E5484D';
 const GOLD = '#F5C842';
@@ -244,7 +245,7 @@ const Sub: SceneFn = ({s0}) => {
   );
 };
 
-export const BUILT_V4Q = buildChapter([0, 7.5 + D, 9.5 + D, 21.675 + D, 35.946 + D, 47.409 + D, 55.125 + D, C0 + 2.73], 63.3, [Hook, StingScene, Problem, Payoff, Why, Action, Warn, Sub], [
+export const BUILT_V4Q = buildChapter([0, 7.5 + D, 9.5 + D, 21.675 + D + SH, 35.946 + D + SH, 47.409 + D + SH, 55.125 + D + SH, C0 + 2.73], 63.3 + SH, [Hook, StingScene, Problem, Payoff, Why, Action, Warn, Sub], [
   {kind: 'cut', dur: 0},
   {kind: 'cut', dur: 0},
   {kind: 'splat', dur: 10, cx: 960, cy: 540},
