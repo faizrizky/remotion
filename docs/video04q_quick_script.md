@@ -5,13 +5,14 @@ Skor hook (perkiraan, skill penny-shorts): H4 91; Short 1 = 83; Short 2 = 86.
 
 ## LONG V4Q (1920x1080, Style 2, ~64 dtk)
 Hook utama (H4): "$188 less a month? It'll cost you $3,759."
-Alt: H3 "Same car. Same loan. $3,759 more. Here's why." / H2 "$188 less a month? Here's the catch."
+Jembatan setelah hook (B1, dipilih 9 Nov): "Here's the math." (janji bukti, bukan pertanyaan; sting 2 dtk sesudahnya). Alt: H3 "Same car. Same loan. $3,759 more. Here's why." / H2 "$188 less a month? Here's the catch."
 
-### Naskah voiceover (rekam ini; 145 kata, ~54 dtk + sting 4,75 dtk + jeda = ~64 dtk)
+### Naskah voiceover (rekam ini; 148 kata, ~55 dtk + sting 4,75 dtk + jeda = ~64 dtk)
 ```
 [HOOK]
 $188 less a month? //
 It'll cost you three thousand seven hundred fifty-nine dollars. //
+Here's the math. //
 [STING Penny Logics, 2 dtk: public/music/sting_opener_2s.wav, komponen Sting2s]
 [PROBLEM]
 Say a dealer quotes a forty-thousand-dollar loan, at eight point one percent. //
@@ -37,8 +38,8 @@ Rekam tiga file: v4q_hook.wav (hook), v4q_body.wav (Problem sampai Close). Sting
 ### Shot list (perkiraan)
 | Waktu (dtk) | Layar | Adegan | SFX |
 |---|---|---|---|
-| 0-6 | "-$188 / MONTH" lalu "+$3,759" merah (angka di detik 1) | meja dealer (desk_top), Leo kecewa | pop, boom |
-| 6-8 | brand sting 2 dtk (Sting2s + sting_opener_2s.wav) | kit | sting |
+| 0-7 | "-$188 / MONTH" lalu "+$3,759" merah (angka di detik 1); "HERE'S THE MATH" di detik 5-7 | meja dealer (desk_top), Leo kecewa | pop, boom |
+| 7-9 | brand sting 2 dtk (Sting2s + sting_opener_2s.wav) | kit | sting |
 | 10.8-22 | panel EXAMPLE: $40,000 · 8.1%; baris 60 MO $813 dan 84 MO $625 | kartu putih di atas jalan/meja | pop, typing |
 | 22-36 | "-$188/mo" hijau; dua batang bunga tumbuh: $8,778 dan $12,537; "+$3,759" merah | MoneyPile / batang, kamera dekat | kaching, boom |
 | 36-46 | CalendarX 84 bulan; pill "91.2% chose 6+ years, Edmunds Q3 2026" | desk_top | card_tap, ding |
