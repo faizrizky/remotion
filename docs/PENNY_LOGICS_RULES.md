@@ -457,3 +457,21 @@ Catatan: periksa setiap hasil. Jika ada tulisan/logo/orang, minta Gemini menghap
 52. (9 Nov 2026) **Tahan animasi terakhir sebelum transisi supaya sempat dibaca (koreksi owner, V4Q draft 3).** Kartu "CAR LOAN OFFER" berganti scene tepat setelah stempel muncul sehingga tidak terbaca. Aturan: elemen informasi terakhir di sebuah scene (stempel, angka akhir, pill kunci) harus terlihat utuh minimal ~1,5 dtk sebelum transisi dimulai. Cek tiap join: waktu elemen terakhir selesai masuk vs waktu cue transisi; kalau selisih < 1,5 dtk, sisipkan jeda hening di suara (ffmpeg atrim + anullsrc di tengah jeda antar-kalimat) dan geser semua cue sesudahnya (konstanta `SH` di `V4Q.tsx`), jangan mempercepat animasi. Berlaku untuk long dan Short; lengkapi butir 51a.
 53. (9 Nov 2026) **Video long: end screen YouTube wajib diisi.** Di YouTube Studio (Editor > End screen) tambahkan elemen untuk menampilkan konten long lainnya (video terkait/video terbaru + Subscribe) sebelum menjadwalkan; sediakan ruang kosong di kanan layar outro (aturan 6.7). Masukkan ke daftar cek publish pack setiap video long.
 54. (9 Nov 2026) **Short: isi kolom "Related video" (menggantikan ajakan "Full video's on the channel").** Setiap Short di-set related video-nya di Studio, jadi suara dan layar tidak perlu menyebut "full video on the channel" (memperkuat aturan 49). Pilih tujuannya sesuai situasi: video long yang sedang ramai atau long yang paling relevan dengan Short itu. Catat pilihan related di publish pack/kalender upload. Ajakan penutup Short cukup loop ke hook.
+55. (9 Nov 2026) **RUMUS JUDUL (long dan Short), hasil telaah data/panduan judul 2026.** Sumber: studi AIR Media Tech 11 niche, fluxnote, viewmize, vidIQ; datanya korelasional, jadi anggap hipotesis dan uji lewat YouTube "Test & Compare" (judul/thumbnail) pada video kita sendiri.
+   a. **Panjang:** 30-55 karakter (ideal ~40-50); tidak lebih dari ~60 supaya tidak terpotong di HP. Bagian terkuat (angka/kata kunci/hook) di 40% awal judul.
+   b. **Angka yang spesifik, bukan hiasan.** Niche bisnis/keuangan: angka dolar, persen, bulan, atau selisih ($188, $3,759, 84 bulan) menang atas klaim umum. Satu angka kuat per judul.
+   c. **Celah rasa penasaran + janji yang DIBAYAR di video.** Kata kunci kuat: "the real reason", "what nobody tells you", "the catch", "trap", "actually". Jangan bocorkan kesimpulan di judul; jangan janji yang tidak dipenuhi (aturan 1.10: tidak boleh bohong; clickbait menurunkan watch time).
+   d. **Pertanyaan boleh** untuk niche edukasi/bisnis (penonton sudah punya pertanyaannya). Bentuk terbaik: angka/klaim + pertanyaan atau pembalikan ("$188 Less a Month? It's a Car Loan Trap").
+   e. **Frame yang dipakai (pilih satu per video, variasikan, aturan 45):**
+      1. Angka + jebakan: "$188 Less a Month? It's a Car Loan Trap"
+      2. Kontrarian: "Why a Lower Payment Costs You More"
+      3. Pertanyaan-pembuka: "Pay in 4 Is 'Free.' So Why Do Stores Pay for It?"
+      4. Kesalahan + biaya: "5 Mistakes That Cost Car Buyers $10,000"
+      5. Versus: "60 Months vs 84 Months: Which Loan Costs More?"
+      6. Bukti/hasil spesifik: "Same Car. Same Loan. $3,759 More."
+      7. Peringatan: "Stop Doing This Before You Sign a Car Loan"
+   f. **Kapital/tanda baca:** jangan ALL CAPS seluruh judul (terbaca sensasional di edukasi); maksimal satu kata kapital untuk penekanan. Tanda kurung hanya bila perlu: [2026] atau (Example). Satu emosi/kata kuat per judul.
+   g. **Judul dan thumbnail saling melengkapi, bukan mengulang** (V2: thumbnail tidak mengulang judul). V4Q: judul "$188 Less a Month? It's a Car Loan Trap", thumbnail "IT'S A TRAP" + "+$3,759".
+   h. **Short:** judul <= 40 karakter, hook-angka + pertanyaan, tanpa clickbait kosong, sertakan #Shorts; sama dengan 3 detik pertama video (aturan 51m).
+   i. **Kata kunci utama (car loan, 84-month, negative equity, BNPL) ada di 5 kata pertama bila video bertujuan pencarian; bila bertujuan browse, hook dulu.**
+   j. **Cek sebelum publish:** (1) angka di judul ada di video, (2) <= 60 karakter, (3) ada angka atau celah penasaran, (4) tidak mengulang thumbnail, (5) jujur. Siapkan 3 opsi, pilih yang tertinggi; jika CTR < 4% setelah 7 hari (tipikal 4-8%), ganti judul/thumbnail.
