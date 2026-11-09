@@ -438,3 +438,18 @@ Catatan: periksa setiap hasil. Jika ada tulisan/logo/orang, minta Gemini menghap
 49. (9 Nov 2026) Arahan owner untuk format baru. LONG: satu bahasan = satu ide, maksimal sekitar 1 menit lebih sedikit (60-75 dtk) untuk fase narik penonton; hook singkat (maks ~12 kata, angka/kata kunci di 1-2 dtk pertama), pola hook "kalau mau A, kamu harus tahu B" / "lakukan ini kalau A" dan variasinya, tanpa intro/branding sebelum hook, bahasan to the point. Sting Penny Logics TETAP ada setelah hook. SHORT: ending dibuat looping ke awal (kalimat terakhir menyambung ke hook, frame terakhir mirip frame pertama, tanpa jeda di sambungan); kalimat "Full video's on the channel" DIBUANG dari suara dan layar (link lewat komentar pin dan deskripsi).
 
 50. (9 Nov 2026) Sting pembuka 2 detik: audio `public/music/sting_opener_2s.wav` (komponen `Sting2s` di `src/style2/StingOpener.tsx`, animasi PennySting dipercepat rate 2,4). Audio sting SELALU di-fade out di akhir (10 frame terakhir menuju senyap), jangan dipotong keras. Sting hanya untuk video long; Short tanpa sting.
+
+51. (9 Nov 2026) **Daftar koreksi owner dari revisi Short B dan V4Q draft 1-2 (SEMUA video berikutnya; cek sebelum render draft).**
+   a. **Animasi selesai dulu baru transisi.** Jangan pindah scene saat animasi masih jalan; kalau perlu, tahan suara sedikit (sisipkan jeda 0,3-0,5 dtk) supaya animasi tuntas. Cek tiap join: objek terakhir sudah berhenti sebelum transisi mulai.
+   b. **Jangan ada animasi yang membuat suara menunggu.** Judul + uang/angka digabung dalam SATU scene; dekorasi (mis. mobil masuk) yang tidak menyampaikan kata di suara dibuang kalau memaksa jeda. Suara tidak boleh tertunda demi animasi hiasan.
+   c. **Hook: bukan Leo berdiri.** Hook dibuka dengan gerakan dari awan turun ke bawah + whoosh cepat dulu, baru suara. Scene pertama tanpa Leo; isi dengan teks + objek topik (mobil, tumpukan uang) yang bergerak, supaya ada animasi.
+   d. **Pakai objek V4 yang sudah ada** (mis. mobil V4 `obj_car_new_side`), jangan membuat versi baru yang gayanya beda.
+   e. **Kartu/bar gaya V4.** Scene penjelas angka memakai kartu kertas dan batang tumbuh (`GrowBar`, `CardBg`, `Pill2`) seperti V4; bukan latar atau gaya penjelasan lain yang terasa jelek.
+   f. **Pull-back (aturan 47) dipakai untuk "gambaran besar"** (alasan/skala), menggantikan scene kalender atau latar polos.
+   g. **Scene aksi/tips memakai kartu headline koran** (`news_collage` + kartu "THE DAILY HEADLINE"), bukan latar polos.
+   h. **Angka yang disebut sambil mengetik harus benar-benar TERKETIK per huruf** (kursor kedip) dan bunyi ketik hanya selama huruf muncul; jangan angka muncul utuh sambil suara ketik.
+   i. **Teks harus muncul tepat saat katanya diucapkan, bukan telat.** Cue dihitung dari jeda suara (`silencedetect`, ambang -30/-35 dB), bukan perkiraan; tampilan kalimat penting ("feels like a win") sinkron dengan kata itu.
+   j. **Kata yang dicoret tidak dihapus.** Setelah dicoret, teks lama TETAP terlihat (abu-abu) dan teks pengganti muncul di bawahnya.
+   k. **Penutup edukasi: jangan 4 baris teks polos.** Pakai scene peringatan dulu (latar kuning, garis hazard, segitiga, "EDUCATION ONLY", "NOT FINANCIAL ADVICE"), lalu scene subscribe beranimasi (tombol diklik, lonceng, "see you next time"); selesai sebelum video habis.
+   l. **Short: tidak ada sting, tanpa "Full video's on the channel"**, ending looping ke hook (aturan 49); sting long selalu fade out (aturan 50).
+   m. **Hook = angka + pertanyaan lanjutan** ("$188 less a month? It'll cost you $3,759." lalu jembatan "Here's the math."), maks ~12 kata; pilih topik dengan potensi view tertinggi berdasarkan skill penilaian sebelum membangun.
