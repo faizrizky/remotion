@@ -169,33 +169,27 @@ const B2: SceneFn = ({s0}) => {
     </AbsoluteFill>
   );
 };
-const sh = (x: number) => x < 10.2 ? x : x < 12.4 ? x + 0.45 : x < 13.9 ? x + 0.95 : x < 15.45 ? x + 1.4 : x + 1.7;
+const sh = (x: number) => x < 12.4 ? x : x < 13.9 ? x + 0.5 : x < 15.45 ? x + 0.95 : x + 1.25;
 // B3: the average loan: title, the car rolls through, then the cash pile and $57,235 borrowed (one scene)
 const B3: SceneFn = ({s0}) => {
-  const f = useCurrentFrame();
   const t = lt(s0);
-  const drive = interpolate(f, [4, t(sh(10.3))], [0, 1], C);
-  const x = -700 + (1080 + 700 + 100) * drive;
-  const bob = drive > 0 && drive < 1 ? Math.sin(f / 2.2) * 3 : 0;
   return (
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.012}>
         <VBg src="road_full.jpg" groundFrac={0.848} groundY={1500} />
-        {drive < 1 ? <FloorShadow x={x + 320} y={1496} w={600} h={44} o={0.42} /> : null}
-        {drive < 1 ? <div data-fg="car" style={{position: 'absolute', left: x, top: 1500 - 640 * 0.4156 + bob}}><Prop name="obj_car_new_side" w={640} /></div> : null}
         <FloorShadow x={540} y={1470} w={880} h={60} o={0.42} />
-        <MoneyPile at={t(sh(10.65))} x={540} y={1440} rows={5} w={200} stagger={2} />
-        <PopIn at={t(sh(10.65))} x={90} y={660} id="sum">
+        <MoneyPile at={t(sh(10.5))} x={540} y={1440} rows={5} w={200} stagger={2} />
+        <PopIn at={t(sh(10.5))} x={90} y={660} id="sum">
           <div style={{width: 900, boxSizing: 'border-box', background: '#FFFFFF', borderRadius: 26, border: `5px solid ${INK}`, boxShadow: '0 16px 36px rgba(0,0,0,0.3)', textAlign: 'center', padding: '10px 0 22px'}}>
-            <Label size={150} style={{display: 'inline-block'}}><Count to={57235} at={t(sh(10.7))} dur={40} prefix="$" /></Label>
+            <Label size={150} style={{display: 'inline-block'}}><Count to={57235} at={t(sh(10.55))} dur={40} prefix="$" /></Label>
             <Label size={58} color="#E5484D" style={{display: 'block', marginTop: -6}}>BORROWED</Label>
           </div>
         </PopIn>
       </Cam>
       <LetterBounce text="THE AVERAGE LOAN" at={t(9.3)} x={VW / 2} y={340} size={76} />
       <Pill2 text="ROLLED-OVER BUYERS" at={t(9.9)} x={540} y={490} size={46} bg="#F5C842" />
-      <Sfx name="whoosh" at={4} /><Sfx name="pop" at={t(9.3)} /><Sfx name="pop" at={t(9.9)} />
-      <Sfx name="pop" at={t(sh(10.65))} /><Sfx name="kaching" at={t(sh(10.8))} /><Sfx name="ding" at={t(sh(12.3))} />
+      <Sfx name="pop" at={t(9.3)} /><Sfx name="pop" at={t(9.9)} />
+      <Sfx name="pop" at={t(sh(10.5))} /><Sfx name="kaching" at={t(sh(10.65))} /><Sfx name="ding" at={t(sh(12.3))} />
     </AbsoluteFill>
   );
 };
@@ -251,7 +245,7 @@ const B4: SceneFn = ({s0}) => {
     </AbsoluteFill>
   );
 };
-const BUILT_B = buildChapter([0, 3.4, 9.0, sh(12.49), sh(14.05), sh(15.7)], 22.15, [B1, B2, B3, B3c, B3d, B4], [
+const BUILT_B = buildChapter([0, 3.4, 9.0, sh(12.49), sh(14.05), sh(15.7)], 21.7, [B1, B2, B3, B3c, B3d, B4], [
   {kind: 'splat', dur: 10, cx: 540, cy: 960},
   {kind: 'shatter', dur: 12},
   {kind: 'cut', dur: 0},
