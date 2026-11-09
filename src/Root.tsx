@@ -6,6 +6,7 @@ import {Video02Compositions} from './video02/Video02';
 import {Video03Compositions} from './video03/Video03';
 import {ShortCompositions} from './shorts/Shorts';
 import {HookTest, HOOK_TEST_LEN} from './style2/HookTest';
+import {StingOpenerTest, STING2S_LEN} from './style2/StingOpener';
 import {HookSplit, HOOK_SPLIT_LEN} from './style2/HookSplit';
 import {V4Ch1, V4_CH1_LEN} from './style2/V4Ch1';
 import {V4Full, V4_FULL_LEN} from './style2/V4Full';
@@ -25,6 +26,7 @@ export const RemotionRoot: React.FC = () => (
     <Video03Compositions />
     <ShortCompositions />
     <Folder name="Style2">
+      <Composition id="S2-StingOpener2s" component={StingOpenerTest} durationInFrames={STING2S_LEN + 6} fps={24} width={1920} height={1080} />
       <Composition id="S2-HookTest" component={HookTest} defaultProps={{check: false}} durationInFrames={HOOK_TEST_LEN} fps={24} width={1920} height={1080} />
       <Composition id="V4-Ch2" component={V4Ch2} defaultProps={{check: false}} durationInFrames={V4_CH2_LEN} fps={24} width={1920} height={1080} />
       <Composition id="V4-Ch3" component={V4Ch3} defaultProps={{check: false}} durationInFrames={V4_CH3_LEN} fps={24} width={1920} height={1080} />

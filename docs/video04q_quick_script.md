@@ -12,7 +12,7 @@ Alt: H3 "Same car. Same loan. $3,759 more. Here's why." / H2 "$188 less a month?
 [HOOK]
 $188 less a month? //
 It'll cost you three thousand seven hundred fifty-nine dollars. //
-[STING Penny Logics]
+[STING Penny Logics, 2 dtk: public/music/sting_opener_2s.wav, komponen Sting2s]
 [PROBLEM]
 Say a dealer quotes a forty-thousand-dollar loan, at eight point one percent. //
 Over sixty months, / that's about eight hundred thirteen a month. /
@@ -32,13 +32,13 @@ Six years or less is a good ceiling to consider. //
 [CLOSE]
 This is education, / not financial advice. / Subscribe to Penny Logics.
 ```
-Rekam tiga file: v4q_hook.wav (hook), v4q_body.wav (Problem sampai Close). Sting dari kit (tanpa suara).
+Rekam tiga file: v4q_hook.wav (hook), v4q_body.wav (Problem sampai Close). Sting: sting_opener_2s.wav (sudah ada, animasi dipercepat mengikuti audio); segala waktu setelah sting maju 2,75 dtk.
 
 ### Shot list (perkiraan)
 | Waktu (dtk) | Layar | Adegan | SFX |
 |---|---|---|---|
 | 0-6 | "-$188 / MONTH" lalu "+$3,759" merah (angka di detik 1) | meja dealer (desk_top), Leo kecewa | pop, boom |
-| 6-10.8 | brand sting | kit | sting |
+| 6-8 | brand sting 2 dtk (Sting2s + sting_opener_2s.wav) | kit | sting |
 | 10.8-22 | panel EXAMPLE: $40,000 · 8.1%; baris 60 MO $813 dan 84 MO $625 | kartu putih di atas jalan/meja | pop, typing |
 | 22-36 | "-$188/mo" hijau; dua batang bunga tumbuh: $8,778 dan $12,537; "+$3,759" merah | MoneyPile / batang, kamera dekat | kaching, boom |
 | 36-46 | CalendarX 84 bulan; pill "91.2% chose 6+ years, Edmunds Q3 2026" | desk_top | card_tap, ding |

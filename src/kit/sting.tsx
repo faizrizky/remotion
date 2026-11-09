@@ -63,8 +63,10 @@ const guidesFor = (g: Glyph, seed: string) => {
  * The sting. `dur` = frames it covers. With `reveal`, the last 10 frames dive into the "o" and
  * whatever is rendered underneath (the next chapter) shows through the hole.
  */
-export const PennySting: React.FC<{dur: number; reveal?: boolean; color?: string; lines?: string[]; quiet?: boolean}> = ({dur, reveal = false, color = STING_COLOR, lines = ['penny-', 'logics'], quiet = false}) => {
-  const f = useCurrentFrame();
+export const PennySting: React.FC<{dur: number; reveal?: boolean; color?: string; lines?: string[]; quiet?: boolean; rate?: number}> = ({dur: realDur, reveal = false, color = STING_COLOR, lines = ['penny-', 'logics'], quiet = false, rate = 1}) => {
+  // rate > 1 plays the whole animation faster (internal frames = real frames * rate); dur is in real frames
+  const f = useCurrentFrame() * rate;
+  const dur = realDur * rate;
   const size = 250;
   const {glyphs, k} = layout(lines, size, 292, 960, 540);
   const n = glyphs.length;
@@ -136,11 +138,11 @@ export const PennySting: React.FC<{dur: number; reveal?: boolean; color?: string
           })}
         </g>
       </svg>
-      <Sequence durationInFrames={13}><CircleBurstWipe color={color} dur={12} seed="pl-sting" n={8} /></Sequence>
+      <Sequence durationInFrames={Math.ceil(13 / rate)}><CircleBurstWipe color={color} dur={Math.max(3, Math.ceil(12 / rate))} seed="pl-sting" n={8} /></Sequence>
       {/* with the opening music (makeVideo intro) the sting stays silent so the two don't clash */}
       {!quiet && <Sfx name="whoosh" at={0} />}
-      {!quiet && <Sfx name="pop" at={T.solid + n} />}
-      {!quiet && reveal && <Sfx name="whoosh" at={T.dive - 2} />}
+      {!quiet && <Sfx name="pop" at={Math.round((T.solid + n) / rate)} />}
+      {!quiet && reveal && <Sfx name="whoosh" at={Math.round((T.dive - 2) / rate)} />}
     </AbsoluteFill>
   );
 };
