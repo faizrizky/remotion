@@ -169,6 +169,7 @@ const B2: SceneFn = ({s0}) => {
     </AbsoluteFill>
   );
 };
+const sh = (x: number) => x < 10.2 ? x : x < 12.4 ? x + 0.45 : x < 13.9 ? x + 0.95 : x < 15.45 ? x + 1.4 : x + 1.7;
 // B3a: the average loan (rolled-over buyers): the new car rolls in
 const B3a: SceneFn = ({s0}) => {
   const f = useCurrentFrame();
@@ -183,9 +184,9 @@ const B3a: SceneFn = ({s0}) => {
         <FloorShadow x={x + 320} y={1496} w={600} h={44} o={0.42} />
         <div data-fg="car" style={{position: 'absolute', left: x, top: 1500 - 640 * 0.4156 + bob}}><Prop name="obj_car_new_side" w={640} /></div>
       </Cam>
-      <LetterBounce text="THE AVERAGE LOAN" at={t(9.3)} x={VW / 2} y={340} size={76} />
-      <Pill2 text="ROLLED-OVER BUYERS" at={t(9.9)} x={540} y={520} size={46} bg="#F5C842" />
-      <Sfx name="whoosh" at={4} /><Sfx name="pop" at={t(9.3)} /><Sfx name="pop" at={t(9.9)} />
+      <LetterBounce text="THE AVERAGE LOAN" at={t(sh(9.3))} x={VW / 2} y={340} size={76} />
+      <Pill2 text="ROLLED-OVER BUYERS" at={t(sh(9.9))} x={540} y={520} size={46} bg="#F5C842" />
+      <Sfx name="whoosh" at={4} /><Sfx name="pop" at={t(sh(9.3))} /><Sfx name="pop" at={t(sh(9.9))} />
     </AbsoluteFill>
   );
 };
@@ -194,18 +195,18 @@ const B3b: SceneFn = ({s0}) => {
   const t = lt(s0);
   return (
     <AbsoluteFill>
-      <Cam keys={[{t: 0, x: VW / 2, y: VH / 2 + 40, z: 1.0}, {t: t(12.2), x: VW / 2, y: VH / 2, z: 1.04, dur: 40}]} drift={0}>
+      <Cam keys={[{t: 0, x: VW / 2, y: VH / 2 + 40, z: 1.0}, {t: t(sh(12.2)), x: VW / 2, y: VH / 2, z: 1.0, dur: 40}]} drift={0}>
         <VBg src="road_full.jpg" groundFrac={0.848} groundY={1500} />
         <FloorShadow x={540} y={1470} w={880} h={60} o={0.42} />
-        <MoneyPile at={t(10.65)} x={540} y={1440} rows={5} w={200} stagger={2} />
-        <PopIn at={t(10.65)} x={90} y={470} id="sum">
+        <MoneyPile at={t(sh(10.65))} x={540} y={1440} rows={5} w={200} stagger={2} />
+        <PopIn at={t(sh(10.65))} x={90} y={470} id="sum">
           <div style={{width: 900, boxSizing: 'border-box', background: '#FFFFFF', borderRadius: 26, border: `5px solid ${INK}`, boxShadow: '0 16px 36px rgba(0,0,0,0.3)', textAlign: 'center', padding: '10px 0 22px'}}>
-            <Label size={150} style={{display: 'inline-block'}}><Count to={57235} at={t(10.7)} dur={40} prefix="$" /></Label>
+            <Label size={150} style={{display: 'inline-block'}}><Count to={57235} at={t(sh(10.7))} dur={40} prefix="$" /></Label>
             <Label size={58} color="#E5484D" style={{display: 'block', marginTop: -6}}>BORROWED</Label>
           </div>
         </PopIn>
       </Cam>
-      <Sfx name="pop" at={t(10.65)} /><Sfx name="kaching" at={t(10.8)} /><Sfx name="ding" at={t(12.3)} />
+      <Sfx name="pop" at={t(sh(10.65))} /><Sfx name="kaching" at={t(sh(10.8))} /><Sfx name="ding" at={t(sh(12.3))} />
     </AbsoluteFill>
   );
 };
@@ -216,11 +217,11 @@ const B3c: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.01}>
         <VBg src="desk_top.jpg" groundFrac={0.5} groundY={960} blur={2} />
-        <CalendarX at={t(12.55)} x={140} y={800} marks={12} every={3} w={800} />
+        <CalendarX at={t(sh(12.55))} x={140} y={800} marks={12} every={3} w={800} />
       </Cam>
-      <Pill2 text="$952" at={t(12.6)} x={540} y={420} size={110} bg="#FFE066" />
-      <Pill2 text="EVERY MONTH" at={t(13.0)} x={540} y={620} size={54} />
-      <Sfx name="pop" at={t(12.6)} /><Sfx name="card_tap" at={t(12.9)} /><Sfx name="card_tap" at={t(13.2)} /><Sfx name="card_tap" at={t(13.5)} /><Sfx name="pop" at={t(13.0)} />
+      <Pill2 text="$952" at={t(sh(12.6))} x={540} y={420} size={110} bg="#FFE066" />
+      <Pill2 text="EVERY MONTH" at={t(sh(13.0))} x={540} y={620} size={54} />
+      <Sfx name="pop" at={t(sh(12.6))} /><Sfx name="card_tap" at={t(sh(12.9))} /><Sfx name="card_tap" at={t(sh(13.2))} /><Sfx name="card_tap" at={t(sh(13.5))} /><Sfx name="pop" at={t(sh(13.0))} />
     </AbsoluteFill>
   );
 };
@@ -228,7 +229,7 @@ const B3c: SceneFn = ({s0}) => {
 const B3d: SceneFn = ({s0}) => {
   const f = useCurrentFrame();
   const t = lt(s0);
-  const grow = interpolate(f, [t(14.3), t(14.3) + 30], [0, 1], C);
+  const grow = interpolate(f, [t(sh(14.3)), t(sh(14.3)) + 30], [0, 1], C);
   const w = 300 + 220 * grow;
   return (
     <AbsoluteFill>
@@ -236,11 +237,11 @@ const B3d: SceneFn = ({s0}) => {
         <VCard color="maroon" />
         <FloorShadow x={540} y={1420} w={w * 1.05} h={44} o={0.5} />
         <div data-fg="box" style={{position: 'absolute', left: 540 - w / 2, top: 1420 - w * 0.8247}}><Prop name="obj_debt_box" w={w} /></div>
-        <LetterBounce text="8.1%" at={t(14.25)} x={VW / 2} y={450} size={230} color="#F5C842" />
+        <LetterBounce text="8.1%" at={t(sh(14.25))} x={VW / 2} y={450} size={230} color="#F5C842" />
       </Cam>
-      <Pill2 text="INTEREST RATE" at={t(14.5)} x={540} y={790} size={56} />
-      <SrcPill at={t(14.9)} y={900} />
-      <Sfx name="boom" at={t(14.25)} /><Sfx name="pop" at={t(14.5)} />
+      <Pill2 text="INTEREST RATE" at={t(sh(14.5))} x={540} y={790} size={56} />
+      <SrcPill at={t(sh(14.9))} y={940} />
+      <Sfx name="boom" at={t(sh(14.25))} /><Sfx name="pop" at={t(sh(14.5))} />
     </AbsoluteFill>
   );
 };
@@ -252,16 +253,16 @@ const B4: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.01}>
         <VBg src="road_full.jpg" groundFrac={0.848} groundY={1500} />
-        <StandLeo x={350} y={760} h={740} pose={f < t(17.3) ? 'suspicious' : 'proud'} />
+        <StandLeo x={350} y={760} h={740} pose={f < t(sh(17.3)) ? 'suspicious' : 'proud'} />
       </Cam>
-      <Pill2 text="BEFORE YOU TRADE IN" at={t(16.0)} x={540} y={290} size={56} />
-      <Pill2 text="KNOW YOUR GAP" at={t(17.3)} x={540} y={465} size={60} bg="#2E9E5B" color="#FFFFFF" />
-      <Pill2 text="FULL VIDEO ON THE CHANNEL" at={t(18.65)} x={540} y={620} size={44} />
-      <Sfx name="pop" at={t(16.0)} /><Sfx name="ding" at={t(17.3)} /><Sfx name="pop" at={t(18.65)} />
+      <Pill2 text="BEFORE YOU TRADE IN" at={t(sh(16.0))} x={540} y={290} size={56} />
+      <Pill2 text="KNOW YOUR GAP" at={t(sh(17.3))} x={540} y={465} size={60} bg="#2E9E5B" color="#FFFFFF" />
+      <Pill2 text="FULL VIDEO ON THE CHANNEL" at={t(sh(18.65))} x={540} y={620} size={44} />
+      <Sfx name="pop" at={t(sh(16.0))} /><Sfx name="ding" at={t(sh(17.3))} /><Sfx name="pop" at={t(sh(18.65))} />
     </AbsoluteFill>
   );
 };
-const BUILT_B = buildChapter([0, 3.4, 9.0, 10.39, 12.49, 14.05, 15.7], 20.45, [B1, B2, B3a, B3b, B3c, B3d, B4], [
+const BUILT_B = buildChapter([0, 3.4, 9.0, sh(10.39), sh(12.49), sh(14.05), sh(15.7)], 22.15, [B1, B2, B3a, B3b, B3c, B3d, B4], [
   {kind: 'splat', dur: 10, cx: 540, cy: 960},
   {kind: 'shatter', dur: 12},
   {kind: 'puff', dur: 10},
