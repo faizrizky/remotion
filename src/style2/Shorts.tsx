@@ -160,9 +160,9 @@ const B2: SceneFn = ({s0}) => {
         <VBg src="stage_spot.jpg" groundFrac={0.8} groundY={1450} />
         <FloorShadow x={540} y={1440} w={640} h={60} o={0.45} />
         <Enter kind="drop" at={t(3.5)} x={190} y={1450 - 700 * 0.6692} id="cash" dist={900}><Prop name="obj_cash_stack_l" w={700} /></Enter>
-        <PopIn at={t(3.9)} x={90} y={430} id="big"><div style={{width: 900, textAlign: 'center'}}><Label size={170} color="#FFFFFF" style={{textShadow: '0 8px 0 rgba(0,0,0,0.35)'}}><Count to={16610} at={t(4.0)} dur={50} prefix="$" /></Label></div></PopIn>
+        <PopIn at={t(3.9)} x={90} y={400} id="big"><div style={{width: 900, textAlign: 'center'}}><Label size={170} color="#FFFFFF" style={{textShadow: '0 8px 0 rgba(0,0,0,0.35)'}}><Count to={16610} at={t(4.0)} dur={50} prefix="$" /></Label></div></PopIn>
       </Cam>
-      <Pill2 text="ESTIMATED" at={t(3.6)} x={540} y={320} size={56} bg="#F5C842" />
+      <Pill2 text="ESTIMATED" at={t(3.6)} x={540} y={290} size={56} bg="#F5C842" />
       <Pill2 text="INTEREST OVER THE LOAN" at={t(7.2)} x={540} y={770} size={50} />
       <SrcPill at={t(7.4)} y={900} />
       <Sfx name="pop" at={t(3.6)} /><Sfx name="boom" at={t(3.5) + 10} /><Sfx name="kaching" at={t(4.0)} /><Sfx name="pop" at={t(7.2)} />
