@@ -97,30 +97,38 @@ const A3: SceneFn = ({s0}) => {
 };
 // A4: check yours this week + full video
 const A4: SceneFn = ({s0}) => {
-  const f = useCurrentFrame();
-  const t = lt(s0);
+    const t = lt(s0);
   return (
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.01}>
         <VBg src="road_full.jpg" groundFrac={0.848} groundY={1500} />
-        <StandLeo x={350} y={760} h={740} pose={f < t(17.1) ? 'calm' : 'proud'} />
+        <StandLeo x={350} y={760} h={740} pose="calm" />
       </Cam>
       <Pill2 text="CHECK YOURS" at={t(15.7)} x={540} y={290} size={64} />
       <Pill2 text="THIS WEEK" at={t(16.2)} x={540} y={465} size={64} bg="#F5C842" />
-      <Pill2 text="FULL VIDEO ON THE CHANNEL" at={t(17.15)} x={540} y={620} size={44} bg="#2E9E5B" color="#FFFFFF" />
-      <Sfx name="pop" at={t(15.7)} /><Sfx name="pop" at={t(16.2)} /><Sfx name="ding" at={t(17.15)} />
+      <Sfx name="pop" at={t(15.7)} /><Sfx name="pop" at={t(16.2)} />
     </AbsoluteFill>
   );
 };
-const BUILT_A = buildChapter([0, 5.33, 7.18, 15.4], 18.75, [A1, A2, A3, A4], [
+// AEnd: same picture as the first frame of A1 so the Short loops
+const AEnd: SceneFn = () => (
+  <AbsoluteFill>
+    <Cam keys={CAM} drift={0.012}>
+      <VBg src="suburb_sun.jpg" groundFrac={0.813} groundY={1500} />
+      <GroundProp name="obj_car_leo_side" x={90} y={1500 - 640 * 0.3761} w={640} ratio={0.3761} id="car" />
+    </Cam>
+  </AbsoluteFill>
+);
+const BUILT_A = buildChapter([0, 5.33, 7.18, 15.4, 17.45], 17.85, [A1, A2, A3, A4, AEnd], [
   {kind: 'splat', dur: 12, cx: 540, cy: 960},
   {kind: 'swirl', dur: 12, cx: 540, cy: 960, color: '#0B1730'},
   {kind: 'shatter', dur: 10},
+  {kind: 'puff', dur: 8},
 ]);
 export const SHORT_A_LEN = BUILT_A.len;
 export const ShortA: React.FC<{check?: boolean}> = ({check = false}) => {
   setDims(VW, VH);
-  return <ChapterShell built={BUILT_A} voice="short_a.wav" check={check} />;
+  return <ChapterShell built={BUILT_A} voice="short_a_loop.wav" check={check} />;
 };
 
 // ================= SHORT B =================
@@ -240,20 +248,28 @@ const B4: SceneFn = ({s0}) => {
       </Cam>
       <Pill2 text="BEFORE YOU TRADE IN" at={t(sh(16.0))} x={540} y={290} size={56} />
       <Pill2 text="KNOW YOUR GAP" at={t(sh(17.3))} x={540} y={465} size={60} bg="#2E9E5B" color="#FFFFFF" />
-      <Pill2 text="FULL VIDEO ON THE CHANNEL" at={t(sh(18.65))} x={540} y={620} size={44} />
-      <Sfx name="pop" at={t(sh(16.0))} /><Sfx name="ding" at={t(sh(17.3))} /><Sfx name="pop" at={t(sh(18.65))} />
+      <Sfx name="pop" at={t(sh(16.0))} /><Sfx name="ding" at={t(sh(17.3))} />
     </AbsoluteFill>
   );
 };
-const BUILT_B = buildChapter([0, 3.4, 9.0, sh(12.49), sh(14.05), sh(15.7)], 21.7, [B1, B2, B3, B3c, B3d, B4], [
+// BEnd: same picture as the first frame of B1 so the Short loops
+const BEnd: SceneFn = () => (
+  <AbsoluteFill>
+    <Cam keys={CAM} drift={0.012}>
+      <VBg src="desk_top.jpg" groundFrac={0.5} groundY={960} blur={2} />
+    </Cam>
+  </AbsoluteFill>
+);
+const BUILT_B = buildChapter([0, 3.4, 9.0, sh(12.49), sh(14.05), sh(15.7), 19.95], 20.3, [B1, B2, B3, B3c, B3d, B4, BEnd], [
   {kind: 'splat', dur: 10, cx: 540, cy: 960},
   {kind: 'shatter', dur: 12},
   {kind: 'cut', dur: 0},
   {kind: 'splat', dur: 8, cx: 540, cy: 960},
   {kind: 'puff', dur: 12},
+  {kind: 'puff', dur: 8},
 ]);
 export const SHORT_B_LEN = BUILT_B.len;
 export const ShortB: React.FC<{check?: boolean}> = ({check = false}) => {
   setDims(VW, VH);
-  return <ChapterShell built={BUILT_B} voice="short_b.wav" check={check} />;
+  return <ChapterShell built={BUILT_B} voice="short_b_loop.wav" check={check} />;
 };
