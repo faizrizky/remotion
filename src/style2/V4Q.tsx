@@ -90,7 +90,7 @@ const Payoff: SceneFn = ({s0}) => {
       <Pill2 text="-$188 / MONTH" at={t(22.1)} x={960} y={130} size={64} bg={G} color="#FFFFFF" />
       {f >= t(25.55) && f < t(26.98) && <Pill2 text="FEELS LIKE A WIN" at={t(25.55)} x={960} y={300} size={56} />}
       <Pill2 text="BUT LOOK AT THE INTEREST" at={t(26.98)} x={960} y={300} size={56} bg={GOLD} />
-      <Pill2 text="60 MO · $8,778" at={t(29.0)} x={330} y={BASE - 263 - 90} size={46} />
+      <Pill2 text="60 MO · $8,778" at={t(29.0)} x={330} y={BASE - 263 - 115} size={46} />
       <Pill2 text="84 MO · $12,537" at={t(31.8)} x={960} y={BASE - 376 - 90} size={46} />
       <Pill2 text="SAME CAR" at={t(33.07)} x={1530} y={480} size={56} />
       <Pill2 text="+$3,759" at={t(34.13)} x={1530} y={680} size={100} bg={R} color="#FFFFFF" />
@@ -106,7 +106,7 @@ const Why: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.012}>
         <Bg src="desk_top.jpg" blur={2} />
-        <CalendarX at={t(36.2)} x={140} y={200} marks={14} every={5} w={860} />
+        <CalendarX at={t(36.2)} x={170} y={200} marks={14} every={5} w={830} />
       </Cam>
       <Pill2 text="MORE MONTHS" at={t(36.35)} x={1470} y={205} size={56} />
       <Pill2 text="SLOWER EQUITY" at={t(38.9)} x={1470} y={358} size={56} bg={GOLD} />
