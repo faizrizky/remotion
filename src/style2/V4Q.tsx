@@ -23,9 +23,9 @@ const Hook: SceneFn = ({s0}) => {
         <Bg src="road_full.jpg" />
         <StandLeo x={200} y={440} h={560} pose={f < t(3.9) ? 'suspicious' : 'shocked'} />
       </Cam>
-      <Pill2 text="-$188 / MONTH" at={t(0.3)} x={1250} y={330} size={80} bg={G} color="#FFFFFF" />
+      <Pill2 text="-$188 / MONTH" at={t(0.3)} x={1250} y={270} size={80} bg={G} color="#FFFFFF" />
       <Pill2 text="+$3,759" at={t(3.9)} x={1250} y={560} size={150} bg={R} color="#FFFFFF" />
-      <Pill2 text="HERE'S THE MATH" at={t(6.6)} x={1250} y={800} size={64} />
+      <Pill2 text="HERE'S THE MATH" at={t(6.6)} x={1250} y={810} size={64} />
       <Sfx name="pop" at={t(0.3)} /><Sfx name="boom" at={t(3.9)} /><Sfx name="pop" at={t(3.9)} /><Sfx name="ding" at={t(6.6)} />
     </AbsoluteFill>
   );
@@ -84,16 +84,16 @@ const Payoff: SceneFn = ({s0}) => {
       <Cam keys={CAM} drift={0.012}>
         <Bg src="desk_top.jpg" blur={3} dim={0.15} />
         <FloorShadow x={650} y={BASE + 14} w={1000} h={30} o={0.35} />
-        <Bar x={270} w={260} max={263} at={t(28.07)} color={G} id="bar1" />
-        <Bar x={770} w={260} max={376} at={t(31.0)} color={R} id="bar2" />
+        <Bar x={200} w={260} max={263} at={t(28.07)} color={G} id="bar1" />
+        <Bar x={830} w={260} max={376} at={t(31.0)} color={R} id="bar2" />
       </Cam>
       <Pill2 text="-$188 / MONTH" at={t(22.1)} x={960} y={130} size={64} bg={G} color="#FFFFFF" />
-      {f >= t(25.55) && f < t(26.98) && <Pill2 text="FEELS LIKE A WIN" at={t(25.55)} x={960} y={280} size={56} />}
-      <Pill2 text="BUT LOOK AT THE INTEREST" at={t(26.98)} x={960} y={280} size={56} bg={GOLD} />
-      <Pill2 text="60 MO · $8,778" at={t(29.0)} x={400} y={BASE - 263 - 70} size={46} />
-      <Pill2 text="84 MO · $12,537" at={t(31.8)} x={900} y={BASE - 376 - 70} size={46} />
-      <Pill2 text="SAME CAR" at={t(33.07)} x={1530} y={420} size={56} />
-      <Pill2 text="+$3,759" at={t(34.13)} x={1530} y={600} size={100} bg={R} color="#FFFFFF" />
+      {f >= t(25.55) && f < t(26.98) && <Pill2 text="FEELS LIKE A WIN" at={t(25.55)} x={960} y={300} size={56} />}
+      <Pill2 text="BUT LOOK AT THE INTEREST" at={t(26.98)} x={960} y={300} size={56} bg={GOLD} />
+      <Pill2 text="60 MO · $8,778" at={t(29.0)} x={330} y={BASE - 263 - 90} size={46} />
+      <Pill2 text="84 MO · $12,537" at={t(31.8)} x={960} y={BASE - 376 - 90} size={46} />
+      <Pill2 text="SAME CAR" at={t(33.07)} x={1530} y={480} size={56} />
+      <Pill2 text="+$3,759" at={t(34.13)} x={1530} y={680} size={100} bg={R} color="#FFFFFF" />
       <Sfx name="pop" at={t(22.1)} /><Sfx name="pop" at={t(25.55)} /><Sfx name="pop" at={t(26.98)} /><Sfx name="kaching" at={t(29.0)} /><Sfx name="kaching" at={t(31.8)} /><Sfx name="pop" at={t(33.07)} /><Sfx name="boom" at={t(34.13)} />
     </AbsoluteFill>
   );
@@ -106,13 +106,13 @@ const Why: SceneFn = ({s0}) => {
     <AbsoluteFill>
       <Cam keys={CAM} drift={0.012}>
         <Bg src="desk_top.jpg" blur={2} />
-        <CalendarX at={t(36.2)} x={100} y={190} marks={14} every={5} w={900} />
+        <CalendarX at={t(36.2)} x={140} y={200} marks={14} every={5} w={860} />
       </Cam>
-      <Pill2 text="MORE MONTHS" at={t(36.35)} x={1470} y={280} size={56} />
-      <Pill2 text="SLOWER EQUITY" at={t(38.9)} x={1470} y={420} size={56} bg={GOLD} />
-      <Pill2 text="EDMUNDS, Q3 2026" at={t(40.2)} x={1470} y={800} size={36} />
-      <Pill2 text="91.2%" at={t(41.2)} x={1470} y={600} size={110} bg={R} color="#FFFFFF" />
-      <Pill2 text="CHOSE 6+ YEARS" at={t(45.15)} x={1470} y={920} size={48} />
+      <Pill2 text="MORE MONTHS" at={t(36.35)} x={1470} y={205} size={56} />
+      <Pill2 text="SLOWER EQUITY" at={t(38.9)} x={1470} y={358} size={56} bg={GOLD} />
+      <Pill2 text="EDMUNDS, Q3 2026" at={t(40.2)} x={1470} y={751} size={36} />
+      <Pill2 text="91.2%" at={t(41.2)} x={1470} y={565} size={110} bg={R} color="#FFFFFF" />
+      <Pill2 text="CHOSE 6+ YEARS" at={t(45.15)} x={1470} y={877} size={48} />
       <Sfx name="pop" at={t(36.35)} /><Sfx name="card_tap" at={t(36.8)} /><Sfx name="card_tap" at={t(37.4)} /><Sfx name="card_tap" at={t(38.0)} /><Sfx name="pop" at={t(38.9)} /><Sfx name="pop" at={t(40.2)} /><Sfx name="boom" at={t(41.2)} /><Sfx name="ding" at={t(45.15)} />
     </AbsoluteFill>
   );
