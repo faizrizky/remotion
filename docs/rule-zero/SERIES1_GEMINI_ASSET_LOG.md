@@ -18,7 +18,7 @@ Account: g.shinpact7 (via MattJr's Chrome). Style reference frame attached on fi
 | Scenes/operator_booth_seated.png | Operator seated from behind, booth | Security Booth Operator Scene Creation (/u/1/app/d548f745f3a3172c) MASTER booth chat |
 | Scenes/operator_booth_suspicious_v2.jpeg | Operator leaning, suspicious (JPEG) | same chat |
 | Scenes/operator_booth_startled_v2.png | Operator standing, startled, front | same chat |
-| Scenes/operator_booth_shocked_closeup.png | NEW 12 Nov, Part 1 shot 17: Operator medium close-up, shocked (O mouth, sweat drop, hand raised), blank large monitor behind for the Driver reflection added in Remotion; booth identical; no text | Security Booth Operator Scene Creation (MASTER booth chat) |
+| Scenes/operator_booth_shocked_closeup.png | NEW 12 Nov, Part 1 shot 17: Operator medium close-up, shocked (O mouth, sweat drop, hand raised), wall of small blank CRT monitors behind (one right behind his head, for the Driver reflection added in Remotion), radio-like device in his raised hand; revised 12 Nov because v1 had an oversized monitor; no text | Security Booth Operator Scene Creation (MASTER booth chat) |
 | Scenes/driver_stairwell_glass_dale.png | NEW 12 Nov, Part 1 shot 16: Dale (blank white head, cap, flashlight, plain grey jacket) from behind at the CLOSED stairwell door; The Driver visible only in the wired-glass window, black silhouette, two amber dots. | Empty Parking Garage Art Generation (same chat as the stairwell plate) |
 | Scenes/driver_stairwell_open_door_dale.png | NEW 12 Nov, Part 1 shot 16 alternate (tall Driver): door leaf opened inward, normal single fire door with wired-glass window and push bar on the leaf; Driver full height on the stairwell landing, amber dots; Dale from behind with flashlight; no text. Revised from a first version whose door was malformed and whose jacket had the baked text "SECURITY" (not used) | same chat, attached the bad version + stairwell plate |
 | Brand/style_reference_refb.jpg | Style reference frame attached to every Gemini chat | - |
@@ -35,6 +35,7 @@ Downloads cleaned 12 Nov: all Gemini originals that have a copy here were delete
 - Gemini menebalkan karakter di scene detail; ekspresi tetap terbaca.
 - Style reference bisa "bocor" ke gambar prop. Untuk prop standalone tulis "no bed, no bags, no money, no clothing, no text".
 - Pintu yang dibuat Gemini bisa tidak masuk akal (daun dan kusen ganda). Lampirkan plate pintu asli dan tulis geometrinya: satu daun, engsel di sisi tertentu, terbuka sekian derajat, jendela dan push bar menempel di daun (12 Nov).
+- Skala prop: Gemini bisa membuat monitor raksasa di close-up. Lampirkan gambar booth asli sebagai referensi skala dan tulis "small old CRT screens, each about the size of the Operator's head or smaller" (12 Nov). Lampiran gabungan di atas 10 MB ditolak: kecilkan ke JPEG dulu.
 - Gemini suka menambah teks di pakaian (jaket "SECURITY"). Tulis eksplisit "jacket plain, no letters" sejak prompt pertama.
 - Karakter baru (The Driver, Dale) dibuat langsung di scene lokasi dengan plate lokasi + style ref terlampir (12 Nov): render sekali jalan, tidak hang.
 - DOWNLOAD: hover gambar, klik "Download full size image". File masuk ~/Downloads di Mac setelah 30-40 s (PNG 1536x2752 ~7 MB). Verifikasi isi sebelum diberi nama; jangan chain klik.
