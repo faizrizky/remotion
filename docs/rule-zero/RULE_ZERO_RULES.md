@@ -69,3 +69,8 @@ Related docs in this folder: `RULE_ZERO_SERIES_BIBLE.md` (concept, Series 1, Par
 - Gemini images: gshinpact account, one single chat column, always attach a reference image.
 - Used downloaded files are moved (not copied) to their destination folder.
 - Deviations on purpose for Rule Zero: burned-in captions are required (rule 24) and parts run 85-95 s (rule 6).
+
+## I. Art style lock (approved by MattJr 11 Nov 2026)
+34. **Style = REF-B look**: lead is a blank white round-ball head with two small black dot eyes and one angled brow, very thin black stick arms and legs, loose baggy clothes, thick clean ink outline on characters, flat colour. Backgrounds are richly painted, detailed and textured with dramatic coloured light (cold fluorescent green-white vs sodium amber), characters sit in them without painterly shading.
+35. Every Gemini image attaches the style reference frame (a REF-B frame, kept in `Assets/rule-zero/Brand/`) and, once approved, the Operator character sheet. One Gemini chat column, gshinpact account (g.shinpact7), via MattJr's Chrome.
+36. Approved test: booth wide shot (Operator from behind at the monitor wall) matched the style. Known tweaks: limbs thinner than the test, monitor screens left blank/static so Remotion fills them, no baked text.
