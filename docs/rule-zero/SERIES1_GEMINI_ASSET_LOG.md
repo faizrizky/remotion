@@ -8,7 +8,6 @@ Account: g.shinpact7 (via MattJr's Chrome). Style reference frame attached on fi
 | Characters/operator_sheet_nomic.png | Operator character sheet, no mic (approved) | Character Reference Sheet Generation (/u/1/app/4609fb757346fcb9) |
 | Props/car31_lights_off.png | Car 31, headlights off, plain background (clean, regenerated) | Sedan Prop Illustration Request (/u/1/app/6bb461d5f203d40b) |
 | Props/car31_lights_on.png | Car 31, headlights on amber | same chat |
-| Props/_REJECTED_car31_duffel_contaminated.png | First Car 31: style ref leaked in (duffel bed, baked text). Do not use | same chat |
 | Backgrounds/booth_clean.png | Control booth, blank monitors, empty (7 monitors) | Night Shift Security Booth Illustration (/u/1/app/faeebf1bd8370ca4) |
 | Backgrounds/level3_wide_car.png | Level 3 wide with Car 31 | Empty Parking Garage Art Generation (/u/1/app/1793c6f169328d5f) |
 | Backgrounds/level3_wide_empty.png | Level 3 wide, NO car (animation plate) | same chat |
@@ -23,9 +22,9 @@ Account: g.shinpact7 (via MattJr's Chrome). Style reference frame attached on fi
 | Scenes/driver_stairwell_glass_dale.png | NEW 12 Nov, Part 1 shot 16: Dale (blank white head, cap, flashlight, plain grey jacket) from behind at the CLOSED stairwell door; The Driver visible only in the wired-glass window, black silhouette, two amber dots. | Empty Parking Garage Art Generation (same chat as the stairwell plate) |
 | Scenes/driver_stairwell_open_door_dale.png | NEW 12 Nov, Part 1 shot 16 alternate (tall Driver): door leaf opened inward, normal single fire door with wired-glass window and push bar on the leaf; Driver full height on the stairwell landing, amber dots; Dale from behind with flashlight; no text. Revised from a first version whose door was malformed and whose jacket had the baked text "SECURITY" (not used) | same chat, attached the bad version + stairwell plate |
 | Brand/style_reference_refb.jpg | Style reference frame attached to every Gemini chat | - |
-| _contact_sheet.jpg, _contact_cars.jpg, ../_chk_driver.jpg, ../_chk_driver2.jpg | Contact/check images (cannot be deleted from the mount) | - |
+| _contact_sheet.jpg, _contact_cars.jpg | Contact sheets for quick review | - |
 
-Not downloaded (rejected or superseded): driver seat v1/v2, Operator startled v1, Operator suspicious v1, rule sheet on bezel (draw as Remotion RuleSheetCard).
+Deleted 12 Nov: Props/_REJECTED_car31_duffel_contaminated.png and temp check images. Not downloaded (rejected or superseded): driver seat v1/v2, Operator startled v1, Operator suspicious v1, rule sheet on bezel (draw as Remotion RuleSheetCard).
 Downloads cleaned 12 Nov: all Gemini originals that have a copy here were deleted from ~/Downloads (one unrelated jpeg, an old unused Level 3 car render, remains). Every new asset: copy to Assets, verify by md5, then delete the Downloads copy.
 
 ## Lessons
