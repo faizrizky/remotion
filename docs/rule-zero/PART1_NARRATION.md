@@ -1,44 +1,87 @@
-# Rule Zero, Series 1 Part 1 "Space 31": narration take sheet
+# Part 1 "Space 31": naskah narasi
 
-Source of truth for wording: `RULE_ZERO_SERIES_BIBLE.md` section 5 (188 spoken words). This file is only the recording copy for Voice Studio.
+Ada **5 klip**. Generate satu klip = satu file audio. Copy teks di dalam kotak, tempel apa adanya ke Voice Studio, tanpa tanda tambahan.
 
-## Voice direction
-- Calm, low, slightly conspiratorial. Never shout, never hype. About 120 words per minute (a little slower than natural).
-- Different voice from Penny Logics (Andy is taken). Pick one clearly different: older or deeper, dry, American English.
-- Short sentences stay short. Fragments ("Alone." "No driver.") are said flat, then a beat of silence.
-- Pause marks: `/` = 0.3 s, `//` = 0.8 s (a rule just landed, let it sit), `///` = 1.5 s (card-only stretch, no voice).
-- Dry joke ("First night. Great start.") is deadpan, no smile in the voice.
+Wording resmi ada di `RULE_ZERO_SERIES_BIBLE.md` bagian 5. File ini hanya salinan untuk direkam.
 
-## Record as separate lines (one file per paragraph is fine, or one take with the pauses)
-Paragraph A (hook, 0:00-0:07)
-You just took the night shift at a parking garage. / Alone. / Eight screens. / One rule: watch Level three. ///
+---
 
-Paragraph B (0:10-0:43, rules)
-Problem one. The only other person here is a guard who walks the lot by himself. /
-Before she quit, the last operator taped a sheet to the monitor. /
-Rule one: at the top of every hour, check Level three. One car will have moved. Log it. Don't touch it. //
-You almost smile. Cars don't move. /
-Rule two: never send security to Level three. //
-Rule three? Scratched out. Pen pressed through the paper. ///
+## Suara (Voice Studio, tab Design)
 
-Paragraph C (0:43-1:05, the car)
-Problem two. Eleven o'clock. You check Level three. /
-A grey sedan. Bay thirty-one. /
-You rewind. An hour ago, bay twelve. No brake lights. No driver. //
-You log it. Rule one, followed. //
-Then the headlights come on. Slowly. Aimed at the camera. //
+Jangan pakai Andy (itu suara Penny Logics). Buat suara baru lewat **Design** dengan deskripsi ini:
 
-Paragraph D (1:05-1:30, the threat and the fork)
-On the other screen, Dale scans in at Level three. Rule two, broken. He doesn't know. Nobody told him. //
-Past the open door, something tall is standing. //
-Dale doesn't lift his flashlight. //
-First night. Great start. //
-You can warn him. Or you can watch what it does next. ///
+```
+A calm, low, slightly gravelly American male voice, late 30s. Dry and deadpan, speaks slowly and quietly like someone telling a secret in an empty building. Clear articulation, no hype, no smile in the voice.
+```
 
-Paragraph E (end card, 1:30-1:33)
+Kecepatan: sedikit lebih lambat dari bicara biasa (sekitar 120 kata per menit). Kalimat pendek dibaca datar, lalu hening sebentar.
+
+---
+
+## Klip A: hook (shot 1 sampai 3, 0:00 sampai 0:07)
+
+```
+You just took the night shift at a parking garage.
+Alone.
+Eight screens.
+One rule: watch Level three.
+```
+
+## Klip B: aturan (0:10 sampai 0:43)
+
+```
+Problem one. The only other person here is a guard who walks the lot by himself.
+Before she quit, the last operator taped a sheet to the monitor.
+Rule one: at the top of every hour, check Level three. One car will have moved. Log it. Don't touch it.
+You almost smile. Cars don't move.
+Rule two: never send security to Level three.
+Rule three? Scratched out. Pen pressed through the paper.
+```
+
+## Klip C: mobilnya (0:43 sampai 1:05)
+
+```
+Problem two. Eleven o'clock. You check Level three.
+A grey sedan. Bay thirty-one.
+You rewind. An hour ago, bay twelve. No brake lights. No driver.
+You log it. Rule one, followed.
+Then the headlights come on. Slowly. Aimed at the camera.
+```
+
+## Klip D: ancaman dan pilihan (1:05 sampai 1:30)
+
+```
+On the other screen, Dale scans in at Level three. Rule two, broken. He doesn't know. Nobody told him.
+Past the open door, something tall is standing.
+Dale doesn't lift his flashlight.
+First night. Great start.
+You can warn him. Or you can watch what it does next.
+```
+
+## Klip E: end card (1:30 sampai 1:33)
+
+```
 Part 2 tomorrow. The majority writes Part 2.
+```
 
-## Delivery checklist
-- Export WAV (mono or stereo, 44.1/48 kHz), one file per paragraph named `p1_A.wav` ... `p1_E.wav`, or one file `p1_full.wav`.
-- Also export the sentence-level captions file if Voice Studio gives one (same as Penny Logics `captions_voicestudio.json`).
-- Drop into `Assets/rule-zero/Series 1 - Level 3/Audio/Voice/`. Claude then builds word timing for the karaoke captions and checks the length (target 85-95 s total).
+---
+
+## Cara membuat dan mengirim
+
+1. Di Voice Studio, pilih suara baru tadi, tempel Klip A, generate, lalu export WAV bernama `p1_A.wav`.
+2. Ulangi untuk B, C, D, E (`p1_B.wav` sampai `p1_E.wav`).
+3. Simpan kelimanya di `Assets/rule-zero/Series 1 - Level 3/Audio/Voice/`.
+4. Kabari aku. Aku yang mengatur jeda antar kalimat dan antar klip supaya pas dengan gambar, lalu membuat word timing untuk karaoke caption.
+
+Total sekitar 187 kata, target 85 sampai 95 detik.
+
+## Arahan jeda (aku yang atur nanti, kamu tidak perlu pikirkan)
+
+| Setelah | Hening |
+|---|---|
+| Klip A | 3 detik (title card) |
+| Setiap aturan di klip B | 0,8 detik |
+| "Scratched out." | 3 detik (kartu aturan) |
+| "Aimed at the camera." | 0,8 detik |
+| "Great start." | 0,8 detik |
+| Pilihan WARN / WATCH | 1,5 detik, lalu klip E |
