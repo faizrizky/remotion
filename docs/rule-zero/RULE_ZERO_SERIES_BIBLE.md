@@ -45,7 +45,7 @@ Sting: 1.5 s low concrete hum + one parking-gate beep. Must be an authentic reco
 
 **Car 31 (the Sedan)**: a plain grey boxy sedan, no brand marks, no plate text (plate is a blank rectangle; any text is added in Remotion). Always parked slightly crooked. Headlights off until it wants to be seen. Never has a visible driver; the driver's seat is empty or too dark to read.
 
-**The Driver**: never shown. At most a reflection in the windshield or a tall silhouette in the stairwell door glass, never face-on, no gore.
+**The Driver** (revised 12 Nov, to match the reference's on-screen threat): the visible scare of the series. A tall, thin black silhouette, blank round head, no face except two small amber dots (the Car 31 headlight motif; not white eyes, not a twin of the Operator). Always at the edge of the frame, always seen through glass or a screen (stairwell door glass, monitor reflection, windshield), never in the open, never face-on, never touches anyone, no gore (PG-13). The lead never looks at it directly in Part 1; the viewer sees it first. Appears only in the last 15 s of each part, a little closer each time.
 
 **Supporting**: Dale, the night guard (walks rounds, never reads the sheet, friendly), and the previous operator (only as handwriting and her log entries).
 
@@ -77,7 +77,7 @@ Sting: 1.5 s low concrete hum + one parking-gate beep. Must be an authentic reco
 ### Part plan (each about 90 s, vertical, fork in the last 12 s)
 | Part | Title | Rule triggered | New fact | HUD change | Fork |
 |------|-------|----------------|----------|-----------|------|
-| 1 | Space 31 | R1 | The sedan moved with no driver and turned its headlights on the camera; Dale starts his round toward Level 3 | NERVE 100 -> 71, LOG 1 | WARN / WATCH |
+| 1 | Space 31 | R1 | The sedan moved with no driver and turned its headlights on the camera; Dale scans in at Level 3 and The Driver stands right behind him in the stairwell glass | NERVE 100 -> 71, LOG 1 | WARN / WATCH |
 | 2 | Dale's Round | R2 | Dale comes back on screen from the wrong stairwell, smiling, and describes a car you have not seen yet | NERVE -> 58, LOG 2 | TRUST / TEST |
 | 3 | Camera 3-C | R4 | Cam 3-C shows the booth from behind your own chair | NERVE -> 46 | LOOK / COVER |
 | 4 | The Elevator | R5 | The elevator opens on Level 3 and a car is inside it | NERVE -> 37 | WATCH / UNPLUG |
@@ -96,27 +96,39 @@ Each part: one rule triggered, one fact about the garage, one NERVE drop, one fo
 
 Target 90 s, about 190 spoken words (about 2.2 words/s average, about 2.4 in the hook). Fork in the last 12 s. Every card animation must finish before the next cut. Re-check the word count and timing against the actual voice take.
 
+### Storytelling style lock (mirrors the reference; applies to every part)
+1. **Second person, present tense, no backstory.** The viewer is "you". Fragments carry the fear: "Alone." "No driver." "Right behind."
+2. **Hook in three beats**: the act you cannot undo, the concrete detail, the challenge. Then one lonely fragment.
+3. **Rule planted, then triggered.** The sheet is shown early (0:22-0:44). Both rules break at the same moment near the end (R1 car moved + R2 Dale goes up).
+4. **False relief, then reversal.** "You almost smile. Cars don't move." -> the sedan moves.
+5. **The threat is IN the scene, close behind the lead, in the last 15 s** (The Driver in the glass). Slow push-in, no jump scare, no music hit until the fork.
+6. **Fork as in-scene chips** with leader lines pointing at the two real objects (radio / monitor), not a separate dark card. Final frame = the lead's shocked face with the threat still faintly present.
+7. **One dry line before the fork** ("First night. Great start.") so the dread gets a small laugh.
+8. Slow pace (about 115-125 wpm), calm voice, silent beat after every rule. Never raise the voice.
+We copy the machine, not the lines: no "Imagine...", no white-eyed twin, no "What would you do?" as the closer.
+
 ### Script (spoken, English)
-**0:00** You just took the night shift watching a parking garage. Eight screens. One rule: watch Level three.
+**0:00** You just took the night shift at a parking garage. Alone. Eight screens. One rule: watch Level three.
 
 **0:07** *[Title card: RULE ZERO / SERIES 1: LEVEL 3 / PART 1: SPACE 31]*
 
-**0:10** Problem one. You're alone in the booth. The only other person here is a guard who walks the lot on his own.
-**0:17** Before she quit, the last operator taped a sheet to the monitor.
-**0:22** Rule one: at the top of every hour, check Level three. One car will have moved. Log it. Don't touch it.
-**0:30** You almost smile. Cars don't move.
-**0:33** Rule two: never send security to Level three.
-**0:38** Rule three? Scratched out. Pen pressed through the paper.
-**0:44** Problem two. It's eleven o'clock. You check Level three.
-**0:48** A grey sedan sits in bay thirty-one.
-**0:52** You rewind. An hour ago, it was in bay twelve. No brake lights. No driver.
-**0:59** You log it. Bay twelve to bay thirty-one. Rule followed.
-**1:04** Then the headlights come on. Slowly. Aimed at the camera.
-**1:09** On the other screen, Dale clocks his round. Eleven oh five. Level three.
-**1:15** He doesn't know rule two. Nobody told him.
-**1:19** Your first night. Great start.
-**1:22** You can warn him. Or you can watch what the sedan does next. *(on-screen: COMMENT ONE WORD: WARN / WATCH)*
-**1:28** *(end card)* Part 2 tomorrow. The majority writes Part 2.
+**0:10** Problem one. The only other person here is a guard who walks the lot by himself.
+**0:16** Before she quit, the last operator taped a sheet to the monitor.
+**0:21** Rule one: at the top of every hour, check Level three. One car will have moved. Log it. Don't touch it.
+**0:29** You almost smile. Cars don't move.
+**0:32** Rule two: never send security to Level three.
+**0:37** Rule three? Scratched out. Pen pressed through the paper.
+**0:43** Problem two. Eleven o'clock. You check Level three.
+**0:47** A grey sedan. Bay thirty-one.
+**0:50** You rewind. An hour ago, bay twelve. No brake lights. No driver.
+**0:57** You log it. Rule one, followed.
+**1:00** Then the headlights come on. Slowly. Aimed at the camera.
+**1:05** On the other screen, Dale scans in at Level three. Rule two, broken. He doesn't know. Nobody told him.
+**1:12** Behind him, in the stairwell glass, something tall is standing.
+**1:17** Dale doesn't turn around.
+**1:20** First night. Great start.
+**1:22** You can warn him. Or you can watch what it does next. *(on-screen chips: 1 WARN / 2 WATCH)*
+**1:30** *(final frame + end card)* Part 2 tomorrow. The majority writes Part 2.
 
 ### Shot list (story = Gemini illustration; CCTV = Remotion treatment over a clean plate; card = Remotion only)
 | # | Time | Type | Content | Caption / on-screen | HUD |
@@ -134,20 +146,21 @@ Target 90 s, about 190 spoken words (about 2.2 words/s average, about 2.4 in the
 | 11 | 0:48-0:52 | CCTV | CAM 3-A: the grey sedan in bay 31, yellow ring draws around it | "A grey sedan sits in bay thirty-one." | NERVE 90% |
 | 12 | 0:52-0:59 | CCTV | Rewind effect (reverse scan), the sedan slides back to bay 12 with no lights; empty driver's seat zoom | "No brake lights. No driver." | NERVE 85% |
 | 13 | 0:59-1:04 | log card | Log book page: entry "11:00 PM  Bay 12 to Bay 31" types in, tick stamp | - | LOG 1 |
-| 14 | 1:04-1:09 | CCTV | Sedan headlights flare, aimed at the lens, amber bloom | "Aimed at the camera." | NERVE 71% |
-| 15 | 1:09-1:15 | CCTV + story | Second monitor: Dale scans his badge at the Level 3 stairwell door; Operator reflected in the glass | "Dale clocks his round." | |
-| 16 | 1:15-1:19 | story | Operator, mouth open, hand on the radio, one sweat drop | "Nobody told him." | |
-| 17 | 1:19-1:22 | story | Operator flat deadpan to the camera, silent hold | "Your first night. Great start." | |
-| 18 | 1:22-1:28 | fork card (dark) | COMMENT ONE WORD / WARN / WATCH | - | - |
-| 19 | 1:28-1:32 | end card | PART 2 TOMORROW / The majority writes Part 2. | - | - |
+| 14 | 1:00-1:05 | CCTV | Sedan headlights flare, aimed at the lens, amber bloom | "Aimed at the camera." | NERVE 71% |
+| 15 | 1:05-1:12 | CCTV | Second monitor: Dale scans his badge at the Level 3 stairwell door; slow push-in toward the door glass; Rule 1 and Rule 2 chips flash together | "Dale scans in at Level three." | |
+| 16 | 1:12-1:17 | CCTV / story | Stairwell glass fills the frame: The Driver stands right behind Dale (tall thin black silhouette, blank round head, two small amber dots). Dale does not turn | "Something tall is standing." | |
+| 17 | 1:17-1:20 | story | Close-up: shocked Operator, sweat drop, the silhouette faintly reflected in the monitor behind his head | "Dale doesn't turn around." | |
+| 18 | 1:20-1:22 | story | Operator flat deadpan to the camera, silent hold | "First night. Great start." | |
+| 19 | 1:22-1:30 | in-scene fork | Frame split: left, radio in the Operator's hand, chip "1 WARN" with a leader line; right, the monitor with The Driver still in the glass, chip "2 WATCH" with a leader line; mono label "COMMENT ONE WORD" on top. Slow push-in, amber dots blink once | - | |
+| 20 | 1:30-1:33 | final frame + end card | Hold on the shocked face, overlay "PART 2 TOMORROW" / "The majority writes Part 2." | - | - |
 
-(Total about 92 s; trim shot 5 or 16 if the voice take runs long, to stay within 85-95 s.)
+(Total about 93 s; trim shot 5 or 8 if the voice take runs long, to stay within 85-95 s. Shots 16-19 are the new retention block: the threat is visible for about 18 s before the cut.)
 
 ### Card specs (Remotion)
 - **Rule sheet card**: laminate #E8EEEA, yellow tape corners, typewriter font; header "OPERATOR RULES - READ BEFORE YOUR ROUND"; rules type on one at a time (about 0.4 s per line), a hand-drawn yellow rectangle draws around Rule 1, Rule 3 is replaced by a black scratch with a rip sound.
 - **Log book card**: ruled page, columns TIME / FROM / TO, new entry types in and gets a green tick stamp; becomes the recurring recap element (LOG pill counts these).
 - **CCTV treatment**: green-grey tint, scanlines, slight barrel vignette, REC dot in alarm-red, camera label and running timestamp in mono caps (all composed in Remotion).
-- **Fork card**: dark #0C1311; mono label "COMMENT ONE WORD"; two large rounded buttons WARN (laminate) and WATCH (signal-yellow); buttons pop with a small overshoot, no fades.
+- **Fork chips (in-scene, shot 19)**: over the live picture, no dark card. Mono label "COMMENT ONE WORD" top-centre; two rounded chips "1 WARN" (laminate) and "2 WATCH" (signal-yellow) with thin leader lines to the radio and the monitor; chips pop with a small overshoot, no fades. A dark fork card version (#0C1311) is kept only as a fallback for Shorts cut-downs.
 - **End card**: "PART 2 TOMORROW" in heavy sans with "TOMORROW" in signal-yellow; small line "The majority writes Part 2." below.
 - **Captions**: karaoke (grey -> white per word), sentence case, 73% height, hidden during cards.
 
@@ -160,6 +173,10 @@ Target 90 s, about 190 spoken words (about 2.2 words/s average, about 2.4 in the
 6. Stairwell door with wired-glass window, Level 3 (clean plate for Dale shot).
 7. Operator close-ups for reaction shots (deadpan, worry, shock) from the reference sheet.
 8. Empty-driver's-seat macro (windshield glare, no face, no figure).
+9. **The Driver** reference sheet (tall thin black silhouette, blank round head, two small amber dots; front, 3/4, silhouette-through-glass). Needs a scene or location reference in the prompt, or Gemini hangs on sheet-only prompts.
+10. **Dale** the guard reference sheet (friendly, uniform cap, flashlight, badge on lanyard; same stick-limb style as the Operator).
+11. Stairwell door, Level 3, with Dale in front and The Driver behind the wired glass (continue inside the stairwell chat so the door stays identical).
+12. Operator close-up, shocked, with a blank monitor behind (the Driver's reflection is added in Remotion).
 Rule: no text baked into images (all text composed in Remotion for crispness).
 
 ---
