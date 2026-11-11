@@ -124,8 +124,8 @@ We copy the machine, not the lines: no "Imagine...", no white-eyed twin, no "Wha
 **0:57** You log it. Rule one, followed.
 **1:00** Then the headlights come on. Slowly. Aimed at the camera.
 **1:05** On the other screen, Dale scans in at Level three. Rule two, broken. He doesn't know. Nobody told him.
-**1:12** Behind him, in the stairwell glass, something tall is standing.
-**1:17** Dale doesn't turn around.
+**1:12** Past the open door, something tall is standing.
+**1:17** Dale doesn't lift his flashlight.
 **1:20** First night. Great start.
 **1:22** You can warn him. Or you can watch what it does next. *(on-screen chips: 1 WARN / 2 WATCH)*
 **1:30** *(final frame + end card)* Part 2 tomorrow. The majority writes Part 2.
@@ -147,12 +147,14 @@ We copy the machine, not the lines: no "Imagine...", no white-eyed twin, no "Wha
 | 12 | 0:52-0:59 | CCTV | Rewind effect (reverse scan), the sedan slides back to bay 12 with no lights; empty driver's seat zoom | "No brake lights. No driver." | NERVE 85% |
 | 13 | 0:59-1:04 | log card | Log book page: entry "11:00 PM  Bay 12 to Bay 31" types in, tick stamp | - | LOG 1 |
 | 14 | 1:00-1:05 | CCTV | Sedan headlights flare, aimed at the lens, amber bloom | "Aimed at the camera." | NERVE 71% |
-| 15 | 1:05-1:12 | CCTV | Second monitor: Dale scans his badge at the Level 3 stairwell door; slow push-in toward the door glass; Rule 1 and Rule 2 chips flash together | "Dale scans in at Level three." | |
-| 16 | 1:12-1:17 | CCTV / story | Stairwell glass fills the frame: The Driver stands right behind Dale (tall thin black silhouette, blank round head, two small amber dots). Dale does not turn | "Something tall is standing." | |
-| 17 | 1:17-1:20 | story | Close-up: shocked Operator, sweat drop, the silhouette faintly reflected in the monitor behind his head | "Dale doesn't turn around." | |
+| 15 | 1:05-1:12 | CCTV | Second monitor: Dale scans his badge at the Level 3 stairwell door; slow push-in toward the door glass; Rule 1 and Rule 2 chips flash together. Plate: `driver_stairwell_glass_dale` (closed door, Driver only in the glass) with CCTV treatment | "Dale scans in at Level three." | |
+| 16 | 1:12-1:17 | story | Cut to the door opened inward: The Driver stands full height on the stairwell landing, facing Dale (tall thin black silhouette, blank round head, two small amber dots). Plate: `driver_stairwell_open_door_dale`; slow push-in | "Something tall is standing." | |
+| 17 | 1:17-1:20 | story | Shocked Operator, sweat drop; the silhouette faintly reflected in the small monitor right behind his head (added in Remotion). Plate: `operator_booth_shocked_closeup` | "Dale doesn't lift his flashlight." | |
 | 18 | 1:20-1:22 | story | Operator flat deadpan to the camera, silent hold | "First night. Great start." | |
-| 19 | 1:22-1:30 | in-scene fork | Frame split: left, radio in the Operator's hand, chip "1 WARN" with a leader line; right, the monitor with The Driver still in the glass, chip "2 WATCH" with a leader line; mono label "COMMENT ONE WORD" on top. Slow push-in, amber dots blink once | - | |
+| 19 | 1:22-1:30 | in-scene fork | Reuses `operator_booth_shocked_closeup` (radio-like device in his raised hand, small monitors behind) with a slow push-in: chip "1 WARN" with a leader line to the radio; chip "2 WATCH" with a leader line to the monitor behind his head, where the Driver's amber dots now show; mono label "COMMENT ONE WORD" on top. Slow push-in, amber dots blink once | - | |
 | 20 | 1:30-1:33 | final frame + end card | Hold on the shocked face, overlay "PART 2 TOMORROW" / "The majority writes Part 2." | - | - |
+
+**Asset map (all images exist, 12 Nov):** shots 1-3 `booth_clean` + `level3_wide_car` (CCTV treatment); 5-6, 8 `operator_booth_seated` / `operator_booth_suspicious_v2`; 10-11 `level3_wide_car`; 12 `level3_wide_empty` (rewind) then `approach_shot3_driver_window` (empty seat); 14 `car31_lights_on`; 15 `driver_stairwell_glass_dale`; 16 `driver_stairwell_open_door_dale`; 17 and 19 `operator_booth_shocked_closeup`; 18 `operator_booth_suspicious_v2` (flat deadpan hold). Cards (4, 7, 9, 13, 20) are Remotion only.
 
 (Total about 93 s; trim shot 5 or 8 if the voice take runs long, to stay within 85-95 s. Shots 16-19 are the new retention block: the threat is visible for about 18 s before the cut.)
 
