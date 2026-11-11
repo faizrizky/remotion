@@ -19,13 +19,14 @@ Account: g.shinpact7 (via MattJr's Chrome). Style reference frame attached on fi
 | Scenes/operator_booth_seated.png | Operator seated from behind, booth | Security Booth Operator Scene Creation (/u/1/app/d548f745f3a3172c) MASTER booth chat |
 | Scenes/operator_booth_suspicious_v2.jpeg | Operator leaning, suspicious (JPEG) | same chat |
 | Scenes/operator_booth_startled_v2.png | Operator standing, startled, front | same chat |
+| Scenes/operator_booth_shocked_closeup.png | NEW 12 Nov, Part 1 shot 17: Operator medium close-up, shocked (O mouth, sweat drop, hand raised), blank large monitor behind for the Driver reflection added in Remotion; booth identical; no text | Security Booth Operator Scene Creation (MASTER booth chat) |
 | Scenes/driver_stairwell_glass_dale.png | NEW 12 Nov, Part 1 shot 16: Dale (blank white head, cap, flashlight, plain grey jacket) from behind at the CLOSED stairwell door; The Driver visible only in the wired-glass window, black silhouette, two amber dots. | Empty Parking Garage Art Generation (same chat as the stairwell plate) |
 | Scenes/driver_stairwell_open_door_dale.png | NEW 12 Nov, Part 1 shot 16 alternate (tall Driver): door leaf opened inward, normal single fire door with wired-glass window and push bar on the leaf; Driver full height on the stairwell landing, amber dots; Dale from behind with flashlight; no text. Revised from a first version whose door was malformed and whose jacket had the baked text "SECURITY" (not used) | same chat, attached the bad version + stairwell plate |
 | Brand/style_reference_refb.jpg | Style reference frame attached to every Gemini chat | - |
 | _contact_sheet.jpg, _contact_cars.jpg, ../_chk_driver.jpg, ../_chk_driver2.jpg | Contact/check images (cannot be deleted from the mount) | - |
 
 Not downloaded (rejected or superseded): driver seat v1/v2, Operator startled v1, Operator suspicious v1, rule sheet on bezel (draw as Remotion RuleSheetCard).
-Copies of the downloads also remain in `~/Downloads/Gemini_Generated_Image_*` (the Mac mount cannot delete). Safe to trash by hand.
+Downloads cleaned 12 Nov: all Gemini originals that have a copy here were deleted from ~/Downloads (one unrelated jpeg, an old unused Level 3 car render, remains). Every new asset: copy to Assets, verify by md5, then delete the Downloads copy.
 
 ## Lessons
 - Mobil terlihat melayang kalau kamera terlalu dekat dan lantai/ban/bayangan tidak masuk frame. Selalu minta: ban menyentuh lantai, cast shadow, pilar atau plafon di background.
@@ -44,7 +45,6 @@ Copies of the downloads also remain in `~/Downloads/Gemini_Generated_Image_*` (t
 
 ## Still to make (Part 1, new ending)
 - Dale standalone sheet (optional; Dale already exists in driver_stairwell_glass_dale)
-- Operator shocked close-up with a blank monitor behind (shot 17; Driver reflection added in Remotion)
 - Operator in-scene fork frame: radio in hand + monitor (shot 19)
 - Optional: Operator lit by headlights, booth with 8 monitors
 
