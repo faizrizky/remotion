@@ -18,7 +18,7 @@ Why the premise works: the viewer watches the same monitor wall as the lead, so 
 
 - **Name**: Rule Zero. Handle to claim (availability NOT verified from here): @rulezero, fallbacks @rulezerostories, @rulezero.tv (check each platform on a laptop; use the same handle on YouTube, TikTok, Instagram).
 - **Tagline options** (pick one): "Read the sheet. Then choose." / "Every rule was written by someone who broke the last one." / "The first rule isn't on the sheet."
-- **Fork signature** (spoken, copied from REF-A): "You have two choices. You [A]. Or you [B], with whatever is standing right behind you. So, what will you do?" Chips with the two one-word choices stay on screen to the last frame. The promise "The majority writes Part N+1" lives in the pinned comment and description, not in the voice.
+- **Fork signature** (spoken, structure from REF-A, content from our story): "You have two choices. You [A]. Or you [B]. So, what will you do?" Chips with the two one-word choices stay on screen to the last frame. The promise "The majority writes Part N+1" lives in the pinned comment and description, not in the voice.
 - **Tone**: tense, dry-witted, never gory, PG-13. Humor is one deadpan line per part, right before the fork.
 - **Content boundaries**: fiction only and labelled as fiction; no real people, real tragedies, or "true story" claims; no gore, no harm to children; nothing that could be mistaken for a real emergency. Advertiser-safe horror (suspense, not shock).
 - **Distinct from Penny Logics**: different palette, font set, lead, sting, and narrator voice.
@@ -77,7 +77,7 @@ Sting: 1.5 s low concrete hum + one parking-gate beep. Must be an authentic reco
 ### Part plan (each about 90 s, vertical, fork in the last 12 s)
 | Part | Title | Rule triggered | New fact | HUD change | Fork |
 |------|-------|----------------|----------|-----------|------|
-| 1 | Space 31 | R1 | The sedan moved with no driver and turned its headlights on the camera; Dale scans in at Level 3 and The Driver stands right behind him in the stairwell glass | NERVE 100 -> 71, LOG 1 | WARN / WATCH |
+| 1 | Space 31 | R1 | The sedan moved with no driver and turned its headlights on the camera; Dale scans in at Level 3 and The Driver stands past the open stairwell door, facing him | NERVE 100 -> 40, LOG 1 | WARN / QUIET |
 | 2 | Dale's Round | R2 | Dale comes back on screen from the wrong stairwell, smiling, and describes a car you have not seen yet | NERVE -> 58, LOG 2 | TRUST / TEST |
 | 3 | Camera 3-C | R4 | Cam 3-C shows the booth from behind your own chair | NERVE -> 46 | LOOK / COVER |
 | 4 | The Elevator | R5 | The elevator opens on Level 3 and a car is inside it | NERVE -> 37 | WATCH / UNPLUG |
@@ -103,7 +103,7 @@ Target 90 s, about 190 spoken words (about 2.2 words/s average, about 2.4 in the
 4. **False relief, then reversal.** "You almost smile. Cars don't move." -> the sedan moves.
 5. **The threat is IN the scene, close behind the lead, in the last 15 s** (The Driver in the glass). Slow push-in, no jump scare, no music hit until the fork.
 6. **Fork as in-scene chips** with leader lines pointing at the two real objects (radio / monitor), not a separate dark card. Final frame = the lead's shocked face with the threat still faintly present.
-7. **Closing sequence copied from REF-A**: the threat is "right behind you" (in the lead's own monitor), a deadline in the scene ("The stairwell door starts to close."), then "You have two choices.", the two options spoken, and the closer "So, what will you do?" with chips on screen. No end card, no dry line.
+7. **Closing sequence uses REF-A's structure, not its content**: the threat stays where our story put it (with Dale at the stairwell, seen by you on the monitor), one in-scene deadline ("Dale takes one step toward the open door."), then "You have two choices.", the two options spoken, and the closer "So, what will you do?" with chips on screen. No end card, no dry line. The Driver is never behind the Operator in Series 1 Part 1.
 8. Slow pace (about 115-125 wpm), calm voice, silent beat after every rule. Never raise the voice.
 We copy the machine, not the lines: no "Imagine...", no white-eyed twin. The closer "So, what will you do?" is now allowed because it is the reference's own ending (user decision, 12 Nov).
 
@@ -126,11 +126,10 @@ We copy the machine, not the lines: no "Imagine...", no white-eyed twin. The clo
 **1:05** On the other screen, Dale scans in at Level three. Rule two, broken. He doesn't know. Nobody told him.
 **1:12** Past the open door, something tall is standing.
 **1:17** Dale doesn't lift his flashlight.
-**1:20** In your monitor, something is standing right behind you.
-**1:24** The stairwell door starts to close.
-**1:27** You have two choices.
-**1:29** You warn Dale. Or you stay quiet, alone, with whatever is standing right behind you. *(on-screen chips: 1 WARN / 2 STAY, visible from 1:27 to the end)*
-**1:36** So, what will you do?
+**1:20** Dale takes one step toward the open door.
+**1:23** You have two choices.
+**1:25** You grab the radio and warn him. Or you follow the rules, and say nothing. *(on-screen chips: 1 WARN / 2 QUIET, visible from 1:23 to the end)*
+**1:32** So, what will you do?
 
 ### Shot list (story = Gemini illustration; CCTV = Remotion treatment over a clean plate; card = Remotion only)
 | # | Time | Type | Content | Caption / on-screen | HUD |
@@ -151,21 +150,20 @@ We copy the machine, not the lines: no "Imagine...", no white-eyed twin. The clo
 | 14 | 1:00-1:05 | CCTV | Sedan headlights flare, aimed at the lens, amber bloom | "Aimed at the camera." | NERVE 71% |
 | 15 | 1:05-1:12 | CCTV | Second monitor: Dale scans his badge at the Level 3 stairwell door; slow push-in toward the door glass; Rule 1 and Rule 2 chips flash together. Plate: `driver_stairwell_glass_dale` (closed door, Driver only in the glass) with CCTV treatment | "Dale scans in at Level three." | |
 | 16 | 1:12-1:17 | story | Cut to the door opened inward: The Driver stands full height on the stairwell landing, facing Dale (tall thin black silhouette, blank round head, two small amber dots). Plate: `driver_stairwell_open_door_dale`; slow push-in | "Something tall is standing." | |
-| 17 | 1:17-1:20 | story | Shocked Operator, sweat drop; the silhouette faintly reflected in the small monitor right behind his head (added in Remotion). Plate: `operator_booth_shocked_closeup` | "Dale doesn't lift his flashlight." | |
-| 18 | 1:20-1:24 | story | Same `operator_booth_shocked_closeup`, slow push-in; the Driver's reflection in the small monitor behind his head grows and the two amber dots appear (Remotion overlay) | "Something is standing right behind you." | |
-| 19 | 1:24-1:27 | story | Cut to `driver_stairwell_glass_dale`: the stairwell door swings shut on Dale (Remotion door-close animation, hard thud) | "The stairwell door starts to close." | |
-| 20 | 1:27-1:38 | in-scene fork | Back to the shocked Operator, radio-like device in his raised hand, monitor with the amber dots behind him. Chip "1 WARN" with a leader line to the radio, chip "2 STAY" with a leader line to the monitor; chips stay on screen to the last frame. Slow push-in; hold on the final question, no end card | - | |
+| 17 | 1:17-1:20 | story | Shocked Operator in the booth, sweat drop; the small monitor behind his head shows the stairwell feed with two amber dots (CCTV overlay in Remotion). Plate: `operator_booth_shocked_closeup` | "Dale doesn't lift his flashlight." | NERVE 40% |
+| 18 | 1:20-1:23 | CCTV | Back to `driver_stairwell_open_door_dale` with CCTV treatment: Dale nudges one step closer to the doorway (small Remotion move), slow push-in on the amber dots | "Dale takes one step toward the open door." | |
+| 19 | 1:23-1:35 | in-scene fork | `operator_booth_shocked_closeup`, radio-like device in his raised hand, stairwell feed on the monitor behind him. Chip "1 WARN" with a leader line to the radio, chip "2 QUIET" with a leader line to the monitor; chips pop on "You have two choices." and stay to the last frame. Slow push-in, hold on the question, no end card | - | |
 
-**Asset map (all images exist, 12 Nov):** shots 1-3 `booth_clean` + `level3_wide_car` (CCTV treatment); 5-6, 8 `operator_booth_seated` / `operator_booth_suspicious_v2`; 10-11 `level3_wide_car`; 12 `level3_wide_empty` (rewind) then `approach_shot3_driver_window` (empty seat); 14 `car31_lights_on`; 15 `driver_stairwell_glass_dale`; 16 `driver_stairwell_open_door_dale`; 17, 18 and 20 `operator_booth_shocked_closeup`; 19 `driver_stairwell_glass_dale` (door-close animation in Remotion). Cards (4, 7, 9, 13) are Remotion only. `operator_booth_suspicious_v2` is still used in shots 5-8.
+**Asset map (all images exist, 12 Nov):** shots 1-3 `booth_clean` + `level3_wide_car` (CCTV treatment); 5-6, 8 `operator_booth_seated` / `operator_booth_suspicious_v2`; 10-11 `level3_wide_car`; 12 `level3_wide_empty` (rewind) then `approach_shot3_driver_window` (empty seat); 14 `car31_lights_on`; 15 `driver_stairwell_glass_dale`; 16 `driver_stairwell_open_door_dale`; 16 and 18 `driver_stairwell_open_door_dale`; 17 and 19 `operator_booth_shocked_closeup`. Cards (4, 7, 9, 13) are Remotion only. `operator_booth_suspicious_v2` is still used in shots 5-8.
 
-(Total about 98 s; trim shot 5 or 8 by about 3 s if the voice take runs long, to stay within 85-95 s. Shots 16-20 are the retention block: the threat is visible for about 22 s.)
+(Total about 95 s; trim shot 5 or 8 if the voice take runs long, to stay within 85-95 s. Shots 15-19 are the retention block: the threat is on screen for about 30 s.)
 
 ### Card specs (Remotion)
 - **Rule sheet card**: laminate #E8EEEA, yellow tape corners, typewriter font; header "OPERATOR RULES - READ BEFORE YOUR ROUND"; rules type on one at a time (about 0.4 s per line), a hand-drawn yellow rectangle draws around Rule 1, Rule 3 is replaced by a black scratch with a rip sound.
 - **Log book card**: ruled page, columns TIME / FROM / TO, new entry types in and gets a green tick stamp; becomes the recurring recap element (LOG pill counts these).
 - **CCTV treatment**: green-grey tint, scanlines, slight barrel vignette, REC dot in alarm-red, camera label and running timestamp in mono caps (all composed in Remotion).
-- **Fork chips (in-scene, shot 20)**: over the live picture, no dark card. Two rounded chips "1 WARN" (laminate) and "2 STAY" (signal-yellow) with thin leader lines to the radio and the monitor, as in REF-A; they pop in on "You have two choices." with a small overshoot and stay to the last frame. No separate label. A dark fork card version (#0C1311) is kept only as a fallback for Shorts cut-downs.
-- **End card**: none in Part 1 (the video ends on the question and the chips). The next-part promise goes in the pinned comment: "Comment 1 (warn) or 2 (stay). The majority writes Part 2."
+- **Fork chips (in-scene, shot 19)**: over the live picture, no dark card. Two rounded chips "1 WARN" (laminate) and "2 QUIET" (signal-yellow) with thin leader lines to the radio and the monitor, as in REF-A; they pop in on "You have two choices." with a small overshoot and stay to the last frame. No separate label. A dark fork card version (#0C1311) is kept only as a fallback for Shorts cut-downs.
+- **End card**: none in Part 1 (the video ends on the question and the chips). The next-part promise goes in the pinned comment: "Comment 1 (warn) or 2 (quiet). The majority writes Part 2."
 - **Captions**: karaoke (grey -> white per word), sentence case, 73% height, hidden during cards.
 
 ### Gemini asset list for Part 1 (one chat column, reference sheet attached each time)
