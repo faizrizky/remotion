@@ -48,20 +48,22 @@ You log it. Rule one, followed.
 Then the headlights come on. Slowly. Aimed at the camera.
 ```
 
-## Klip D: ancaman dan pilihan (1:05 sampai 1:30)
+## Klip D: ancaman (1:05 sampai 1:27)
 
 ```
 On the other screen, Dale scans in at Level three. Rule two, broken. He doesn't know. Nobody told him.
 Past the open door, something tall is standing.
 Dale doesn't lift his flashlight.
-First night. Great start.
-You can warn him. Or you can watch what it does next.
+In your monitor, something is standing right behind you.
+The stairwell door starts to close.
 ```
 
-## Klip E: end card (1:30 sampai 1:33)
+## Klip E: pilihan (1:27 sampai 1:38)
 
 ```
-Comment one, warn. Or two, watch. Part 2 tomorrow. The majority writes Part 2.
+You have two choices.
+You warn Dale. Or you stay quiet, alone, with whatever is standing right behind you.
+So, what will you do?
 ```
 
 ---
@@ -73,7 +75,7 @@ Comment one, warn. Or two, watch. Part 2 tomorrow. The majority writes Part 2.
 3. Simpan kelimanya di `Assets/rule-zero/Series 1 - Level 3/Audio/Voice/`.
 4. Kabari aku. Aku yang mengatur jeda antar kalimat dan antar klip supaya pas dengan gambar, lalu membuat word timing untuk karaoke caption.
 
-Total sekitar 193 kata, target 85 sampai 95 detik.
+Total sekitar 202 kata, target video 85 sampai 98 detik (jeda dan gambar yang mengisi sisanya).
 
 ## Arahan jeda (aku yang atur nanti, kamu tidak perlu pikirkan)
 
@@ -83,5 +85,6 @@ Total sekitar 193 kata, target 85 sampai 95 detik.
 | Setiap aturan di klip B | 0,8 detik |
 | "Scratched out." | 3 detik (kartu aturan) |
 | "Aimed at the camera." | 0,8 detik |
-| "Great start." | 0,8 detik |
-| Pilihan WARN / WATCH | 1,5 detik, lalu klip E |
+| "The stairwell door starts to close." | 0,8 detik |
+| "You have two choices." | 0,5 detik |
+| "So, what will you do?" | akhir video, biarkan bed menggantung 3 detik |
