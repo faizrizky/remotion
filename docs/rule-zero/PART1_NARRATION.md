@@ -48,20 +48,23 @@ You log it. Rule one, followed.
 Then the headlights come on. Slowly. Aimed at the camera.
 ```
 
-## Klip D: ancaman (1:05 sampai 1:23)
+## Klip D: pintu (1:05 sampai 1:27)
 
 ```
 On the other screen, Dale scans in at Level three. Rule two, broken. He doesn't know. Nobody told him.
-Past the open door, something tall is standing.
-Dale doesn't lift his flashlight.
-Dale takes one step toward the open door.
+The door won't open.
+In the little window, something tall is standing. Two small lights, looking out.
+The glass is dark on his side. Dale can't see it. You can.
+Your radio clicks. "Door's stuck. Want me to force it?"
 ```
 
-## Klip E: pilihan (1:23 sampai 1:35)
+Catatan: kalimat Dale di dalam tanda kutip dibaca oleh narator yang sama dulu. Nanti kalau mau, diganti suara kedua dengan filter radio.
+
+## Klip E: pilihan (1:27 sampai 1:38)
 
 ```
 You have two choices.
-You grab the radio and warn him. Or you follow the rules, and say nothing.
+You tell him to open the door. Or you tell him to walk away.
 So, what will you do?
 ```
 
@@ -74,7 +77,7 @@ So, what will you do?
 3. Simpan kelimanya di `Assets/rule-zero/Series 1 - Level 3/Audio/Voice/`.
 4. Kabari aku. Aku yang mengatur jeda antar kalimat dan antar klip supaya pas dengan gambar, lalu membuat word timing untuk karaoke caption.
 
-Total sekitar 195 kata, target video 85 sampai 95 detik (jeda dan gambar yang mengisi sisanya).
+Total sekitar 213 kata, target video 85 sampai 95 detik (jeda dan gambar yang mengisi sisanya).
 
 ## Arahan jeda (aku yang atur nanti, kamu tidak perlu pikirkan)
 
@@ -84,6 +87,7 @@ Total sekitar 195 kata, target video 85 sampai 95 detik (jeda dan gambar yang me
 | Setiap aturan di klip B | 0,8 detik |
 | "Scratched out." | 3 detik (kartu aturan) |
 | "Aimed at the camera." | 0,8 detik |
-| "Dale takes one step toward the open door." | 0,8 detik |
+| "You can." (sebelum "Your radio clicks.") | 0,6 detik |
+| "Want me to force it?" | 0,8 detik |
 | "You have two choices." | 0,5 detik |
 | "So, what will you do?" | akhir video, biarkan bed menggantung 3 detik |
