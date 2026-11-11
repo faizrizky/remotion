@@ -19,9 +19,10 @@ Account: g.shinpact7 (via MattJr's Chrome). Style reference frame attached on fi
 | Scenes/operator_booth_seated.png | Operator seated from behind, booth | Security Booth Operator Scene Creation (/u/1/app/d548f745f3a3172c) MASTER booth chat |
 | Scenes/operator_booth_suspicious_v2.jpeg | Operator leaning, suspicious (JPEG) | same chat |
 | Scenes/operator_booth_startled_v2.png | Operator standing, startled, front | same chat |
-| Scenes/driver_stairwell_glass_dale.png | NEW 12 Nov, Part 1 shot 16: Dale (blank white head, cap, flashlight, plain grey jacket) from behind at the CLOSED stairwell door; The Driver visible only in the wired-glass window, black silhouette, two amber dots. A first version (tall Driver in an open doorway, baked text "SECURITY" on the jacket) was not downloaded | Empty Parking Garage Art Generation (same chat as the stairwell plate) |
+| Scenes/driver_stairwell_glass_dale.png | NEW 12 Nov, Part 1 shot 16: Dale (blank white head, cap, flashlight, plain grey jacket) from behind at the CLOSED stairwell door; The Driver visible only in the wired-glass window, black silhouette, two amber dots. | Empty Parking Garage Art Generation (same chat as the stairwell plate) |
+| Scenes/driver_stairwell_open_door_dale.png | NEW 12 Nov, Part 1 shot 16 alternate (tall Driver): door leaf opened inward, normal single fire door with wired-glass window and push bar on the leaf; Driver full height on the stairwell landing, amber dots; Dale from behind with flashlight; no text. Revised from a first version whose door was malformed and whose jacket had the baked text "SECURITY" (not used) | same chat, attached the bad version + stairwell plate |
 | Brand/style_reference_refb.jpg | Style reference frame attached to every Gemini chat | - |
-| _contact_sheet.jpg, _contact_cars.jpg, ../_chk_driver.jpg | Contact/check images (cannot be deleted from the mount) | - |
+| _contact_sheet.jpg, _contact_cars.jpg, ../_chk_driver.jpg, ../_chk_driver2.jpg | Contact/check images (cannot be deleted from the mount) | - |
 
 Not downloaded (rejected or superseded): driver seat v1/v2, Operator startled v1, Operator suspicious v1, rule sheet on bezel (draw as Remotion RuleSheetCard).
 Copies of the downloads also remain in `~/Downloads/Gemini_Generated_Image_*` (the Mac mount cannot delete). Safe to trash by hand.
@@ -33,6 +34,7 @@ Copies of the downloads also remain in `~/Downloads/Gemini_Generated_Image_*` (t
 - Prompt yang hanya melampirkan character sheet tanpa scene macet. Selalu beri scene/lokasi.
 - Gemini menebalkan karakter di scene detail; ekspresi tetap terbaca.
 - Style reference bisa "bocor" ke gambar prop. Untuk prop standalone tulis "no bed, no bags, no money, no clothing, no text".
+- Pintu yang dibuat Gemini bisa tidak masuk akal (daun dan kusen ganda). Lampirkan plate pintu asli dan tulis geometrinya: satu daun, engsel di sisi tertentu, terbuka sekian derajat, jendela dan push bar menempel di daun (12 Nov).
 - Gemini suka menambah teks di pakaian (jaket "SECURITY"). Tulis eksplisit "jacket plain, no letters" sejak prompt pertama.
 - Karakter baru (The Driver, Dale) dibuat langsung di scene lokasi dengan plate lokasi + style ref terlampir (12 Nov): render sekali jalan, tidak hang.
 - DOWNLOAD: hover gambar, klik "Download full size image". File masuk ~/Downloads di Mac setelah 30-40 s (PNG 1536x2752 ~7 MB). Verifikasi isi sebelum diberi nama; jangan chain klik.
@@ -41,7 +43,6 @@ Copies of the downloads also remain in `~/Downloads/Gemini_Generated_Image_*` (t
 "Generate one image in exactly the same art style as the attached reference frame: richly painted, textured background with dramatic coloured light, thick clean ink outlines, flat colour. Scene: <scene>. No text, no letters, no numbers, no logos, no watermark. Vertical 9:16."
 
 ## Still to make (Part 1, new ending)
-- The Driver taller shot (full body seen through glass or in a monitor); the glass shot shows mainly head and eyes
 - Dale standalone sheet (optional; Dale already exists in driver_stairwell_glass_dale)
 - Operator shocked close-up with a blank monitor behind (shot 17; Driver reflection added in Remotion)
 - Operator in-scene fork frame: radio in hand + monitor (shot 19)
