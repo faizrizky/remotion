@@ -8,6 +8,8 @@ Account: g.shinpact7 (via MattJr's Chrome). Style reference frame attached on fi
 | Characters/operator_sheet_nomic.png | Operator character sheet, no mic (approved) | Character Reference Sheet Generation (/u/1/app/4609fb757346fcb9) |
 | Props/car31_lights_off.png | Car 31, headlights off, plain background (clean, regenerated) | Sedan Prop Illustration Request (/u/1/app/6bb461d5f203d40b) |
 | Props/car31_lights_on.png | Car 31, headlights on amber | same chat |
+| Props/rule_sheet_blank.png | NEW 12 Nov: laminated rule sheet taped (4 yellow tape strips, one curled corner, glare) on a CRT bezel, paper COMPLETELY BLANK; text is added in Remotion (RuleSheetCard) | Security Booth Operator Scene Creation (/u/1/app/d548f745f3a3172c) |
+| Props/logbook_blank.png | NEW 12 Nov: top-down open ledger page, header strip + 3 empty columns, pen at right; no text (TIME / FROM / TO and entries added in Remotion, LogBookCard) | same chat |
 | Backgrounds/booth_clean.png | Control booth, blank monitors, empty (7 monitors) | Night Shift Security Booth Illustration (/u/1/app/faeebf1bd8370ca4) |
 | Backgrounds/level3_wide_car.png | Level 3 wide with Car 31 | Empty Parking Garage Art Generation (/u/1/app/1793c6f169328d5f) |
 | Backgrounds/level3_wide_empty.png | Level 3 wide, NO car (animation plate) | same chat |
@@ -36,6 +38,7 @@ Downloads cleaned 12 Nov: all Gemini originals that have a copy here were delete
 - Style reference bisa "bocor" ke gambar prop. Untuk prop standalone tulis "no bed, no bags, no money, no clothing, no text".
 - Pintu yang dibuat Gemini bisa tidak masuk akal (daun dan kusen ganda). Lampirkan plate pintu asli dan tulis geometrinya: satu daun, engsel di sisi tertentu, terbuka sekian derajat, jendela dan push bar menempel di daun (12 Nov).
 - Skala prop: Gemini bisa membuat monitor raksasa di close-up. Lampirkan gambar booth asli sebagai referensi skala dan tulis "small old CRT screens, each about the size of the Operator's head or smaller" (12 Nov). Lampiran gabungan di atas 10 MB ditolak: kecilkan ke JPEG dulu.
+- Prop untuk teks (kertas aturan, buku log): minta Gemini membuat versi KOSONG dengan kalimat tegas "completely blank, no writing, no lines, no letters"; teks ditimpa di Remotion. Berhasil di percobaan pertama (12 Nov).
 - Gemini suka menambah teks di pakaian (jaket "SECURITY"). Tulis eksplisit "jacket plain, no letters" sejak prompt pertama.
 - Karakter baru (The Driver, Dale) dibuat langsung di scene lokasi dengan plate lokasi + style ref terlampir (12 Nov): render sekali jalan, tidak hang.
 - DOWNLOAD: hover gambar, klik "Download full size image". File masuk ~/Downloads di Mac setelah 30-40 s (PNG 1536x2752 ~7 MB). Verifikasi isi sebelum diberi nama; jangan chain klik.
