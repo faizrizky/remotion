@@ -61,7 +61,7 @@ You can warn him. Or you can watch what it does next.
 ## Klip E: end card (1:30 sampai 1:33)
 
 ```
-Part 2 tomorrow. The majority writes Part 2.
+Comment one, warn. Or two, watch. Part 2 tomorrow. The majority writes Part 2.
 ```
 
 ---
@@ -73,7 +73,7 @@ Part 2 tomorrow. The majority writes Part 2.
 3. Simpan kelimanya di `Assets/rule-zero/Series 1 - Level 3/Audio/Voice/`.
 4. Kabari aku. Aku yang mengatur jeda antar kalimat dan antar klip supaya pas dengan gambar, lalu membuat word timing untuk karaoke caption.
 
-Total sekitar 187 kata, target 85 sampai 95 detik.
+Total sekitar 193 kata, target 85 sampai 95 detik.
 
 ## Arahan jeda (aku yang atur nanti, kamu tidak perlu pikirkan)
 

@@ -128,7 +128,7 @@ We copy the machine, not the lines: no "Imagine...", no white-eyed twin, no "Wha
 **1:17** Dale doesn't lift his flashlight.
 **1:20** First night. Great start.
 **1:22** You can warn him. Or you can watch what it does next. *(on-screen chips: 1 WARN / 2 WATCH)*
-**1:30** *(final frame + end card)* Part 2 tomorrow. The majority writes Part 2.
+**1:30** *(final frame + end card)* Comment one, warn. Or two, watch. Part 2 tomorrow. The majority writes Part 2.
 
 ### Shot list (story = Gemini illustration; CCTV = Remotion treatment over a clean plate; card = Remotion only)
 | # | Time | Type | Content | Caption / on-screen | HUD |
