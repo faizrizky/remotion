@@ -13,7 +13,7 @@ Related docs in this folder: `RULE_ZERO_SERIES_BIBLE.md` (concept, Series 1, Par
 4. Handle claimed on YouTube, TikTok and Instagram must be identical (availability to be verified on a laptop).
 
 ## B. Format
-5. One series = one closed location overnight = 8 parts. Locations change per series (Series 1: Spin Cycle Coin Laundry).
+5. One series = one closed location overnight = 8 parts. Locations change per series (Series 1: Harbor Street parking garage, "Level 3").
 6. Part length 85-95 s, vertical 1080x1920, 24 fps. 20 s teasers may be cut from the body, never from the hook.
 7. Every part follows the template: hook (0-7 s) -> series title card -> Problem 1 -> rule/card -> Problem 2 -> escalation -> dry joke -> fork -> "Part N+1 tomorrow".
 8. Every part triggers exactly one posted rule, reveals one new fact about the building, drops the NERVE meter once, and ends on a fork.
@@ -34,8 +34,8 @@ Related docs in this folder: `RULE_ZERO_SERIES_BIBLE.md` (concept, Series 1, Par
 19. Two scene families, alternating: (1) story shots = 2D inked illustration with cold fluorescent light and sodium-amber spill; (2) cards = flat designs, one idea per card.
 20. Palette: night-ink #0C1311, fluorescent #D9F2E6, laminate #E8EEEA (cool grey-white, not cream), signal-yellow #FFD23F (accent), alarm-red #E5484D (broken rule), sodium-amber #F2A33A.
 21. Type: heavy sans for captions and card headlines, typewriter mono for posted rule sheets, mono caps for HUD labels.
-22. Lead: generic Attendant (round head, dot eyes, mustard vest, blank name tag). Threat: The Regular, only seen reflected or as a silhouette, never face-on, no gore.
-23. HUD (story shots only), top-left about 14% from the top: pills CLOCK / NERVE / DOORS; yellow chip under it names the beat ("PROBLEM 1", "RULE 1"). Values change on beat, with rolling digits.
+22. Lead: generic Operator (round head, dot eyes, headset with signal-yellow band, grey hoodie, blank badge). Threat: Car 31 (plain grey sedan, no driver ever seen) and The Driver, only as a reflection or silhouette, never face-on, no gore.
+23. HUD (story shots only), top-left about 14% from the top: pills CLOCK / NERVE / LOG; yellow chip under it names the beat ("PROBLEM 1", "RULE 1"). Values change on beat, with rolling digits.
 24. Captions: burned-in karaoke, sentence case, bold white, grey for not-yet-spoken words, about 73% of frame height, 2-4 words per chunk, no caption during cards. A separate .srt is always produced as well.
 25. Transitions: hard cuts only. About 30-35 cuts per 90 s. Camera moves inside shots (pan, tilt, push), starting on a detail then revealing.
 26. Annotation overlays: yellow ring, label tag with leader line, highlight box on a rule.
