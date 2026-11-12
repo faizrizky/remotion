@@ -125,10 +125,10 @@ export const clockStr = (mins: number, secs = 0) => {
 };
 
 /** Pill in the HUD */
-const Pill: React.FC<{label: string; value: string; hot?: boolean; flash?: number; accent?: string}> = ({label, value, hot, flash = 0, accent}) => (
-  <div style={{display: 'flex', alignItems: 'center', gap: 14, background: 'rgba(12,19,17,0.78)', border: `2px solid ${accent ? accent : hot ? C.yellow : 'rgba(217,242,230,0.35)'}`, borderRadius: 999, padding: '10px 24px', transform: `scale(${1 + flash * 0.12})`}}>
-    <span style={{fontFamily: MONO, fontSize: 30, color: C.grey, letterSpacing: 2}}>{label}</span>
-    <span style={{fontFamily: MONO, fontSize: 36, color: accent ? accent : hot ? C.yellow : C.fluor}}>{value}</span>
+const Pill: React.FC<{label: string; value: string; hot?: boolean; flash?: number; alert?: boolean}> = ({label, value, hot, flash = 0, alert}) => (
+  <div style={{display: 'flex', alignItems: 'center', gap: 14, background: alert ? C.yellow : 'rgba(12,19,17,0.78)', border: `2px solid ${alert ? C.yellow : hot ? C.yellow : 'rgba(217,242,230,0.35)'}`, borderRadius: 999, padding: '10px 24px', transform: `scale(${1 + flash * 0.12})`, boxShadow: alert ? '0 0 22px rgba(255,210,63,0.35)' : undefined}}>
+    <span style={{fontFamily: MONO, fontSize: 30, color: alert ? 'rgba(12,19,17,0.7)' : C.grey, letterSpacing: 2}}>{label}</span>
+    <span style={{fontFamily: MONO, fontSize: 36, fontWeight: 700, color: alert ? C.ink : hot ? C.yellow : C.fluor}}>{value}</span>
   </div>
 );
 
@@ -140,7 +140,7 @@ export const Hud: React.FC<{clock: string; nerve: number; log: number; chip?: st
       <Pill label="LOG" value={String(log)} hot={logFlash > 0} flash={logFlash} />
     </div>
     {chip ? (
-      <Pill label={chip.split(' ').slice(0, -1).join(' ') || chip} value={chip.split(' ').slice(-1)[0] || ''} accent={chipRed ? C.red : C.yellow} />
+      <Pill label={chip.split(' ').slice(0, -1).join(' ') || chip} value={chip.split(' ').slice(-1)[0] || ''} alert />
     ) : null}
   </div>
 );

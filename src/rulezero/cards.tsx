@@ -25,6 +25,19 @@ export const TitleCard: React.FC<{series: string; part: string}> = ({series, par
   );
 };
 
+/* ---------------- Pinned sheet (image space of the booth plates) ---------------- */
+// Free wall space under the monitors, right of the two old notes (CR-3: never cover what is already on the wall).
+export const PinnedSheet: React.FC = () => (
+  <div style={{position: 'absolute', left: '51.5%', top: '47.2%', width: '8.4%', aspectRatio: '0.74', transform: 'rotate(2.2deg)', background: '#e4e9dc', borderRadius: 2, boxShadow: '0 5px 10px rgba(0,0,0,0.45)', border: '2px solid rgba(20,26,22,0.8)'}}>
+    <div style={{position: 'absolute', left: '12%', right: '12%', top: '10%', height: '7%', background: 'rgba(29,36,33,0.75)'}} />
+    {[0, 1, 2, 3, 4].map((i) => (
+      <div key={i} style={{position: 'absolute', left: '12%', width: `${i === 4 ? 40 : 76}%`, top: `${27 + i * 13}%`, height: '3.5%', background: 'rgba(29,36,33,0.45)'}} />
+    ))}
+    <div style={{position: 'absolute', left: '-14%', top: '-5%', width: '38%', height: '9%', background: 'rgba(255,210,63,0.8)', transform: 'rotate(-30deg)'}} />
+    <div style={{position: 'absolute', right: '-14%', top: '-5%', width: '38%', height: '9%', background: 'rgba(255,210,63,0.8)', transform: 'rotate(30deg)'}} />
+  </div>
+);
+
 /* ---------------- Rule sheet card ---------------- */
 export type TypedLine = {n: string; text: string; start: number; end: number; scratchAt?: number; blur?: boolean};
 
@@ -43,7 +56,7 @@ export const RuleSheetCard: React.FC<{lines: TypedLine[]; rectAt?: number; zoomT
   const rectP = rectAt !== undefined ? interpolate(t, [rectAt, rectAt + 0.6], [0, 1], clamp) : 0;
   return (
     <AbsoluteFill style={{background: C.ink, overflow: 'hidden'}}>
-      <Img src={staticFile('rz1/img/booth_clean_sheet.jpg')} style={{position: 'absolute', width: W * 1.6, left: -W * 0.05, top: -H * 0.35, filter: 'blur(14px) brightness(0.45)'}} />
+      <Img src={staticFile('rz1/img/booth_clean.jpg')} style={{position: 'absolute', width: W * 1.6, left: -W * 0.05, top: -H * 0.35, filter: 'blur(14px) brightness(0.45)'}} />
       <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center'}}>
         <div style={{transform: `translateY(${(1 - enter) * 120 + oy}px) scale(${(0.94 + 0.06 * enter) * z}) rotate(-1.2deg)`, opacity: enter, position: 'relative', width: cardW, height: cardH, marginTop: 40}}>
           {/* paper */}

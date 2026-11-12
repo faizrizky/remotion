@@ -4,7 +4,7 @@ import React from 'react';
 import {AbsoluteFill, Html5Audio, interpolate, Sequence, staticFile} from 'remotion';
 import TL from './s1p1_timeline.json';
 import {Bracket, C, Cctv, clamp, clockStr, CutFlash, Glow, Hud, Plate, sf, useT, Word, Captions, FPS} from './rzkit';
-import {ForkChip, LogEntries, MonitorWall, RuleSheetCard, TitleCard} from './cards';
+import {ForkChip, LogEntries, MonitorWall, PinnedSheet, RuleSheetCard, TitleCard} from './cards';
 
 const A = TL.anchors as Record<string, number>;
 const WORDS = TL.words as Word[];
@@ -56,7 +56,7 @@ const FEEDS = [
   {src: IMG('level3_wide_empty'), x: 0.62, y: 0.36, z: 1.7, cam: 'CAM 4-A'},
 ];
 
-const SheetPush: React.FC<{a: number; b: number}> = ({a, b}) => <Plate src={IMG('booth_clean_sheet')} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.385, y: 0.495, z: 3.4}} dur={b - a} />;
+const SheetPush: React.FC<{a: number; b: number}> = ({a, b}) => <Plate src={IMG('booth_clean')} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.495, z: 2.9}} dur={b - a}><PinnedSheet /></Plate>;
 
 const RULE_LINES = (a: number) => [
   {n: '1.', text: 'At the top of every hour, check Level 3. One car will have moved. Log it. Do not touch it.', start: L(A.r1, a) + 0.1, end: L(R1END, a)},
@@ -80,8 +80,10 @@ const Headlights: React.FC<{a: number}> = ({a}) => {
         <Plate src={src} {...cam} />
       </Cctv>
       <Plate src={src} {...cam} noImg>
-        <Glow x={NOSE.x} y={NOSE.y} r={0.03 + 0.04 * flare} o={on * (0.95 + 0.4 * flare)} />
-        <Glow x={NOSE.x + 0.075} y={NOSE.y + 0.03} r={0.05 + 0.05 * flare} o={on * 0.55 * (0.8 + flare)} />
+        {/* beam on the floor and the pillar ahead of the nose, lens glow only at the lamp itself */}
+        <div style={{position: 'absolute', left: `${(NOSE.x - 0.01) * 100}%`, top: '50.5%', width: '24%', height: '12%', background: `radial-gradient(ellipse at 6% 50%, rgba(255,230,180,${0.75 * on}) 0%, rgba(242,163,58,${0.32 * on * (0.8 + flare)}) 35%, rgba(242,163,58,0) 72%)`, filter: 'blur(10px)', mixBlendMode: 'screen', WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, #000 22%, #000 100%)', maskImage: 'linear-gradient(90deg, transparent 0%, #000 22%, #000 100%)'}} />
+        <div style={{position: 'absolute', left: '84%', top: '57.5%', width: '17%', height: '3.2%', borderRadius: '50%', transform: 'translateX(-10%)', background: `radial-gradient(ellipse, rgba(255,214,150,${0.5 * on * (0.7 + flare)}) 0%, rgba(242,163,58,0) 70%)`, mixBlendMode: 'screen'}} />
+        <Glow x={NOSE.x} y={NOSE.y} r={0.014 + 0.012 * flare} o={on * (0.9 + 0.3 * flare)} />
       </Plate>
     </AbsoluteFill>
   );
@@ -189,16 +191,25 @@ const SCENES: Scene[] = [
   {a: A.choices, b: TL.total, el: <Fork a={A.choices} b={TL.total} />, hud: null},
 ];
 
+// Rewind: the same camera runs the clock back. The sedan sits at Bay 31 while the tape runs, then the tape stops at 10:00 and the
+// sedan is already parked at Bay 12 (same heading, same depth). Nothing rolls backwards on screen (CR-7).
 function Rewind({a, b}: {a: number; b: number}) {
   const t = useT();
-  const back = Math.min(1, t / 1.8);
+  const swap = Math.max(1.2, L(BAY12.s, a) - 0.35);
+  const back = Math.min(1, t / swap);
   const mins = 23 * 60 - 60 * back;
+  const cam = {from: {x: 0.45, y: 0.55, z: 1.2}, to: {x: 0.4, y: 0.55, z: 1.25}, dur: b - a};
+  const done = t >= swap;
   return (
-    <Cctv cam="CAM 3-A  LEVEL 3" clock={clockStr(mins, (1 - back) * 6)} rew>
-      <Plate src={IMG('level3_wide_car_bay12')} from={{x: 0.36, y: 0.64, z: 1.25}} to={{x: 0.33, y: 0.66, z: 1.45}} dur={b - a}>
-        <Bracket x={0.33} y={0.667} w={0.62} h={0.17} start={L(BAY12.s, a)} label="BAY 12" />
-      </Plate>
-      <AbsoluteFill style={{background: `repeating-linear-gradient(0deg, rgba(217,242,230,0) 0px, rgba(217,242,230,0) ${40 + (t * 900) % 60}px, rgba(217,242,230,0.12) ${42 + (t * 900) % 60}px, rgba(217,242,230,0) ${48 + (t * 900) % 60}px)`, opacity: t < 1.8 ? 1 : 0}} />
+    <Cctv cam="CAM 3-A  LEVEL 3" clock={clockStr(mins, (1 - back) * 6)} rew={!done}>
+      {done ? (
+        <Plate src={IMG('level3_wide_car_bay12')} {...cam}>
+          <Bracket x={0.275} y={0.545} w={0.46} h={0.13} start={L(BAY12.s, a)} label="BAY 12" />
+        </Plate>
+      ) : (
+        <Plate src={IMG('level3_wide_car')} {...cam} />
+      )}
+      <AbsoluteFill style={{background: `repeating-linear-gradient(0deg, rgba(217,242,230,0) 0px, rgba(217,242,230,0) ${40 + (t * 900) % 60}px, rgba(217,242,230,0.12) ${42 + (t * 900) % 60}px, rgba(217,242,230,0) ${48 + (t * 900) % 60}px)`, opacity: !done ? 1 : Math.max(0, 1 - (t - swap) * 6)}} />
     </Cctv>
   );
 }

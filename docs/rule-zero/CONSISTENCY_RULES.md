@@ -14,6 +14,15 @@ Source: MattJr's review of the Part 1 draft v1 (12 Nov 2026). Seven continuity e
 | 6 | Logbook text did not follow the page (rows rise ~4 deg, columns lean) | **CR-6** Text overlaid on a plate follows that plate's own perspective: measure the ruled lines, rotate each string to the measured angle, centre it in its cell | `cellPos()` grid with measured lines and -4.2 deg rotation |
 | 7 | At 11:02 the car had jumped forward and turned; at 11:00 it was parked further back | **CR-7** Continuity of position: an object that has not "moved" in the story must be at the same place, same scale and same heading in every shot of the same camera. The only car move allowed is the one the story logs (Bay 12 to Bay 31) | Headlights shot uses the master plate; only the lights change |
 
+## Added after review 2 (12 Nov 2026)
+
+| # | Finding | Rule |
+|---|---|---|
+| 8 | In the rewind the sedan appeared at Bay 12 nearer the camera, which read as the car backing up | **CR-8** A rewind never shows an object travelling against its heading. Run the clock back on the current spot, then stop at the old time with the object already parked at the old spot (same heading, same depth as the new spot) |
+| 9 | Headlight glow floated in the air in front of the pillar | **CR-9** Light effects start at the light source (the lamp), are soft-edged, and land on surfaces (floor, pillar). No free-floating orbs, no hard-edged wedges |
+| 10 | The sheet was drawn over the notes already pinned on the wall, and too big | **CR-10** A new prop goes on free space, at a believable size for the room; never over existing props |
+| 11 | The red RULE 2 chip looked weaker than the earlier yellow one | **CR-11** Chips (PROBLEM n, RULE n) are filled yellow pills in the HUD family: same height, mono font, ink text on yellow. Red is reserved for the BROKEN stamp |
+
 ## Cam registry (Series 1, Level 3 garage)
 
 | Cam | Covers | Source plate and crop | Notes |
@@ -32,7 +41,7 @@ The wall is a stopgap built from crops. For Part 2 onward, generate real, differ
 ## Master plates (do not re-draw the same thing from another angle)
 
 - Garage Level 3 wide: `level3_wide_empty` and `level3_wide_car`. Same camera; the sedan is parked at its Bay 31 spot, nose pointing away from the stairs (right).
-- `level3_wide_car_bay12`: the same plate with the sedan moved to Bay 12 (cut-out from the master, nearer the camera). Used for the 10:00 PM rewind. Moves only between these two spots.
+- `level3_wide_car_bay12`: the same plate with the sedan parked at Bay 12 (cut-out from the master, same depth and heading, to the left of Bay 31). Used for the 10:00 PM rewind. Moves only between these two spots.
 - Booth: `booth_clean` and `booth_clean_sheet` (paper below the monitors). Monitors on the wall right of the desk in every booth plate.
 
 ## Pre-delivery checklist (run on a contact sheet of every scene)
