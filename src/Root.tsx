@@ -19,6 +19,7 @@ import {V4Ch4, V4_CH4_LEN} from './style2/V4Ch4';
 import {V4Ch3, V4_CH3_LEN} from './style2/V4Ch3';
 import {V4Ch2, V4_CH2_LEN} from './style2/V4Ch2';
 import {KitDemo} from './kitdemo/KitDemo';
+import {S1P1, S1P1_LEN} from './rulezero/S1P1';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -41,6 +42,9 @@ export const RemotionRoot: React.FC = () => (
       <Composition id="V4-Full" component={V4Full} defaultProps={{check: false}} durationInFrames={V4_FULL_LEN} fps={24} width={1920} height={1080} />
       <Composition id="V4-Ch1" component={V4Ch1} defaultProps={{check: false}} durationInFrames={V4_CH1_LEN} fps={24} width={1920} height={1080} />
       <Composition id="S2-HookSplit" component={HookSplit} defaultProps={{check: false}} durationInFrames={HOOK_SPLIT_LEN} fps={24} width={1920} height={1080} />
+    </Folder>
+    <Folder name="RuleZero">
+      <Composition id="RZ-S1P1" component={S1P1} durationInFrames={S1P1_LEN} fps={24} width={1080} height={1920} />
     </Folder>
     <KitDemo.Compositions />
     <Folder name="StyleKit">

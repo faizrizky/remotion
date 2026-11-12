@@ -1,0 +1,1405 @@
+{
+ "fps": 24,
+ "total": 106.73,
+ "frames": 2562,
+ "pieces": [
+  {
+   "file": "rz1/audio/v_hook.wav",
+   "src": 0,
+   "at": 0.2,
+   "dur": 9.65
+  },
+  {
+   "file": "rz1/audio/v_aturan.wav",
+   "src": 0,
+   "at": 12.0,
+   "dur": 11.62
+  },
+  {
+   "file": "rz1/audio/v_aturan.wav",
+   "src": 11.62,
+   "at": 23.87,
+   "dur": 8.75
+  },
+  {
+   "file": "rz1/audio/v_aturan.wav",
+   "src": 20.37,
+   "at": 32.97,
+   "dur": 3.63
+  },
+  {
+   "file": "rz1/audio/v_aturan.wav",
+   "src": 24.0,
+   "at": 36.75,
+   "dur": 3.8
+  },
+  {
+   "file": "rz1/audio/v_aturan.wav",
+   "src": 27.8,
+   "at": 40.85,
+   "dur": 4.96
+  },
+  {
+   "file": "rz1/audio/v_mobilnya.wav",
+   "src": 0,
+   "at": 46.71,
+   "dur": 20.08
+  },
+  {
+   "file": "rz1/audio/v_pintu.wav",
+   "src": 0,
+   "at": 67.49,
+   "dur": 9.42
+  },
+  {
+   "file": "rz1/audio/v_pintu.wav",
+   "src": 9.42,
+   "at": 77.16,
+   "dur": 2.03
+  },
+  {
+   "file": "rz1/audio/v_pintu.wav",
+   "src": 11.45,
+   "at": 79.39,
+   "dur": 10.5
+  },
+  {
+   "file": "rz1/audio/v_pintu.wav",
+   "src": 21.95,
+   "at": 90.24,
+   "dur": 1.8
+  },
+  {
+   "file": "rz1/audio/v_dale.wav",
+   "src": 0,
+   "at": 92.49,
+   "dur": 2.22
+  },
+  {
+   "file": "rz1/audio/v_pilihan.wav",
+   "src": 0,
+   "at": 95.31,
+   "dur": 1.85
+  },
+  {
+   "file": "rz1/audio/v_pilihan.wav",
+   "src": 1.85,
+   "at": 97.46,
+   "dur": 6.67
+  }
+ ],
+ "words": [
+  {
+   "w": "You",
+   "s": 0.29,
+   "e": 0.553,
+   "clip": "hook"
+  },
+  {
+   "w": "just",
+   "s": 0.553,
+   "e": 0.881,
+   "clip": "hook"
+  },
+  {
+   "w": "took",
+   "s": 0.881,
+   "e": 1.209,
+   "clip": "hook"
+  },
+  {
+   "w": "the",
+   "s": 1.209,
+   "e": 1.472,
+   "clip": "hook"
+  },
+  {
+   "w": "night",
+   "s": 1.472,
+   "e": 1.866,
+   "clip": "hook"
+  },
+  {
+   "w": "shift",
+   "s": 1.866,
+   "e": 2.26,
+   "clip": "hook"
+  },
+  {
+   "w": "at",
+   "s": 2.53,
+   "e": 2.711,
+   "clip": "hook"
+  },
+  {
+   "w": "a",
+   "s": 2.711,
+   "e": 2.832,
+   "clip": "hook"
+  },
+  {
+   "w": "parking",
+   "s": 2.832,
+   "e": 3.316,
+   "clip": "hook"
+  },
+  {
+   "w": "garage.",
+   "s": 3.316,
+   "e": 3.8,
+   "clip": "hook"
+  },
+  {
+   "w": "Alone.",
+   "s": 4.17,
+   "e": 4.493,
+   "clip": "hook"
+  },
+  {
+   "w": "Eight",
+   "s": 4.493,
+   "e": 4.77,
+   "clip": "hook"
+  },
+  {
+   "w": "screens.",
+   "s": 5.11,
+   "e": 6.45,
+   "clip": "hook"
+  },
+  {
+   "w": "One",
+   "s": 6.96,
+   "e": 7.408,
+   "clip": "hook"
+  },
+  {
+   "w": "rule:",
+   "s": 7.408,
+   "e": 8.08,
+   "clip": "hook"
+  },
+  {
+   "w": "watch",
+   "s": 8.58,
+   "e": 8.975,
+   "clip": "hook"
+  },
+  {
+   "w": "Level",
+   "s": 8.975,
+   "e": 9.369,
+   "clip": "hook"
+  },
+  {
+   "w": "three.",
+   "s": 9.369,
+   "e": 9.83,
+   "clip": "hook"
+  },
+  {
+   "w": "Problem",
+   "s": 12.09,
+   "e": 12.761,
+   "clip": "aturan"
+  },
+  {
+   "w": "one.",
+   "s": 12.761,
+   "e": 13.18,
+   "clip": "aturan"
+  },
+  {
+   "w": "The",
+   "s": 13.76,
+   "e": 14.041,
+   "clip": "aturan"
+  },
+  {
+   "w": "only",
+   "s": 14.041,
+   "e": 14.393,
+   "clip": "aturan"
+  },
+  {
+   "w": "other",
+   "s": 14.393,
+   "e": 14.814,
+   "clip": "aturan"
+  },
+  {
+   "w": "person",
+   "s": 14.814,
+   "e": 15.306,
+   "clip": "aturan"
+  },
+  {
+   "w": "here",
+   "s": 15.306,
+   "e": 15.658,
+   "clip": "aturan"
+  },
+  {
+   "w": "is",
+   "s": 15.658,
+   "e": 15.869,
+   "clip": "aturan"
+  },
+  {
+   "w": "a",
+   "s": 15.869,
+   "e": 16.009,
+   "clip": "aturan"
+  },
+  {
+   "w": "guard",
+   "s": 16.009,
+   "e": 16.431,
+   "clip": "aturan"
+  },
+  {
+   "w": "who",
+   "s": 16.431,
+   "e": 16.712,
+   "clip": "aturan"
+  },
+  {
+   "w": "walks",
+   "s": 16.712,
+   "e": 17.134,
+   "clip": "aturan"
+  },
+  {
+   "w": "the",
+   "s": 17.134,
+   "e": 17.415,
+   "clip": "aturan"
+  },
+  {
+   "w": "lot",
+   "s": 17.415,
+   "e": 17.696,
+   "clip": "aturan"
+  },
+  {
+   "w": "by",
+   "s": 17.696,
+   "e": 17.907,
+   "clip": "aturan"
+  },
+  {
+   "w": "himself.",
+   "s": 17.907,
+   "e": 18.54,
+   "clip": "aturan"
+  },
+  {
+   "w": "Before",
+   "s": 19.14,
+   "e": 19.601,
+   "clip": "aturan"
+  },
+  {
+   "w": "she",
+   "s": 19.601,
+   "e": 19.865,
+   "clip": "aturan"
+  },
+  {
+   "w": "quit,",
+   "s": 19.865,
+   "e": 20.26,
+   "clip": "aturan"
+  },
+  {
+   "w": "the",
+   "s": 20.5,
+   "e": 20.723,
+   "clip": "aturan"
+  },
+  {
+   "w": "last",
+   "s": 20.723,
+   "e": 21.001,
+   "clip": "aturan"
+  },
+  {
+   "w": "operator",
+   "s": 21.001,
+   "e": 21.501,
+   "clip": "aturan"
+  },
+  {
+   "w": "taped",
+   "s": 21.501,
+   "e": 21.835,
+   "clip": "aturan"
+  },
+  {
+   "w": "a",
+   "s": 21.835,
+   "e": 21.946,
+   "clip": "aturan"
+  },
+  {
+   "w": "sheet",
+   "s": 21.946,
+   "e": 22.28,
+   "clip": "aturan"
+  },
+  {
+   "w": "to",
+   "s": 22.28,
+   "e": 22.447,
+   "clip": "aturan"
+  },
+  {
+   "w": "the",
+   "s": 22.447,
+   "e": 22.669,
+   "clip": "aturan"
+  },
+  {
+   "w": "monitor.",
+   "s": 22.669,
+   "e": 23.17,
+   "clip": "aturan"
+  },
+  {
+   "w": "Rule",
+   "s": 24.4,
+   "e": 24.745,
+   "clip": "aturan"
+  },
+  {
+   "w": "one:",
+   "s": 24.745,
+   "e": 25.09,
+   "clip": "aturan"
+  },
+  {
+   "w": "at",
+   "s": 25.62,
+   "e": 25.791,
+   "clip": "aturan"
+  },
+  {
+   "w": "the",
+   "s": 25.791,
+   "e": 26.018,
+   "clip": "aturan"
+  },
+  {
+   "w": "top",
+   "s": 26.018,
+   "e": 26.246,
+   "clip": "aturan"
+  },
+  {
+   "w": "of",
+   "s": 26.246,
+   "e": 26.417,
+   "clip": "aturan"
+  },
+  {
+   "w": "every",
+   "s": 26.417,
+   "e": 26.758,
+   "clip": "aturan"
+  },
+  {
+   "w": "hour,",
+   "s": 26.758,
+   "e": 27.1,
+   "clip": "aturan"
+  },
+  {
+   "w": "check",
+   "s": 27.4,
+   "e": 27.744,
+   "clip": "aturan"
+  },
+  {
+   "w": "Level",
+   "s": 27.744,
+   "e": 28.088,
+   "clip": "aturan"
+  },
+  {
+   "w": "three.",
+   "s": 28.088,
+   "e": 28.49,
+   "clip": "aturan"
+  },
+  {
+   "w": "One",
+   "s": 28.92,
+   "e": 29.181,
+   "clip": "aturan"
+  },
+  {
+   "w": "car",
+   "s": 29.181,
+   "e": 29.442,
+   "clip": "aturan"
+  },
+  {
+   "w": "will",
+   "s": 29.442,
+   "e": 29.768,
+   "clip": "aturan"
+  },
+  {
+   "w": "have",
+   "s": 29.768,
+   "e": 30.094,
+   "clip": "aturan"
+  },
+  {
+   "w": "moved.",
+   "s": 30.094,
+   "e": 30.55,
+   "clip": "aturan"
+  },
+  {
+   "w": "Log",
+   "s": 30.81,
+   "e": 31.09,
+   "clip": "aturan"
+  },
+  {
+   "w": "it.",
+   "s": 31.09,
+   "e": 31.37,
+   "clip": "aturan"
+  },
+  {
+   "w": "Don't",
+   "s": 31.64,
+   "e": 31.891,
+   "clip": "aturan"
+  },
+  {
+   "w": "touch",
+   "s": 31.891,
+   "e": 32.142,
+   "clip": "aturan"
+  },
+  {
+   "w": "it.",
+   "s": 32.142,
+   "e": 32.31,
+   "clip": "aturan"
+  },
+  {
+   "w": "You",
+   "s": 33.28,
+   "e": 33.533,
+   "clip": "aturan"
+  },
+  {
+   "w": "almost",
+   "s": 33.533,
+   "e": 33.977,
+   "clip": "aturan"
+  },
+  {
+   "w": "smile.",
+   "s": 33.977,
+   "e": 34.42,
+   "clip": "aturan"
+  },
+  {
+   "w": "Cars",
+   "s": 35.11,
+   "e": 35.428,
+   "clip": "aturan"
+  },
+  {
+   "w": "don't",
+   "s": 35.428,
+   "e": 35.809,
+   "clip": "aturan"
+  },
+  {
+   "w": "move.",
+   "s": 35.809,
+   "e": 36.19,
+   "clip": "aturan"
+  },
+  {
+   "w": "Rule",
+   "s": 36.98,
+   "e": 37.385,
+   "clip": "aturan"
+  },
+  {
+   "w": "two:",
+   "s": 37.385,
+   "e": 37.79,
+   "clip": "aturan"
+  },
+  {
+   "w": "never",
+   "s": 38.01,
+   "e": 38.408,
+   "clip": "aturan"
+  },
+  {
+   "w": "send",
+   "s": 38.408,
+   "e": 38.74,
+   "clip": "aturan"
+  },
+  {
+   "w": "security",
+   "s": 38.74,
+   "e": 39.338,
+   "clip": "aturan"
+  },
+  {
+   "w": "to",
+   "s": 39.338,
+   "e": 39.537,
+   "clip": "aturan"
+  },
+  {
+   "w": "Level",
+   "s": 39.537,
+   "e": 39.935,
+   "clip": "aturan"
+  },
+  {
+   "w": "three.",
+   "s": 39.935,
+   "e": 40.4,
+   "clip": "aturan"
+  },
+  {
+   "w": "Rule",
+   "s": 40.99,
+   "e": 41.209,
+   "clip": "aturan"
+  },
+  {
+   "w": "three?",
+   "s": 41.209,
+   "e": 41.514,
+   "clip": "aturan"
+  },
+  {
+   "w": "Scratched",
+   "s": 41.514,
+   "e": 41.951,
+   "clip": "aturan"
+  },
+  {
+   "w": "out.",
+   "s": 41.951,
+   "e": 42.17,
+   "clip": "aturan"
+  },
+  {
+   "w": "Pen",
+   "s": 43.9,
+   "e": 44.144,
+   "clip": "aturan"
+  },
+  {
+   "w": "pressed",
+   "s": 44.144,
+   "e": 44.632,
+   "clip": "aturan"
+  },
+  {
+   "w": "through",
+   "s": 44.632,
+   "e": 45.119,
+   "clip": "aturan"
+  },
+  {
+   "w": "the",
+   "s": 45.119,
+   "e": 45.363,
+   "clip": "aturan"
+  },
+  {
+   "w": "paper.",
+   "s": 45.363,
+   "e": 45.79,
+   "clip": "aturan"
+  },
+  {
+   "w": "Problem",
+   "s": 46.81,
+   "e": 47.53,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "two.",
+   "s": 47.53,
+   "e": 47.98,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "Eleven",
+   "s": 48.44,
+   "e": 48.834,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "o'clock.",
+   "s": 48.834,
+   "e": 49.34,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "You",
+   "s": 50.04,
+   "e": 50.238,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "check",
+   "s": 50.238,
+   "e": 50.536,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "Level",
+   "s": 50.536,
+   "e": 50.833,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "three.",
+   "s": 50.833,
+   "e": 51.18,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "A",
+   "s": 51.56,
+   "e": 51.713,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "grey",
+   "s": 51.713,
+   "e": 52.095,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "sedan.",
+   "s": 52.095,
+   "e": 52.63,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "Bay",
+   "s": 52.63,
+   "e": 52.936,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "thirty-one.",
+   "s": 52.936,
+   "e": 53.853,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "You",
+   "s": 53.853,
+   "e": 54.159,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "rewind.",
+   "s": 54.159,
+   "e": 54.77,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "An",
+   "s": 55.14,
+   "e": 55.337,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "hour",
+   "s": 55.337,
+   "e": 55.665,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "ago,",
+   "s": 55.665,
+   "e": 55.993,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "bay",
+   "s": 55.993,
+   "e": 56.255,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "twelve.",
+   "s": 56.255,
+   "e": 56.78,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "No",
+   "s": 57.37,
+   "e": 57.573,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "brake",
+   "s": 57.573,
+   "e": 57.978,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "lights.",
+   "s": 57.978,
+   "e": 58.518,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "No",
+   "s": 58.518,
+   "e": 58.72,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "driver.",
+   "s": 58.72,
+   "e": 59.26,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "You",
+   "s": 59.59,
+   "e": 59.752,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "log",
+   "s": 59.752,
+   "e": 59.915,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "it.",
+   "s": 59.915,
+   "e": 60.077,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "Rule",
+   "s": 60.077,
+   "e": 60.28,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "one,",
+   "s": 60.68,
+   "e": 61.63,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "followed.",
+   "s": 61.81,
+   "e": 62.35,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "Then",
+   "s": 62.82,
+   "e": 63.053,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "the",
+   "s": 63.053,
+   "e": 63.239,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "headlights",
+   "s": 63.239,
+   "e": 63.751,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "come",
+   "s": 63.751,
+   "e": 63.984,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "on.",
+   "s": 63.984,
+   "e": 64.17,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "Slowly.",
+   "s": 64.62,
+   "e": 65.24,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "Aimed",
+   "s": 65.68,
+   "e": 65.991,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "at",
+   "s": 65.991,
+   "e": 66.147,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "the",
+   "s": 66.147,
+   "e": 66.355,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "camera.",
+   "s": 66.355,
+   "e": 66.77,
+   "clip": "mobilnya"
+  },
+  {
+   "w": "On",
+   "s": 67.58,
+   "e": 67.784,
+   "clip": "pintu"
+  },
+  {
+   "w": "the",
+   "s": 67.784,
+   "e": 68.056,
+   "clip": "pintu"
+  },
+  {
+   "w": "other",
+   "s": 68.056,
+   "e": 68.465,
+   "clip": "pintu"
+  },
+  {
+   "w": "screen,",
+   "s": 68.465,
+   "e": 69.009,
+   "clip": "pintu"
+  },
+  {
+   "w": "Dale",
+   "s": 69.009,
+   "e": 69.349,
+   "clip": "pintu"
+  },
+  {
+   "w": "scans",
+   "s": 69.349,
+   "e": 69.757,
+   "clip": "pintu"
+  },
+  {
+   "w": "in",
+   "s": 69.757,
+   "e": 69.961,
+   "clip": "pintu"
+  },
+  {
+   "w": "at",
+   "s": 69.961,
+   "e": 70.165,
+   "clip": "pintu"
+  },
+  {
+   "w": "Level",
+   "s": 70.165,
+   "e": 70.574,
+   "clip": "pintu"
+  },
+  {
+   "w": "three.",
+   "s": 70.574,
+   "e": 71.05,
+   "clip": "pintu"
+  },
+  {
+   "w": "Rule",
+   "s": 71.9,
+   "e": 72.32,
+   "clip": "pintu"
+  },
+  {
+   "w": "two,",
+   "s": 72.32,
+   "e": 72.74,
+   "clip": "pintu"
+  },
+  {
+   "w": "broken.",
+   "s": 72.94,
+   "e": 73.52,
+   "clip": "pintu"
+  },
+  {
+   "w": "He",
+   "s": 74.43,
+   "e": 74.582,
+   "clip": "pintu"
+  },
+  {
+   "w": "doesn't",
+   "s": 74.582,
+   "e": 74.986,
+   "clip": "pintu"
+  },
+  {
+   "w": "know.",
+   "s": 74.986,
+   "e": 75.29,
+   "clip": "pintu"
+  },
+  {
+   "w": "Nobody",
+   "s": 75.58,
+   "e": 75.984,
+   "clip": "pintu"
+  },
+  {
+   "w": "told",
+   "s": 75.984,
+   "e": 76.272,
+   "clip": "pintu"
+  },
+  {
+   "w": "him.",
+   "s": 76.272,
+   "e": 76.56,
+   "clip": "pintu"
+  },
+  {
+   "w": "The",
+   "s": 77.51,
+   "e": 77.744,
+   "clip": "pintu"
+  },
+  {
+   "w": "door",
+   "s": 77.744,
+   "e": 78.037,
+   "clip": "pintu"
+  },
+  {
+   "w": "won't",
+   "s": 78.037,
+   "e": 78.389,
+   "clip": "pintu"
+  },
+  {
+   "w": "open.",
+   "s": 78.389,
+   "e": 78.74,
+   "clip": "pintu"
+  },
+  {
+   "w": "In",
+   "s": 79.83,
+   "e": 80.017,
+   "clip": "pintu"
+  },
+  {
+   "w": "the",
+   "s": 80.017,
+   "e": 80.266,
+   "clip": "pintu"
+  },
+  {
+   "w": "little",
+   "s": 80.266,
+   "e": 80.703,
+   "clip": "pintu"
+  },
+  {
+   "w": "window,",
+   "s": 80.703,
+   "e": 81.202,
+   "clip": "pintu"
+  },
+  {
+   "w": "something",
+   "s": 81.202,
+   "e": 81.825,
+   "clip": "pintu"
+  },
+  {
+   "w": "tall",
+   "s": 81.825,
+   "e": 82.137,
+   "clip": "pintu"
+  },
+  {
+   "w": "is",
+   "s": 82.137,
+   "e": 82.324,
+   "clip": "pintu"
+  },
+  {
+   "w": "standing.",
+   "s": 82.324,
+   "e": 82.947,
+   "clip": "pintu"
+  },
+  {
+   "w": "Two",
+   "s": 82.947,
+   "e": 83.197,
+   "clip": "pintu"
+  },
+  {
+   "w": "small",
+   "s": 83.197,
+   "e": 83.571,
+   "clip": "pintu"
+  },
+  {
+   "w": "lights,",
+   "s": 83.571,
+   "e": 84.07,
+   "clip": "pintu"
+  },
+  {
+   "w": "looking",
+   "s": 84.07,
+   "e": 84.568,
+   "clip": "pintu"
+  },
+  {
+   "w": "out.",
+   "s": 84.568,
+   "e": 84.88,
+   "clip": "pintu"
+  },
+  {
+   "w": "The",
+   "s": 85.15,
+   "e": 85.42,
+   "clip": "pintu"
+  },
+  {
+   "w": "glass",
+   "s": 85.42,
+   "e": 85.824,
+   "clip": "pintu"
+  },
+  {
+   "w": "is",
+   "s": 85.824,
+   "e": 86.026,
+   "clip": "pintu"
+  },
+  {
+   "w": "dark",
+   "s": 86.026,
+   "e": 86.364,
+   "clip": "pintu"
+  },
+  {
+   "w": "on",
+   "s": 86.364,
+   "e": 86.566,
+   "clip": "pintu"
+  },
+  {
+   "w": "his",
+   "s": 86.566,
+   "e": 86.835,
+   "clip": "pintu"
+  },
+  {
+   "w": "side.",
+   "s": 86.835,
+   "e": 87.24,
+   "clip": "pintu"
+  },
+  {
+   "w": "Dale",
+   "s": 87.45,
+   "e": 87.774,
+   "clip": "pintu"
+  },
+  {
+   "w": "can't",
+   "s": 87.774,
+   "e": 88.162,
+   "clip": "pintu"
+  },
+  {
+   "w": "see",
+   "s": 88.162,
+   "e": 88.421,
+   "clip": "pintu"
+  },
+  {
+   "w": "it.",
+   "s": 88.421,
+   "e": 88.68,
+   "clip": "pintu"
+  },
+  {
+   "w": "You",
+   "s": 89.1,
+   "e": 89.358,
+   "clip": "pintu"
+  },
+  {
+   "w": "can.",
+   "s": 89.358,
+   "e": 89.68,
+   "clip": "pintu"
+  },
+  {
+   "w": "Your",
+   "s": 90.52,
+   "e": 90.857,
+   "clip": "pintu"
+  },
+  {
+   "w": "radio",
+   "s": 90.857,
+   "e": 91.261,
+   "clip": "pintu"
+  },
+  {
+   "w": "clicks.",
+   "s": 91.261,
+   "e": 91.8,
+   "clip": "pintu"
+  },
+  {
+   "w": "Door's",
+   "s": 92.49,
+   "e": 92.93,
+   "clip": "dale"
+  },
+  {
+   "w": "stuck.",
+   "s": 92.93,
+   "e": 93.37,
+   "clip": "dale"
+  },
+  {
+   "w": "Want",
+   "s": 93.37,
+   "e": 93.684,
+   "clip": "dale"
+  },
+  {
+   "w": "me",
+   "s": 93.684,
+   "e": 93.873,
+   "clip": "dale"
+  },
+  {
+   "w": "to",
+   "s": 93.873,
+   "e": 94.061,
+   "clip": "dale"
+  },
+  {
+   "w": "force",
+   "s": 94.061,
+   "e": 94.439,
+   "clip": "dale"
+  },
+  {
+   "w": "it?",
+   "s": 94.439,
+   "e": 94.69,
+   "clip": "dale"
+  },
+  {
+   "w": "You",
+   "s": 95.4,
+   "e": 95.684,
+   "clip": "pilihan"
+  },
+  {
+   "w": "have",
+   "s": 95.684,
+   "e": 96.038,
+   "clip": "pilihan"
+  },
+  {
+   "w": "two",
+   "s": 96.038,
+   "e": 96.322,
+   "clip": "pilihan"
+  },
+  {
+   "w": "choices.",
+   "s": 96.322,
+   "e": 96.96,
+   "clip": "pilihan"
+  },
+  {
+   "w": "You",
+   "s": 97.65,
+   "e": 97.859,
+   "clip": "pilihan"
+  },
+  {
+   "w": "tell",
+   "s": 97.859,
+   "e": 98.12,
+   "clip": "pilihan"
+  },
+  {
+   "w": "him",
+   "s": 98.12,
+   "e": 98.329,
+   "clip": "pilihan"
+  },
+  {
+   "w": "to",
+   "s": 98.329,
+   "e": 98.486,
+   "clip": "pilihan"
+  },
+  {
+   "w": "open",
+   "s": 98.486,
+   "e": 98.747,
+   "clip": "pilihan"
+  },
+  {
+   "w": "the",
+   "s": 98.747,
+   "e": 98.956,
+   "clip": "pilihan"
+  },
+  {
+   "w": "door.",
+   "s": 98.956,
+   "e": 99.27,
+   "clip": "pilihan"
+  },
+  {
+   "w": "Or",
+   "s": 99.76,
+   "e": 99.943,
+   "clip": "pilihan"
+  },
+  {
+   "w": "you",
+   "s": 99.943,
+   "e": 100.187,
+   "clip": "pilihan"
+  },
+  {
+   "w": "tell",
+   "s": 100.187,
+   "e": 100.492,
+   "clip": "pilihan"
+  },
+  {
+   "w": "him",
+   "s": 100.492,
+   "e": 100.736,
+   "clip": "pilihan"
+  },
+  {
+   "w": "to",
+   "s": 100.736,
+   "e": 100.919,
+   "clip": "pilihan"
+  },
+  {
+   "w": "walk",
+   "s": 100.919,
+   "e": 101.224,
+   "clip": "pilihan"
+  },
+  {
+   "w": "away.",
+   "s": 101.224,
+   "e": 101.59,
+   "clip": "pilihan"
+  },
+  {
+   "w": "So,",
+   "s": 102.18,
+   "e": 102.61,
+   "clip": "pilihan"
+  },
+  {
+   "w": "what",
+   "s": 103.21,
+   "e": 103.46,
+   "clip": "pilihan"
+  },
+  {
+   "w": "will",
+   "s": 103.46,
+   "e": 103.71,
+   "clip": "pilihan"
+  },
+  {
+   "w": "you",
+   "s": 103.71,
+   "e": 103.91,
+   "clip": "pilihan"
+  },
+  {
+   "w": "do?",
+   "s": 103.91,
+   "e": 104.11,
+   "clip": "pilihan"
+  }
+ ],
+ "anchors": {
+  "eight": 4.493,
+  "onerule": 6.96,
+  "p1": 12.09,
+  "before": 19.14,
+  "r1": 24.4,
+  "smile": 33.28,
+  "r2": 36.98,
+  "r3": 40.99,
+  "scratched": 41.514,
+  "p2": 46.81,
+  "sedan": 51.56,
+  "rewind": 53.853,
+  "nobrake": 57.37,
+  "logit": 59.59,
+  "headlights": 62.82,
+  "aimed": 65.68,
+  "other": 67.58,
+  "broken": 72.94,
+  "door": 77.51,
+  "window": 79.83,
+  "lights": 82.947,
+  "glass": 85.15,
+  "youcan": 89.1,
+  "radio": 90.52,
+  "dale": 92.49,
+  "choices": 95.4,
+  "open": 97.65,
+  "walk": 99.76,
+  "what": 102.18,
+  "titlecard": 9.9,
+  "aturanStart": 12.0,
+  "end": 106.73
+ }
+}

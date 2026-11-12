@@ -28,3 +28,6 @@ Resource Video/
 # Finished videos + upload packs live on the Mac in Final/, not in git
 Final/
 public/shorts_src/
+
+# Rule Zero series assets (images live on the Mac in Assets/rule-zero)
+public/rz1/
