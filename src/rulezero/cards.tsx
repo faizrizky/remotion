@@ -43,7 +43,7 @@ export const RuleSheetCard: React.FC<{lines: TypedLine[]; rectAt?: number; zoomT
   const rectP = rectAt !== undefined ? interpolate(t, [rectAt, rectAt + 0.6], [0, 1], clamp) : 0;
   return (
     <AbsoluteFill style={{background: C.ink, overflow: 'hidden'}}>
-      <Img src={staticFile('rz1/img/rule_sheet_blank.jpg')} style={{position: 'absolute', width: W * 1.6, left: -W * 0.05, top: -H * 0.35, filter: 'blur(14px) brightness(0.45)'}} />
+      <Img src={staticFile('rz1/img/booth_clean_sheet.jpg')} style={{position: 'absolute', width: W * 1.6, left: -W * 0.05, top: -H * 0.35, filter: 'blur(14px) brightness(0.45)'}} />
       <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center'}}>
         <div style={{transform: `translateY(${(1 - enter) * 120 + oy}px) scale(${(0.94 + 0.06 * enter) * z}) rotate(-1.2deg)`, opacity: enter, position: 'relative', width: cardW, height: cardH, marginTop: 40}}>
           {/* paper */}
@@ -101,35 +101,56 @@ export const RuleSheetCard: React.FC<{lines: TypedLine[]; rectAt?: number; zoomT
 };
 
 /* ---------------- Log book (overlay in image space of logbook_blank) ---------------- */
-// Column centres and row centres measured on logbook_blank (fractions of the image).
-const COLS = [0.25, 0.465, 0.705];
-const ROW0 = 0.305;
-const ROWH = 0.0335;
+// The ruled page in logbook_blank is rotated about -4.2 deg (rows rise to the right, columns lean right going down),
+// so every cell is placed on that grid and every string is rotated with it (CR-6: overlays follow the plate's own perspective).
+const PW = 1350;
+const PH = 2418;
+const SLOPE = -0.0735; // dy/dx of the row lines
+const ANGLE = (Math.atan(SLOPE) * 180) / Math.PI;
+const ROW_B = [742, 810, 887, 965, 1041, 1119]; // row boundary y at plate x=300 (row 0 = header row)
+const COL_L = [{x: 205, y: 750}, {x: 487, y: 740}, {x: 768, y: 715}, {x: 1045, y: 685}]; // column lines, plate px
+const DXDY = 0.07; // columns lean right going down
+const colX = (c: number, y: number) => {
+  const l = COL_L[c];
+  const r = COL_L[c + 1];
+  return (l.x + DXDY * (y - l.y) + (r.x + DXDY * (y - r.y))) / 2;
+};
+const cellPos = (col: number, row: number) => {
+  let x = colX(col, (ROW_B[row] + ROW_B[row + 1]) / 2);
+  let y = 0;
+  for (let k = 0; k < 3; k++) {
+    y = (ROW_B[row] + ROW_B[row + 1]) / 2 + SLOPE * (x - 300);
+    x = colX(col, y);
+  }
+  return {x: x / PW, y: y / PH};
+};
 export const LogEntries: React.FC<{writeAt: number; writeDur: number; stampAt: number}> = ({writeAt, writeDur, stampAt}) => {
   const t = useT();
-  const cell = (txt: string, col: number, row: number, font: string, size: number, color: string, reveal = 1) => (
-    <div style={{position: 'absolute', left: `${COLS[col] * 100}%`, top: `${(ROW0 + row * ROWH) * 100}%`, transform: 'translate(-50%, -55%)', fontFamily: font, fontSize: size, color, whiteSpace: 'nowrap', clipPath: `inset(0 ${(1 - reveal) * 100}% 0 0)`}}>
-      {txt}
-    </div>
-  );
+  const cell = (txt: string, col: number, row: number, font: string, size: number, color: string, reveal = 1) => {
+    const p = cellPos(col, row);
+    return (
+      <div style={{position: 'absolute', left: `${p.x * 100}%`, top: `${p.y * 100}%`, transform: `translate(-50%, -52%) rotate(${ANGLE}deg)`, fontFamily: font, fontSize: size, color, whiteSpace: 'nowrap', clipPath: `inset(-20% ${(1 - reveal) * 100}% -20% 0)`}}>
+        {txt}
+      </div>
+    );
+  };
   const p = (i: number) => interpolate(t, [writeAt + (writeDur / 3) * i, writeAt + (writeDur / 3) * (i + 1)], [0, 1], clamp);
   const sp = interpolate(t, [stampAt, stampAt + 0.12], [1.6, 1], clamp);
   const so = interpolate(t, [stampAt, stampAt + 0.06], [0, 1], clamp);
+  const sPos = cellPos(2, 2);
   return (
     <>
-      {['TIME', 'FROM', 'TO'].map((h, i) => (
-        <div key={h} style={{position: 'absolute', left: `${COLS[i] * 100}%`, top: '25.6%', transform: 'translate(-50%, -50%)', fontFamily: TYPE, fontSize: 46, color: '#3b3226', letterSpacing: 3}}>{h}</div>
-      ))}
+      {['TIME', 'FROM', 'TO'].map((h, i) => cell(h, i, 0, TYPE, 44, '#3b3226'))}
       {/* the previous operator's last entry (her handwriting, faded) */}
-      {cell('10:00 PM', 0, 0, HAND, 62, 'rgba(40,52,90,0.7)')}
-      {cell('Bay 7', 1, 0, HAND, 62, 'rgba(40,52,90,0.7)')}
-      {cell('Bay 12', 2, 0, HAND, 62, 'rgba(40,52,90,0.7)')}
+      {cell('10:00 PM', 0, 1, HAND, 58, 'rgba(40,52,90,0.7)')}
+      {cell('Bay 7', 1, 1, HAND, 58, 'rgba(40,52,90,0.7)')}
+      {cell('Bay 12', 2, 1, HAND, 58, 'rgba(40,52,90,0.7)')}
       {/* tonight */}
-      {cell('11:00 PM', 0, 1, HAND, 66, '#15130f', p(0))}
-      {cell('Bay 12', 1, 1, HAND, 66, '#15130f', p(1))}
-      {cell('Bay 31', 2, 1, HAND, 66, '#15130f', p(2))}
+      {cell('11:00 PM', 0, 2, HAND, 62, '#15130f', p(0))}
+      {cell('Bay 12', 1, 2, HAND, 62, '#15130f', p(1))}
+      {cell('Bay 31', 2, 2, HAND, 62, '#15130f', p(2))}
       {so > 0 ? (
-        <div style={{position: 'absolute', left: '86%', top: `${(ROW0 + ROWH) * 100}%`, transform: `translate(-50%, -50%) scale(${sp}) rotate(-12deg)`, opacity: so, width: 110, height: 110, borderRadius: 99, border: '8px solid #2f8f4e', color: '#2f8f4e', fontFamily: HEAVY, fontWeight: 700, fontSize: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1}}>
+        <div style={{position: 'absolute', left: `${(sPos.x + 0.13) * 100}%`, top: `${sPos.y * 100}%`, transform: `translate(-50%, -50%) scale(${sp}) rotate(-12deg)`, opacity: so, width: 100, height: 100, borderRadius: 99, border: '8px solid #2f8f4e', color: '#2f8f4e', fontFamily: HEAVY, fontWeight: 700, fontSize: 72, display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1}}>
           ✓
         </div>
       ) : null}
@@ -172,9 +193,9 @@ export const MonitorWall: React.FC<{feeds: Feed[]; clock: string; focus?: number
             <div key={i} style={{position: 'absolute', left: gx + col * (tw + gap), top: gy + row * (th + gap), width: tw, height: th, borderRadius: 18, overflow: 'hidden', border: '10px solid #2a302d', boxShadow: '0 0 0 3px #111, inset 0 0 40px rgba(0,0,0,0.8)'}}>
               <Img src={staticFile(f.src)} style={{position: 'absolute', width: tw * f.z, left: tw / 2 - f.x * tw * f.z, top: th / 2 - f.y * tw * f.z * 1.792, transform: f.flip ? 'scaleX(-1)' : undefined, filter: `grayscale(0.6) sepia(0.35) hue-rotate(65deg) contrast(1.15) brightness(${0.85 * fl})`}} />
               <div style={{position: 'absolute', inset: 0, background: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 2px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 4px)'}} />
-              <div style={{position: 'absolute', left: 14, top: 10, fontFamily: MONO, fontSize: 26, color: C.fluor}}>{f.cam}</div>
-              <div style={{position: 'absolute', right: 14, top: 14, width: 14, height: 14, borderRadius: 99, background: C.red, opacity: Math.floor(frame / 12 + i) % 2 ? 1 : 0.2}} />
-              <div style={{position: 'absolute', right: 14, bottom: 10, fontFamily: MONO, fontSize: 22, color: C.fluor}}>{clock}</div>
+              <div style={{position: 'absolute', left: 14, top: 10, fontFamily: MONO, fontSize: 26, color: C.fluor, opacity: 1 - fp}}>{f.cam}</div>
+              <div style={{position: 'absolute', right: 14, top: 14, width: 14, height: 14, borderRadius: 99, background: C.red, opacity: (Math.floor(frame / 12 + i) % 2 ? 1 : 0.2) * (1 - fp)}} />
+              <div style={{position: 'absolute', right: 14, bottom: 10, fontFamily: MONO, fontSize: 22, color: C.fluor, opacity: 1 - fp}}>{clock}</div>
             </div>
           );
         })}

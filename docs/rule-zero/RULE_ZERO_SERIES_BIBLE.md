@@ -4,6 +4,8 @@ Status: v2 (11 Nov 2026). Series 1 premise confirmed by MattJr: **CCTV operator 
 
 ---
 
+> **Continuity gate:** every video must pass `CONSISTENCY_RULES.md` (rules CR-1 to CR-7, cam registry, pre-delivery checklist) before delivery.
+
 ## 1. Concept in one paragraph
 
 Every series puts "you" in a closed place overnight with a posted sheet of rules. The rules look like workplace trivia; each one gets triggered, and you must choose between obeying and the thing begging you to break it. Each part ends on a one-word fork the audience votes on in the comments; the winning word opens the next part. The channel name is the series mystery: every sheet is missing its first rule. **Rule Zero** is the rule nobody wrote down, and each series ends by revealing it.

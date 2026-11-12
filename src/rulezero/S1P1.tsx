@@ -3,7 +3,7 @@
 import React from 'react';
 import {AbsoluteFill, Html5Audio, interpolate, Sequence, staticFile} from 'remotion';
 import TL from './s1p1_timeline.json';
-import {C, Cctv, clamp, clockStr, CutFlash, Glow, Hud, Plate, Ring, sf, useT, Word, Captions, FPS} from './rzkit';
+import {Bracket, C, Cctv, clamp, clockStr, CutFlash, Glow, Hud, Plate, sf, useT, Word, Captions, FPS} from './rzkit';
 import {ForkChip, LogEntries, MonitorWall, RuleSheetCard, TitleCard} from './cards';
 
 const A = TL.anchors as Record<string, number>;
@@ -44,18 +44,19 @@ const S1: React.FC<{a: number; b: number}> = ({a, b}) => (
   <Plate src={IMG('operator_booth_seated')} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.46, y: 0.42, z: 1.3}} dur={b - a} />
 );
 
+// Every camera has its own view (CR-1). Only CAM 3-A may show the car. CAM 3-S is the CLOSED door (same as the finale).
 const FEEDS = [
-  {src: IMG('level3_wide_empty'), x: 0.45, y: 0.55, z: 1.6, cam: 'CAM 1-A'},
-  {src: IMG('stairwell_door'), x: 0.5, y: 0.45, z: 1.5, cam: 'CAM 1-S'},
-  {src: IMG('level3_wide_empty'), x: 0.6, y: 0.5, z: 2.0, cam: 'CAM 2-A', flip: true},
-  {src: IMG('approach_shot3_driver_window'), x: 0.3, y: 0.55, z: 1.6, cam: 'CAM 2-B'},
+  {src: IMG('level3_wide_empty'), x: 0.31, y: 0.40, z: 1.6, cam: 'CAM 1-A'},
+  {src: IMG('stairwell_door'), x: 0.5, y: 0.5, z: 1.0, cam: 'CAM 1-S'},
+  {src: IMG('level3_wide_empty'), x: 0.36, y: 0.55, z: 1.4, cam: 'CAM 2-A', flip: true},
+  {src: IMG('level3_wide_empty'), x: 0.74, y: 0.52, z: 2.0, cam: 'CAM 2-B'},
   {src: IMG('level3_wide_car'), x: 0.55, y: 0.52, z: 1.5, cam: 'CAM 3-A'},
-  {src: IMG('level3_wide_empty'), x: 0.25, y: 0.5, z: 2.2, cam: 'CAM 3-B'},
-  {src: IMG('stairwell_door'), x: 0.45, y: 0.6, z: 2.2, cam: 'CAM 3-S', flip: true},
-  {src: IMG('level3_wide_empty'), x: 0.7, y: 0.6, z: 2.4, cam: 'CAM 4-A'},
+  {src: IMG('level3_wide_empty'), x: 0.7, y: 0.5, z: 1.5, cam: 'CAM 3-B', flip: true},
+  {src: IMG('driver_stairwell_glass_dale'), x: 0.27, y: 0.3, z: 1.9, cam: 'CAM 3-S'},
+  {src: IMG('level3_wide_empty'), x: 0.62, y: 0.36, z: 1.7, cam: 'CAM 4-A'},
 ];
 
-const SheetPush: React.FC<{a: number; b: number}> = ({a, b}) => <Plate src={IMG('rule_sheet_blank')} from={{x: 0.45, y: 0.47, z: 1.05}} to={{x: 0.335, y: 0.45, z: 2.6}} dur={b - a} />;
+const SheetPush: React.FC<{a: number; b: number}> = ({a, b}) => <Plate src={IMG('booth_clean_sheet')} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.385, y: 0.495, z: 3.4}} dur={b - a} />;
 
 const RULE_LINES = (a: number) => [
   {n: '1.', text: 'At the top of every hour, check Level 3. One car will have moved. Log it. Do not touch it.', start: L(A.r1, a) + 0.1, end: L(R1END, a)},
@@ -65,22 +66,23 @@ const RULE_LINES = (a: number) => [
   {n: '5.', text: 'If the elevator calls itself, do not watch it arrive.', start: 0, end: 0, blur: true},
 ];
 
+// Same plate, same camera, same parking spot as the BAY 31 shot (CR-4/CR-5): the car does not move, only its lights come on.
+const NOSE = {x: 0.789, y: 0.545}; // front end of the sedan in level3_wide_car (nose points right, away from the stairs)
 const Headlights: React.FC<{a: number}> = ({a}) => {
   const t = useT();
   const on = interpolate(t, [0.3, 2.0], [0.15, 1], clamp);
   const flare = interpolate(t, [L(A.aimed, a), L(A.aimed, a) + 0.25, L(A.aimed, a) + 1.4], [0, 1, 0.55], clamp);
-  const cam = {from: {x: 0.55, y: 0.62, z: 1.25}, to: {x: 0.4, y: 0.68, z: 1.7}, dur: 4.8};
-  const src = IMG('approach_shot2_mid_car31');
+  const cam = {from: {x: 0.6, y: 0.55, z: 1.55}, to: {x: 0.68, y: 0.55, z: 2.0}, dur: 4.8};
+  const src = IMG('level3_wide_car');
   return (
     <AbsoluteFill>
-      <Cctv cam="CAM 3-A" clock={clockStr(23 * 60 + 2, 14 + t)}>
+      <Cctv cam="CAM 3-A  LEVEL 3" clock={clockStr(23 * 60 + 2, 14 + t)}>
         <Plate src={src} {...cam} />
       </Cctv>
       <Plate src={src} {...cam} noImg>
-        <Glow x={0.384} y={0.689} r={0.035 + 0.05 * flare} o={on * (0.95 + 0.4 * flare)} />
-        <Glow x={0.307} y={0.676} r={0.03 + 0.045 * flare} o={on * (0.85 + 0.4 * flare)} />
+        <Glow x={NOSE.x} y={NOSE.y} r={0.03 + 0.04 * flare} o={on * (0.95 + 0.4 * flare)} />
+        <Glow x={NOSE.x + 0.075} y={NOSE.y + 0.03} r={0.05 + 0.05 * flare} o={on * 0.55 * (0.8 + flare)} />
       </Plate>
-      <AbsoluteFill style={{background: `radial-gradient(circle at 30% 60%, rgba(255,226,170,${flare * 0.7}) 0%, rgba(242,163,58,${flare * 0.3}) 30%, rgba(0,0,0,0) 65%)`, mixBlendMode: 'screen'}} />
     </AbsoluteFill>
   );
 };
@@ -175,9 +177,9 @@ const SCENES: Scene[] = [
   {a: A.smile - 0.05, b: A.r2 - 0.15, el: <Plate src={IMG('operator_booth_suspicious_v2')} from={{x: 0.55, y: 0.45, z: 1.15}} to={{x: 0.62, y: 0.42, z: 1.5}} dur={A.r2 - A.smile} />, hud: {...H0, clock: '10:59 PM'}},
   {a: A.r2 - 0.15, b: A.p2, el: <RuleSheetCard lines={RULE_LINES(A.r2 - 0.15).map((l, i) => (i === 0 ? {...l, start: -2, end: -1} : l))} rectAt={-5} zoomTo={{at: L(PAPER.s, A.r2 - 0.15) - 0.3, y: 120, z: 1.35}} />, captions: false, hud: null},
   {a: A.p2, b: A.sedan, el: <Plate src={IMG('operator_booth_seated')} from={{x: 0.47, y: 0.38, z: 1.45}} to={{x: 0.47, y: 0.36, z: 1.75}} dur={A.sedan - A.p2} />, hud: {clock: '11:00 PM', nerve: 100, log: 0, chip: 'PROBLEM 2'}},
-  {a: A.sedan, b: A.rewind, el: <Cctv cam="CAM 3-A  LEVEL 3" clock="11:00:06 PM"><Plate src={IMG('level3_wide_car')} from={{x: 0.55, y: 0.52, z: 1.25}} to={{x: 0.6, y: 0.54, z: 1.55}} dur={A.rewind - A.sedan}><Ring x={0.6} y={0.545} w={0.5} h={0.14} start={L(BAY31.s, A.sedan)} label="BAY 31" /></Plate></Cctv>, hud: {clock: '11:00 PM', nerve: 90, log: 0, nerveFrom: 100}},
+  {a: A.sedan, b: A.rewind, el: <Cctv cam="CAM 3-A  LEVEL 3" clock="11:00:06 PM"><Plate src={IMG('level3_wide_car')} from={{x: 0.55, y: 0.52, z: 1.25}} to={{x: 0.6, y: 0.54, z: 1.55}} dur={A.rewind - A.sedan}><Bracket x={0.6} y={0.545} w={0.5} h={0.14} start={L(BAY31.s, A.sedan)} label="BAY 31" /></Plate></Cctv>, hud: {clock: '11:00 PM', nerve: 90, log: 0, nerveFrom: 100}},
   {a: A.rewind, b: A.nobrake, el: <Rewind a={A.rewind} b={A.nobrake} />, hud: {clock: '11:00 PM', nerve: 90, log: 0}},
-  {a: A.nobrake, b: A.logit, el: <Plate src={IMG('approach_shot3_driver_window')} from={{x: 0.6, y: 0.5, z: 1.05}} to={{x: 0.74, y: 0.53, z: 1.7}} dur={A.logit - A.nobrake} />, hud: {clock: '11:00 PM', nerve: 85, log: 0, nerveFrom: 90}},
+  {a: A.nobrake, b: A.logit, el: <Cctv cam="CAM 3-A  ZOOM" clock="11:00:40 PM"><Plate src={IMG('level3_wide_car')} from={{x: 0.56, y: 0.55, z: 2.0}} to={{x: 0.48, y: 0.55, z: 2.7}} dur={A.logit - A.nobrake} /></Cctv>, hud: {clock: '11:00 PM', nerve: 85, log: 0, nerveFrom: 90}},
   {a: A.logit, b: A.headlights, el: <Plate src={IMG('logbook_blank')} from={{x: 0.48, y: 0.36, z: 1.3}} to={{x: 0.48, y: 0.34, z: 1.4}} dur={A.headlights - A.logit}><LogEntries writeAt={0.25} writeDur={1.5} stampAt={L(FOLLOWED.e, A.logit) - 0.15} /></Plate>, captions: false, hud: {clock: '11:01 PM', nerve: 85, log: 1, logFrom: 0}},
   {a: A.headlights, b: A.other, el: <Headlights a={A.headlights} />, hud: {clock: '11:02 PM', nerve: 71, log: 1, nerveFrom: 85}},
   {a: A.other, b: A.window, el: <DaleCam a={A.other} b={A.window} />, hud: {clock: '11:03 PM', nerve: 71, log: 1, chip: 'RULE 2', chipRed: true}},
@@ -193,8 +195,8 @@ function Rewind({a, b}: {a: number; b: number}) {
   const mins = 23 * 60 - 60 * back;
   return (
     <Cctv cam="CAM 3-A  LEVEL 3" clock={clockStr(mins, (1 - back) * 6)} rew>
-      <Plate src={IMG('level3_wide_car')} from={{x: 0.45, y: 0.52, z: 1.3}} to={{x: 0.4, y: 0.54, z: 1.55}} dur={b - a} flip>
-        <Ring x={0.6} y={0.545} w={0.5} h={0.14} start={L(BAY12.s, a)} label="BAY 12" />
+      <Plate src={IMG('level3_wide_car_bay12')} from={{x: 0.36, y: 0.64, z: 1.25}} to={{x: 0.33, y: 0.66, z: 1.45}} dur={b - a}>
+        <Bracket x={0.33} y={0.667} w={0.62} h={0.17} start={L(BAY12.s, a)} label="BAY 12" />
       </Plate>
       <AbsoluteFill style={{background: `repeating-linear-gradient(0deg, rgba(217,242,230,0) 0px, rgba(217,242,230,0) ${40 + (t * 900) % 60}px, rgba(217,242,230,0.12) ${42 + (t * 900) % 60}px, rgba(217,242,230,0) ${48 + (t * 900) % 60}px)`, opacity: t < 1.8 ? 1 : 0}} />
     </Cctv>

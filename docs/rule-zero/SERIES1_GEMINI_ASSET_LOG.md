@@ -54,3 +54,9 @@ Downloads cleaned 12 Nov: all Gemini originals that have a copy here were delete
 
 ## Continuity rule
 Never generate a close-up of a prop as a standalone image. Build every shot as the next step of a camera move from the previous approved image; restate that the object stays in the same place with the same landmarks. Sequence for Part 1: wide (level3_wide_car) -> mid (shot 2) -> driver window (shot 3).
+
+
+## Derived plates (made in code, not Gemini) - 12 Nov 2026
+- `level3_wide_car_bay12.jpg`: level3_wide_empty plus the sedan cut out of level3_wide_car (difference mask), moved to Bay 12 at 1.3x with a painted shadow. Used for the 10:00 PM rewind.
+- `rule_sheet_blank.jpg` is retired (paper on the wrong wall, breaks CR-3). Use `booth_clean_sheet.jpg`.
+- All car close-ups must be zooms of `level3_wide_car` (CR-5, CR-7).

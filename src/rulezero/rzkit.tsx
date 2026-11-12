@@ -125,10 +125,10 @@ export const clockStr = (mins: number, secs = 0) => {
 };
 
 /** Pill in the HUD */
-const Pill: React.FC<{label: string; value: string; hot?: boolean; flash?: number}> = ({label, value, hot, flash = 0}) => (
-  <div style={{display: 'flex', alignItems: 'center', gap: 14, background: 'rgba(12,19,17,0.78)', border: `2px solid ${hot ? C.yellow : 'rgba(217,242,230,0.35)'}`, borderRadius: 999, padding: '10px 24px', transform: `scale(${1 + flash * 0.12})`}}>
+const Pill: React.FC<{label: string; value: string; hot?: boolean; flash?: number; accent?: string}> = ({label, value, hot, flash = 0, accent}) => (
+  <div style={{display: 'flex', alignItems: 'center', gap: 14, background: 'rgba(12,19,17,0.78)', border: `2px solid ${accent ? accent : hot ? C.yellow : 'rgba(217,242,230,0.35)'}`, borderRadius: 999, padding: '10px 24px', transform: `scale(${1 + flash * 0.12})`}}>
     <span style={{fontFamily: MONO, fontSize: 30, color: C.grey, letterSpacing: 2}}>{label}</span>
-    <span style={{fontFamily: MONO, fontSize: 36, color: hot ? C.yellow : C.fluor}}>{value}</span>
+    <span style={{fontFamily: MONO, fontSize: 36, color: accent ? accent : hot ? C.yellow : C.fluor}}>{value}</span>
   </div>
 );
 
@@ -140,7 +140,7 @@ export const Hud: React.FC<{clock: string; nerve: number; log: number; chip?: st
       <Pill label="LOG" value={String(log)} hot={logFlash > 0} flash={logFlash} />
     </div>
     {chip ? (
-      <div style={{background: chipRed ? C.red : C.yellow, color: chipRed ? '#fff' : C.ink, fontFamily: HEAVY, fontWeight: 700, fontSize: 40, padding: '6px 22px', borderRadius: 10, letterSpacing: 2}}>{chip}</div>
+      <Pill label={chip.split(' ').slice(0, -1).join(' ') || chip} value={chip.split(' ').slice(-1)[0] || ''} accent={chipRed ? C.red : C.yellow} />
     ) : null}
   </div>
 );
@@ -220,6 +220,33 @@ export const Ring: React.FC<{x: number; y: number; w: number; h: number; start: 
       </svg>
       {label ? (
         <div style={{position: 'absolute', left: '50%', bottom: '108%', transform: `translateX(-50%) scale(${interpolate(t, [start + dur * 0.6, start + dur * 0.6 + 0.15], [0.6, 1], clamp)})`, opacity: interpolate(t, [start + dur * 0.6, start + dur * 0.6 + 0.1], [0, 1], clamp), background: color, color: C.ink, fontFamily: HEAVY, fontWeight: 700, fontSize: 44, padding: '2px 14px', borderRadius: 8, whiteSpace: 'nowrap'}}>
+          {label}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+
+/** Axis-aligned target brackets around a thing (never tilted, never flipped). Centre x,y and size w,h in image fractions. */
+export const Bracket: React.FC<{x: number; y: number; w: number; h: number; start: number; color?: string; label?: string; dur?: number}> = ({x, y, w, h, start, color = C.yellow, label, dur = 0.35}) => {
+  const t = useT();
+  const p = interpolate(t, [start, start + dur], [0, 1], clamp);
+  if (p <= 0) return null;
+  const grow = 1.18 - 0.18 * p;
+  const corner = (cx: number, cy: number, sx: number, sy: number) => (
+    <path d={`M ${cx} ${cy + sy * 30} L ${cx} ${cy} L ${cx + sx * 16} ${cy}`} fill="none" stroke={color} strokeWidth={9} strokeLinecap="square" vectorEffect="non-scaling-stroke" style={{strokeWidth: 9}} />
+  );
+  return (
+    <div style={{position: 'absolute', left: `${(x - (w * grow) / 2) * 100}%`, top: `${(y - (h * grow) / 2) * 100}%`, width: `${w * grow * 100}%`, height: `${h * grow * 100}%`, opacity: p}}>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" style={{width: '100%', height: '100%', overflow: 'visible'}}>
+        {corner(0, 0, 1, 1)}
+        {corner(100, 0, -1, 1)}
+        {corner(0, 100, 1, -1)}
+        {corner(100, 100, -1, -1)}
+      </svg>
+      {label ? (
+        <div style={{position: 'absolute', left: '50%', bottom: '106%', transform: 'translateX(-50%)', background: color, color: C.ink, fontFamily: HEAVY, fontWeight: 700, fontSize: 44, padding: '2px 14px', borderRadius: 8, whiteSpace: 'nowrap'}}>
           {label}
         </div>
       ) : null}
