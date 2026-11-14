@@ -181,21 +181,22 @@ export const Captions: React.FC<{words: Word[]; hidden: (t: number) => boolean}>
   }
   if (idx < 0) return null;
   const line = lines[idx];
-  const radio = line[0].clip === 'dale';
+  const radio = line[0].clip === 'dale' || line[0].clip === 'you';
+  const you = line[0].clip === 'you';
   const pop = interpolate(t - (line[0].s - 0.08), [0, 0.12], [0.9, 1], clamp);
   return (
     <div style={{position: 'absolute', left: 60, right: 60, top: H * 0.73 - 70, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10}}>
       {radio ? (
-        <div style={{fontFamily: MONO, fontSize: 34, color: C.amber, letterSpacing: 4, background: 'rgba(12,19,17,0.8)', padding: '4px 16px', borderRadius: 8}}>DALE · RADIO</div>
+        <div style={{fontFamily: MONO, fontSize: 34, color: you ? C.fluor : C.amber, letterSpacing: 4, background: 'rgba(12,19,17,0.8)', padding: '4px 16px', borderRadius: 8}}>{you ? 'YOU · RADIO' : 'DALE · RADIO'}</div>
       ) : null}
       <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0 22px', transform: `scale(${pop})`}}>
         {line.map((w, i) => {
           const on = t >= w.s - 0.03;
           const key = w.w.toLowerCase().replace(/[^a-z'-]/g, '');
           const em = EMPH.has(key);
-          const col = radio ? (on ? C.amber : 'rgba(242,163,58,0.45)') : on ? (em ? C.yellow : '#FFFFFF') : 'rgba(217,242,230,0.42)';
+          const col = you ? (on ? C.fluor : 'rgba(217,242,230,0.4)') : radio ? (on ? C.amber : 'rgba(242,163,58,0.45)') : on ? (em ? C.yellow : '#FFFFFF') : 'rgba(217,242,230,0.42)';
           return (
-            <span key={i} style={{fontFamily: radio ? MONO : HEAVY, fontWeight: 700, fontSize: radio ? 70 : 86, lineHeight: 1.12, color: col, WebkitTextStroke: radio ? undefined : '3px rgba(0,0,0,0.85)', paintOrder: 'stroke fill', textShadow: '0 6px 18px rgba(0,0,0,0.75)'}}>
+            <span key={i} style={{fontFamily: radio ? MONO : HEAVY, fontWeight: 700, fontSize: radio ? 70 : 86, lineHeight: 1.12, color: col, WebkitTextStroke: radio ? '6px rgba(0,0,0,0.9)' : '3px rgba(0,0,0,0.85)', paintOrder: 'stroke fill', textShadow: '0 6px 18px rgba(0,0,0,0.75)'}}>
               {w.w}
             </span>
           );

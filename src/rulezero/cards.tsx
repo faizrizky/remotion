@@ -119,7 +119,7 @@ export const RuleSheetCard: React.FC<{lines: TypedLine[]; rectAt?: number; zoomT
 const PW = 1350;
 const PH = 2418;
 const SLOPE = -0.0735; // dy/dx of the row lines
-const ANGLE = (Math.atan(SLOPE) * 180) / Math.PI;
+export const ANGLE = (Math.atan(SLOPE) * 180) / Math.PI;
 const ROW_B = [742, 810, 887, 965, 1041, 1119]; // row boundary y at plate x=300 (row 0 = header row)
 const COL_L = [{x: 205, y: 750}, {x: 487, y: 740}, {x: 768, y: 715}, {x: 1045, y: 685}]; // column lines, plate px
 const DXDY = 0.07; // columns lean right going down
@@ -128,7 +128,7 @@ const colX = (c: number, y: number) => {
   const r = COL_L[c + 1];
   return (l.x + DXDY * (y - l.y) + (r.x + DXDY * (y - r.y))) / 2;
 };
-const cellPos = (col: number, row: number) => {
+export const cellPos = (col: number, row: number) => {
   let x = colX(col, (ROW_B[row] + ROW_B[row + 1]) / 2);
   let y = 0;
   for (let k = 0; k < 3; k++) {
