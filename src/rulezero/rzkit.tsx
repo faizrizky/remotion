@@ -211,13 +211,12 @@ export const Ring: React.FC<{x: number; y: number; w: number; h: number; start: 
   const t = useT();
   const p = interpolate(t, [start, start + dur], [0, 1], clamp);
   if (p <= 0) return null;
-  const rx = 50;
-  const ry = 50;
-  const per = 2 * Math.PI * Math.sqrt((rx * rx + ry * ry) / 2);
+  const W = w * 1350;
+  const H = h * 2419;
   return (
     <div style={{position: 'absolute', left: `${(x - w / 2) * 100}%`, top: `${(y - h / 2) * 100}%`, width: `${w * 100}%`, height: `${h * 100}%`}}>
-      <svg viewBox="-5 -5 110 110" preserveAspectRatio="none" style={{width: '100%', height: '100%', overflow: 'visible'}}>
-        <ellipse cx={50} cy={50} rx={rx} ry={ry} fill="none" stroke={color} strokeWidth={3.2} vectorEffect="non-scaling-stroke" strokeDasharray={per} strokeDashoffset={per * (1 - p)} style={{strokeWidth: 9}} />
+      <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" style={{width: '100%', height: '100%', overflow: 'visible'}}>
+        <ellipse cx={W / 2} cy={H / 2} rx={W / 2 - 6} ry={H / 2 - 6} fill="none" stroke={color} strokeWidth={7} strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - p} />
       </svg>
       {label ? (
         <div style={{position: 'absolute', left: '50%', bottom: '108%', transform: `translateX(-50%) scale(${interpolate(t, [start + dur * 0.6, start + dur * 0.6 + 0.15], [0.6, 1], clamp)})`, opacity: interpolate(t, [start + dur * 0.6, start + dur * 0.6 + 0.1], [0, 1], clamp), background: color, color: C.ink, fontFamily: HEAVY, fontWeight: 700, fontSize: 44, padding: '2px 14px', borderRadius: 8, whiteSpace: 'nowrap'}}>

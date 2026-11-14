@@ -241,16 +241,16 @@ const Waving: React.FC<{a: number; b: number}> = ({a, b}) => {
 const Reverse: React.FC<{a: number; b: number}> = ({a, b}) => {
   const t = useT();
   const swap = L(BAY12.s, a) - 0.1;
-  const cam = {from: {x: 0.55, y: 0.53, z: 1.3}, to: {x: 0.45, y: 0.54, z: 1.3}, dur: b - a};
+  const cam = {from: {x: 0.55, y: 0.55, z: 1.25}, to: {x: 0.52, y: 0.555, z: 1.4}, dur: b - a};
   return (
     <Cctv cam="CAM 3-A  LEVEL 3" clock={clockStr(23 * 60 + 11, 20 + t)}>
       {t < swap ? (
         <Plate src={I1('level3_wide_car')} {...cam}>
-          <Bracket x={0.79} y={0.545} w={0.3} h={0.12} start={0.3} label="BAY 31" />
+          <Bracket x={0.6} y={0.55} w={0.5} h={0.14} start={0.3} label="BAY 31" />
         </Plate>
       ) : (
-        <Plate src={I1('level3_wide_car_bay12')} {...cam}>
-          <Bracket x={0.275} y={0.545} w={0.46} h={0.13} start={swap + 0.1} label="BAY 12" />
+        <Plate src={I2('level3_wide_bay12_parked')} {...cam}>
+          <Bracket x={0.5} y={0.553} w={0.5} h={0.14} start={0.1} label="BAY 12" />
         </Plate>
       )}
     </Cctv>
@@ -269,8 +269,8 @@ const LogCell: React.FC<{txt: string; col: number; row: number; reveal?: number;
 const Logbook: React.FC<{a: number; b: number; mode: 'dale' | 'you'}> = ({a, b, mode}) => {
   const t = useT();
   const w = (i: number, s: number, d: number) => interpolate(t, [s + d * i, s + d * (i + 1)], [0, 1], clamp);
-  const ws = mode === 'dale' ? L(SIX.s, a) + 0.4 : -10;
-  const wd = mode === 'dale' ? (L(BAYS.e, a) + 0.6 - ws) / 4 : 0.1;
+  const ws = mode === 'dale' ? L(SIX.s, a) + 0.2 : -10;
+  const wd = mode === 'dale' ? (L(BAYS.e, a) - ws) / 4 : 0.1;
   const you = mode === 'you';
   const cam = you ? {from: {x: 0.52, y: 0.38, z: 1.22}, to: {x: 0.55, y: 0.4, z: 1.38}} : {from: {x: 0.48, y: 0.36, z: 1.3}, to: {x: 0.48, y: 0.38, z: 1.42}};
   const r4 = cellPos(2, 4);
@@ -287,13 +287,13 @@ const Logbook: React.FC<{a: number; b: number; mode: 'dale' | 'you'}> = ({a, b, 
       <LogCell txt="Bay 31" col={2} row={2} />
       <LogCell txt="6:00 AM" col={0} row={3} reveal={w(0, ws, wd)} />
       <LogCell txt="Bay 31" col={1} row={3} reveal={w(1, ws, wd)} />
-      <LogCell txt="Bay 12 - Dale" col={2} row={3} dx={0.03} reveal={interpolate(t, [ws + wd * 2, ws + wd * 4], [0, 1], clamp)} />
+      <LogCell txt="Bay 12 - Dale" col={2} row={3} dx={0.004} size={43} reveal={interpolate(t, [ws + wd * 2, ws + wd * 4], [0, 1], clamp)} />
       {you ? (
         <>
           <LogCell txt="6:01 AM" col={0} row={4} />
           <LogCell txt="Booth" col={1} row={4} />
-          <LogCell txt="Level 3 - You" col={2} row={4} dx={0.03} />
-          <Ring x={r4.x + 0.03} y={r4.y} w={0.3} h={0.055} start={L(FILLED.s, a)} color={C.red} />
+          <LogCell txt="Level 3 - You" col={2} row={4} dx={0.004} size={43} />
+          <Ring x={r4.x + 0.012} y={r4.y} w={0.27} h={0.05} start={L(FILLED.s, a)} color={C.red} />
         </>
       ) : null}
     </Plate>
@@ -305,7 +305,7 @@ const Strip: React.FC<{a: number; b: number}> = ({a, b}) => {
   const t = useT();
   const n = interpolate(t, [L(RULE3.s, a), L(RULE3.e, a)], [0, 1], clamp);
   const body = 'Whoever goes up is logged as a car.';
-  const p = interpolate(t, [L(WHOEVER.s, a), L(CAR.e, a)], [0, 1], clamp);
+  const p = interpolate(t, [L(WHOEVER.s, a) - 0.1, L(CAR.e, a) - 0.25], [0, 1], clamp);
   return (
     <Plate src={I2('rule3_torn_strip')} from={{x: 0.5, y: 0.5, z: 1.45}} to={{x: 0.5, y: 0.53, z: 1.7}} dur={b - a}>
       <div style={{position: 'absolute', left: '36%', width: '28%', top: '40%', fontFamily: HAND, fontWeight: 700, color: '#1b1d1c', transform: 'rotate(-1.5deg)'}}>
@@ -379,13 +379,19 @@ const TheEnd: React.FC = () => {
   const n = endTimes.filter((x) => t >= x).length;
   const last = endTimes[endTimes.length - 1];
   const cursorOn = t < last + 1.2 ? Math.floor(t * 3) % 2 === 0 : false;
+  const bar = interpolate(t, [last + 0.25, last + 0.7], [0, 1], clamp);
   return (
-    <AbsoluteFill style={{background: '#000', alignItems: 'center', justifyContent: 'center'}}>
-      <div style={{fontFamily: TYPE, fontSize: 230, color: C.laminate, letterSpacing: 14, whiteSpace: 'pre', position: 'relative'}}>
-        <span>{END_TXT.slice(0, n)}</span>
-        <span style={{opacity: cursorOn ? 1 : 0}}>|</span>
-        <span style={{opacity: 0}}>{END_TXT.slice(n)}</span>
+    <AbsoluteFill style={{background: '#050404', alignItems: 'center', justifyContent: 'center'}}>
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse 70% 38% at 50% 50%, rgba(120,16,20,0.28) 0%, rgba(60,8,10,0.12) 45%, rgba(0,0,0,0) 75%)'}} />
+      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 44}}>
+        <div style={{fontFamily: TYPE, fontSize: 150, color: C.red, letterSpacing: 12, whiteSpace: 'pre', position: 'relative', textShadow: '0 0 26px rgba(229,72,77,0.35)'}}>
+          <span>{END_TXT.slice(0, n)}</span>
+          <span style={{opacity: cursorOn ? 1 : 0}}>|</span>
+          <span style={{opacity: 0}}>{END_TXT.slice(n)}</span>
+        </div>
+        <div style={{width: 150 * bar, height: 8, background: C.red, opacity: bar}} />
       </div>
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.7) 100%)'}} />
     </AbsoluteFill>
   );
 };
@@ -408,10 +414,10 @@ const SCENES: Scene[] = [
   S(REW.s, OPENIT.s - 0.1, <Rewind a={REW.s} b={OPENIT.s} />, {clock: '11:04 PM', nerve: 40, log: 1, nerveFrom: 0}),
   S(OPENIT.s - 0.1, PUSHES.s - 0.1, <DoorHold a={OPENIT.s - 0.1} b={PUSHES.s} pick={1} chipsAt={-10} />, {clock: '11:04 PM', nerve: 40, log: 1, chip: E2}),
   S(PUSHES.s - 0.1, CAM.s - 0.1, <Plate src={I2('driver_stairwell_open_door_dale')} from={{x: 0.55, y: 0.45, z: 1.05}} to={{x: 0.43, y: 0.27, z: 2.0}} dur={CAM.s - PUSHES.s}><Glow x={0.4126} y={0.261} r={0.005} o={0.7} /><Glow x={0.446} y={0.261} r={0.005} o={0.7} /></Plate>, {clock: '11:05 PM', nerve: 30, log: 1, nerveFrom: 40, chip: E2}),
-  S(CAM.s - 0.1, KEYS.s - 0.1, <Cctv cam="CAM 3-A  LEVEL 3" clock="11:07:12 PM"><Plate src={I1('level3_wide_car')} from={{x: 0.55, y: 0.5, z: 1.2}} to={{x: 0.7, y: 0.53, z: 1.6}} dur={KEYS.s - CAM.s}><Bracket x={0.79} y={0.545} w={0.3} h={0.12} start={1.2} label="BAY 31" /></Plate></Cctv>, {clock: '11:07 PM', nerve: 30, log: 1, chip: E2}),
-  S(KEYS.s - 0.1, DONT.s - 0.1, <Plate src={I2('sedan_door_open_keys')} from={{x: 0.42, y: 0.55, z: 1.5}} to={{x: 0.4, y: 0.56, z: 1.75}} dur={DONT.s - KEYS.s} />, {clock: '11:08 PM', nerve: 30, log: 1, chip: E2}),
+  S(CAM.s - 0.1, KEYS.s - 0.1, <Cctv cam="CAM 3-A  LEVEL 3" clock="11:07:12 PM"><Plate src={I2('level3_wide_dale_walks')} from={{x: 0.48, y: 0.565, z: 1.25}} to={{x: 0.48, y: 0.57, z: 1.5}} dur={KEYS.s - CAM.s}><Bracket x={0.356} y={0.577} w={0.12} h={0.15} start={0.9} label="DALE" /></Plate></Cctv>, {clock: '11:07 PM', nerve: 30, log: 1, chip: E2}),
+  S(KEYS.s - 0.1, DONT.s - 0.1, <Plate src={I2('sedan_door_open_keys')} from={{x: 0.6, y: 0.52, z: 1.2}} to={{x: 0.62, y: 0.53, z: 1.4}} dur={DONT.s - KEYS.s} />, {clock: '11:08 PM', nerve: 30, log: 1, chip: E2}),
   S(DONT.s - 0.1, JUST.s - 0.1, <Plate src={I1('operator_booth_seated')} from={{x: 0.47, y: 0.38, z: 1.45}} to={{x: 0.47, y: 0.36, z: 1.75}} dur={JUST.s - DONT.s} />, {clock: '11:08 PM', nerve: 24, log: 1, nerveFrom: 30, chip: E2}),
-  S(JUST.s - 0.1, HEADL.s - 0.1, <Plate src={I2('sedan_door_open_keys')} from={{x: 0.4, y: 0.56, z: 1.75}} to={{x: 0.45, y: 0.55, z: 2.2}} dur={HEADL.s - JUST.s} />, {clock: '11:08 PM', nerve: 24, log: 1, chip: E2}),
+  S(JUST.s - 0.1, HEADL.s - 0.1, <Plate src={I2('sedan_door_open_keys')} from={{x: 0.66, y: 0.52, z: 1.5}} to={{x: 0.7, y: 0.5, z: 1.9}} dur={HEADL.s - JUST.s} />, {clock: '11:08 PM', nerve: 24, log: 1, chip: E2}),
   S(HEADL.s - 0.1, BACKS.s - 0.1, <SwapBeat a={HEADL.s - 0.1} b={BACKS.s} />, {clock: '11:09 PM', nerve: 12, log: 1, nerveFrom: 24, chip: E2}),
   S(BACKS.s - 0.1, GLASS.s - 0.1, <Reverse a={BACKS.s - 0.1} b={GLASS.s} />, {clock: '11:11 PM', nerve: 12, log: 1, chip: E2}),
   S(GLASS.s - 0.1, SIX.s - 0.1, <Waving a={GLASS.s - 0.1} b={SIX.s} />, null),
@@ -446,7 +452,7 @@ const SFX: Sfx[] = [
   {at: 0.6, file: X('sfx_knock'), vol: 0.22},
   {at: CHOICES.s + 0.2, file: 'rz1/audio/sfx/pop.wav', vol: 0.5},
   {at: CHOICES.s + 0.55, file: 'rz1/audio/sfx/pop.wav', vol: 0.5},
-  ...radioLines.map((p) => ({at: p.at - 0.18, file: X('sfx_radio_click'), vol: 0.35})),
+  ...radioLines.map((p) => ({at: p.at - 0.22, file: X('sfx_radio_click'), vol: 0.3, dur: 0.25})),
   ...radioLines.filter((p) => p.role === 'dale').map((p) => ({at: p.at, file: X('sfx_radio_static'), vol: 0.12, dur: p.dur})),
   {at: DOESNT.s + 0.6, file: X('sfx_footsteps_run'), vol: 0.32},
   {at: BEHIND.s + 0.3, file: X('sfx_door_handle'), vol: 0.3},
@@ -503,11 +509,7 @@ const Audio: React.FC = () => (
     <Sequence from={sf(HEADL.s)} durationInFrames={sf(SIX.s - HEADL.s)} layout="none">
       <Html5Audio src={staticFile('rz2/audio/sfx/heartbeat_14s.wav')} volume={(f) => 0.12 + 0.18 * Math.min(1, f / (FPS * 6))} />
     </Sequence>
-    {(VO.pieces as {file: string; src: number; at: number; dur: number}[]).map((p, i) => (
-      <Sequence key={i} from={sf(p.at)} durationInFrames={sf(p.dur) + 2} layout="none">
-        <Html5Audio src={staticFile(p.file)} trimBefore={sf(p.src)} volume={1} />
-      </Sequence>
-    ))}
+    <Html5Audio src={staticFile('rz2/audio/voice_track.wav')} volume={1} />
     {SFX.map((s, i) => (
       <Sequence key={`s${i}`} from={Math.max(0, sf(s.at))} durationInFrames={s.dur ? sf(s.dur) : sf(6)} layout="none">
         <Html5Audio src={staticFile(s.file)} volume={s.vol} />
