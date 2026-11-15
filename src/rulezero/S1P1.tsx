@@ -198,13 +198,13 @@ function Rewind({a, b}: {a: number; b: number}) {
   const swap = Math.max(1.2, L(BAY12.s, a) - 0.35);
   const back = Math.min(1, t / swap);
   const mins = 23 * 60 - 60 * back;
-  const cam = {from: {x: 0.45, y: 0.55, z: 1.2}, to: {x: 0.4, y: 0.55, z: 1.25}, dur: b - a};
+  const cam = {from: {x: 0.55, y: 0.55, z: 1.2}, to: {x: 0.52, y: 0.555, z: 1.3}, dur: b - a};
   const done = t >= swap;
   return (
     <Cctv cam="CAM 3-A  LEVEL 3" clock={clockStr(mins, (1 - back) * 6)} rew={!done}>
       {done ? (
-        <Plate src={IMG('level3_wide_car_bay12')} {...cam}>
-          <Bracket x={0.275} y={0.545} w={0.46} h={0.13} start={L(BAY12.s, a)} label="BAY 12" />
+        <Plate src={IMG('level3_wide_bay12_parked')} {...cam}>
+          <Bracket x={0.5} y={0.553} w={0.5} h={0.14} start={L(BAY12.s, a)} label="BAY 12" />
         </Plate>
       ) : (
         <Plate src={IMG('level3_wide_car')} {...cam} />
