@@ -121,7 +121,7 @@ const Scratch: React.FC<{n: string; text: string; s: number; e: number; y: numbe
   const edge = isRed ? 'rgba(255,150,150,0.9)' : isHot ? 'rgba(255,235,150,0.9)' : 'rgba(235,245,240,0.85)';
   const drip = interpolate(t, [s + 0.4, s + 2.5], [0, 1], clamp);
   return (
-    <div style={{position: 'absolute', left: '5%', width: '90%', top: `${y * 100}%`, textAlign: 'center', transform: 'rotate(-2.2deg)', clipPath: `inset(-20% ${(1 - p) * 100}% -60% 0)`}}>
+    <div style={{position: 'absolute', left: '5%', width: '90%', top: `${y * 100}%`, textAlign: 'center', clipPath: `inset(-20% ${(1 - p) * 100}% -60% 0)`}}>
       <div style={{fontFamily: HAND, fontWeight: 700, fontSize: 78, lineHeight: 1.05, color: tint, textShadow: `0 1.5px 0 ${edge}, 0 -1px 0 ${edge}, 0 0 8px ${edge}`, filter: 'blur(0.5px)', whiteSpace: 'nowrap'}}>
         {n} {text}
       </div>
@@ -264,7 +264,7 @@ add(SIX.s, PC, (
 // C: rules in the glass
 add(PC, EIGHT.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C7')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.12}} dur={EIGHT.s - PC}>
+    <Plate src={IMG('C15')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.12}} dur={EIGHT.s - PC}>
       <Fog s={L(BREATH.s, PC)} e={L(BREATH.e, PC)} />
       <Scratch n="1." text="It only counts in the dark." s={L(RULE1.s, PC)} e={L(RULE1.e, PC)} y={0.20} />
       <Scratch n="2." text="Stay under the green exit light." s={L(RULE2.s, PC)} e={L(RULE2.e, PC)} y={0.30} />
@@ -321,14 +321,14 @@ add(ELEVEN.s, PW2 - 0.1, (
 ));
 add(PW2 - 0.1, W2END + 0.3, (
   <AbsoluteFill>
-    <Plate src={IMG('C12')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.4, z: 1.25}} dur={W2END + 0.4 - PW2} shake={2} />
+    <Plate src={IMG('C16')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.47, z: 1.08}} dur={W2END + 0.4 - PW2} shake={1.5} />
     <RedPulse base={0.35} />
     <Speaker s={0.1} e={W2END - PW2 + 0.1} />
   </AbsoluteFill>
 ));
 add(W2END + 0.3, SODO.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C7')} ar={AR} from={{x: 0.5, y: 0.42, z: 1.12}} to={{x: 0.5, y: 0.4, z: 1.2}} dur={SODO.s - W2END - 0.3}>
+    <Plate src={IMG('C15')} ar={AR} from={{x: 0.5, y: 0.42, z: 1.12}} to={{x: 0.5, y: 0.4, z: 1.2}} dur={SODO.s - W2END - 0.3}>
       <Fog s={-1} e={-0.5} />
       <Scratch n="1." text="It only counts in the dark." s={0} e={0.01} y={0.20} />
       <Scratch n="2." text="Stay under the green exit light." s={0} e={0.01} y={0.30} hot={L(RTWO.s, W2END + 0.3)} />
