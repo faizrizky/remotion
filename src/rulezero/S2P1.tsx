@@ -153,25 +153,38 @@ const RedDoor: React.FC<{from: number}> = ({from}) => {
 };
 
 
-const Chip: React.FC<{label: string; at: number; color: string; y: number; textColor?: string}> = ({label, at, color, y, textColor = C.ink}) => {
+// Fork chips sit beside the two choices with leader lines (not stacked): STAY -> green exit light, STEP OUT -> red door.
+const FChip: React.FC<{label: string; at: number; color: string; cx: number; cy: number; textColor?: string}> = ({label, at, color, cx, cy, textColor = C.ink}) => {
   const t = useT();
   const p = interpolate(t, [at, at + 0.22], [0, 1], clamp);
   if (p <= 0) return null;
   const sc = p < 1 ? 0.6 + 0.5 * p : 1 + Math.max(0, 0.08 - (t - at - 0.22) * 0.4);
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: y, display: 'flex', justifyContent: 'center'}}>
-      <div style={{transform: `scale(${sc})`, background: color, color: textColor, fontFamily: HEAVY, fontWeight: 700, fontSize: 96, letterSpacing: 4, padding: '18px 60px', borderRadius: 999, boxShadow: '0 12px 36px rgba(0,0,0,0.6)', whiteSpace: 'nowrap'}}>{label}</div>
-    </div>
+    <div style={{position: 'absolute', left: cx, top: cy, transform: `translate(-50%, -50%) scale(${sc})`, background: color, color: textColor, fontFamily: HEAVY, fontWeight: 700, fontSize: 72, letterSpacing: 3, padding: '12px 38px', borderRadius: 999, boxShadow: '0 10px 30px rgba(0,0,0,0.6)', whiteSpace: 'nowrap'}}>{label}</div>
+  );
+};
+const Leader: React.FC<{at: number; x1: number; y1: number; x2: number; y2: number; color: string}> = ({at, x1, y1, x2, y2, color}) => {
+  const t = useT();
+  const p = interpolate(t, [at + 0.15, at + 0.5], [0, 1], clamp);
+  if (p <= 0) return null;
+  return (
+    <svg viewBox="0 0 1080 1920" style={{position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none'}}>
+      <line x1={x1} y1={y1} x2={x1 + (x2 - x1) * p} y2={y1 + (y2 - y1) * p} stroke={color} strokeWidth={6} strokeLinecap="round" />
+      {p >= 1 ? <circle cx={x2} cy={y2} r={11} fill={color} /> : null}
+    </svg>
   );
 };
 const Fork: React.FC<{at: number}> = ({at}) => {
   const t = useT();
   const when = at + 0.2;
+  const tA = when + 1.6, tB = when + 2.0;
   return (
     <>
-      <Chip label="STEP OUT" at={when + 1.6} color={C.red} y={1030} textColor="#fff" />
-      <Chip label="STAY" at={when + 2.0} color={C.yellow} y={1195} />
-      <div style={{position: 'absolute', left: 0, right: 0, top: 230, textAlign: 'center', fontFamily: MONO, fontSize: 34, letterSpacing: 3, color: C.fluor, opacity: interpolate(t, [when + 2.6, when + 3.0], [0, 0.85], clamp)}}>COMMENT · THE MAJORITY WRITES PART 2</div>
+      <Leader at={tA} x1={310} y1={565} x2={395} y2={565} color={C.yellow} />
+      <Leader at={tB} x1={745} y1={815} x2={655} y2={815} color={C.red} />
+      <FChip label="STAY" at={tA} color={C.yellow} cx={190} cy={565} />
+      <FChip label="STEP OUT" at={tB} color={C.red} cx={880} cy={815} textColor="#fff" />
+      <div style={{position: 'absolute', left: 0, right: 0, top: 1640, textAlign: 'center', fontFamily: MONO, fontSize: 34, letterSpacing: 3, color: C.fluor, opacity: interpolate(t, [when + 2.6, when + 3.0], [0, 0.85], clamp)}}>COMMENT · THE MAJORITY WRITES PART 2</div>
     </>
   );
 };
@@ -190,6 +203,34 @@ const FadeIn: React.FC<{a: number; b: number; children: React.ReactNode}> = ({a,
 const FogFade: React.FC = () => {
   const t = useT();
   return <AbsoluteFill style={{background: `rgba(220,235,230,${interpolate(t, [0, 3.5], [0.28, 0], clamp)})`}} />;
+};
+
+// persistent floor indicator: tells the viewer the spoken numbers are floors climbing
+const FloorHud: React.FC = () => {
+  const t = useT();
+  const marks = [
+    {at: SIX.s, n: '6'},
+    {at: RULE2.s, n: '7'},
+    {at: EIGHT.s, n: '8'},
+    {at: NINE.s, n: '9'},
+    {at: TEN.s, n: '10'},
+    {at: ELEVEN.s, n: '11'},
+  ];
+  if (t < SIX.s || t > PW2 - 0.1) return null;
+  let cur = marks[0];
+  marks.forEach((m) => {
+    if (t >= m.at) cur = m;
+  });
+  const k = interpolate(t, [cur.at, cur.at + 0.45], [1, 0], clamp);
+  const o = interpolate(t, [SIX.s, SIX.s + 0.3, PW2 - 0.5, PW2 - 0.1], [0, 1, 1, 0], clamp);
+  return (
+    <div style={{position: 'absolute', left: 0, right: 0, top: 120, display: 'flex', justifyContent: 'center', opacity: o}}>
+      <div style={{display: 'flex', alignItems: 'center', gap: 22, background: 'rgba(12,19,17,0.78)', border: `3px solid ${C.amber}`, borderRadius: 18, padding: '10px 34px', transform: `scale(${1 + 0.35 * k})`, boxShadow: `0 0 ${24 + 40 * k}px rgba(242,163,58,${0.35 + 0.4 * k})`}}>
+        <div style={{fontFamily: MONO, fontSize: 36, letterSpacing: 6, color: C.fluor, opacity: 0.85}}>FLOOR</div>
+        <div style={{fontFamily: MONO, fontSize: 96, fontWeight: 700, lineHeight: 1, color: C.amber}}>{cur.n}</div>
+      </div>
+    </div>
+  );
 };
 
 /* ---------------- scenes ---------------- */
@@ -262,22 +303,15 @@ add(SIX.s, PC, (
 ));
 
 // C: rules in the glass
-add(PC, EIGHT.s, (
+add(PC, CHALK.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C15')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.12}} dur={EIGHT.s - PC}>
+    <Plate src={IMG('C15')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.12}} dur={CHALK.s - PC}>
       <Fog s={L(BREATH.s, PC)} e={L(BREATH.e, PC)} />
       <Scratch n="1." text="It only counts in the dark." s={L(RULE1.s, PC)} e={L(RULE1.e, PC)} y={0.20} />
       <Scratch n="2." text="Stay under the green exit light." s={L(RULE2.s, PC)} e={L(RULE2.e, PC)} y={0.30} />
       <Scratch n="3." text="If it says it's yours, it isn't." s={L(RULE3.s, PC)} e={L(RULE3.e, PC)} y={0.40} />
     </Plate>
     <FogFade />
-  </AbsoluteFill>
-));
-add(EIGHT.s, CHALK.s, (
-  <AbsoluteFill>
-    <Plate src={IMG('C6')} ar={AR} from={{x: 0.5, y: 0.34, z: 1.3}} to={{x: 0.5, y: 0.4, z: 1.2}} dur={CHALK.s - EIGHT.s}>
-      <FloorPlate vals={[{at: 0, n: '8'}]} />
-    </Plate>
   </AbsoluteFill>
 ));
 add(CHALK.s, NINE.s, (
@@ -338,7 +372,7 @@ add(W2END + 0.3, SODO.s, (
 ));
 add(SODO.s, S2P1_TOTAL, (
   <AbsoluteFill>
-    <Plate src={IMG('C10')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.18}} dur={VO.voiceEnd - SODO.s + 1} shake={2} />
+    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.0}} dur={VO.voiceEnd - SODO.s + 1} />
     <Fork at={L(SODO.s, SODO.s)} />
     <Flicker amt={0.2} />
   </AbsoluteFill>
@@ -401,6 +435,7 @@ export const S2P1: React.FC = () => {
           {i > 0 ? <CutFlash len={0.08} /> : null}
         </Sequence>
       ))}
+      <FloorHud />
       <Captions words={WORDS} hidden={capHidden} />
       <Audio />
     </AbsoluteFill>
