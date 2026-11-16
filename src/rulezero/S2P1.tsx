@@ -1,9 +1,9 @@
-// Rule Zero - Series 2 "Headcount" - Part 1. Vertical 1080x1920, 24 fps.
-// Voice timing: s2p1_voice.json (built by build_s2p1.py). Script: claude/rule_zero_s2p1_headcount_script.md v4.
+// Rule Zero - Series 2 "Headcount" - Part 1 (v5: intercom / building-speaker structure). Vertical 1080x1920, 24 fps.
+// Voice timing: s2p1_voice.json (built by build_s2p1.py). Script: Narration/rule_zero_s2p1_headcount_narration_v5.md
 import React from 'react';
 import {AbsoluteFill, Html5Audio, interpolate, random, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import VO from './s2p1_voice.json';
-import {C, Captions, clamp, CutFlash, FPS, HAND, HEAVY, MONO, Plate, sf, useT, W, Word} from './rzkit';
+import {C, Captions, clamp, CutFlash, FPS, HAND, HEAVY, MONO, Plate, sf, useT, Word} from './rzkit';
 import {TitleCard} from './cards';
 
 const WORDS = VO.words as Word[];
@@ -18,48 +18,40 @@ const phrase = (p: string, after = -1) => {
   throw new Error('phrase not found: ' + p);
 };
 const IMG = (n: string) => `rz3/img/${n}.jpg`;
-const PB = VO.pieces[1].at, PC = VO.pieces[2].at, PD = VO.pieces[3].at;
+const P = (id: string) => VO.pieces.find((p) => p.id === id)!;
+const PB = P('B1').at, PW1 = P('W1').at, PC = P('C').at, PW2 = P('W2').at;
+const W1END = PW1 + P('W1').dur, W2END = PW2 + P('W2').dur;
 
 /* ---------------- anchors ---------------- */
-const NOSMOKE = phrase("There's no smoke.");
-const NOBODY = phrase('Nobody wakes you.');
-const SILENCE = phrase('The silence wakes you.');
-const STOPPED = phrase('The alarm just stopped.');
+const ASLEEP = phrase("You're still asleep.");
+const STOPPING = phrase('The alarm stopping');
 const THROUGH = phrase('Through the glass wall,');
 const LOOKING = phrase('Looking up at your floor.');
 const TITLE_AT = LOOKING.e + 0.2;
 const FAR = phrase('At the far end,');
-const PHONE = phrase('Your phone says');
-const SAYING = phrase("It's been saying that.");
-const FLOORN = phrase('The floor number above');
-const SIX = phrase('Six.', FLOORN.s);
-const SEVEN = phrase('Seven.', FLOORN.s);
-const CLIMB = phrase('Someone is climbing.');
-const EIGHT = phrase('Eight.', CLIMB.e);
+const PRESS = phrase('You press the intercom.');
+const PICKS = phrase('It picks up.');
+const SIX = phrase('Floor six is lit.');
+const NEVER = phrase('You never saw it move.');
 const BREATH = phrase('Your breath fogs the glass');
 const RULE1 = phrase('It only counts in the dark.');
 const RULE2 = phrase('Stay under the green exit light.');
-const RULE3 = phrase("If he says your name, it isn't you.");
-const THREE = phrase('Three.', RULE3.e);
-const NINE = phrase('Nine.', THREE.e);
-const CLICKS = phrase('The stairwell door clicks.');
+const RULE3 = phrase("If it says it's yours, it isn't.");
+const EIGHT = phrase('Eight.', RULE3.e);
 const CHALK = phrase('Chalk dust under');
 const BELOW = phrase('Below the rules,');
-const FOUR1 = phrase('four tally marks.', BELOW.s);
-const FOUR2 = phrase('Four headcounts.');
-const TWO = phrase('Two.', PD);
-const TEN = phrase('Ten.', PD);
-const DIE = phrase('The lights die.');
-const LASTL = phrase('The last light');
-const OPENS = phrase('The door opens.');
-const HEADC = phrase('Headcount.', OPENS.e);
-const SIXTY = phrase('Sixty-one names');
-const YOURS = phrase('None of them yours.');
+const TALLY = phrase('four tally marks.', BELOW.s);
+const COUNTED = phrase("You've been counted four times.");
+const NINE = phrase('Nine.');
+const CLICKS = phrase('The stairwell door clicks.');
+const TEN = phrase('Ten.');
+const DARK = phrase("This time the lights don't come back.");
+const LASTL = phrase('One light left.');
+const ELEVEN = phrase('Eleven.');
 const RTWO = phrase('Rule two says');
 const RTHREE = phrase('Rule three says');
 const BOTH = phrase('You wrote both.');
-const NAMEQ = phrase('Name?', BOTH.e);
-const SODO = phrase('So do you answer,');
+const SODO = phrase('So do you step out');
 export const S2P1_TOTAL = VO.voiceEnd + 4.0;
 export const S2P1_LEN = sf(S2P1_TOTAL);
 const L = (x: number, a: number) => x - a;
@@ -154,36 +146,12 @@ const Tally: React.FC<{times: number[]; x: number; y: number}> = ({times, x, y})
   );
 };
 
-const FIRST = ['Mara', 'Dennis', 'Priya', 'Tom', 'Elena', 'Gabe', 'Hana', 'Luis', 'Nora', 'Omar', 'Quinn', 'Rita', 'Sam', 'Vera', 'Wade', 'Yuki', 'Zoe', 'Ben', 'Cora', 'Dale', 'Finn', 'Gwen', 'Ivan', 'Jada', 'Kai'];
-const LAST = ['Boyd', 'Ortiz', 'Shah', 'Lowry', 'Park', 'Hines', 'Cole', 'Reyes', 'Webb', 'Nash', 'Frey', 'Okafor', 'Lind', 'Moss'];
-const NAMES = Array.from({length: 61}, (_, i) => `${String(i + 1).padStart(2, '0')} ${FIRST[(i * 7) % FIRST.length]} ${LAST[(i * 5 + 3) % LAST.length]}`);
-
-// Static list on the clipboard: rows sit on the ruled lines of P2 (lines slope 12.8 deg, pitch 0.0252 of image height).
-const CLIP_Z = 1.04;
-const NameList: React.FC<{dur: number}> = ({dur}) => {
-  const t = useT();
-  const iw = W * CLIP_Z;
-  const ih = iw * AR;
-  const rows = NAMES.slice(45); // entries 46..61 fill the page
-  return (
-    <>
-      {rows.map((n, i) => {
-        const on = interpolate(t, [0.1 + (i / rows.length) * (dur * 0.7), 0.1 + (i / rows.length) * (dur * 0.7) + 0.12], [0, 1], clamp);
-        const yLine = (0.335 + 0.0127 + 0.0252 * i) * ih; // line y at x = 0.30
-        const fs = 0.032 * iw;
-        return (
-          <div key={i} style={{position: 'absolute', left: 0.30 * iw, top: yLine - fs * 1.05, height: fs * 1.05, transformOrigin: '0 100%', transform: 'rotate(12.8deg)', fontFamily: MONO, fontSize: fs, lineHeight: 1, color: '#1d2421', opacity: on, whiteSpace: 'nowrap'}}>{n}</div>
-        );
-      })}
-    </>
-  );
-};
-
 const RedDoor: React.FC<{from: number}> = ({from}) => {
   const t = useT();
   const p = interpolate(t, [from, from + 1.4], [0, 1], clamp);
   return <AbsoluteFill style={{background: `radial-gradient(ellipse at 50% 48%, rgba(255,25,25,${0.55 * p}) 0%, rgba(160,0,0,${0.3 * p}) 35%, rgba(0,0,0,0) 70%)`, mixBlendMode: 'screen'}} />;
 };
+
 
 const Chip: React.FC<{label: string; at: number; color: string; y: number; textColor?: string}> = ({label, at, color, y, textColor = C.ink}) => {
   const t = useT();
@@ -198,17 +166,22 @@ const Chip: React.FC<{label: string; at: number; color: string; y: number; textC
 };
 const Fork: React.FC<{at: number}> = ({at}) => {
   const t = useT();
-  const endAt = L(VO.voiceEnd, NAMEQ.s);
-  const when = Math.max(at + 0.6, endAt - 3.0);
+  const when = at + 0.2;
   return (
     <>
-      <Chip label="ANSWER" at={when} color={C.yellow} y={1030} />
-      <Chip label="SCRATCH LINE 5" at={when + 0.45} color={C.red} y={1195} textColor="#fff" />
-      <div style={{position: 'absolute', left: 0, right: 0, top: 230, textAlign: 'center', fontFamily: MONO, fontSize: 34, letterSpacing: 3, color: C.fluor, opacity: interpolate(t, [when + 1.2, when + 1.6], [0, 0.85], clamp)}}>COMMENT · THE MAJORITY WRITES PART 2</div>
+      <Chip label="STEP OUT" at={when + 1.6} color={C.red} y={1030} textColor="#fff" />
+      <Chip label="STAY" at={when + 2.0} color={C.yellow} y={1195} />
+      <div style={{position: 'absolute', left: 0, right: 0, top: 230, textAlign: 'center', fontFamily: MONO, fontSize: 34, letterSpacing: 3, color: C.fluor, opacity: interpolate(t, [when + 2.6, when + 3.0], [0, 0.85], clamp)}}>COMMENT · THE MAJORITY WRITES PART 2</div>
     </>
   );
 };
 
+const Speaker: React.FC<{s: number; e: number}> = ({s, e}) => {
+  const t = useT();
+  const on = t >= s && t <= e;
+  const k = on ? 0.5 + 0.5 * Math.abs(Math.sin(t * 40)) : 0;
+  return <AbsoluteFill style={{background: `radial-gradient(ellipse at 50% 45%, rgba(255,40,40,${0.12 * k}) 0%, rgba(0,0,0,0) 65%)`, mixBlendMode: 'screen'}} />;
+};
 
 const FadeIn: React.FC<{a: number; b: number; children: React.ReactNode}> = ({a, b, children}) => {
   const t = useT();
@@ -225,32 +198,17 @@ const SCENES: Scene[] = [];
 const add = (a: number, b: number, el: React.ReactNode, captions = true) => SCENES.push({a, b, el, captions});
 
 // A: hook
-add(0, NOSMOKE.s, (
+add(0, ASLEEP.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C2')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.55, z: 1.14}} dur={NOSMOKE.s} shake={7} />
+    <Plate src={IMG('C2')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.55, z: 1.14}} dur={ASLEEP.s} shake={7} />
     <RedPulse />
   </AbsoluteFill>
 ));
-add(NOSMOKE.s, NOBODY.s, (
+add(ASLEEP.s, THROUGH.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C1')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.58, y: 0.6, z: 1.15}} dur={NOBODY.s - NOSMOKE.s} />
-    <RedPulse until={L(STOPPED.s, NOSMOKE.s)} base={0.3} />
-  </AbsoluteFill>
-));
-// the Warden bends over the sleeper, ticks the clipboard, then is gone
-add(NOBODY.s, SILENCE.s + 0.1, (
-  <AbsoluteFill>
-    <Plate src={IMG('C11')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.52, y: 0.4, z: 1.2}} dur={SILENCE.s + 0.1 - NOBODY.s} shake={1.5} />
-    <RedPulse base={0.3} />
-    <Flicker amt={0.35} from={L(SILENCE.s, NOBODY.s) - 0.5} />
-  </AbsoluteFill>
-));
-add(SILENCE.s + 0.1, THROUGH.s, (
-  <AbsoluteFill>
-    <Plate src={IMG('C1')} ar={AR} from={{x: 0.6, y: 0.62, z: 1.25}} to={{x: 0.55, y: 0.55, z: 1.1}} dur={THROUGH.s - SILENCE.s}>
-      {null}
-    </Plate>
-    <RedPulse until={L(STOPPED.s, SILENCE.s + 0.1)} base={0.3} />
+    <Plate src={IMG('C1')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.58, y: 0.6, z: 1.2}} dur={THROUGH.s - ASLEEP.s} />
+    <RedPulse until={L(STOPPING.e, ASLEEP.s)} base={0.3} />
+    <Flicker amt={0.3} from={L(STOPPING.s, ASLEEP.s)} to={L(STOPPING.e, ASLEEP.s) + 0.4} />
   </AbsoluteFill>
 ));
 add(THROUGH.s, TITLE_AT, (
@@ -262,112 +220,126 @@ add(THROUGH.s, TITLE_AT, (
 ));
 add(TITLE_AT, PB - 0.1, <TitleCard series="SERIES 2" part="PART 1: HEADCOUNT" />, false);
 
-// B
+// B: intercom
 add(PB - 0.1, FAR.s, (
   <AbsoluteFill>
     <Plate src={IMG('C4')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.2}} dur={FAR.s - PB} />
     <Flicker from={0.1} to={4.5} />
   </AbsoluteFill>
 ));
-add(FAR.s, PHONE.s, (
+add(FAR.s, PRESS.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C5')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.45, z: 1.22}} dur={PHONE.s - FAR.s} />
+    <Plate src={IMG('C5')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.45, z: 1.22}} dur={PRESS.s - FAR.s} />
     <Flicker amt={0.35} />
   </AbsoluteFill>
 ));
-add(PHONE.s, SAYING.e + 0.25, (
+add(PRESS.s, PW1 - 0.1, (
   <AbsoluteFill>
-    <Plate src={IMG('P1')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.52, y: 0.46, z: 1.1}} dur={SAYING.e + 0.25 - PHONE.s}>
-      <div style={{position: 'absolute', left: '36%', top: '27%', width: '38%', height: '34%', transform: 'rotate(8deg)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 6}}>
-        <div style={{fontFamily: MONO, fontSize: 150, color: '#0c1311', fontWeight: 700, letterSpacing: 2}}>3:00</div>
-        <div style={{fontFamily: MONO, fontSize: 40, color: '#4a524e', letterSpacing: 6}}>AM</div>
-      </div>
-    </Plate>
+    <Plate src={IMG('C13')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.46, z: 1.12}} dur={PW1 - PRESS.s} />
+    <Flicker amt={0.3} from={L(PICKS.s, PRESS.s)} />
   </AbsoluteFill>
 ));
-add(SAYING.e + 0.25, PC, (
+add(PW1 - 0.1, W1END + 0.3, (
   <AbsoluteFill>
-    <Plate src={IMG('C6')} ar={AR} from={{x: 0.5, y: 0.45, z: 1.0}} to={{x: 0.5, y: 0.32, z: 1.3}} dur={PC - SAYING.e}>
-      <FloorPlate vals={[{at: 0, n: '5'}, {at: L(SIX.s, SAYING.e + 0.25), n: '6'}, {at: L(SEVEN.s, SAYING.e + 0.25), n: '7'}, {at: L(EIGHT.s, SAYING.e + 0.25), n: '8'}]} />
+    <Plate src={IMG('C5')} ar={AR} from={{x: 0.5, y: 0.45, z: 1.22}} to={{x: 0.5, y: 0.4, z: 1.45}} dur={W1END + 0.4 - PW1} />
+    <RedPulse base={0.35} />
+    <Speaker s={0.1} e={W1END - PW1 + 0.1} />
+  </AbsoluteFill>
+));
+add(W1END + 0.3, SIX.s, (
+  <AbsoluteFill>
+    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.55, z: 1.15}} dur={SIX.s - W1END} />
+    <Flicker amt={0.45} />
+  </AbsoluteFill>
+));
+add(SIX.s, PC, (
+  <AbsoluteFill>
+    <Plate src={IMG('C6')} ar={AR} from={{x: 0.5, y: 0.45, z: 1.0}} to={{x: 0.5, y: 0.32, z: 1.3}} dur={PC - SIX.s}>
+      <FloorPlate vals={[{at: 0, n: '6'}]} />
     </Plate>
-    <Flicker amt={0.5} from={L(CLIMB.s, SAYING.e + 0.25)} to={L(CLIMB.e, SAYING.e + 0.25) + 0.6} />
+    <Flicker amt={0.5} from={L(NEVER.s, SIX.s)} to={L(NEVER.e, SIX.s) + 0.6} />
   </AbsoluteFill>
 ));
 
-// C
-add(PC, THREE.s, (
+// C: rules in the glass
+add(PC, EIGHT.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C7')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.12}} dur={THREE.s - PC}>
+    <Plate src={IMG('C7')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.12}} dur={EIGHT.s - PC}>
       <Fog s={L(BREATH.s, PC)} e={L(BREATH.e, PC)} />
       <Scratch n="1." text="It only counts in the dark." s={L(RULE1.s, PC)} e={L(RULE1.e, PC)} y={0.20} />
       <Scratch n="2." text="Stay under the green exit light." s={L(RULE2.s, PC)} e={L(RULE2.e, PC)} y={0.30} />
-      <Scratch n="3." text="If he says your name, it isn't you." s={L(RULE3.s, PC)} e={L(RULE3.e, PC)} y={0.40} />
+      <Scratch n="3." text="If it says it's yours, it isn't." s={L(RULE3.s, PC)} e={L(RULE3.e, PC)} y={0.40} />
     </Plate>
     <FogFade />
   </AbsoluteFill>
 ));
-add(THREE.s, CHALK.s, (
+add(EIGHT.s, CHALK.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C6')} ar={AR} from={{x: 0.5, y: 0.34, z: 1.3}} to={{x: 0.5, y: 0.4, z: 1.2}} dur={CHALK.s - THREE.s}>
-      <FloorPlate vals={[{at: 0, n: '3'}, {at: L(NINE.s, THREE.s), n: '9'}]} />
+    <Plate src={IMG('C6')} ar={AR} from={{x: 0.5, y: 0.34, z: 1.3}} to={{x: 0.5, y: 0.4, z: 1.2}} dur={CHALK.s - EIGHT.s}>
+      <FloorPlate vals={[{at: 0, n: '8'}]} />
     </Plate>
-    <Flicker amt={0.4} from={L(CLICKS.s, THREE.s)} to={L(CLICKS.e, THREE.s) + 0.3} />
   </AbsoluteFill>
 ));
-add(CHALK.s, PD, (
+add(CHALK.s, NINE.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C8')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.1}} dur={PD - CHALK.s}>
-      <Tally x={0.33} y={0.80} times={[L(FOUR1.s, CHALK.s), L(FOUR1.s + (FOUR1.e - FOUR1.s) * 0.5, CHALK.s), L(FOUR1.e, CHALK.s), L(FOUR2.s, CHALK.s)]} />
+    <Plate src={IMG('C8')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.1}} dur={NINE.s - CHALK.s}>
+      <Tally x={0.33} y={0.80} times={[L(TALLY.s, CHALK.s), L(TALLY.s + (TALLY.e - TALLY.s) * 0.5, CHALK.s), L(TALLY.e, CHALK.s), L(COUNTED.s + 0.3, CHALK.s)]} />
     </Plate>
+  </AbsoluteFill>
+));
+add(NINE.s, TEN.s, (
+  <AbsoluteFill>
+    <Plate src={IMG('C6')} ar={AR} from={{x: 0.5, y: 0.34, z: 1.3}} to={{x: 0.5, y: 0.38, z: 1.22}} dur={TEN.s - NINE.s}>
+      <FloorPlate vals={[{at: 0, n: '9'}]} />
+    </Plate>
+    <Flicker amt={0.4} from={L(CLICKS.s, NINE.s)} to={L(CLICKS.e, NINE.s) + 0.3} />
+  </AbsoluteFill>
+));
+add(TEN.s, LASTL.s, (
+  <AbsoluteFill>
+    <Plate src={IMG('C6')} ar={AR} from={{x: 0.5, y: 0.34, z: 1.25}} to={{x: 0.5, y: 0.3, z: 1.4}} dur={LASTL.s - TEN.s}>
+      <FloorPlate vals={[{at: 0, n: '10'}]} />
+    </Plate>
+    <Flicker amt={0.6} from={L(DARK.s, TEN.s) - 0.3} />
+  </AbsoluteFill>
+));
+add(LASTL.s, ELEVEN.s, (
+  <AbsoluteFill style={{background: '#000'}}>
+    <FadeIn a={0.3} b={1.4}>
+      <Plate src={IMG('C9')} ar={AR} from={{x: 0.5, y: 0.45, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.3}} dur={ELEVEN.s - LASTL.s} />
+    </FadeIn>
+    <RedDoor from={L(ELEVEN.s, LASTL.s) - 1.0} />
   </AbsoluteFill>
 ));
 
-// D
-add(PD, DIE.s, (
+// D: the warden answers, the fork
+add(ELEVEN.s, PW2 - 0.1, (
   <AbsoluteFill>
-    <Plate src={IMG('C6')} ar={AR} from={{x: 0.5, y: 0.34, z: 1.25}} to={{x: 0.5, y: 0.3, z: 1.4}} dur={DIE.s - PD}>
-      <FloorPlate vals={[{at: 0, n: '2'}, {at: L(TEN.s, PD), n: '10'}]} />
-    </Plate>
-    <Flicker amt={0.6} from={L(DIE.s, PD) - 0.6} />
-  </AbsoluteFill>
-));
-add(DIE.s, HEADC.s, (
-  <AbsoluteFill style={{background: '#000'}}>
-    <FadeIn a={L(LASTL.s, DIE.s) + 0.5} b={L(LASTL.s, DIE.s) + 1.9}>
-      <Plate src={IMG('C9')} ar={AR} from={{x: 0.5, y: 0.45, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.3}} dur={HEADC.s - DIE.s} />
-    </FadeIn>
-    <RedDoor from={L(OPENS.s, DIE.s)} />
-  </AbsoluteFill>
-));
-add(HEADC.s, SIXTY.s, (
-  <AbsoluteFill>
-    <Plate src={IMG('C10')} ar={AR} from={{x: 0.5, y: 0.55, z: 1.0}} to={{x: 0.52, y: 0.4, z: 1.45}} dur={SIXTY.s - HEADC.s} />
+    <Plate src={IMG('C10')} ar={AR} from={{x: 0.5, y: 0.55, z: 1.0}} to={{x: 0.52, y: 0.45, z: 1.3}} dur={PW2 - ELEVEN.s} />
     <Flicker amt={0.25} />
   </AbsoluteFill>
 ));
-add(SIXTY.s, YOURS.e + 0.3, (
+add(PW2 - 0.1, W2END + 0.3, (
   <AbsoluteFill>
-    <Plate src={IMG('P2')} ar={AR} from={{x: 0.5, y: 0.5, z: CLIP_Z}} dur={1}>
-      <NameList dur={YOURS.e - SIXTY.s - 0.2} />
-    </Plate>
+    <Plate src={IMG('C12')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.4, z: 1.25}} dur={W2END + 0.4 - PW2} shake={2} />
+    <RedPulse base={0.35} />
+    <Speaker s={0.1} e={W2END - PW2 + 0.1} />
   </AbsoluteFill>
 ));
-add(YOURS.e + 0.3, NAMEQ.s, (
+add(W2END + 0.3, SODO.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C7')} ar={AR} from={{x: 0.5, y: 0.42, z: 1.12}} to={{x: 0.5, y: 0.4, z: 1.2}} dur={NAMEQ.s - YOURS.e - 0.3}>
+    <Plate src={IMG('C7')} ar={AR} from={{x: 0.5, y: 0.42, z: 1.12}} to={{x: 0.5, y: 0.4, z: 1.2}} dur={SODO.s - W2END - 0.3}>
       <Fog s={-1} e={-0.5} />
       <Scratch n="1." text="It only counts in the dark." s={0} e={0.01} y={0.20} />
-      <Scratch n="2." text="Stay under the green exit light." s={0} e={0.01} y={0.30} hot={L(RTWO.s, YOURS.e + 0.3)} />
-      <Scratch n="3." text="If he says your name, it isn't you." s={0} e={0.01} y={0.40} hot={L(RTHREE.s, YOURS.e + 0.3)} red={L(BOTH.s, YOURS.e + 0.3)} />
+      <Scratch n="2." text="Stay under the green exit light." s={0} e={0.01} y={0.30} hot={L(RTWO.s, W2END + 0.3)} />
+      <Scratch n="3." text="If it says it's yours, it isn't." s={0} e={0.01} y={0.40} hot={L(RTHREE.s, W2END + 0.3)} red={L(BOTH.s, W2END + 0.3)} />
     </Plate>
   </AbsoluteFill>
 ));
-add(NAMEQ.s, S2P1_TOTAL, (
+add(SODO.s, S2P1_TOTAL, (
   <AbsoluteFill>
-    <Plate src={IMG('C12')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.4, z: 1.2}} dur={VO.voiceEnd - NAMEQ.s + 1} shake={2}>
-      {null}
-    </Plate>
-    <Fork at={L(SODO.s, NAMEQ.s)} />
+    <Plate src={IMG('C10')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.18}} dur={VO.voiceEnd - SODO.s + 1} shake={2} />
+    <Fork at={L(SODO.s, SODO.s)} />
     <Flicker amt={0.2} />
   </AbsoluteFill>
 ));
@@ -379,30 +351,33 @@ const SFX: Sfx[] = [
   {at: 0.0, file: X('crowd-panic-sound-effect-mp3cut_WCIalhC'), vol: 0.5, dur: 6},
   {at: THROUGH.s - 0.3, file: X('heavy-rain'), vol: 0.28, dur: TITLE_AT + 2.5 - THROUGH.s},
   {at: PB, file: X('light-flicker'), vol: 0.38, dur: 5},
+  {at: PRESS.e - 0.15, file: X('intercom-press'), vol: 0.6, dur: 0.6},
+  {at: PW1 - 0.45, file: X('speaker-open'), vol: 0.55, dur: 0.8},
+  {at: W1END + 0.05, file: X('speaker-close'), vol: 0.5, dur: 0.5},
   {at: SIX.s, file: X('elevator-ding'), vol: 0.22, dur: 2.6},
-  {at: SEVEN.s, file: X('elevator-ding'), vol: 0.22, dur: 2.6},
-  {at: EIGHT.s, file: X('elevator-ding'), vol: 0.24, dur: 2.6},
   {at: RULE1.s - 0.1, file: X('pen-scratch'), vol: 0.4, dur: 2.1},
   {at: RULE2.s - 0.1, file: X('pen-scratch'), vol: 0.4, dur: 2.1},
   {at: RULE3.s - 0.1, file: X('pen-scratch'), vol: 0.4, dur: 2.1},
-  {at: THREE.s, file: X('elevator-ding'), vol: 0.2, dur: 2.6},
+  {at: EIGHT.s, file: X('elevator-ding'), vol: 0.22, dur: 2.6},
   {at: NINE.s, file: X('elevator-ding'), vol: 0.2, dur: 2.6},
   {at: CLICKS.s + 0.6, file: X('knock-3d'), vol: 0.5, dur: 1.2},
-  {at: TWO.s, file: X('elevator-ding'), vol: 0.2, dur: 2.6},
   {at: TEN.s, file: X('elevator-ding'), vol: 0.2, dur: 2.6},
-  {at: DIE.s - 0.1, file: X('generator-power-down'), vol: 0.55, dur: 6},
-  {at: OPENS.s - 0.5, file: X('heart-beat-speeds-up'), vol: 0.4, dur: 20},
-  {at: FOUR1.s, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
-  {at: FOUR1.s + (FOUR1.e - FOUR1.s) * 0.5, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
-  {at: FOUR1.e, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
-  {at: FOUR2.s, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
+  {at: DARK.s - 0.1, file: X('generator-power-down'), vol: 0.55, dur: 6},
+  {at: LASTL.s, file: X('heart-beat-speeds-up'), vol: 0.4, dur: 20},
+  {at: ELEVEN.s, file: X('elevator-ding'), vol: 0.22, dur: 2.6},
+  {at: PW2 - 0.45, file: X('speaker-open'), vol: 0.55, dur: 0.8},
+  {at: W2END + 0.05, file: X('speaker-close'), vol: 0.5, dur: 0.5},
+  {at: TALLY.s, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
+  {at: TALLY.s + (TALLY.e - TALLY.s) * 0.5, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
+  {at: TALLY.e, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
+  {at: COUNTED.s + 0.3, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
 ];
 // smoke alarm loops until the alarm stops
-for (let k = 0; k * 2.9 < STOPPED.s - 0.2; k++) SFX.push({at: 0.3 + k * 2.9, file: X('smoke-alarm'), vol: 0.22, dur: Math.min(2.9, STOPPED.s - 0.3 - k * 2.9)});
+for (let k = 0; k * 2.9 < STOPPING.s - 0.2; k++) SFX.push({at: 0.3 + k * 2.9, file: X('smoke-alarm'), vol: 0.22, dur: Math.min(2.9, STOPPING.s - 0.3 - k * 2.9)});
 
 const bedVol = (f: number) => {
   const t = f / FPS;
-  return 0.16 * interpolate(t, [0, 1.5], [0.4, 1], clamp) * interpolate(t, [S2P1_TOTAL - 3, S2P1_TOTAL], [1, 0.3], clamp) * interpolate(t, [OPENS.s - 1, OPENS.s + 1], [1, 1.5], clamp);
+  return 0.16 * interpolate(t, [0, 1.5], [0.4, 1], clamp) * interpolate(t, [S2P1_TOTAL - 3, S2P1_TOTAL], [1, 0.3], clamp) * interpolate(t, [LASTL.s - 1, LASTL.s + 1], [1, 1.5], clamp);
 };
 
 const Audio: React.FC = () => (
