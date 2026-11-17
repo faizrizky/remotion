@@ -191,34 +191,6 @@ const FogFade: React.FC = () => {
   return <AbsoluteFill style={{background: `rgba(220,235,230,${interpolate(t, [0, 3.5], [0.28, 0], clamp)})`}} />;
 };
 
-// persistent floor indicator: tells the viewer the spoken numbers are floors climbing
-const FloorHud: React.FC = () => {
-  const t = useT();
-  const marks = [
-    {at: SIX.s, n: '6'},
-    {at: RULE2.s, n: '7'},
-    {at: EIGHT.s, n: '8'},
-    {at: NINE.s, n: '9'},
-    {at: TEN.s, n: '10'},
-    {at: ELEVEN.s, n: '11'},
-  ];
-  if (t < SIX.s || t > PW2 - 0.1) return null;
-  let cur = marks[0];
-  marks.forEach((m) => {
-    if (t >= m.at) cur = m;
-  });
-  const k = interpolate(t, [cur.at, cur.at + 0.45], [1, 0], clamp);
-  const o = interpolate(t, [SIX.s, SIX.s + 0.3, PW2 - 0.5, PW2 - 0.1], [0, 1, 1, 0], clamp);
-  return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 120, display: 'flex', justifyContent: 'center', opacity: o}}>
-      <div style={{display: 'flex', alignItems: 'center', gap: 22, background: 'rgba(12,19,17,0.78)', border: `3px solid ${C.amber}`, borderRadius: 18, padding: '10px 34px', transform: `scale(${1 + 0.35 * k})`, boxShadow: `0 0 ${24 + 40 * k}px rgba(242,163,58,${0.35 + 0.4 * k})`}}>
-        <div style={{fontFamily: MONO, fontSize: 36, letterSpacing: 6, color: C.fluor, opacity: 0.85}}>FLOOR</div>
-        <div style={{fontFamily: MONO, fontSize: 96, fontWeight: 700, lineHeight: 1, color: C.amber}}>{cur.n}</div>
-      </div>
-    </div>
-  );
-};
-
 /* ---------------- scenes ---------------- */
 type Scene = {a: number; b: number; el: React.ReactNode; captions?: boolean; flash?: boolean};
 const SCENES: Scene[] = [];
@@ -289,15 +261,21 @@ add(SIX.s, PC, (
 ));
 
 // C: rules in the glass
-add(PC, CHALK.s, (
+add(PC, EIGHT.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C15')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.12}} dur={CHALK.s - PC}>
+    <Plate src={IMG('C15')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.42, z: 1.12}} dur={EIGHT.s - PC}>
       <Fog s={L(BREATH.s, PC)} e={L(BREATH.e, PC)} />
       <Scratch n="1." text="It only counts in the dark." s={L(RULE1.s, PC)} e={L(RULE1.e, PC)} y={0.20} />
       <Scratch n="2." text="Stay under the green exit light." s={L(RULE2.s, PC)} e={L(RULE2.e, PC)} y={0.30} />
       <Scratch n="3." text="If it says it's yours, it isn't." s={L(RULE3.s, PC)} e={L(RULE3.e, PC)} y={0.40} />
     </Plate>
     <FogFade />
+  </AbsoluteFill>
+));
+add(EIGHT.s, CHALK.s, (
+  <AbsoluteFill>
+    <Plate src={IMG('C17')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.36, z: 1.3}} dur={CHALK.s - EIGHT.s} />
+    <Flicker amt={0.3} from={0.2} to={0.9} />
   </AbsoluteFill>
 ));
 add(CHALK.s, NINE.s, (
@@ -451,7 +429,6 @@ export const S2P1: React.FC = () => {
           {i > 0 && s.flash !== false ? <CutFlash len={0.08} /> : null}
         </Sequence>
       ))}
-      <FloorHud />
       <Captions words={WORDS} hidden={capHidden} />
       <Audio />
     </AbsoluteFill>
