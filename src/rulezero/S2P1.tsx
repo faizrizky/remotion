@@ -354,19 +354,19 @@ add(W2END + 0.3, SODO.s, (
   </AbsoluteFill>
 ));
 const E2 = STEPW.s - 0.1, E3 = STAYW.s - 0.1, E4 = VO.voiceEnd + 0.4;
-const STEP_CHIP = <ImgChip label="STEP OUT" at={0.1} color={C.red} x={0.5} y={0.53} textColor="#fff" />;
-const STEP_CHIP_ON = <ImgChip label="STEP OUT" at={-1} color={C.red} x={0.5} y={0.53} textColor="#fff" />;
-const STAY_CHIP_ON = <ImgChip label="STAY" at={-1} color={C.yellow} x={0.5} y={0.19} up />;
+const STEP_CHIP = <ImgChip label="STEP OUT" at={0.1} color={C.red} x={0.5} y={0.47} textColor="#fff" />;
+const STEP_CHIP_ON = <ImgChip label="STEP OUT" at={-1} color={C.red} x={0.5} y={0.47} textColor="#fff" />;
+const STAY_CHIP_ON = <ImgChip label="STAY" at={-1} color={C.yellow} x={0.5} y={0.32} up />;
 add(SODO.s, E2, (
   <AbsoluteFill>
-    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.04}} dur={E2 - SODO.s} />
+    <Plate src={IMG('C21')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.04}} dur={E2 - SODO.s} />
     <Flicker amt={0.2} />
   </AbsoluteFill>
 ));
 // "step out": push toward the red door
 add(E2, E3, (
   <AbsoluteFill>
-    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.04}} to={{x: 0.5, y: 0.46, z: 1.3}} dur={E3 - E2}>
+    <Plate src={IMG('C21')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.04}} to={{x: 0.5, y: 0.43, z: 1.45}} dur={E3 - E2}>
       {STEP_CHIP}
     </Plate>
   </AbsoluteFill>
@@ -374,16 +374,16 @@ add(E2, E3, (
 // "stay in the light": tilt up to the green exit sign
 add(E3, E4, (
   <AbsoluteFill>
-    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.46, z: 1.3}} to={{x: 0.5, y: 0.38, z: 1.2}} dur={E4 - E3}>
+    <Plate src={IMG('C21')} ar={AR} from={{x: 0.5, y: 0.43, z: 1.45}} to={{x: 0.5, y: 0.3, z: 1.25}} dur={E4 - E3}>
       {STEP_CHIP_ON}
-      <ImgChip label="STAY" at={0.1} color={C.yellow} x={0.5} y={0.19} up />
+      <ImgChip label="STAY" at={0.1} color={C.yellow} x={0.5} y={0.32} up />
     </Plate>
   </AbsoluteFill>
 ), true, false);
 // pull back: both choices in frame
 add(E4, S2P1_TOTAL, (
   <AbsoluteFill>
-    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.38, z: 1.2}} to={{x: 0.5, y: 0.5, z: 1.0}} dur={1.6}>
+    <Plate src={IMG('C21')} ar={AR} from={{x: 0.5, y: 0.3, z: 1.25}} to={{x: 0.5, y: 0.5, z: 1.0}} dur={1.6}>
       {STEP_CHIP_ON}
       {STAY_CHIP_ON}
     </Plate>
