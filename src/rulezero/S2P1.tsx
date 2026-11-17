@@ -42,6 +42,8 @@ const CHALK = phrase('Chalk dust under');
 const BELOW = phrase('Below the rules,');
 const TALLY = phrase('four tally marks.', BELOW.s);
 const COUNTED = phrase("You've been counted four times.");
+const THATS = phrase("That's your hand scratching.");
+const REMEMBER = phrase("You don't remember any of them.");
 const NINE = phrase('Nine.');
 const CLICKS = phrase('The stairwell door clicks.');
 const TEN = phrase('Ten.');
@@ -278,11 +280,28 @@ add(EIGHT.s, CHALK.s, (
     <Flicker amt={0.3} from={0.2} to={0.9} />
   </AbsoluteFill>
 ));
-add(CHALK.s, NINE.s, (
+add(CHALK.s, THATS.s, (
   <AbsoluteFill>
-    <Plate src={IMG('C8')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.1}} dur={NINE.s - CHALK.s}>
-      <Tally x={0.33} y={0.80} times={[L(TALLY.s, CHALK.s), L(TALLY.s + (TALLY.e - TALLY.s) * 0.5, CHALK.s), L(TALLY.e, CHALK.s), L(COUNTED.s + 0.3, CHALK.s)]} />
+    <Plate src={IMG('C20')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.55, y: 0.36, z: 1.3}} dur={THATS.s - CHALK.s} />
+    <Flicker amt={0.25} from={0.3} to={1.2} />
+  </AbsoluteFill>
+));
+add(THATS.s, BELOW.s, (
+  <AbsoluteFill>
+    <Plate src={IMG('C19')} ar={AR} from={{x: 0.55, y: 0.3, z: 1.15}} to={{x: 0.5, y: 0.62, z: 1.2}} dur={BELOW.s - THATS.s} />
+  </AbsoluteFill>
+));
+add(BELOW.s, REMEMBER.s, (
+  <AbsoluteFill>
+    <Plate src={IMG('C8')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.08}} dur={REMEMBER.s - BELOW.s}>
+      <Tally x={0.33} y={0.80} times={[L(TALLY.s, BELOW.s), L(TALLY.s + (TALLY.e - TALLY.s) * 0.5, BELOW.s), L(TALLY.e, BELOW.s), L(COUNTED.s + 0.3, BELOW.s)]} />
     </Plate>
+  </AbsoluteFill>
+));
+add(REMEMBER.s, NINE.s, (
+  <AbsoluteFill>
+    <Plate src={IMG('C20')} ar={AR} from={{x: 0.5, y: 0.4, z: 1.15}} to={{x: 0.5, y: 0.26, z: 1.6}} dur={NINE.s - REMEMBER.s} />
+    <Flicker amt={0.3} from={0.2} to={1.5} />
   </AbsoluteFill>
 ));
 add(NINE.s, TEN.s, (
@@ -394,6 +413,7 @@ const SFX: Sfx[] = [
   {at: TALLY.s + (TALLY.e - TALLY.s) * 0.5, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
   {at: TALLY.e, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
   {at: COUNTED.s + 0.3, file: X('pen-scratch'), vol: 0.3, dur: 0.7},
+  {at: THATS.s + 0.35, file: X('pen-scratch'), vol: 0.35, dur: 1.4},
 ];
 // smoke alarm loops until the alarm stops
 for (let k = 0; k * 2.9 < STOPPING.s - 0.2; k++) SFX.push({at: 0.3 + k * 2.9, file: X('smoke-alarm'), vol: 0.22, dur: Math.min(2.9, STOPPING.s - 0.3 - k * 2.9)});
