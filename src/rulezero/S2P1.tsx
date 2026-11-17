@@ -52,6 +52,8 @@ const RTWO = phrase('Rule two says');
 const RTHREE = phrase('Rule three says');
 const BOTH = phrase('You wrote both.');
 const SODO = phrase('So do you step out');
+const STEPW = phrase('step out');
+const STAYW = phrase('stay in the light?');
 export const S2P1_TOTAL = VO.voiceEnd + 4.0;
 export const S2P1_LEN = sf(S2P1_TOTAL);
 const L = (x: number, a: number) => x - a;
@@ -153,40 +155,24 @@ const RedDoor: React.FC<{from: number}> = ({from}) => {
 };
 
 
-// Fork chips sit beside the two choices with leader lines (not stacked): STAY -> green exit light, STEP OUT -> red door.
-const FChip: React.FC<{label: string; at: number; color: string; cx: number; cy: number; textColor?: string}> = ({label, at, color, cx, cy, textColor = C.ink}) => {
+// Ending: camera follows the choice. "step out" pushes toward the red door, "stay in the light" tilts up to the green exit sign.
+// Chips live in image space so they ride with the camera: STEP OUT under the door, STAY above the sign.
+const ImgChip: React.FC<{label: string; at: number; color: string; x: number; y: number; up?: boolean; textColor?: string}> = ({label, at, color, x, y, up, textColor = C.ink}) => {
   const t = useT();
   const p = interpolate(t, [at, at + 0.22], [0, 1], clamp);
   if (p <= 0) return null;
   const sc = p < 1 ? 0.6 + 0.5 * p : 1 + Math.max(0, 0.08 - (t - at - 0.22) * 0.4);
   return (
-    <div style={{position: 'absolute', left: cx, top: cy, transform: `translate(-50%, -50%) scale(${sc})`, background: color, color: textColor, fontFamily: HEAVY, fontWeight: 700, fontSize: 72, letterSpacing: 3, padding: '12px 38px', borderRadius: 999, boxShadow: '0 10px 30px rgba(0,0,0,0.6)', whiteSpace: 'nowrap'}}>{label}</div>
+    <div style={{position: 'absolute', left: `${x * 100}%`, top: `${y * 100}%`, transform: `translate(-50%, -50%) scale(${sc})`, display: 'flex', flexDirection: up ? 'column' : 'column-reverse', alignItems: 'center'}}>
+      <div style={{background: color, color: textColor, fontFamily: HEAVY, fontWeight: 700, fontSize: 72, letterSpacing: 3, padding: '12px 40px', borderRadius: 999, boxShadow: '0 10px 30px rgba(0,0,0,0.6)', whiteSpace: 'nowrap'}}>{label}</div>
+      <div style={{width: 7, height: 70, background: color, borderRadius: 4}} />
+      <div style={{width: 22, height: 22, borderRadius: 11, background: color, marginTop: up ? -4 : 0, marginBottom: up ? 0 : -4}} />
+    </div>
   );
 };
-const Leader: React.FC<{at: number; x1: number; y1: number; x2: number; y2: number; color: string}> = ({at, x1, y1, x2, y2, color}) => {
+const ForkNote: React.FC<{at: number}> = ({at}) => {
   const t = useT();
-  const p = interpolate(t, [at + 0.15, at + 0.5], [0, 1], clamp);
-  if (p <= 0) return null;
-  return (
-    <svg viewBox="0 0 1080 1920" style={{position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none'}}>
-      <line x1={x1} y1={y1} x2={x1 + (x2 - x1) * p} y2={y1 + (y2 - y1) * p} stroke={color} strokeWidth={6} strokeLinecap="round" />
-      {p >= 1 ? <circle cx={x2} cy={y2} r={11} fill={color} /> : null}
-    </svg>
-  );
-};
-const Fork: React.FC<{at: number}> = ({at}) => {
-  const t = useT();
-  const when = at + 0.2;
-  const tA = when + 1.6, tB = when + 2.0;
-  return (
-    <>
-      <Leader at={tA} x1={310} y1={565} x2={395} y2={565} color={C.yellow} />
-      <Leader at={tB} x1={745} y1={815} x2={655} y2={815} color={C.red} />
-      <FChip label="STAY" at={tA} color={C.yellow} cx={190} cy={565} />
-      <FChip label="STEP OUT" at={tB} color={C.red} cx={880} cy={815} textColor="#fff" />
-      <div style={{position: 'absolute', left: 0, right: 0, top: 1640, textAlign: 'center', fontFamily: MONO, fontSize: 34, letterSpacing: 3, color: C.fluor, opacity: interpolate(t, [when + 2.6, when + 3.0], [0, 0.85], clamp)}}>COMMENT · THE MAJORITY WRITES PART 2</div>
-    </>
-  );
+  return <div style={{position: 'absolute', left: 0, right: 0, top: 1640, textAlign: 'center', fontFamily: MONO, fontSize: 34, letterSpacing: 3, color: C.fluor, opacity: interpolate(t, [at, at + 0.4], [0, 0.85], clamp)}}>COMMENT · THE MAJORITY WRITES PART 2</div>;
 };
 
 const Speaker: React.FC<{s: number; e: number}> = ({s, e}) => {
@@ -234,9 +220,9 @@ const FloorHud: React.FC = () => {
 };
 
 /* ---------------- scenes ---------------- */
-type Scene = {a: number; b: number; el: React.ReactNode; captions?: boolean};
+type Scene = {a: number; b: number; el: React.ReactNode; captions?: boolean; flash?: boolean};
 const SCENES: Scene[] = [];
-const add = (a: number, b: number, el: React.ReactNode, captions = true) => SCENES.push({a, b, el, captions});
+const add = (a: number, b: number, el: React.ReactNode, captions = true, flash = true) => SCENES.push({a, b, el, captions, flash});
 
 // A: hook
 add(0, ASLEEP.s, (
@@ -370,13 +356,43 @@ add(W2END + 0.3, SODO.s, (
     </Plate>
   </AbsoluteFill>
 ));
-add(SODO.s, S2P1_TOTAL, (
+const E2 = STEPW.s - 0.1, E3 = STAYW.s - 0.1, E4 = VO.voiceEnd + 0.4;
+const STEP_CHIP = <ImgChip label="STEP OUT" at={0.1} color={C.red} x={0.5} y={0.53} textColor="#fff" />;
+const STEP_CHIP_ON = <ImgChip label="STEP OUT" at={-1} color={C.red} x={0.5} y={0.53} textColor="#fff" />;
+const STAY_CHIP_ON = <ImgChip label="STAY" at={-1} color={C.yellow} x={0.5} y={0.19} up />;
+add(SODO.s, E2, (
   <AbsoluteFill>
-    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.0}} dur={VO.voiceEnd - SODO.s + 1} />
-    <Fork at={L(SODO.s, SODO.s)} />
+    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.0}} to={{x: 0.5, y: 0.5, z: 1.04}} dur={E2 - SODO.s} />
     <Flicker amt={0.2} />
   </AbsoluteFill>
 ));
+// "step out": push toward the red door
+add(E2, E3, (
+  <AbsoluteFill>
+    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.5, z: 1.04}} to={{x: 0.5, y: 0.46, z: 1.3}} dur={E3 - E2}>
+      {STEP_CHIP}
+    </Plate>
+  </AbsoluteFill>
+), true, false);
+// "stay in the light": tilt up to the green exit sign
+add(E3, E4, (
+  <AbsoluteFill>
+    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.46, z: 1.3}} to={{x: 0.5, y: 0.38, z: 1.2}} dur={E4 - E3}>
+      {STEP_CHIP_ON}
+      <ImgChip label="STAY" at={0.1} color={C.yellow} x={0.5} y={0.19} up />
+    </Plate>
+  </AbsoluteFill>
+), true, false);
+// pull back: both choices in frame
+add(E4, S2P1_TOTAL, (
+  <AbsoluteFill>
+    <Plate src={IMG('C14')} ar={AR} from={{x: 0.5, y: 0.38, z: 1.2}} to={{x: 0.5, y: 0.5, z: 1.0}} dur={1.6}>
+      {STEP_CHIP_ON}
+      {STAY_CHIP_ON}
+    </Plate>
+    <ForkNote at={1.4} />
+  </AbsoluteFill>
+), true, false);
 
 /* ---------------- audio ---------------- */
 const X = (n: string) => `rz3/audio/sfx/${n}.wav`;
@@ -406,7 +422,7 @@ for (let k = 0; k * 2.9 < STOPPING.s - 0.2; k++) SFX.push({at: 0.3 + k * 2.9, fi
 
 const bedVol = (f: number) => {
   const t = f / FPS;
-  return 0.16 * interpolate(t, [0, 1.5], [0.4, 1], clamp) * interpolate(t, [S2P1_TOTAL - 3, S2P1_TOTAL], [1, 0.3], clamp) * interpolate(t, [LASTL.s - 1, LASTL.s + 1], [1, 1.5], clamp);
+  return 0.22 * interpolate(t, [0, 1.5], [0.4, 1], clamp) * interpolate(t, [S2P1_TOTAL - 3, S2P1_TOTAL], [1, 0.3], clamp) * interpolate(t, [LASTL.s - 1, LASTL.s + 1], [1, 1.5], clamp);
 };
 
 const Audio: React.FC = () => (
@@ -432,7 +448,7 @@ export const S2P1: React.FC = () => {
       {SCENES.map((s, i) => (
         <Sequence key={i} from={sf(s.a)} durationInFrames={Math.max(1, sf(s.b) - sf(s.a))}>
           {s.el}
-          {i > 0 ? <CutFlash len={0.08} /> : null}
+          {i > 0 && s.flash !== false ? <CutFlash len={0.08} /> : null}
         </Sequence>
       ))}
       <FloorHud />
